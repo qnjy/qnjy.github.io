@@ -1,57 +1,6 @@
 <?xml version="1.0" encoding="utf-8"?>
 <search>
   <entry>
-    <title>CSRF攻击</title>
-    <url>/post/44b0db89.html</url>
-    <content><![CDATA[<p>　　学习了这部分之后，我感觉之前qq空间链接的那种盗号方式，应该就是这个原理<a id="more"></a></p>
-<h1 id="1-什么是CSRF"><a href="#1-什么是CSRF" class="headerlink" title="1.什么是CSRF"></a>1.什么是CSRF</h1><p>　　跨站请求伪造（Cross-site request forgery，CSRF），也被称为one click attack/session riding，通常缩写是CSRF/XSRF。</p>
-<h1 id="2-CSRF可以做些什么"><a href="#2-CSRF可以做些什么" class="headerlink" title="2.CSRF可以做些什么"></a>2.CSRF可以做些什么</h1><p>　　可以简单理解为：<font color="ff0000">攻击者盗用了你的身份，以你的名义发送恶意请求</font>，它利用网站对用户网页浏览器的信任。如：转移资金、修改电子邮件地址、密码。    </p>
-<h1 id="3-CSRF原理"><a href="#3-CSRF原理" class="headerlink" title="3.CSRF原理"></a>3.CSRF原理</h1><p>　　<font color="ff0000">受害者 Bob 在银行有一笔存款，通过对银行的网站发送请求 <a href="http://bank.example/withdraw?account=bob&amp;amount=1000000&amp;for=bob2">http://bank.example/withdraw?account=bob&amp;amount=1000000&amp;for=bob2</a> 可以使 Bob 把 1000000 的存款转到 bob2 的账号下。通常情况下，该请求发送到网站后，服务器会先验证该请求是否来自一个合法的 session，并且该 session 的用户 Bob 已经成功登陆。</font></p>
-<p>　　<font color="ff0000">黑客 Mallory 自己在该银行也有账户，他知道上文中的 URL 可以把钱进行转帐操作。Mallory 可以自己发送一个请求给银行：<a href="http://bank.example/withdraw?account=bob&amp;amount=1000000&amp;for=Mallory%E3%80%82%E4%BD%86%E6%98%AF%E8%BF%99%E4%B8%AA%E8%AF%B7%E6%B1%82%E6%9D%A5%E8%87%AA">http://bank.example/withdraw?account=bob&amp;amount=1000000&amp;for=Mallory。但是这个请求来自</a> Mallory 而非 Bob，他不能通过安全认证，因此该请求不会起作用。</font></p>
-<p>　　<font color="ff0000">这时，Mallory 想到使用 CSRF 的攻击方式，他先自己做一个网站，在网站中放入如下代码： src=”<a href="http://bank.example/withdraw?account=bob&amp;amount=1000000&amp;for=Mallory">http://bank.example/withdraw?account=bob&amp;amount=1000000&amp;for=Mallory</a> ”，并且通过广告等诱使 Bob 来访问他的网站。当 Bob 访问该网站时，上述 url 就会从 Bob 的浏览器发向银行，而这个请求会附带 Bob 浏览器中的 cookie 一起发向银行服务器。大多数情况下，该请求会失败，因为他要求 Bob 的认证信息。但是，如果 Bob 当时恰巧刚访问他的银行后不久，他的浏览器与银行网站之间的 session 尚未过期，浏览器的 cookie 之中含有 Bob 的认证信息。这时，悲剧发生了，这个 url 请求就会得到响应，钱将从 Bob 的账号转移到 Mallory 的账号，而 Bob 当时毫不知情。等以后 Bob 发现账户钱少了，即使他去银行查询日志，他也只能发现确实有一个来自于他本人的合法请求转移了资金，没有任何被攻击的痕迹。而 Mallory 则可以拿到钱后逍遥法外。 </font></p>
-<p><img src="https://s3.ax1x.com/2021/01/11/s1xb59.png" alt="s1xb59.png"></p>
-<figure class="highlight angelscript"><table><tr><td class="code"><pre><span class="line"><span class="number">1.</span>Bob打开浏览器，访问受信任银行网站，输入用户名和密码请求登录网站；</span><br><span class="line"><span class="number">2.</span>在Bob信息通过验证后，银行网站产生Cookie信息并返回给浏览器，此时Bob登录网站成功，可以正常发送请求到网站；</span><br><span class="line"><span class="number">3.</span>Bob未退出银行网站之前，在同一浏览器中，打开一个TAB页访问其他网站B</span><br><span class="line"><span class="number">4.</span>这时候网站B 已被黑客注入诱导信息，加入是一张图片,图片地址指向</span><br><span class="line">   src=”http:<span class="comment">//bank.example/withdraw?account=bob&amp;amount=1000000&amp;for=hacker</span></span><br><span class="line">  点击之后转账给黑客这个账户</span><br><span class="line"><span class="number">5.</span>浏览器在接收到这些攻击性代码请求后，根据网站B的请求，在Bob不知情的情况下携带Cookie信息，根据用户的Cookie信息以Bob的权限处理该请求，导致来自黑客请求恶意代码被执行。 </span><br></pre></td></tr></table></figure>
-
-<h1 id="4-CSRF攻击类型"><a href="#4-CSRF攻击类型" class="headerlink" title="4.CSRF攻击类型"></a>4.CSRF攻击类型</h1><h2 id="4-1-GET类型的CSRF"><a href="#4-1-GET类型的CSRF" class="headerlink" title="4.1 GET类型的CSRF"></a>4.1 GET类型的CSRF</h2><p>GET类型的CSRF利用非常简单，只需要HTTP请求，一般这样利用：</p>
-<figure class="highlight awk"><table><tr><td class="code"><pre><span class="line">![](https:<span class="regexp">//</span>awps-assets.meituan.net<span class="regexp">/mit-x/</span>blog-images-bundle-<span class="number">2018</span>b<span class="regexp">/ff0cdbee.example/</span>withdraw?amount=<span class="number">10000</span>&amp;<span class="keyword">for</span>=hacker)</span><br></pre></td></tr></table></figure>
-
-<p>在受害者访问含有这个img的页面后，浏览器会自动向<code>http://bank.example/withdraw?account=xiaoming&amp;amount=10000&amp;for=hacker</code>发出一次HTTP请求。bank.example就会收到包含受害者登录信息的一次跨域请求。</p>
-<h2 id="4-2-POST类型的CSRF"><a href="#4-2-POST类型的CSRF" class="headerlink" title="4.2 POST类型的CSRF"></a>4.2 POST类型的CSRF</h2><p>这种类型的CSRF利用起来通常使用的是一个自动提交的表单，如：</p>
-<figure class="highlight"><table><tr><td class="code"><pre><span class="line"> &lt;form action=<span class="string">&quot;http://bank.example/withdraw&quot;</span> method=POST&gt;</span><br><span class="line">    &lt;input type=<span class="string">&quot;hidden&quot;</span> name=<span class="string">&quot;account&quot;</span> value=<span class="string">&quot;xiaoming&quot;</span> /&gt;</span><br><span class="line">    &lt;input type=<span class="string">&quot;hidden&quot;</span> name=<span class="string">&quot;amount&quot;</span> value=<span class="string">&quot;10000&quot;</span> /&gt;</span><br><span class="line">    &lt;input type=<span class="string">&quot;hidden&quot;</span> name=<span class="string">&quot;for&quot;</span> value=<span class="string">&quot;hacker&quot;</span> /&gt;</span><br><span class="line">&lt;/form&gt;</span><br><span class="line">&lt;!--自动提交表单--&gt;</span><br><span class="line">&lt;script&gt; document.forms[0].submit(); &lt;/script&gt; </span><br></pre></td></tr></table></figure>
-
-<p>访问该页面后，表单会自动提交，相当于模拟用户完成了一次POST操作。POST类型的攻击通常比GET要求更加严格一点，但扔并不复杂。任何个人网站、博客，被黑客上传页面的往回走哪都有可能是发起攻击的来源。</p>
-<h2 id="4-3-链接类型的CSRF"><a href="#4-3-链接类型的CSRF" class="headerlink" title="4.3 链接类型的CSRF"></a>4.3 链接类型的CSRF</h2><p>这种需要用户点击链接才会触发。这种类型通常是杂论坛中发布的图片中嵌入恶意链接，或者以广告的形式诱导用户中招，例如：</p>
-<figure class="highlight php"><table><tr><td class="code"><pre><span class="line">&lt;a href=<span class="string">&quot;http://test.com/csrf/withdraw.php?amount=1000&amp;for=hacker&quot;</span> taget=<span class="string">&quot;_blank&quot;</span>&gt;</span><br><span class="line">  重磅消息！！</span><br><span class="line">  &lt;a/&gt;</span><br></pre></td></tr></table></figure>
-
-<p>由于之前用户登陆的信任的网站A，并且保存登录状态，只要用户主动访问上面的这个PHP页面，就表示攻击成功。</p>
-<h1 id="5-CSRF的特点"><a href="#5-CSRF的特点" class="headerlink" title="5.CSRF的特点"></a>5.CSRF的特点</h1><ul>
-<li>攻击一般发起在第三方网站，而不是被攻击的网站。</li>
-<li>攻击利用受害者在被攻击网站的登陆凭证，冒充受害者提交操作。</li>
-<li>整个过程攻击者并不能获取到受害者的登陆凭证，仅仅是冒用。</li>
-</ul>
-<h1 id="6-防护措施"><a href="#6-防护措施" class="headerlink" title="6.防护措施"></a>6.防护措施</h1><h2 id="6-1-验证HTTP-Referer字段"><a href="#6-1-验证HTTP-Referer字段" class="headerlink" title="6.1 验证HTTP Referer字段"></a>6.1 验证HTTP Referer字段</h2><p>HTTP头中有一个Referer的字段，它记录了该HTTP请求的来源网址</p>
-<p><img src="https://s3.ax1x.com/2021/01/11/s1xHUJ.png" alt="s1xHUJ.png"></p>
-<p>　　也就是说，服务器会验证客户端的请求来源，如果是本网站请求的就响应，否则不响应。</p>
-<p>　　正如上文所提到的，Bob必须登录银行网站，通过页面上的按钮触发转账事件。当用户提交请求时，该转账请求的Referer值就会是转账按钮所在页面的URL。黑客只能在自己网站构造请求，当用户通过攻击者的网站发送请求到银行时，该请求的Referer是指向黑客的网站。所以不能响应。</p>
-<p>但是这种方式仍然<font color="ff000">存在安全隐患</font></p>
-<figure class="highlight angelscript"><table><tr><td class="code"><pre><span class="line"><span class="number">1.</span>对于某些浏览器，比如IE6或FF2，目前已经有一些方法可以篡改Referer值</span><br><span class="line"><span class="number">2.</span>用户自己可以这只浏览器使其请求时不再提供Referer</span><br></pre></td></tr></table></figure>
-
-<h2 id="6-2-使用token（Anti-CSRF-Token）"><a href="#6-2-使用token（Anti-CSRF-Token）" class="headerlink" title="6.2 使用token（Anti CSRF Token）"></a>6.2 使用token（Anti CSRF Token）</h2><p>可以理解为防伪</p>
-<p>例子：</p>
-<p>1.用户访问某个表单页面。</p>
-<p>2.服务端生成一个Token，放在用户的Session中，或者浏览器的Cookie中。</p>
-<p>3.在页面表单附带上Token参数。</p>
-<p>4.用户提交请求后， 服务端验证表单中的Token是否与用户Session（或Cookies）中的      Token一致，一致为合法请求，不是则非法请求。</p>
-<p>　　这个Token的值必须是随机的。由于Token的存在，攻击者无法再构造一个带有合法Token的请求实施CSRF攻击。另外使用Token时应注意Token的保密性，尽量把敏感操作由GET改为<code>POST</code>，以form或AJAX形式提交，避免Token泄露。</p>
-]]></content>
-      <categories>
-        <category>网络安全知识学习</category>
-      </categories>
-      <tags>
-        <tag>CSRF</tag>
-      </tags>
-  </entry>
-  <entry>
     <title>BUUCTF_Web</title>
     <url>/post/282276cb.html</url>
     <content><![CDATA[<h1 id="MRCTF2020-你传你🐎呢"><a href="#MRCTF2020-你传你🐎呢" class="headerlink" title="[MRCTF2020]你传你🐎呢"></a>[MRCTF2020]你传你🐎呢</h1><h2 id="解题思路"><a href="#解题思路" class="headerlink" title="解题思路"></a>解题思路</h2><p>首先，先上传一句话木马文件</p>
@@ -113,6 +62,57 @@
 <p><img src="https://s3.ax1x.com/2021/03/16/6ysMhF.jpg" alt="6ysMhF.jpg"></p>
 <p><img src="https://s3.ax1x.com/2021/03/16/6yynKA.jpg" alt="6yynKA.jpg"></p>
 <h1 id="网鼎杯-2018-Fakebook"><a href="#网鼎杯-2018-Fakebook" class="headerlink" title="[网鼎杯 2018]Fakebook"></a>[网鼎杯 2018]Fakebook</h1>]]></content>
+  </entry>
+  <entry>
+    <title>CSRF攻击</title>
+    <url>/post/44b0db89.html</url>
+    <content><![CDATA[<p>　　学习了这部分之后，我感觉之前qq空间链接的那种盗号方式，应该就是这个原理<a id="more"></a></p>
+<h1 id="1-什么是CSRF"><a href="#1-什么是CSRF" class="headerlink" title="1.什么是CSRF"></a>1.什么是CSRF</h1><p>　　跨站请求伪造（Cross-site request forgery，CSRF），也被称为one click attack/session riding，通常缩写是CSRF/XSRF。</p>
+<h1 id="2-CSRF可以做些什么"><a href="#2-CSRF可以做些什么" class="headerlink" title="2.CSRF可以做些什么"></a>2.CSRF可以做些什么</h1><p>　　可以简单理解为：<font color="ff0000">攻击者盗用了你的身份，以你的名义发送恶意请求</font>，它利用网站对用户网页浏览器的信任。如：转移资金、修改电子邮件地址、密码。    </p>
+<h1 id="3-CSRF原理"><a href="#3-CSRF原理" class="headerlink" title="3.CSRF原理"></a>3.CSRF原理</h1><p>　　<font color="ff0000">受害者 Bob 在银行有一笔存款，通过对银行的网站发送请求 <a href="http://bank.example/withdraw?account=bob&amp;amount=1000000&amp;for=bob2">http://bank.example/withdraw?account=bob&amp;amount=1000000&amp;for=bob2</a> 可以使 Bob 把 1000000 的存款转到 bob2 的账号下。通常情况下，该请求发送到网站后，服务器会先验证该请求是否来自一个合法的 session，并且该 session 的用户 Bob 已经成功登陆。</font></p>
+<p>　　<font color="ff0000">黑客 Mallory 自己在该银行也有账户，他知道上文中的 URL 可以把钱进行转帐操作。Mallory 可以自己发送一个请求给银行：<a href="http://bank.example/withdraw?account=bob&amp;amount=1000000&amp;for=Mallory%E3%80%82%E4%BD%86%E6%98%AF%E8%BF%99%E4%B8%AA%E8%AF%B7%E6%B1%82%E6%9D%A5%E8%87%AA">http://bank.example/withdraw?account=bob&amp;amount=1000000&amp;for=Mallory。但是这个请求来自</a> Mallory 而非 Bob，他不能通过安全认证，因此该请求不会起作用。</font></p>
+<p>　　<font color="ff0000">这时，Mallory 想到使用 CSRF 的攻击方式，他先自己做一个网站，在网站中放入如下代码： src=”<a href="http://bank.example/withdraw?account=bob&amp;amount=1000000&amp;for=Mallory">http://bank.example/withdraw?account=bob&amp;amount=1000000&amp;for=Mallory</a> ”，并且通过广告等诱使 Bob 来访问他的网站。当 Bob 访问该网站时，上述 url 就会从 Bob 的浏览器发向银行，而这个请求会附带 Bob 浏览器中的 cookie 一起发向银行服务器。大多数情况下，该请求会失败，因为他要求 Bob 的认证信息。但是，如果 Bob 当时恰巧刚访问他的银行后不久，他的浏览器与银行网站之间的 session 尚未过期，浏览器的 cookie 之中含有 Bob 的认证信息。这时，悲剧发生了，这个 url 请求就会得到响应，钱将从 Bob 的账号转移到 Mallory 的账号，而 Bob 当时毫不知情。等以后 Bob 发现账户钱少了，即使他去银行查询日志，他也只能发现确实有一个来自于他本人的合法请求转移了资金，没有任何被攻击的痕迹。而 Mallory 则可以拿到钱后逍遥法外。 </font></p>
+<p><img src="https://s3.ax1x.com/2021/01/11/s1xb59.png" alt="s1xb59.png"></p>
+<figure class="highlight angelscript"><table><tr><td class="code"><pre><span class="line"><span class="number">1.</span>Bob打开浏览器，访问受信任银行网站，输入用户名和密码请求登录网站；</span><br><span class="line"><span class="number">2.</span>在Bob信息通过验证后，银行网站产生Cookie信息并返回给浏览器，此时Bob登录网站成功，可以正常发送请求到网站；</span><br><span class="line"><span class="number">3.</span>Bob未退出银行网站之前，在同一浏览器中，打开一个TAB页访问其他网站B</span><br><span class="line"><span class="number">4.</span>这时候网站B 已被黑客注入诱导信息，加入是一张图片,图片地址指向</span><br><span class="line">   src=”http:<span class="comment">//bank.example/withdraw?account=bob&amp;amount=1000000&amp;for=hacker</span></span><br><span class="line">  点击之后转账给黑客这个账户</span><br><span class="line"><span class="number">5.</span>浏览器在接收到这些攻击性代码请求后，根据网站B的请求，在Bob不知情的情况下携带Cookie信息，根据用户的Cookie信息以Bob的权限处理该请求，导致来自黑客请求恶意代码被执行。 </span><br></pre></td></tr></table></figure>
+
+<h1 id="4-CSRF攻击类型"><a href="#4-CSRF攻击类型" class="headerlink" title="4.CSRF攻击类型"></a>4.CSRF攻击类型</h1><h2 id="4-1-GET类型的CSRF"><a href="#4-1-GET类型的CSRF" class="headerlink" title="4.1 GET类型的CSRF"></a>4.1 GET类型的CSRF</h2><p>GET类型的CSRF利用非常简单，只需要HTTP请求，一般这样利用：</p>
+<figure class="highlight awk"><table><tr><td class="code"><pre><span class="line">![](https:<span class="regexp">//</span>awps-assets.meituan.net<span class="regexp">/mit-x/</span>blog-images-bundle-<span class="number">2018</span>b<span class="regexp">/ff0cdbee.example/</span>withdraw?amount=<span class="number">10000</span>&amp;<span class="keyword">for</span>=hacker)</span><br></pre></td></tr></table></figure>
+
+<p>在受害者访问含有这个img的页面后，浏览器会自动向<code>http://bank.example/withdraw?account=xiaoming&amp;amount=10000&amp;for=hacker</code>发出一次HTTP请求。bank.example就会收到包含受害者登录信息的一次跨域请求。</p>
+<h2 id="4-2-POST类型的CSRF"><a href="#4-2-POST类型的CSRF" class="headerlink" title="4.2 POST类型的CSRF"></a>4.2 POST类型的CSRF</h2><p>这种类型的CSRF利用起来通常使用的是一个自动提交的表单，如：</p>
+<figure class="highlight"><table><tr><td class="code"><pre><span class="line"> &lt;form action=<span class="string">&quot;http://bank.example/withdraw&quot;</span> method=POST&gt;</span><br><span class="line">    &lt;input type=<span class="string">&quot;hidden&quot;</span> name=<span class="string">&quot;account&quot;</span> value=<span class="string">&quot;xiaoming&quot;</span> /&gt;</span><br><span class="line">    &lt;input type=<span class="string">&quot;hidden&quot;</span> name=<span class="string">&quot;amount&quot;</span> value=<span class="string">&quot;10000&quot;</span> /&gt;</span><br><span class="line">    &lt;input type=<span class="string">&quot;hidden&quot;</span> name=<span class="string">&quot;for&quot;</span> value=<span class="string">&quot;hacker&quot;</span> /&gt;</span><br><span class="line">&lt;/form&gt;</span><br><span class="line">&lt;!--自动提交表单--&gt;</span><br><span class="line">&lt;script&gt; document.forms[0].submit(); &lt;/script&gt; </span><br></pre></td></tr></table></figure>
+
+<p>访问该页面后，表单会自动提交，相当于模拟用户完成了一次POST操作。POST类型的攻击通常比GET要求更加严格一点，但扔并不复杂。任何个人网站、博客，被黑客上传页面的往回走哪都有可能是发起攻击的来源。</p>
+<h2 id="4-3-链接类型的CSRF"><a href="#4-3-链接类型的CSRF" class="headerlink" title="4.3 链接类型的CSRF"></a>4.3 链接类型的CSRF</h2><p>这种需要用户点击链接才会触发。这种类型通常是杂论坛中发布的图片中嵌入恶意链接，或者以广告的形式诱导用户中招，例如：</p>
+<figure class="highlight php"><table><tr><td class="code"><pre><span class="line">&lt;a href=<span class="string">&quot;http://test.com/csrf/withdraw.php?amount=1000&amp;for=hacker&quot;</span> taget=<span class="string">&quot;_blank&quot;</span>&gt;</span><br><span class="line">  重磅消息！！</span><br><span class="line">  &lt;a/&gt;</span><br></pre></td></tr></table></figure>
+
+<p>由于之前用户登陆的信任的网站A，并且保存登录状态，只要用户主动访问上面的这个PHP页面，就表示攻击成功。</p>
+<h1 id="5-CSRF的特点"><a href="#5-CSRF的特点" class="headerlink" title="5.CSRF的特点"></a>5.CSRF的特点</h1><ul>
+<li>攻击一般发起在第三方网站，而不是被攻击的网站。</li>
+<li>攻击利用受害者在被攻击网站的登陆凭证，冒充受害者提交操作。</li>
+<li>整个过程攻击者并不能获取到受害者的登陆凭证，仅仅是冒用。</li>
+</ul>
+<h1 id="6-防护措施"><a href="#6-防护措施" class="headerlink" title="6.防护措施"></a>6.防护措施</h1><h2 id="6-1-验证HTTP-Referer字段"><a href="#6-1-验证HTTP-Referer字段" class="headerlink" title="6.1 验证HTTP Referer字段"></a>6.1 验证HTTP Referer字段</h2><p>HTTP头中有一个Referer的字段，它记录了该HTTP请求的来源网址</p>
+<p><img src="https://s3.ax1x.com/2021/01/11/s1xHUJ.png" alt="s1xHUJ.png"></p>
+<p>　　也就是说，服务器会验证客户端的请求来源，如果是本网站请求的就响应，否则不响应。</p>
+<p>　　正如上文所提到的，Bob必须登录银行网站，通过页面上的按钮触发转账事件。当用户提交请求时，该转账请求的Referer值就会是转账按钮所在页面的URL。黑客只能在自己网站构造请求，当用户通过攻击者的网站发送请求到银行时，该请求的Referer是指向黑客的网站。所以不能响应。</p>
+<p>但是这种方式仍然<font color="ff000">存在安全隐患</font></p>
+<figure class="highlight angelscript"><table><tr><td class="code"><pre><span class="line"><span class="number">1.</span>对于某些浏览器，比如IE6或FF2，目前已经有一些方法可以篡改Referer值</span><br><span class="line"><span class="number">2.</span>用户自己可以这只浏览器使其请求时不再提供Referer</span><br></pre></td></tr></table></figure>
+
+<h2 id="6-2-使用token（Anti-CSRF-Token）"><a href="#6-2-使用token（Anti-CSRF-Token）" class="headerlink" title="6.2 使用token（Anti CSRF Token）"></a>6.2 使用token（Anti CSRF Token）</h2><p>可以理解为防伪</p>
+<p>例子：</p>
+<p>1.用户访问某个表单页面。</p>
+<p>2.服务端生成一个Token，放在用户的Session中，或者浏览器的Cookie中。</p>
+<p>3.在页面表单附带上Token参数。</p>
+<p>4.用户提交请求后， 服务端验证表单中的Token是否与用户Session（或Cookies）中的      Token一致，一致为合法请求，不是则非法请求。</p>
+<p>　　这个Token的值必须是随机的。由于Token的存在，攻击者无法再构造一个带有合法Token的请求实施CSRF攻击。另外使用Token时应注意Token的保密性，尽量把敏感操作由GET改为<code>POST</code>，以form或AJAX形式提交，避免Token泄露。</p>
+]]></content>
+      <categories>
+        <category>网络安全知识学习</category>
+      </categories>
+      <tags>
+        <tag>CSRF</tag>
+      </tags>
   </entry>
   <entry>
     <title>CSS学习</title>
@@ -794,6 +794,57 @@
       </tags>
   </entry>
   <entry>
+    <title>IDEA新建Web项目</title>
+    <url>/post/f1926f41.html</url>
+    <content><![CDATA[<p>　　这个是创建普通javaweb项目的步骤，建议使用maven创建，导包不用这么麻烦<a href="/post/4bd31b3a.html" title="Maven环境变量配置">Maven环境变量配置</a><a id="more"></a></p>
+<h1 id="1-创建web-project"><a href="#1-创建web-project" class="headerlink" title="1.创建web project"></a>1.创建web project</h1><p>File-&gt;new Project</p>
+<img src="https://s3.ax1x.com/2020/12/13/reKhjJ.md.jpg" alt="reKhjJ.md.jpg" style="zoom:50%;" />
+
+<img src="https://s3.ax1x.com/2020/12/13/reKW3F.jpg" alt="reKW3F.jpg" style="zoom:50%;" />
+
+<p>之后，在web/WEB-INF文件夹下面创建两个文件夹：classes和lib</p>
+<p>lib存放第三方jar包，classes存放编译后输出的class文件</p>
+<p>创建好的目录如下</p>
+<p><img src="https://s3.ax1x.com/2020/12/13/reKghT.jpg" alt="reKghT.jpg"></p>
+<h1 id="2-接下来需要配置文件夹路径"><a href="#2-接下来需要配置文件夹路径" class="headerlink" title="2.接下来需要配置文件夹路径"></a>2.接下来需要配置文件夹路径</h1><p>File-&gt;Project Structure-&gt;选择Module：</p>
+<p>在Paths界面修改，把路径修改为刚刚创建的classes文件夹，最后点击Apply</p>
+<img src="https://s3.ax1x.com/2020/12/13/reKfc4.jpg" alt="reKfc4.jpg" style="zoom:50%;" />
+
+<p>再点击Dependencies-&gt;将Module SDK选择为自己的JDK-&gt;点击右边+号-&gt;选择Jars or Directories</p>
+<img src="https://s3.ax1x.com/2020/12/13/reK5u9.jpg" alt="reK5u9.jpg" style="zoom:50%;" />
+
+<p>——————&gt;</p>
+<img src="https://s3.ax1x.com/2020/12/13/reKIBR.jpg" alt="reKIBR.jpg" style="zoom:50%;" />
+
+<p>——————&gt;</p>
+<p><img src="https://s3.ax1x.com/2020/12/13/reKoH1.jpg" alt="reKoH1.jpg"></p>
+<p>然后就OK了</p>
+<h1 id="3-配置Tomcat容器"><a href="#3-配置Tomcat容器" class="headerlink" title="3.配置Tomcat容器"></a>3.配置Tomcat容器</h1><p>(1) 打开菜单Run-&gt;选择Edit Configuration，也可以点击上方的Edit Configuration</p>
+<img src="https://s3.ax1x.com/2020/12/13/reK7Ax.jpg" alt="reK7Ax.jpg" style="zoom:50%;" />
+
+<p>(2) 点击+号-&gt;Tomcat Server-&gt;Local</p>
+<img src="https://s3.ax1x.com/2020/12/13/reKHN6.jpg" alt="reKHN6.jpg" style="zoom:50%;" />
+
+<p>(3) 在”Name“处创建Tomcat名字，点击”Application server“后面的”Configure“，选择本地安装的Tomcat路径-&gt;OK</p>
+<img src="https://s3.ax1x.com/2020/12/13/reKb4K.jpg" alt="reKb4K.jpg" style="zoom:50%;" />
+
+<p>(4) 至此，Tomcat部署完成</p>
+<p>下一步在Tomcat中部署并运行项目</p>
+<p>Run -&gt; Edit Configurations，进入”Run/Debug Configurations”窗口 -&gt; 选择刚刚建立的Tomcat容器 -&gt; 选择Deployment -&gt; 点击右边的“+”号 -&gt; 选择Artifact–&gt;选择web项目–&gt;Application contex填一个名字–&gt;ok.</p>
+<img src="https://s3.ax1x.com/2020/12/13/reKL9O.jpg" alt="reKL9O.jpg" style="zoom:50%;" />
+
+<p>(5) 编辑Index.jsp文件</p>
+<img src="https://s3.ax1x.com/2020/12/13/reKXge.jpg" alt="reKXge.jpg" style="zoom:50%;" />
+
+<p>(6) 访问Tomcat项目</p>
+<img src="https://s3.ax1x.com/2020/12/13/reKO3D.jpg" alt="reKO3D.jpg" style="zoom:50%;" />
+
+<h1 id="4-Web项目结构"><a href="#4-Web项目结构" class="headerlink" title="4.Web项目结构"></a>4.Web项目结构</h1>]]></content>
+      <tags>
+        <tag>创建项目</tag>
+      </tags>
+  </entry>
+  <entry>
     <title>JDBC使用</title>
     <url>/post/b6296e7c.html</url>
     <content><![CDATA[<p>　　全称为：Java Data Base Connectivity（java数据库连接），可以为多种数据库提供填统一的访问。JDBC是sun开打的一套数据库访问编程接口。<a id="more"></a></p>
@@ -875,57 +926,6 @@
       </tags>
   </entry>
   <entry>
-    <title>IDEA新建Web项目</title>
-    <url>/post/f1926f41.html</url>
-    <content><![CDATA[<p>　　这个是创建普通javaweb项目的步骤，建议使用maven创建，导包不用这么麻烦<a href="/post/4bd31b3a.html" title="Maven环境变量配置">Maven环境变量配置</a><a id="more"></a></p>
-<h1 id="1-创建web-project"><a href="#1-创建web-project" class="headerlink" title="1.创建web project"></a>1.创建web project</h1><p>File-&gt;new Project</p>
-<img src="https://s3.ax1x.com/2020/12/13/reKhjJ.md.jpg" alt="reKhjJ.md.jpg" style="zoom:50%;" />
-
-<img src="https://s3.ax1x.com/2020/12/13/reKW3F.jpg" alt="reKW3F.jpg" style="zoom:50%;" />
-
-<p>之后，在web/WEB-INF文件夹下面创建两个文件夹：classes和lib</p>
-<p>lib存放第三方jar包，classes存放编译后输出的class文件</p>
-<p>创建好的目录如下</p>
-<p><img src="https://s3.ax1x.com/2020/12/13/reKghT.jpg" alt="reKghT.jpg"></p>
-<h1 id="2-接下来需要配置文件夹路径"><a href="#2-接下来需要配置文件夹路径" class="headerlink" title="2.接下来需要配置文件夹路径"></a>2.接下来需要配置文件夹路径</h1><p>File-&gt;Project Structure-&gt;选择Module：</p>
-<p>在Paths界面修改，把路径修改为刚刚创建的classes文件夹，最后点击Apply</p>
-<img src="https://s3.ax1x.com/2020/12/13/reKfc4.jpg" alt="reKfc4.jpg" style="zoom:50%;" />
-
-<p>再点击Dependencies-&gt;将Module SDK选择为自己的JDK-&gt;点击右边+号-&gt;选择Jars or Directories</p>
-<img src="https://s3.ax1x.com/2020/12/13/reK5u9.jpg" alt="reK5u9.jpg" style="zoom:50%;" />
-
-<p>——————&gt;</p>
-<img src="https://s3.ax1x.com/2020/12/13/reKIBR.jpg" alt="reKIBR.jpg" style="zoom:50%;" />
-
-<p>——————&gt;</p>
-<p><img src="https://s3.ax1x.com/2020/12/13/reKoH1.jpg" alt="reKoH1.jpg"></p>
-<p>然后就OK了</p>
-<h1 id="3-配置Tomcat容器"><a href="#3-配置Tomcat容器" class="headerlink" title="3.配置Tomcat容器"></a>3.配置Tomcat容器</h1><p>(1) 打开菜单Run-&gt;选择Edit Configuration，也可以点击上方的Edit Configuration</p>
-<img src="https://s3.ax1x.com/2020/12/13/reK7Ax.jpg" alt="reK7Ax.jpg" style="zoom:50%;" />
-
-<p>(2) 点击+号-&gt;Tomcat Server-&gt;Local</p>
-<img src="https://s3.ax1x.com/2020/12/13/reKHN6.jpg" alt="reKHN6.jpg" style="zoom:50%;" />
-
-<p>(3) 在”Name“处创建Tomcat名字，点击”Application server“后面的”Configure“，选择本地安装的Tomcat路径-&gt;OK</p>
-<img src="https://s3.ax1x.com/2020/12/13/reKb4K.jpg" alt="reKb4K.jpg" style="zoom:50%;" />
-
-<p>(4) 至此，Tomcat部署完成</p>
-<p>下一步在Tomcat中部署并运行项目</p>
-<p>Run -&gt; Edit Configurations，进入”Run/Debug Configurations”窗口 -&gt; 选择刚刚建立的Tomcat容器 -&gt; 选择Deployment -&gt; 点击右边的“+”号 -&gt; 选择Artifact–&gt;选择web项目–&gt;Application contex填一个名字–&gt;ok.</p>
-<img src="https://s3.ax1x.com/2020/12/13/reKL9O.jpg" alt="reKL9O.jpg" style="zoom:50%;" />
-
-<p>(5) 编辑Index.jsp文件</p>
-<img src="https://s3.ax1x.com/2020/12/13/reKXge.jpg" alt="reKXge.jpg" style="zoom:50%;" />
-
-<p>(6) 访问Tomcat项目</p>
-<img src="https://s3.ax1x.com/2020/12/13/reKO3D.jpg" alt="reKO3D.jpg" style="zoom:50%;" />
-
-<h1 id="4-Web项目结构"><a href="#4-Web项目结构" class="headerlink" title="4.Web项目结构"></a>4.Web项目结构</h1>]]></content>
-      <tags>
-        <tag>创建项目</tag>
-      </tags>
-  </entry>
-  <entry>
     <title>JPA框架学习</title>
     <url>/post/9af0416b.html</url>
     <content><![CDATA[<h1 id="1-orm思想"><a href="#1-orm思想" class="headerlink" title="1 orm思想"></a>1 orm思想</h1><p>　　就是相当于操作实体类就是操作数据库表，需要先建立两个映射关系（实体类和表、实体类中的属性和表中字段），实现了orm思想的框架：mybatis、hibernate<a id="more"></a></p>
@@ -982,20 +982,6 @@
 ]]></content>
   </entry>
   <entry>
-    <title>Java集合继承结构</title>
-    <url>/post/cb9bdb06.html</url>
-    <content><![CDATA[<p>　　集合这部分只是很杂乱，这个是搜集的一些资料，很清楚的梳理了集合知识和各个集合类型的特点<a id="more"></a></p>
-<p><img src="https://s3.ax1x.com/2020/12/13/reBQmt.png" alt="reBQmt.png"></p>
-<p><img src="https://s3.ax1x.com/2020/12/13/reBKOI.png" alt="reBKOI.png"></p>
-]]></content>
-      <categories>
-        <category>Java</category>
-      </categories>
-      <tags>
-        <tag>Java</tag>
-      </tags>
-  </entry>
-  <entry>
     <title>JavaScript学习</title>
     <url>/post/d3a7443d.html</url>
     <content><![CDATA[<p>　　在学习小程序期间，没有了解JavaScript，回来补充<a id="more"></a></p>
@@ -1019,6 +1005,20 @@
       </categories>
       <tags>
         <tag>JavaScript</tag>
+      </tags>
+  </entry>
+  <entry>
+    <title>Java集合继承结构</title>
+    <url>/post/cb9bdb06.html</url>
+    <content><![CDATA[<p>　　集合这部分只是很杂乱，这个是搜集的一些资料，很清楚的梳理了集合知识和各个集合类型的特点<a id="more"></a></p>
+<p><img src="https://s3.ax1x.com/2020/12/13/reBQmt.png" alt="reBQmt.png"></p>
+<p><img src="https://s3.ax1x.com/2020/12/13/reBKOI.png" alt="reBKOI.png"></p>
+]]></content>
+      <categories>
+        <category>Java</category>
+      </categories>
+      <tags>
+        <tag>Java</tag>
       </tags>
   </entry>
   <entry>
@@ -1117,48 +1117,6 @@
       </tags>
   </entry>
   <entry>
-    <title>MyBatis框架</title>
-    <url>/post/669b9acc.html</url>
-    <content><![CDATA[<h1 id="第一章"><a href="#第一章" class="headerlink" title="第一章"></a>第一章</h1><h2 id="1-1-三层架构"><a href="#1-1-三层架构" class="headerlink" title="1.1 三层架构"></a>1.1 三层架构</h2><table>
-<thead>
-<tr>
-<th>架构层</th>
-<th align="left">作用</th>
-<th>对应的包</th>
-<th>对应的处理框架</th>
-</tr>
-</thead>
-<tbody><tr>
-<td>界面层</td>
-<td align="left">和用户打交道的，接受用户的请求参数，显示出理结果（jsp，html，servlet）</td>
-<td>controller包（servlet）</td>
-<td>springmvc</td>
-</tr>
-<tr>
-<td>业务逻辑层</td>
-<td align="left">接受了界面层传递的数据，计算逻辑，调用数据库，获取数据</td>
-<td>service包（XXXService类）</td>
-<td>spring</td>
-</tr>
-<tr>
-<td>数据访问层</td>
-<td align="left">访问数据库，执行对数据的查询，修改，删除等的等等</td>
-<td>dao包（XXXDao）</td>
-<td>mybatis</td>
-</tr>
-</tbody></table>
-<a id="more"></a>三层中类的交互：用户使用界面层-->业务逻辑层-->数据访问层（持久层）-->数据库（mysql）
-
-<h2 id="1-2-JDBC编程"><a href="#1-2-JDBC编程" class="headerlink" title="1.2 JDBC编程"></a>1.2 JDBC编程</h2><h3 id="1-2-1-JDBC编程的回顾"><a href="#1-2-1-JDBC编程的回顾" class="headerlink" title="1.2.1 JDBC编程的回顾"></a>1.2.1 JDBC编程的回顾</h3><figure class="highlight java"><table><tr><td class="code"><pre><span class="line"><span class="function"><span class="keyword">public</span> <span class="keyword">void</span> <span class="title">fidStudent</span><span class="params">()</span></span>&#123;</span><br><span class="line">    Connection conn = <span class="keyword">null</span>;</span><br><span class="line">    Statement stmt = <span class="keyword">null</span>;</span><br><span class="line">    ResultSet rs = <span class="keyword">null</span>;</span><br><span class="line">    <span class="keyword">try</span>&#123;</span><br><span class="line">        <span class="comment">//注册mysql驱动</span></span><br><span class="line">        Class.forName(<span class="string">&quot;com.mysql.jdbc.Driver&quot;</span>);</span><br><span class="line">        <span class="comment">//连接数据库的基本信息url，username，password</span></span><br><span class="line">        String url = <span class="string">&quot;jdbc:mysql://localhost:3306/springdb&quot;</span>;</span><br><span class="line">        String username = <span class="string">&quot;root&quot;</span>;</span><br><span class="line">        String password = <span class="string">&quot;root&quot;</span>;</span><br><span class="line">        <span class="comment">//创建连接对象</span></span><br><span class="line">        conn = DriverManager.getConnection(url,username,password);</span><br><span class="line">        <span class="comment">//保存查询结果</span></span><br><span class="line">        List&lt;Student&gt; stuList = <span class="keyword">new</span> ArrayList&lt;&gt;();</span><br><span class="line">        <span class="comment">//创建Statement，用来执行sql语句</span></span><br><span class="line">        stmt = conn.createStatement();</span><br><span class="line">        <span class="comment">//执行查询，创建记录集</span></span><br><span class="line">        rs = stmt.executeQuery(<span class="string">&quot;select * from student&quot;</span>);</span><br><span class="line">        <span class="keyword">while</span>(rs.next())&#123;</span><br><span class="line">            Student stu = <span class="keyword">new</span> Student();</span><br><span class="line">            stu.setId(rs.getInt(<span class="string">&quot;id&quot;</span>));</span><br><span class="line">            stu.setName(rs.getString(<span class="string">&quot;name&quot;</span>));</span><br><span class="line">            <span class="comment">//从数据库取出数据转为Student对象，封装到List集合</span></span><br><span class="line">            stuList.add(stu);</span><br><span class="line">        &#125;</span><br><span class="line">    &#125;<span class="keyword">catch</span>(Exception e)&#123;</span><br><span class="line">        e.printStackTrace();</span><br><span class="line">    &#125;<span class="keyword">finally</span>&#123;</span><br><span class="line">        <span class="keyword">try</span>&#123;</span><br><span class="line">            <span class="comment">//关闭资源</span></span><br><span class="line">            <span class="keyword">if</span>(rs != <span class="keyword">null</span>)&#123;</span><br><span class="line">                rs.close();</span><br><span class="line">            &#125;</span><br><span class="line"></span><br><span class="line">            <span class="keyword">if</span>(stmt != <span class="keyword">null</span>)&#123;</span><br><span class="line">                stmt.close();</span><br><span class="line">            &#125;</span><br><span class="line"></span><br><span class="line">            <span class="keyword">if</span>(conn != <span class="keyword">null</span>)&#123;</span><br><span class="line">                conn.close();</span><br><span class="line">            &#125;</span><br><span class="line">        &#125;<span class="keyword">catch</span>(Exception e)&#123;</span><br><span class="line">            e.printStackTrace();</span><br><span class="line">        &#125;</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
-
-<h3 id="1-2-2-使用JDBC的缺陷"><a href="#1-2-2-使用JDBC的缺陷" class="headerlink" title="1.2.2 使用JDBC的缺陷"></a>1.2.2 使用JDBC的缺陷</h3><p>1.代码比较多，开发效率低</p>
-<p>2.需要关注Connection，Statement，ResultSet对象的创建和销毁</p>
-<p>3.对ResultSet查询的结果，需要自己封装为List</p>
-<p>4.代码重复高</p>
-<p>5.业务代码和数据库操作混在一起</p>
-]]></content>
-  </entry>
-  <entry>
     <title>MongoDB优化</title>
     <url>/post/6276869c.html</url>
     <content><![CDATA[<p>　　MongoDB 是高性能数据，但是在使用的过程中，大家偶尔还会碰到一些性能问题。MongoDB和其它关系型数据库相比，例如 SQL Server 、MySQL 、Oracle 相比来说，相对较新，很多人对其不是很熟悉，所以很多开发、DBA往往是注重功能的实现，而忽视了性能的要求。其实，MongoDB和 SQL Server 、MySQL 、Oracle 一样，一个 数据库对象的设计调整、索引的创建、语句的优化，都会对性能产生巨大的影响。<a id="more"></a></p>
@@ -1210,6 +1168,77 @@
       </tags>
   </entry>
   <entry>
+    <title>MyBatis框架</title>
+    <url>/post/669b9acc.html</url>
+    <content><![CDATA[<h1 id="第一章"><a href="#第一章" class="headerlink" title="第一章"></a>第一章</h1><h2 id="1-1-三层架构"><a href="#1-1-三层架构" class="headerlink" title="1.1 三层架构"></a>1.1 三层架构</h2><table>
+<thead>
+<tr>
+<th>架构层</th>
+<th align="left">作用</th>
+<th>对应的包</th>
+<th>对应的处理框架</th>
+</tr>
+</thead>
+<tbody><tr>
+<td>界面层</td>
+<td align="left">和用户打交道的，接受用户的请求参数，显示出理结果（jsp，html，servlet）</td>
+<td>controller包（servlet）</td>
+<td>springmvc</td>
+</tr>
+<tr>
+<td>业务逻辑层</td>
+<td align="left">接受了界面层传递的数据，计算逻辑，调用数据库，获取数据</td>
+<td>service包（XXXService类）</td>
+<td>spring</td>
+</tr>
+<tr>
+<td>数据访问层</td>
+<td align="left">访问数据库，执行对数据的查询，修改，删除等的等等</td>
+<td>dao包（XXXDao）</td>
+<td>mybatis</td>
+</tr>
+</tbody></table>
+<a id="more"></a>三层中类的交互：用户使用界面层-->业务逻辑层-->数据访问层（持久层）-->数据库（mysql）
+
+<h2 id="1-2-JDBC编程"><a href="#1-2-JDBC编程" class="headerlink" title="1.2 JDBC编程"></a>1.2 JDBC编程</h2><h3 id="1-2-1-JDBC编程的回顾"><a href="#1-2-1-JDBC编程的回顾" class="headerlink" title="1.2.1 JDBC编程的回顾"></a>1.2.1 JDBC编程的回顾</h3><figure class="highlight java"><table><tr><td class="code"><pre><span class="line"><span class="function"><span class="keyword">public</span> <span class="keyword">void</span> <span class="title">fidStudent</span><span class="params">()</span></span>&#123;</span><br><span class="line">    Connection conn = <span class="keyword">null</span>;</span><br><span class="line">    Statement stmt = <span class="keyword">null</span>;</span><br><span class="line">    ResultSet rs = <span class="keyword">null</span>;</span><br><span class="line">    <span class="keyword">try</span>&#123;</span><br><span class="line">        <span class="comment">//注册mysql驱动</span></span><br><span class="line">        Class.forName(<span class="string">&quot;com.mysql.jdbc.Driver&quot;</span>);</span><br><span class="line">        <span class="comment">//连接数据库的基本信息url，username，password</span></span><br><span class="line">        String url = <span class="string">&quot;jdbc:mysql://localhost:3306/springdb&quot;</span>;</span><br><span class="line">        String username = <span class="string">&quot;root&quot;</span>;</span><br><span class="line">        String password = <span class="string">&quot;root&quot;</span>;</span><br><span class="line">        <span class="comment">//创建连接对象</span></span><br><span class="line">        conn = DriverManager.getConnection(url,username,password);</span><br><span class="line">        <span class="comment">//保存查询结果</span></span><br><span class="line">        List&lt;Student&gt; stuList = <span class="keyword">new</span> ArrayList&lt;&gt;();</span><br><span class="line">        <span class="comment">//创建Statement，用来执行sql语句</span></span><br><span class="line">        stmt = conn.createStatement();</span><br><span class="line">        <span class="comment">//执行查询，创建记录集</span></span><br><span class="line">        rs = stmt.executeQuery(<span class="string">&quot;select * from student&quot;</span>);</span><br><span class="line">        <span class="keyword">while</span>(rs.next())&#123;</span><br><span class="line">            Student stu = <span class="keyword">new</span> Student();</span><br><span class="line">            stu.setId(rs.getInt(<span class="string">&quot;id&quot;</span>));</span><br><span class="line">            stu.setName(rs.getString(<span class="string">&quot;name&quot;</span>));</span><br><span class="line">            <span class="comment">//从数据库取出数据转为Student对象，封装到List集合</span></span><br><span class="line">            stuList.add(stu);</span><br><span class="line">        &#125;</span><br><span class="line">    &#125;<span class="keyword">catch</span>(Exception e)&#123;</span><br><span class="line">        e.printStackTrace();</span><br><span class="line">    &#125;<span class="keyword">finally</span>&#123;</span><br><span class="line">        <span class="keyword">try</span>&#123;</span><br><span class="line">            <span class="comment">//关闭资源</span></span><br><span class="line">            <span class="keyword">if</span>(rs != <span class="keyword">null</span>)&#123;</span><br><span class="line">                rs.close();</span><br><span class="line">            &#125;</span><br><span class="line"></span><br><span class="line">            <span class="keyword">if</span>(stmt != <span class="keyword">null</span>)&#123;</span><br><span class="line">                stmt.close();</span><br><span class="line">            &#125;</span><br><span class="line"></span><br><span class="line">            <span class="keyword">if</span>(conn != <span class="keyword">null</span>)&#123;</span><br><span class="line">                conn.close();</span><br><span class="line">            &#125;</span><br><span class="line">        &#125;<span class="keyword">catch</span>(Exception e)&#123;</span><br><span class="line">            e.printStackTrace();</span><br><span class="line">        &#125;</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<h3 id="1-2-2-使用JDBC的缺陷"><a href="#1-2-2-使用JDBC的缺陷" class="headerlink" title="1.2.2 使用JDBC的缺陷"></a>1.2.2 使用JDBC的缺陷</h3><p>1.代码比较多，开发效率低</p>
+<p>2.需要关注Connection，Statement，ResultSet对象的创建和销毁</p>
+<p>3.对ResultSet查询的结果，需要自己封装为List</p>
+<p>4.代码重复高</p>
+<p>5.业务代码和数据库操作混在一起</p>
+]]></content>
+  </entry>
+  <entry>
+    <title>SpringBoot-拦截器</title>
+    <url>/post/e3a97206.html</url>
+    <content><![CDATA[<p>　　SpringBoot学习，主要内容是拦截器，可以实现网站的登录功能<a id="more"></a></p>
+<h1 id="1-实现登录拦截"><a href="#1-实现登录拦截" class="headerlink" title="1.实现登录拦截"></a>1.实现登录拦截</h1><p>　　首先需要编写相应模块的类实现HandlerInterceptor，然后再拦截配置类里面编辑要拦截胡页面。</p>
+<h2 id="1-1-编写类实现HandlerInterceptor类"><a href="#1-1-编写类实现HandlerInterceptor类" class="headerlink" title="1.1 编写类实现HandlerInterceptor类"></a>1.1 编写类实现HandlerInterceptor类</h2><figure class="highlight java"><table><tr><td class="code"><pre><span class="line"><span class="keyword">public</span> <span class="class"><span class="keyword">class</span> <span class="title">UserInterceptor</span> <span class="keyword">implements</span> <span class="title">HandlerInterceptor</span></span>&#123;</span><br><span class="line">    <span class="meta">@Override</span></span><br><span class="line">    <span class="function"><span class="keyword">public</span> <span class="keyword">boolean</span> <span class="title">preHandle</span><span class="params">(HttpServletRequest request, HttpServletResponse response, Object handler)</span> <span class="keyword">throws</span> Exception </span>&#123;</span><br><span class="line">        <span class="comment">//编写业务拦截的规则</span></span><br><span class="line">        <span class="comment">//从session中获取用户的信息</span></span><br><span class="line">        User user = (User) request.getSession().getAttribute(<span class="string">&quot;user&quot;</span>);</span><br><span class="line"></span><br><span class="line">        <span class="comment">//判断用户是否登录</span></span><br><span class="line">        <span class="keyword">if</span> (<span class="keyword">null</span> == user) &#123;</span><br><span class="line">            <span class="comment">//未登录</span></span><br><span class="line">            response.sendRedirect(request.getContextPath() + <span class="string">&quot;/nologin&quot;</span>);</span><br><span class="line">            <span class="keyword">return</span> <span class="keyword">false</span>;</span><br><span class="line">        &#125;</span><br><span class="line">        <span class="keyword">return</span> <span class="keyword">true</span>;</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">    <span class="meta">@Override</span></span><br><span class="line">    <span class="function"><span class="keyword">public</span> <span class="keyword">void</span> <span class="title">postHandle</span><span class="params">(HttpServletRequest request, HttpServletResponse response, Object handler, ModelAndView modelAndView)</span> <span class="keyword">throws</span> Exception </span>&#123;</span><br><span class="line"></span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">    <span class="meta">@Override</span></span><br><span class="line">    <span class="function"><span class="keyword">public</span> <span class="keyword">void</span> <span class="title">afterCompletion</span><span class="params">(HttpServletRequest request, HttpServletResponse response, Object handler, Exception ex)</span> <span class="keyword">throws</span> Exception </span>&#123;</span><br><span class="line"></span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<p>　　实现HanderInterceptor，重写preHandle、postHandle、afterCompletion三个方法，先获取session的用户信息，然后判断是否登录。</p>
+<h2 id="1-2-声明拦截配置类"><a href="#1-2-声明拦截配置类" class="headerlink" title="1.2 声明拦截配置类"></a>1.2 声明拦截配置类</h2><figure class="highlight java"><table><tr><td class="code"><pre><span class="line"><span class="meta">@Configuration</span></span><br><span class="line"><span class="comment">//定义此类为配置文件</span></span><br><span class="line"><span class="keyword">public</span> <span class="class"><span class="keyword">class</span> <span class="title">InterceptorConfig</span> <span class="keyword">implements</span> <span class="title">WebMvcConfigurer</span> </span>&#123;</span><br><span class="line"></span><br><span class="line">    <span class="meta">@Override</span></span><br><span class="line">    <span class="function"><span class="keyword">public</span> <span class="keyword">void</span> <span class="title">addInterceptors</span><span class="params">(InterceptorRegistry registry)</span> </span>&#123;</span><br><span class="line"></span><br><span class="line">        <span class="comment">//要拦截user下的所有访问请求，必须用户登录后才能访问</span></span><br><span class="line">        String[] addPathPatterns = &#123;</span><br><span class="line">            <span class="string">&quot;/user/**&quot;</span></span><br><span class="line">        &#125;;</span><br><span class="line"></span><br><span class="line">        <span class="comment">//排除路径，排除的路径说明不需要用户登录也可以访问</span></span><br><span class="line">        String[] excludePathPatterns = &#123;</span><br><span class="line">            <span class="string">&quot;/user/out&quot;</span>,<span class="string">&quot;/user/error&quot;</span>,<span class="string">&quot;/user/login&quot;</span></span><br><span class="line">        &#125;;</span><br><span class="line"></span><br><span class="line">        registry.addInterceptor(<span class="keyword">new</span> UserInterceptor()).addPathPatterns(addPathPatterns).excludePathPatterns(excludePathPatterns);</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<p>　　需要实现WebMvcConfigurer，重写addInterceptors方法，在里面配置需要拦截的请求和排除的请求。</p>
+<h2 id="1-3-编写Controller类进行验证"><a href="#1-3-编写Controller类进行验证" class="headerlink" title="1.3 编写Controller类进行验证"></a>1.3 编写Controller类进行验证</h2><figure class="highlight java"><table><tr><td class="code"><pre><span class="line"><span class="meta">@Controller</span></span><br><span class="line"><span class="meta">@RequestMapping(value = &quot;/user&quot;)</span></span><br><span class="line"><span class="keyword">public</span> <span class="class"><span class="keyword">class</span> <span class="title">UserController</span> </span>&#123;</span><br><span class="line"></span><br><span class="line">    <span class="meta">@RequestMapping(value = &quot;/login&quot;)</span></span><br><span class="line">    <span class="keyword">public</span> <span class="meta">@ResponseBody</span> <span class="function">Object <span class="title">login</span><span class="params">(HttpServletRequest request, HttpServletResponse response)</span></span>&#123;</span><br><span class="line">        <span class="comment">//将user用户存入session</span></span><br><span class="line">        User user = <span class="keyword">new</span> User();</span><br><span class="line">        user.setId(<span class="number">1001</span>);</span><br><span class="line">        user.setUsername(<span class="string">&quot;zhangsan&quot;</span>);</span><br><span class="line">        request.getSession().setAttribute(<span class="string">&quot;user&quot;</span>,user);</span><br><span class="line"></span><br><span class="line">        <span class="keyword">return</span> <span class="string">&quot;login SUCCESS&quot;</span>;</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">    <span class="comment">//登录成功才能看到的信息</span></span><br><span class="line">    <span class="meta">@RequestMapping(value = &quot;/center&quot;)</span></span><br><span class="line">    <span class="keyword">public</span> <span class="meta">@ResponseBody</span> <span class="function">Object <span class="title">center</span><span class="params">()</span></span>&#123;</span><br><span class="line">        <span class="keyword">return</span> <span class="string">&quot;See Center Message&quot;</span>;</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">    <span class="comment">//不用登录就能看到的信息</span></span><br><span class="line">    <span class="meta">@RequestMapping(value = &quot;/out&quot;)</span></span><br><span class="line">    <span class="keyword">public</span> <span class="meta">@ResponseBody</span> <span class="function">Object <span class="title">out</span><span class="params">()</span></span>&#123;</span><br><span class="line">        <span class="keyword">return</span> <span class="string">&quot;See Out Message&quot;</span>;</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">    <span class="comment">//如果用户未登录访问了需要登录才可访问的请求，才会出错</span></span><br><span class="line">    <span class="meta">@RequestMapping(value = &quot;/error&quot;)</span></span><br><span class="line">    <span class="keyword">public</span> <span class="meta">@ResponseBody</span> <span class="function">Object <span class="title">error</span><span class="params">()</span></span>&#123;</span><br><span class="line">        <span class="keyword">return</span> <span class="string">&quot;error&quot;</span>;</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<h1 id="2-在SpringBoot框架下使用Servlet"><a href="#2-在SpringBoot框架下使用Servlet" class="headerlink" title="2.在SpringBoot框架下使用Servlet"></a>2.在SpringBoot框架下使用Servlet</h1><ul>
+<li><p>第一种方式</p>
+<p>在主程序入口处加上@ServletComponentScan注解，然后正常使用@WebServlet注解</p>
+</li>
+<li><p>第二种方式</p>
+<p>使用@Configuration注解定义一个配置类</p>
+</li>
+</ul>
+]]></content>
+      <categories>
+        <category>SpringBoot学习</category>
+      </categories>
+      <tags>
+        <tag>SpringBoot学习</tag>
+      </tags>
+  </entry>
+  <entry>
     <title>SpringBoot-请求方式注解</title>
     <url>/post/6cd03ce5.html</url>
     <content><![CDATA[<p>　　主要是在开发过程中，如何区别各种请求类型，还有RESTful风格的了解<a id="more"></a></p>
@@ -1235,35 +1264,6 @@
 <li><p>student1需要加@GetMapping、student2需要加@DeleteMapping</p>
 </li>
 <li><p>修改请求路径顺序</p>
-</li>
-</ul>
-]]></content>
-      <categories>
-        <category>SpringBoot学习</category>
-      </categories>
-      <tags>
-        <tag>SpringBoot学习</tag>
-      </tags>
-  </entry>
-  <entry>
-    <title>SpringBoot-拦截器</title>
-    <url>/post/e3a97206.html</url>
-    <content><![CDATA[<p>　　SpringBoot学习，主要内容是拦截器，可以实现网站的登录功能<a id="more"></a></p>
-<h1 id="1-实现登录拦截"><a href="#1-实现登录拦截" class="headerlink" title="1.实现登录拦截"></a>1.实现登录拦截</h1><p>　　首先需要编写相应模块的类实现HandlerInterceptor，然后再拦截配置类里面编辑要拦截胡页面。</p>
-<h2 id="1-1-编写类实现HandlerInterceptor类"><a href="#1-1-编写类实现HandlerInterceptor类" class="headerlink" title="1.1 编写类实现HandlerInterceptor类"></a>1.1 编写类实现HandlerInterceptor类</h2><figure class="highlight java"><table><tr><td class="code"><pre><span class="line"><span class="keyword">public</span> <span class="class"><span class="keyword">class</span> <span class="title">UserInterceptor</span> <span class="keyword">implements</span> <span class="title">HandlerInterceptor</span></span>&#123;</span><br><span class="line">    <span class="meta">@Override</span></span><br><span class="line">    <span class="function"><span class="keyword">public</span> <span class="keyword">boolean</span> <span class="title">preHandle</span><span class="params">(HttpServletRequest request, HttpServletResponse response, Object handler)</span> <span class="keyword">throws</span> Exception </span>&#123;</span><br><span class="line">        <span class="comment">//编写业务拦截的规则</span></span><br><span class="line">        <span class="comment">//从session中获取用户的信息</span></span><br><span class="line">        User user = (User) request.getSession().getAttribute(<span class="string">&quot;user&quot;</span>);</span><br><span class="line"></span><br><span class="line">        <span class="comment">//判断用户是否登录</span></span><br><span class="line">        <span class="keyword">if</span> (<span class="keyword">null</span> == user) &#123;</span><br><span class="line">            <span class="comment">//未登录</span></span><br><span class="line">            response.sendRedirect(request.getContextPath() + <span class="string">&quot;/nologin&quot;</span>);</span><br><span class="line">            <span class="keyword">return</span> <span class="keyword">false</span>;</span><br><span class="line">        &#125;</span><br><span class="line">        <span class="keyword">return</span> <span class="keyword">true</span>;</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">    <span class="meta">@Override</span></span><br><span class="line">    <span class="function"><span class="keyword">public</span> <span class="keyword">void</span> <span class="title">postHandle</span><span class="params">(HttpServletRequest request, HttpServletResponse response, Object handler, ModelAndView modelAndView)</span> <span class="keyword">throws</span> Exception </span>&#123;</span><br><span class="line"></span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">    <span class="meta">@Override</span></span><br><span class="line">    <span class="function"><span class="keyword">public</span> <span class="keyword">void</span> <span class="title">afterCompletion</span><span class="params">(HttpServletRequest request, HttpServletResponse response, Object handler, Exception ex)</span> <span class="keyword">throws</span> Exception </span>&#123;</span><br><span class="line"></span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
-
-<p>　　实现HanderInterceptor，重写preHandle、postHandle、afterCompletion三个方法，先获取session的用户信息，然后判断是否登录。</p>
-<h2 id="1-2-声明拦截配置类"><a href="#1-2-声明拦截配置类" class="headerlink" title="1.2 声明拦截配置类"></a>1.2 声明拦截配置类</h2><figure class="highlight java"><table><tr><td class="code"><pre><span class="line"><span class="meta">@Configuration</span></span><br><span class="line"><span class="comment">//定义此类为配置文件</span></span><br><span class="line"><span class="keyword">public</span> <span class="class"><span class="keyword">class</span> <span class="title">InterceptorConfig</span> <span class="keyword">implements</span> <span class="title">WebMvcConfigurer</span> </span>&#123;</span><br><span class="line"></span><br><span class="line">    <span class="meta">@Override</span></span><br><span class="line">    <span class="function"><span class="keyword">public</span> <span class="keyword">void</span> <span class="title">addInterceptors</span><span class="params">(InterceptorRegistry registry)</span> </span>&#123;</span><br><span class="line"></span><br><span class="line">        <span class="comment">//要拦截user下的所有访问请求，必须用户登录后才能访问</span></span><br><span class="line">        String[] addPathPatterns = &#123;</span><br><span class="line">            <span class="string">&quot;/user/**&quot;</span></span><br><span class="line">        &#125;;</span><br><span class="line"></span><br><span class="line">        <span class="comment">//排除路径，排除的路径说明不需要用户登录也可以访问</span></span><br><span class="line">        String[] excludePathPatterns = &#123;</span><br><span class="line">            <span class="string">&quot;/user/out&quot;</span>,<span class="string">&quot;/user/error&quot;</span>,<span class="string">&quot;/user/login&quot;</span></span><br><span class="line">        &#125;;</span><br><span class="line"></span><br><span class="line">        registry.addInterceptor(<span class="keyword">new</span> UserInterceptor()).addPathPatterns(addPathPatterns).excludePathPatterns(excludePathPatterns);</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
-
-<p>　　需要实现WebMvcConfigurer，重写addInterceptors方法，在里面配置需要拦截的请求和排除的请求。</p>
-<h2 id="1-3-编写Controller类进行验证"><a href="#1-3-编写Controller类进行验证" class="headerlink" title="1.3 编写Controller类进行验证"></a>1.3 编写Controller类进行验证</h2><figure class="highlight java"><table><tr><td class="code"><pre><span class="line"><span class="meta">@Controller</span></span><br><span class="line"><span class="meta">@RequestMapping(value = &quot;/user&quot;)</span></span><br><span class="line"><span class="keyword">public</span> <span class="class"><span class="keyword">class</span> <span class="title">UserController</span> </span>&#123;</span><br><span class="line"></span><br><span class="line">    <span class="meta">@RequestMapping(value = &quot;/login&quot;)</span></span><br><span class="line">    <span class="keyword">public</span> <span class="meta">@ResponseBody</span> <span class="function">Object <span class="title">login</span><span class="params">(HttpServletRequest request, HttpServletResponse response)</span></span>&#123;</span><br><span class="line">        <span class="comment">//将user用户存入session</span></span><br><span class="line">        User user = <span class="keyword">new</span> User();</span><br><span class="line">        user.setId(<span class="number">1001</span>);</span><br><span class="line">        user.setUsername(<span class="string">&quot;zhangsan&quot;</span>);</span><br><span class="line">        request.getSession().setAttribute(<span class="string">&quot;user&quot;</span>,user);</span><br><span class="line"></span><br><span class="line">        <span class="keyword">return</span> <span class="string">&quot;login SUCCESS&quot;</span>;</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">    <span class="comment">//登录成功才能看到的信息</span></span><br><span class="line">    <span class="meta">@RequestMapping(value = &quot;/center&quot;)</span></span><br><span class="line">    <span class="keyword">public</span> <span class="meta">@ResponseBody</span> <span class="function">Object <span class="title">center</span><span class="params">()</span></span>&#123;</span><br><span class="line">        <span class="keyword">return</span> <span class="string">&quot;See Center Message&quot;</span>;</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">    <span class="comment">//不用登录就能看到的信息</span></span><br><span class="line">    <span class="meta">@RequestMapping(value = &quot;/out&quot;)</span></span><br><span class="line">    <span class="keyword">public</span> <span class="meta">@ResponseBody</span> <span class="function">Object <span class="title">out</span><span class="params">()</span></span>&#123;</span><br><span class="line">        <span class="keyword">return</span> <span class="string">&quot;See Out Message&quot;</span>;</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">    <span class="comment">//如果用户未登录访问了需要登录才可访问的请求，才会出错</span></span><br><span class="line">    <span class="meta">@RequestMapping(value = &quot;/error&quot;)</span></span><br><span class="line">    <span class="keyword">public</span> <span class="meta">@ResponseBody</span> <span class="function">Object <span class="title">error</span><span class="params">()</span></span>&#123;</span><br><span class="line">        <span class="keyword">return</span> <span class="string">&quot;error&quot;</span>;</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
-
-<h1 id="2-在SpringBoot框架下使用Servlet"><a href="#2-在SpringBoot框架下使用Servlet" class="headerlink" title="2.在SpringBoot框架下使用Servlet"></a>2.在SpringBoot框架下使用Servlet</h1><ul>
-<li><p>第一种方式</p>
-<p>在主程序入口处加上@ServletComponentScan注解，然后正常使用@WebServlet注解</p>
-</li>
-<li><p>第二种方式</p>
-<p>使用@Configuration注解定义一个配置类</p>
 </li>
 </ul>
 ]]></content>
@@ -1728,26 +1728,6 @@
       </tags>
   </entry>
   <entry>
-    <title>cloacked-pixel艰难使用</title>
-    <url>/post/387a909.html</url>
-    <content><![CDATA[<p>python2下载安装，安装成功后，尝试使用<a id="more"></a></p>
-<p><img src="https://s3.ax1x.com/2020/11/28/DyZcfU.jpg" alt="DyZcfU.jpg"></p>
-<p>见到没有这个包</p>
-<p>之后开始安装缺少的包</p>
-<figure class="highlight awk"><table><tr><td class="code"><pre><span class="line">pip2 install numpy -i https:<span class="regexp">//</span>pypi.tuna.tsinghua.edu.cn<span class="regexp">/simple/</span></span><br></pre></td></tr></table></figure>
-
-<p>[<img src="https://s3.ax1x.com/2020/11/28/DyZW6J.jpg" alt="DyZW6J.jpg"></p>
-<p>最后终于能够成功使用，拿到flag</p>
-<p><img src="https://s3.ax1x.com/2020/11/28/DyZ6YT.jpg" alt="DyZ6YT.jpg"></p>
-]]></content>
-      <categories>
-        <category>第一届DMCTF夺旗赛</category>
-      </categories>
-      <tags>
-        <tag>cloacked-pixel</tag>
-      </tags>
-  </entry>
-  <entry>
     <title>docker学习</title>
     <url>/post/7fb3659b.html</url>
     <content><![CDATA[<p>　　在学习十次方项目的时候，这个知识点并不了解，找个视频学习总结一下，不得不说，确实比虚拟机好用<a id="more"></a></p>
@@ -1872,6 +1852,26 @@
 ]]></content>
       <tags>
         <tag>docker</tag>
+      </tags>
+  </entry>
+  <entry>
+    <title>cloacked-pixel艰难使用</title>
+    <url>/post/387a909.html</url>
+    <content><![CDATA[<p>python2下载安装，安装成功后，尝试使用<a id="more"></a></p>
+<p><img src="https://s3.ax1x.com/2020/11/28/DyZcfU.jpg" alt="DyZcfU.jpg"></p>
+<p>见到没有这个包</p>
+<p>之后开始安装缺少的包</p>
+<figure class="highlight awk"><table><tr><td class="code"><pre><span class="line">pip2 install numpy -i https:<span class="regexp">//</span>pypi.tuna.tsinghua.edu.cn<span class="regexp">/simple/</span></span><br></pre></td></tr></table></figure>
+
+<p>[<img src="https://s3.ax1x.com/2020/11/28/DyZW6J.jpg" alt="DyZW6J.jpg"></p>
+<p>最后终于能够成功使用，拿到flag</p>
+<p><img src="https://s3.ax1x.com/2020/11/28/DyZ6YT.jpg" alt="DyZ6YT.jpg"></p>
+]]></content>
+      <categories>
+        <category>第一届DMCTF夺旗赛</category>
+      </categories>
+      <tags>
+        <tag>cloacked-pixel</tag>
       </tags>
   </entry>
   <entry>
@@ -2536,6 +2536,23 @@
       </tags>
   </entry>
   <entry>
+    <title>使用IDEA搭建SSM框架</title>
+    <url>/post/e2e0c666.html</url>
+    <content><![CDATA[<p>　　刚学习过SSM，记录一下如何创建项目<a id="more"></a></p>
+<h1 id="IDEA新建项目"><a href="#IDEA新建项目" class="headerlink" title="IDEA新建项目"></a>IDEA新建项目</h1><h2 id="1-创建Maven工程"><a href="#1-创建Maven工程" class="headerlink" title="1.创建Maven工程"></a>1.创建Maven工程</h2><p><img src="https://s3.ax1x.com/2020/11/29/DcELCT.md.jpg" alt="DcELCT.md.jpg"></p>
+<h2 id="2-填写GroupID和ArtifactId"><a href="#2-填写GroupID和ArtifactId" class="headerlink" title="2.填写GroupID和ArtifactId"></a>2.填写GroupID和ArtifactId</h2><p><img src="https://s3.ax1x.com/2020/11/29/DcEO8U.jpg" alt="DcEO8U.jpg"></p>
+<h2 id="3-填写项目名称"><a href="#3-填写项目名称" class="headerlink" title="3.填写项目名称"></a>3.填写项目名称</h2><p><img src="https://s3.ax1x.com/2020/11/29/DcEX2F.md.jpg" alt="DcEX2F.md.jpg"></p>
+<h2 id="4-刚建好的只是一个Maven目录"><a href="#4-刚建好的只是一个Maven目录" class="headerlink" title="4.刚建好的只是一个Maven目录"></a>4.刚建好的只是一个Maven目录</h2><p><img src="https://s3.ax1x.com/2020/11/29/DcEjv4.jpg" alt="DcEjv4.jpg"></p>
+<p>最后再完善目录结构，添加webapp、WEB-INF、web.xml文件就可以了</p>
+]]></content>
+      <categories>
+        <category>javaWeb学习</category>
+      </categories>
+      <tags>
+        <tag>SSM</tag>
+      </tags>
+  </entry>
+  <entry>
     <title>upload-labs</title>
     <url>/post/80f02bc5.html</url>
     <content><![CDATA[<p>　　BBUCTF的upload-labs关卡<a id="more"></a></p>
@@ -2657,23 +2674,6 @@
       </categories>
       <tags>
         <tag>upload-labs</tag>
-      </tags>
-  </entry>
-  <entry>
-    <title>使用IDEA搭建SSM框架</title>
-    <url>/post/e2e0c666.html</url>
-    <content><![CDATA[<p>　　刚学习过SSM，记录一下如何创建项目<a id="more"></a></p>
-<h1 id="IDEA新建项目"><a href="#IDEA新建项目" class="headerlink" title="IDEA新建项目"></a>IDEA新建项目</h1><h2 id="1-创建Maven工程"><a href="#1-创建Maven工程" class="headerlink" title="1.创建Maven工程"></a>1.创建Maven工程</h2><p><img src="https://s3.ax1x.com/2020/11/29/DcELCT.md.jpg" alt="DcELCT.md.jpg"></p>
-<h2 id="2-填写GroupID和ArtifactId"><a href="#2-填写GroupID和ArtifactId" class="headerlink" title="2.填写GroupID和ArtifactId"></a>2.填写GroupID和ArtifactId</h2><p><img src="https://s3.ax1x.com/2020/11/29/DcEO8U.jpg" alt="DcEO8U.jpg"></p>
-<h2 id="3-填写项目名称"><a href="#3-填写项目名称" class="headerlink" title="3.填写项目名称"></a>3.填写项目名称</h2><p><img src="https://s3.ax1x.com/2020/11/29/DcEX2F.md.jpg" alt="DcEX2F.md.jpg"></p>
-<h2 id="4-刚建好的只是一个Maven目录"><a href="#4-刚建好的只是一个Maven目录" class="headerlink" title="4.刚建好的只是一个Maven目录"></a>4.刚建好的只是一个Maven目录</h2><p><img src="https://s3.ax1x.com/2020/11/29/DcEjv4.jpg" alt="DcEjv4.jpg"></p>
-<p>最后再完善目录结构，添加webapp、WEB-INF、web.xml文件就可以了</p>
-]]></content>
-      <categories>
-        <category>javaWeb学习</category>
-      </categories>
-      <tags>
-        <tag>SSM</tag>
       </tags>
   </entry>
   <entry>
@@ -3118,6 +3118,30 @@
       </categories>
   </entry>
   <entry>
+    <title>房租管理系统</title>
+    <url>/post/cedff539.html</url>
+    <content><![CDATA[<p>　　在学校的三级课题实训期间，跟着做的一个基于servlet的项目，通过前后端传实现的增删改查<a id="more"></a></p>
+<h1 id="2-项目演示"><a href="#2-项目演示" class="headerlink" title="2.项目演示"></a>2.项目演示</h1><img src="https://s3.ax1x.com/2021/01/11/s1zZKf.png" alt="s1zZKf.png" style="zoom: 50%;" />
+
+<img src="https://s3.ax1x.com/2021/01/11/s1zA2t.png" alt="s1zA2t.png" style="zoom: 50%;" />
+
+<img src="https://s3.ax1x.com/2021/01/11/s1zmqS.png" alt="s1zmqS.png" style="zoom: 33%;" />
+
+<img src="https://s3.ax1x.com/2021/01/11/s1zer8.png" alt="s1zer8.png" style="zoom: 50%;" />
+
+<img src="https://s3.ax1x.com/2021/01/11/s1zExP.png" alt="s1zExP.png" style="zoom:50%;" />
+
+<h1 id="3-CRUD功能实现"><a href="#3-CRUD功能实现" class="headerlink" title="3.CRUD功能实现"></a>3.CRUD功能实现</h1><h2 id="3-1-添加用户功能"><a href="#3-1-添加用户功能" class="headerlink" title="3.1 添加用户功能"></a>3.1 添加用户功能</h2><p>username，idnumber，tel，sex，registertime拿到也页面的参数数据，之后让dao层和service层发生联系，这时候可以定义一个boolean类型来保证不会重复添加同一个人</p>
+<figure class="highlight java"><table><tr><td class="code"><pre><span class="line"><span class="comment">//增加用户</span></span><br><span class="line"><span class="function"><span class="keyword">private</span> <span class="keyword">void</span> <span class="title">insert</span><span class="params">(HttpServletRequest req, HttpServletResponse resp)</span> </span>&#123;</span><br><span class="line">    String username = req.getParameter(<span class="string">&quot;username&quot;</span>);</span><br><span class="line">    String idnumber = req.getParameter(<span class="string">&quot;idnumber&quot;</span>);</span><br><span class="line">    String tel = req.getParameter(<span class="string">&quot;tel&quot;</span>);</span><br><span class="line">    String sex = req.getParameter(<span class="string">&quot;sex&quot;</span>);</span><br><span class="line">    String registertime = req.getParameter(<span class="string">&quot;registertime&quot;</span>);</span><br><span class="line"></span><br><span class="line">    <span class="comment">//是否获得数据</span></span><br><span class="line">    System.out.println(username + idnumber + tel + sex + registertime + <span class="string">&quot;租户新增&quot;</span>);</span><br><span class="line"></span><br><span class="line">    RentUserService service = <span class="keyword">new</span> RentUserServiceImpl();</span><br><span class="line">    <span class="keyword">boolean</span> f = service.duplicate(idnumber);</span><br><span class="line">    <span class="comment">//输出是否是获得f值</span></span><br><span class="line">    System.out.println(f);</span><br><span class="line">    HttpSession session = req.getSession();</span><br><span class="line">    <span class="comment">//如果是真，已存在该用户，不能新增</span></span><br><span class="line">    <span class="keyword">if</span> (f) &#123;</span><br><span class="line">        session.setAttribute(<span class="string">&quot;err&quot;</span>, <span class="string">&quot;该用户已存在&quot;</span>);</span><br><span class="line">        <span class="keyword">try</span> &#123;</span><br><span class="line">            <span class="comment">//重新输入</span></span><br><span class="line">            resp.sendRedirect(<span class="string">&quot;/XX/view/rentUser/edit.jsp&quot;</span>);</span><br><span class="line">        &#125; <span class="keyword">catch</span> (IOException e) &#123;</span><br><span class="line">            e.printStackTrace();</span><br><span class="line">        &#125;</span><br><span class="line">        <span class="keyword">return</span>;</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+
+
+]]></content>
+      <categories>
+        <category>JavaWeb项目</category>
+      </categories>
+  </entry>
+  <entry>
     <title>提交代码到GitHub</title>
     <url>/post/a2535634.html</url>
     <content><![CDATA[<p>　　如何将Idea里面创建的项目提交到GitHub，在Gitee上操作大同小异。<a id="more"></a></p>
@@ -3193,30 +3217,6 @@
 <p>如果同一个文件在合并分支时都被修改了则会引起冲突：解决的办法是我们可以修改冲突文件后重新提交！选择要保留他的代码还是你的代码！</p>
 <p>master主分支应该非常稳定，用来发布新版本，一般情况下不允许在上面工作，工作一般情况下在新建的dev分支上工作，工作完后，比如上要发布，或者说dev分支代码稳定后可以合并到主分支master上来。</p>
 ]]></content>
-  </entry>
-  <entry>
-    <title>房租管理系统</title>
-    <url>/post/cedff539.html</url>
-    <content><![CDATA[<p>　　在学校的三级课题实训期间，跟着做的一个基于servlet的项目，通过前后端传实现的增删改查<a id="more"></a></p>
-<h1 id="2-项目演示"><a href="#2-项目演示" class="headerlink" title="2.项目演示"></a>2.项目演示</h1><img src="https://s3.ax1x.com/2021/01/11/s1zZKf.png" alt="s1zZKf.png" style="zoom: 50%;" />
-
-<img src="https://s3.ax1x.com/2021/01/11/s1zA2t.png" alt="s1zA2t.png" style="zoom: 50%;" />
-
-<img src="https://s3.ax1x.com/2021/01/11/s1zmqS.png" alt="s1zmqS.png" style="zoom: 33%;" />
-
-<img src="https://s3.ax1x.com/2021/01/11/s1zer8.png" alt="s1zer8.png" style="zoom: 50%;" />
-
-<img src="https://s3.ax1x.com/2021/01/11/s1zExP.png" alt="s1zExP.png" style="zoom:50%;" />
-
-<h1 id="3-CRUD功能实现"><a href="#3-CRUD功能实现" class="headerlink" title="3.CRUD功能实现"></a>3.CRUD功能实现</h1><h2 id="3-1-添加用户功能"><a href="#3-1-添加用户功能" class="headerlink" title="3.1 添加用户功能"></a>3.1 添加用户功能</h2><p>username，idnumber，tel，sex，registertime拿到也页面的参数数据，之后让dao层和service层发生联系，这时候可以定义一个boolean类型来保证不会重复添加同一个人</p>
-<figure class="highlight java"><table><tr><td class="code"><pre><span class="line"><span class="comment">//增加用户</span></span><br><span class="line"><span class="function"><span class="keyword">private</span> <span class="keyword">void</span> <span class="title">insert</span><span class="params">(HttpServletRequest req, HttpServletResponse resp)</span> </span>&#123;</span><br><span class="line">    String username = req.getParameter(<span class="string">&quot;username&quot;</span>);</span><br><span class="line">    String idnumber = req.getParameter(<span class="string">&quot;idnumber&quot;</span>);</span><br><span class="line">    String tel = req.getParameter(<span class="string">&quot;tel&quot;</span>);</span><br><span class="line">    String sex = req.getParameter(<span class="string">&quot;sex&quot;</span>);</span><br><span class="line">    String registertime = req.getParameter(<span class="string">&quot;registertime&quot;</span>);</span><br><span class="line"></span><br><span class="line">    <span class="comment">//是否获得数据</span></span><br><span class="line">    System.out.println(username + idnumber + tel + sex + registertime + <span class="string">&quot;租户新增&quot;</span>);</span><br><span class="line"></span><br><span class="line">    RentUserService service = <span class="keyword">new</span> RentUserServiceImpl();</span><br><span class="line">    <span class="keyword">boolean</span> f = service.duplicate(idnumber);</span><br><span class="line">    <span class="comment">//输出是否是获得f值</span></span><br><span class="line">    System.out.println(f);</span><br><span class="line">    HttpSession session = req.getSession();</span><br><span class="line">    <span class="comment">//如果是真，已存在该用户，不能新增</span></span><br><span class="line">    <span class="keyword">if</span> (f) &#123;</span><br><span class="line">        session.setAttribute(<span class="string">&quot;err&quot;</span>, <span class="string">&quot;该用户已存在&quot;</span>);</span><br><span class="line">        <span class="keyword">try</span> &#123;</span><br><span class="line">            <span class="comment">//重新输入</span></span><br><span class="line">            resp.sendRedirect(<span class="string">&quot;/XX/view/rentUser/edit.jsp&quot;</span>);</span><br><span class="line">        &#125; <span class="keyword">catch</span> (IOException e) &#123;</span><br><span class="line">            e.printStackTrace();</span><br><span class="line">        &#125;</span><br><span class="line">        <span class="keyword">return</span>;</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
-
-
-
-]]></content>
-      <categories>
-        <category>JavaWeb项目</category>
-      </categories>
   </entry>
   <entry>
     <title>数据结构</title>
