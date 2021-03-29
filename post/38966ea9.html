@@ -1,0 +1,531 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+  <meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=2">
+<meta name="theme-color" content="#222">
+<meta name="generator" content="Hexo 5.2.0">
+
+
+  <link rel="apple-touch-icon" sizes="180x180" href="/images/apple-touch-icon-next.png">
+  <link rel="icon" type="image/png" sizes="32x32" href="/images/favicon-32x32-next.png">
+  <link rel="icon" type="image/png" sizes="16x16" href="/images/favicon-16x16-next.png">
+  <link rel="mask-icon" href="/images/logo.svg" color="#222">
+
+<link rel="stylesheet" href="/css/main.css">
+
+
+
+<link rel="stylesheet" href="//cdn.jsdelivr.net/npm/@fortawesome/fontawesome-free@5.15.1/css/all.min.css">
+  <link rel="stylesheet" href="//cdn.jsdelivr.net/npm/animate.css@3.1.1/animate.min.css">
+
+<script class="hexo-configurations">
+    var NexT = window.NexT || {};
+    var CONFIG = {"hostname":"qnjy.github.io","root":"/","images":"/images","scheme":"Gemini","version":"8.0.2","exturl":false,"sidebar":{"position":"left","display":"post","padding":18,"offset":12},"copycode":true,"bookmark":{"enable":true,"color":"#222","save":"auto"},"fancybox":false,"mediumzoom":false,"lazyload":false,"pangu":false,"comments":{"style":"tabs","active":null,"storage":true,"lazyload":false,"nav":null},"motion":{"enable":true,"async":false,"transition":{"post_block":"fadeIn","post_header":"fadeInDown","post_body":"fadeInDown","coll_header":"fadeInLeft","sidebar":"fadeInUp"}},"prism":false,"i18n":{"placeholder":"搜索...","empty":"没有找到任何搜索结果：${query}","hits_time":"找到 ${hits} 个搜索结果（用时 ${time} 毫秒）","hits":"找到 ${hits} 个搜索结果"},"path":"/search.xml","localsearch":{"enable":true,"trigger":"auto","top_n_per_article":1,"unescape":false,"preload":false}};
+  </script>
+
+  <meta name="description" content="关于mysql数据库的一些常用语句">
+<meta property="og:type" content="article">
+<meta property="og:title" content="mysql常用操作">
+<meta property="og:url" content="https://qnjy.github.io/post/38966ea9.html">
+<meta property="og:site_name" content="qnjy&#39;s blog">
+<meta property="og:description" content="关于mysql数据库的一些常用语句">
+<meta property="og:locale" content="zh_CN">
+<meta property="article:published_time" content="2020-12-13T02:24:39.000Z">
+<meta property="article:modified_time" content="2021-01-18T13:50:37.537Z">
+<meta property="article:author" content="qnjy">
+<meta property="article:tag" content="MySQL">
+<meta name="twitter:card" content="summary">
+
+
+<link rel="canonical" href="https://qnjy.github.io/post/38966ea9.html">
+
+
+<script class="page-configurations">
+  // https://hexo.io/docs/variables.html
+  CONFIG.page = {
+    sidebar: "",
+    isHome : false,
+    isPost : true,
+    lang   : 'zh-CN'
+  };
+</script>
+
+  <title>mysql常用操作 | qnjy's blog</title>
+  
+
+
+
+
+
+
+  <noscript>
+  <style>
+  body { margin-top: 2rem; }
+
+  .use-motion .menu-item,
+  .use-motion .sidebar,
+  .use-motion .post-block,
+  .use-motion .pagination,
+  .use-motion .comments,
+  .use-motion .post-header,
+  .use-motion .post-body,
+  .use-motion .collection-header {
+    visibility: visible;
+  }
+
+  .use-motion .header,
+  .use-motion .site-brand-container .toggle,
+  .use-motion .footer { opacity: initial; }
+
+  .use-motion .site-title,
+  .use-motion .site-subtitle,
+  .use-motion .custom-logo-image {
+    opacity: initial;
+    top: initial;
+  }
+
+  .use-motion .logo-line {
+    transform: scaleX(1);
+  }
+
+  .search-pop-overlay, .sidebar-nav { display: none; }
+  .sidebar-panel { display: block; }
+  </style>
+</noscript>
+
+</head>
+
+<body itemscope itemtype="http://schema.org/WebPage" class="use-motion">
+  <div class="headband"></div>
+
+  <main class="main">
+    <header class="header" itemscope itemtype="http://schema.org/WPHeader">
+      <div class="header-inner"><div class="site-brand-container">
+  <div class="site-nav-toggle">
+    <div class="toggle" aria-label="切换导航栏">
+        <span class="toggle-line"></span>
+        <span class="toggle-line"></span>
+        <span class="toggle-line"></span>
+    </div>
+  </div>
+
+  <div class="site-meta">
+
+    <a href="/" class="brand" rel="start">
+      <i class="logo-line"></i>
+      <h1 class="site-title">qnjy's blog</h1>
+      <i class="logo-line"></i>
+    </a>
+      <p class="site-subtitle" itemprop="description">方向不对，努力白费</p>
+  </div>
+
+  <div class="site-nav-right">
+    <div class="toggle popup-trigger">
+        <i class="fa fa-search fa-fw fa-lg"></i>
+    </div>
+  </div>
+</div>
+
+
+
+<nav class="site-nav">
+  <ul class="main-menu menu">
+        <li class="menu-item menu-item-home">
+
+    <a href="/" rel="section"><i class="fa fa-home fa-fw"></i>首页</a>
+
+  </li>
+        <li class="menu-item menu-item-tags">
+
+    <a href="/tags/" rel="section"><i class="fa fa-tags fa-fw"></i>标签</a>
+
+  </li>
+        <li class="menu-item menu-item-categories">
+
+    <a href="/categories/" rel="section"><i class="fa fa-th fa-fw"></i>分类</a>
+
+  </li>
+        <li class="menu-item menu-item-archives">
+
+    <a href="/archives/" rel="section"><i class="fa fa-archive fa-fw"></i>归档</a>
+
+  </li>
+      <li class="menu-item menu-item-search">
+        <a role="button" class="popup-trigger"><i class="fa fa-search fa-fw"></i>搜索
+        </a>
+      </li>
+  </ul>
+</nav>
+
+
+
+  <div class="search-pop-overlay">
+    <div class="popup search-popup">
+        <div class="search-header">
+  <span class="search-icon">
+    <i class="fa fa-search"></i>
+  </span>
+  <div class="search-input-container">
+    <input autocomplete="off" autocapitalize="off" maxlength="80"
+           placeholder="搜索..." spellcheck="false"
+           type="search" class="search-input">
+  </div>
+  <span class="popup-btn-close">
+    <i class="fa fa-times-circle"></i>
+  </span>
+</div>
+<div class="search-result-container no-result">
+  <div class="search-result-icon">
+    <i class="fa fa-spinner fa-pulse fa-5x"></i>
+  </div>
+</div>
+
+    </div>
+  </div>
+
+</div>
+        
+  
+  <div class="toggle sidebar-toggle">
+    <span class="toggle-line"></span>
+    <span class="toggle-line"></span>
+    <span class="toggle-line"></span>
+  </div>
+
+  <aside class="sidebar">
+
+    <div class="sidebar-inner sidebar-nav-active sidebar-toc-active">
+      <ul class="sidebar-nav">
+        <li class="sidebar-nav-toc">
+          文章目录
+        </li>
+        <li class="sidebar-nav-overview">
+          站点概览
+        </li>
+      </ul>
+
+      <div class="sidebar-panel-container">
+        <!--noindex-->
+        <section class="post-toc-wrap sidebar-panel">
+            <div class="post-toc animated"><ol class="nav"><li class="nav-item nav-level-1"><a class="nav-link" href="#1-%E6%95%B0%E6%8D%AE%E5%BA%93"><span class="nav-text">1.数据库</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#2-%E8%A1%A8"><span class="nav-text">2.表</span></a><ol class="nav-child"><li class="nav-item nav-level-2"><a class="nav-link" href="#2-1%E8%A1%A8%E7%9A%84%E7%BB%93%E6%9E%84"><span class="nav-text">2.1表的结构</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#2-2%E8%A1%A8%E7%9A%84%E6%95%B0%E6%8D%AE"><span class="nav-text">2.2表的数据</span></a></li></ol></li><li class="nav-item nav-level-1"><a class="nav-link" href="#3-%E9%94%AE"><span class="nav-text">3.键</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#4-%E8%A7%86%E5%9B%BE"><span class="nav-text">4.视图</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#5-%E8%81%94%E6%8E%A5"><span class="nav-text">5.联接</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#6-%E7%94%A8%E6%88%B7"><span class="nav-text">6.用户</span></a></li></ol></div>
+        </section>
+        <!--/noindex-->
+
+        <section class="site-overview-wrap sidebar-panel">
+          <div class="site-author site-overview-item animated" itemprop="author" itemscope itemtype="http://schema.org/Person">
+    <img class="site-author-image" itemprop="image" alt="qnjy"
+      src="/images/xigua.jpg">
+  <p class="site-author-name" itemprop="name">qnjy</p>
+  <div class="site-description" itemprop="description">宁静以致远</div>
+</div>
+<div class="site-state-wrap site-overview-item animated">
+  <nav class="site-state">
+      <div class="site-state-item site-state-posts">
+          <a href="/archives/">
+        
+          <span class="site-state-item-count">50</span>
+          <span class="site-state-item-name">日志</span>
+        </a>
+      </div>
+      <div class="site-state-item site-state-categories">
+            <a href="/categories/">
+          
+        <span class="site-state-item-count">17</span>
+        <span class="site-state-item-name">分类</span></a>
+      </div>
+      <div class="site-state-item site-state-tags">
+            <a href="/tags/">
+          
+        <span class="site-state-item-count">29</span>
+        <span class="site-state-item-name">标签</span></a>
+      </div>
+  </nav>
+</div>
+  <div class="links-of-author site-overview-item animated">
+      <span class="links-of-author-item">
+        <a href="https://github.com/qnjy" title="GitHub → https:&#x2F;&#x2F;github.com&#x2F;qnjy" rel="noopener" target="_blank"><i class="fab fa-github fa-fw"></i>GitHub</a>
+      </span>
+      <span class="links-of-author-item">
+        <a href="mailto:877900490@qq.com" title="E-Mail → mailto:877900490@qq.com" rel="noopener" target="_blank"><i class="fa fa-envelope fa-fw"></i>E-Mail</a>
+      </span>
+  </div>
+  <div class="cc-license site-overview-item animated" itemprop="license">
+    <a href="https://creativecommons.org/licenses/by-nc-sa/4.0/zh-CN" class="cc-opacity" rel="noopener" target="_blank"><img src="/images/cc-by-nc-sa.svg" alt="Creative Commons"></a>
+  </div>
+
+
+
+        </section>
+      </div>
+
+    </div>
+  </aside>
+  <div class="sidebar-dimmer"></div>
+
+
+    </header>
+
+    
+  <div class="back-to-top">
+    <i class="fa fa-arrow-up"></i>
+    <span>0%</span>
+  </div>
+  <div class="reading-progress-bar"></div>
+  <a role="button" class="book-mark-link book-mark-link-fixed"></a>
+
+<noscript>
+  <div class="noscript-warning">Theme NexT works best with JavaScript enabled</div>
+</noscript>
+
+
+    <div class="main-inner post posts-expand">
+      
+
+      
+
+  
+
+
+<div class="post-block">
+  
+  
+
+  <article itemscope itemtype="http://schema.org/Article" class="post-content" lang="zh-CN">
+    <link itemprop="mainEntityOfPage" href="https://qnjy.github.io/post/38966ea9.html">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="image" content="/images/xigua.jpg">
+      <meta itemprop="name" content="qnjy">
+      <meta itemprop="description" content="宁静以致远">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="qnjy's blog">
+    </span>
+      <header class="post-header">
+        <h1 class="post-title" itemprop="name headline">
+          mysql常用操作
+        </h1>
+
+        <div class="post-meta-container">
+          <div class="post-meta">
+    <span class="post-meta-item">
+      <span class="post-meta-item-icon">
+        <i class="far fa-calendar"></i>
+      </span>
+      <span class="post-meta-item-text">发表于</span>
+
+      <time title="创建时间：2020-12-13 10:24:39" itemprop="dateCreated datePublished" datetime="2020-12-13T10:24:39+08:00">2020-12-13</time>
+    </span>
+      <span class="post-meta-item">
+        <span class="post-meta-item-icon">
+          <i class="far fa-calendar-check"></i>
+        </span>
+        <span class="post-meta-item-text">更新于</span>
+        <time title="修改时间：2021-01-18 21:50:37" itemprop="dateModified" datetime="2021-01-18T21:50:37+08:00">2021-01-18</time>
+      </span>
+    <span class="post-meta-item">
+      <span class="post-meta-item-icon">
+        <i class="far fa-folder"></i>
+      </span>
+      <span class="post-meta-item-text">分类于</span>
+        <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
+          <a href="/categories/mysql%E5%AD%A6%E4%B9%A0/" itemprop="url" rel="index"><span itemprop="name">mysql学习</span></a>
+        </span>
+    </span>
+
+  
+    <span class="post-meta-item" title="阅读次数" id="busuanzi_container_page_pv" style="display: none;">
+      <span class="post-meta-item-icon">
+        <i class="far fa-eye"></i>
+      </span>
+      <span class="post-meta-item-text">阅读次数：</span>
+      <span id="busuanzi_value_page_pv"></span>
+    </span>
+</div>
+
+        </div>
+      </header>
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+        <p>　　关于mysql数据库的一些常用语句<a id="more"></a></p>
+<h1 id="1-数据库"><a href="#1-数据库" class="headerlink" title="1.数据库"></a>1.数据库</h1><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br></pre></td><td class="code"><pre><span class="line"># 查看所有的数据库</span><br><span class="line">SHOW DATABASES ;</span><br><span class="line"># 创建一个数据库</span><br><span class="line">CREATE DATABASE k;</span><br><span class="line"># 删除一个数据库</span><br><span class="line">DROP DATABASE k;</span><br><span class="line"># 使用这个数据库</span><br><span class="line">USE k;</span><br></pre></td></tr></table></figure>
+
+<h1 id="2-表"><a href="#2-表" class="headerlink" title="2.表"></a>2.表</h1><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br></pre></td><td class="code"><pre><span class="line"># 查看所有的表</span><br><span class="line">SHOW TABLES ;</span><br><span class="line"># 创建一个表</span><br><span class="line">CREATE TABLE n(id INT, name VARCHAR(10));</span><br><span class="line">CREATE TABLE m(id INT, name VARCHAR(10), PRIMARY KEY (id), FOREIGN KEY (id) REFERENCES n(id), UNIQUE (name));</span><br><span class="line">CREATE TABLE m(id INT, name VARCHAR(10));</span><br><span class="line"># 直接将查询结果导入或复制到新创建的表</span><br><span class="line">CREATE TABLE n SELECT * FROM m;</span><br><span class="line"># 新创建的表与一个存在的表的数据结构类似</span><br><span class="line">CREATE TABLE m LIKE n;</span><br><span class="line"># 创建一个临时表</span><br><span class="line"># 临时表将在你连接MySQL期间存在。当断开连接时，MySQL将自动删除表并释放所用的空间。也可手动删除。</span><br><span class="line">CREATE TEMPORARY TABLE l(id INT, name VARCHAR(10));</span><br><span class="line"># 直接将查询结果导入或复制到新创建的临时表</span><br><span class="line">CREATE TEMPORARY TABLE tt SELECT * FROM n;</span><br><span class="line"># 删除一个存在表</span><br><span class="line">DROP TABLE IF EXISTS m;</span><br><span class="line"># 更改存在表的名称</span><br><span class="line">ALTER TABLE n RENAME m;</span><br><span class="line">RENAME TABLE n TO m;</span><br><span class="line"># 查看表的结构(以下五条语句效果相同）</span><br><span class="line">DESC n;   # 因为简单，所以建议使用</span><br><span class="line">DESCRIBE n;</span><br><span class="line">SHOW COLUMNS IN n;</span><br><span class="line">SHOW COLUMNS FROM n;</span><br><span class="line">EXPLAIN n;</span><br><span class="line"># 查看表的创建语句</span><br><span class="line">SHOW CREATE TABLE n;</span><br></pre></td></tr></table></figure>
+
+<h2 id="2-1表的结构"><a href="#2-1表的结构" class="headerlink" title="2.1表的结构"></a>2.1表的结构</h2><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br></pre></td><td class="code"><pre><span class="line">#添加字段</span><br><span class="line">alter table n add age varchar(2);</span><br><span class="line">#删除字段</span><br><span class="line">alter table n drop age;</span><br><span class="line">#更改字段属性和属性</span><br><span class="line">alter table n change age a int;</span><br><span class="line">#只更改字段属性</span><br><span class="line">alter table n modify age varchar(7)</span><br><span class="line">#已有字段设置默认值</span><br><span class="line">alter table n add column_name drop default;#若已有默认值，先删除</span><br><span class="line">alter table n alter column column_name set default(x);</span><br></pre></td></tr></table></figure>
+
+<h2 id="2-2表的数据"><a href="#2-2表的数据" class="headerlink" title="2.2表的数据"></a>2.2表的数据</h2><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br></pre></td><td class="code"><pre><span class="line">#增加数据</span><br><span class="line">insert into n values (1,&#39;tom&#39;,&#39;23&#39;),(2,&#39;johin&#39;,&#39;22&#39;)</span><br><span class="line">inster into n select * from n;</span><br><span class="line">#删除数据</span><br><span class="line">delete from n where id &#x3D; 2;</span><br><span class="line">#更改数据</span><br><span class="line">update n set name &#x3D; &#39;tom&#39; where id &#x3D; 2;</span><br><span class="line">#数据查找</span><br><span class="line">select * from n where name like &#39;%h%&#39;;</span><br><span class="line">#数据排序（反序）</span><br><span class="line">select * from n order by name, id desc;</span><br></pre></td></tr></table></figure>
+
+<h1 id="3-键"><a href="#3-键" class="headerlink" title="3.键"></a>3.键</h1><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br></pre></td><td class="code"><pre><span class="line">#添加主键</span><br><span class="line">alter table n add primary key (id);</span><br><span class="line">alter table n add constraint pk_n primary key (id);</span><br><span class="line">#删除主键</span><br><span class="line">alter table n drop primary key;</span><br><span class="line">#添加外键</span><br><span class="line">alter table m add foreign key (id) references n (id)#自动生成键名m_ibfk_1</span><br><span class="line">ALTER TABLE m ADD CONSTRAINT fk_id FOREIGN KEY (id) REFERENCES n(id);   # 使用定义的键名fk_id</span><br><span class="line">#删除外键</span><br><span class="line">alter table m drop foreign key &#39;fk_id&#39;</span><br><span class="line">#修改外键</span><br><span class="line">ALTER TABLE m DROP FOREIGN KEY &#96;fk_id&#96;, ADD CONSTRAINT fk_id2 FOREIGN KEY (id) REFERENCES n(id);    # 删除之后从新建</span><br><span class="line">#添加唯一键</span><br><span class="line">ALTER TABLE n ADD UNIQUE (name);</span><br><span class="line">ALTER TABLE n ADD UNIQUE u_name (name);</span><br><span class="line">ALTER TABLE n ADD UNIQUE INDEX u_name (name);</span><br><span class="line">ALTER TABLE n ADD CONSTRAINT u_name UNIQUE (name);</span><br><span class="line">CREATE UNIQUE INDEX u_name ON n(name);</span><br><span class="line"># 添加索引</span><br><span class="line">ALTER TABLE n ADD INDEX (age);</span><br><span class="line">ALTER TABLE n ADD INDEX i_age (age);</span><br><span class="line">CREATE INDEX i_age ON n(age);</span><br><span class="line"># 删除索引或唯一键</span><br><span class="line">DROP INDEX u_name ON n;</span><br><span class="line">DROP INDEX i_age ON n;</span><br></pre></td></tr></table></figure>
+
+<h1 id="4-视图"><a href="#4-视图" class="headerlink" title="4.视图"></a>4.视图</h1><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br></pre></td><td class="code"><pre><span class="line"># 创建视图</span><br><span class="line">CREATE VIEW v AS SELECT id, name FROM n;</span><br><span class="line">CREATE VIEW v(id, name) AS SELECT id, name FROM n;</span><br><span class="line"># 查看视图(与表操作类似)</span><br><span class="line">SELECT * FROM v;</span><br><span class="line">DESC v;</span><br><span class="line"># 查看创建视图语句</span><br><span class="line">SHOW CREATE VIEW v;</span><br><span class="line"># 更改视图</span><br><span class="line">CREATE OR REPLACE VIEW v AS SELECT name, age FROM n;</span><br><span class="line">ALTER VIEW v AS SELECT name FROM n ;</span><br><span class="line"># 删除视图</span><br><span class="line">DROP VIEW IF EXISTS v;</span><br></pre></td></tr></table></figure>
+
+<h1 id="5-联接"><a href="#5-联接" class="headerlink" title="5.联接"></a>5.联接</h1><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br></pre></td><td class="code"><pre><span class="line"># 内联接</span><br><span class="line">SELECT * FROM m INNER JOIN n ON m.id &#x3D; n.id;</span><br><span class="line"># 左外联接</span><br><span class="line">SELECT * FROM m LEFT JOIN n ON m.id &#x3D; n.id;</span><br><span class="line"># 右外联接</span><br><span class="line">SELECT * FROM m RIGHT JOIN n ON m.id &#x3D; n.id;</span><br><span class="line"># 交叉联接</span><br><span class="line">SELECT * FROM m CROSS JOIN n;   # 标准写法</span><br><span class="line">SELECT * FROM m, n;</span><br><span class="line"># 类似全连接full join的联接用法</span><br><span class="line">SELECT id,name FROM m</span><br><span class="line">UNION</span><br><span class="line">SELECT id,name FROM n;</span><br></pre></td></tr></table></figure>
+
+<h1 id="6-用户"><a href="#6-用户" class="headerlink" title="6.用户"></a>6.用户</h1><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br></pre></td><td class="code"><pre><span class="line"></span><br><span class="line"># 增加用户</span><br><span class="line">CREATE USER &#39;test&#39;@&#39;localhost&#39; IDENTIFIED BY &#39;test&#39;;</span><br><span class="line">INSERT INTO mysql.user(Host, User, Password) VALUES (&#39;localhost&#39;, &#39;test&#39;, Password(&#39;test&#39;));    # 在用户表中插入用户信息，直接操作User表不推荐</span><br><span class="line"># 删除用户</span><br><span class="line">DROP USER &#39;test&#39;@&#39;localhost&#39;;</span><br><span class="line">DELETE FROM mysql.user WHERE User&#x3D;&#39;test&#39; AND Host&#x3D;&#39;localhost&#39;;</span><br><span class="line">FLUSH PRIVILEGES ;</span><br><span class="line"># 更改用户密码</span><br><span class="line">SET PASSWORD FOR &#39;test&#39;@&#39;localhost&#39; &#x3D; PASSWORD(&#39;test&#39;);</span><br><span class="line">UPDATE mysql.user SET Password&#x3D;Password(&#39;t&#39;) WHERE User&#x3D;&#39;test&#39; AND Host&#x3D;&#39;localhost&#39;;</span><br><span class="line">FLUSH PRIVILEGES ;</span><br><span class="line"># 用户授权</span><br><span class="line">GRANT ALL PRIVILEGES ON *.* TO test@localhost IDENTIFIED BY &#39;test&#39;;</span><br><span class="line"># 授予用&#39;test&#39;密码登陆成功的test@localhost用户操作所有数据库的所有表的所有的权限</span><br><span class="line">FLUSH PRIVILEGES ;   # 刷新系统权限表,使授予权限生效</span><br><span class="line"># 撤销用户授权</span><br><span class="line">REVOKE DELETE ON *.* FROM &#39;test&#39;@&#39;localhost&#39;;   # 取消该用户的删除权限</span><br></pre></td></tr></table></figure>
+    </div>
+
+    
+    
+    
+
+    <footer class="post-footer">
+          <div class="reward-container">
+  <div>Buy me a coffee</div>
+  <button onclick="document.querySelector('.post-reward').classList.toggle('active');">
+    赞赏
+  </button>
+  <div class="post-reward">
+      <div>
+        <img src="/images/wechatpay.jpg" alt="qnjy 微信">
+        <span>微信</span>
+      </div>
+      <div>
+        <img src="/images/alipay.jpg" alt="qnjy 支付宝">
+        <span>支付宝</span>
+      </div>
+
+  </div>
+</div>
+
+          <div class="post-tags">
+              <a href="/tags/MySQL/" rel="tag"><i class="fa fa-tag"></i> MySQL</a>
+          </div>
+
+        
+
+          <div class="post-nav">
+            <div class="post-nav-item">
+                <a href="/post/f1926f41.html" rel="prev" title="IDEA新建Web项目">
+                  <i class="fa fa-chevron-left"></i> IDEA新建Web项目
+                </a>
+            </div>
+            <div class="post-nav-item">
+                <a href="/post/cb9bdb06.html" rel="next" title="Java集合继承结构">
+                  Java集合继承结构 <i class="fa fa-chevron-right"></i>
+                </a>
+            </div>
+          </div>
+    </footer>
+  </article>
+</div>
+
+
+
+
+
+
+      
+
+<script>
+  window.addEventListener('tabs:register', () => {
+    let { activeClass } = CONFIG.comments;
+    if (CONFIG.comments.storage) {
+      activeClass = localStorage.getItem('comments_active') || activeClass;
+    }
+    if (activeClass) {
+      const activeTab = document.querySelector(`a[href="#comment-${activeClass}"]`);
+      if (activeTab) {
+        activeTab.click();
+      }
+    }
+  });
+  if (CONFIG.comments.storage) {
+    window.addEventListener('tabs:click', event => {
+      if (!event.target.matches('.tabs-comment .tab-content .tab-pane')) return;
+      const commentClass = event.target.classList[1];
+      localStorage.setItem('comments_active', commentClass);
+    });
+  }
+</script>
+
+    </div>
+  </main>
+
+  <footer class="footer">
+    <div class="footer-inner">
+      
+
+      
+
+<div class="copyright">
+  
+  &copy; 2020 – 
+  <span itemprop="copyrightYear">2021</span>
+  <span class="with-love">
+    <i class="fa fa-heart"></i>
+  </span>
+  <span class="author" itemprop="copyrightHolder">qnjy</span>
+</div>
+<div class="busuanzi-count">
+    <span class="post-meta-item" id="busuanzi_container_site_uv" style="display: none;">
+      <span class="post-meta-item-icon">
+        <i class="fa fa-user"></i>
+      </span>
+      <span class="site-uv" title="总访客量">
+        <span id="busuanzi_value_site_uv"></span>
+      </span>
+    </span>
+    <span class="post-meta-item" id="busuanzi_container_site_pv" style="display: none;">
+      <span class="post-meta-item-icon">
+        <i class="fa fa-eye"></i>
+      </span>
+      <span class="site-pv" title="总访问量">
+        <span id="busuanzi_value_site_pv"></span>
+      </span>
+    </span>
+</div>
+
+    </div>
+  </footer>
+
+  
+  <script src="//cdn.jsdelivr.net/npm/animejs@3.2.1/lib/anime.min.js"></script>
+<script src="/js/utils.js"></script><script src="/js/motion.js"></script><script src="/js/next-boot.js"></script><script src="/js/bookmark.js"></script>
+
+  
+
+
+
+
+  <script src="/js/local-search.js"></script>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+  
+  <script async src="https://busuanzi.ibruce.info/busuanzi/2.3/busuanzi.pure.mini.js"></script>
+
+
+
+
+
+
+
+
+  
+
+  
+
+
+
+
+
+</body>
+</html>

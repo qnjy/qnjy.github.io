@@ -1,0 +1,559 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+  <meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=2">
+<meta name="theme-color" content="#222">
+<meta name="generator" content="Hexo 5.2.0">
+
+
+  <link rel="apple-touch-icon" sizes="180x180" href="/images/apple-touch-icon-next.png">
+  <link rel="icon" type="image/png" sizes="32x32" href="/images/favicon-32x32-next.png">
+  <link rel="icon" type="image/png" sizes="16x16" href="/images/favicon-16x16-next.png">
+  <link rel="mask-icon" href="/images/logo.svg" color="#222">
+
+<link rel="stylesheet" href="/css/main.css">
+
+
+
+<link rel="stylesheet" href="//cdn.jsdelivr.net/npm/@fortawesome/fontawesome-free@5.15.1/css/all.min.css">
+  <link rel="stylesheet" href="//cdn.jsdelivr.net/npm/animate.css@3.1.1/animate.min.css">
+
+<script class="hexo-configurations">
+    var NexT = window.NexT || {};
+    var CONFIG = {"hostname":"qnjy.github.io","root":"/","images":"/images","scheme":"Gemini","version":"8.0.2","exturl":false,"sidebar":{"position":"left","display":"post","padding":18,"offset":12},"copycode":true,"bookmark":{"enable":true,"color":"#222","save":"auto"},"fancybox":false,"mediumzoom":false,"lazyload":false,"pangu":false,"comments":{"style":"tabs","active":null,"storage":true,"lazyload":false,"nav":null},"motion":{"enable":true,"async":false,"transition":{"post_block":"fadeIn","post_header":"fadeInDown","post_body":"fadeInDown","coll_header":"fadeInLeft","sidebar":"fadeInUp"}},"prism":false,"i18n":{"placeholder":"搜索...","empty":"没有找到任何搜索结果：${query}","hits_time":"找到 ${hits} 个搜索结果（用时 ${time} 毫秒）","hits":"找到 ${hits} 个搜索结果"},"path":"/search.xml","localsearch":{"enable":true,"trigger":"auto","top_n_per_article":1,"unescape":false,"preload":false}};
+  </script>
+
+  <meta name="description" content="学习了这部分之后，我感觉之前qq空间链接的那种盗号方式，应该就是这个原理">
+<meta property="og:type" content="article">
+<meta property="og:title" content="CSRF攻击">
+<meta property="og:url" content="https://qnjy.github.io/post/44b0db89.html">
+<meta property="og:site_name" content="qnjy&#39;s blog">
+<meta property="og:description" content="学习了这部分之后，我感觉之前qq空间链接的那种盗号方式，应该就是这个原理">
+<meta property="og:locale" content="zh_CN">
+<meta property="og:image" content="https://s3.ax1x.com/2021/01/11/s1xb59.png">
+<meta property="og:image" content="https://s3.ax1x.com/2021/01/11/s1xHUJ.png">
+<meta property="article:published_time" content="2020-11-23T10:55:49.000Z">
+<meta property="article:modified_time" content="2021-01-18T13:49:16.231Z">
+<meta property="article:author" content="qnjy">
+<meta property="article:tag" content="CSRF">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:image" content="https://s3.ax1x.com/2021/01/11/s1xb59.png">
+
+
+<link rel="canonical" href="https://qnjy.github.io/post/44b0db89.html">
+
+
+<script class="page-configurations">
+  // https://hexo.io/docs/variables.html
+  CONFIG.page = {
+    sidebar: "",
+    isHome : false,
+    isPost : true,
+    lang   : 'zh-CN'
+  };
+</script>
+
+  <title>CSRF攻击 | qnjy's blog</title>
+  
+
+
+
+
+
+
+  <noscript>
+  <style>
+  body { margin-top: 2rem; }
+
+  .use-motion .menu-item,
+  .use-motion .sidebar,
+  .use-motion .post-block,
+  .use-motion .pagination,
+  .use-motion .comments,
+  .use-motion .post-header,
+  .use-motion .post-body,
+  .use-motion .collection-header {
+    visibility: visible;
+  }
+
+  .use-motion .header,
+  .use-motion .site-brand-container .toggle,
+  .use-motion .footer { opacity: initial; }
+
+  .use-motion .site-title,
+  .use-motion .site-subtitle,
+  .use-motion .custom-logo-image {
+    opacity: initial;
+    top: initial;
+  }
+
+  .use-motion .logo-line {
+    transform: scaleX(1);
+  }
+
+  .search-pop-overlay, .sidebar-nav { display: none; }
+  .sidebar-panel { display: block; }
+  </style>
+</noscript>
+
+</head>
+
+<body itemscope itemtype="http://schema.org/WebPage" class="use-motion">
+  <div class="headband"></div>
+
+  <main class="main">
+    <header class="header" itemscope itemtype="http://schema.org/WPHeader">
+      <div class="header-inner"><div class="site-brand-container">
+  <div class="site-nav-toggle">
+    <div class="toggle" aria-label="切换导航栏">
+        <span class="toggle-line"></span>
+        <span class="toggle-line"></span>
+        <span class="toggle-line"></span>
+    </div>
+  </div>
+
+  <div class="site-meta">
+
+    <a href="/" class="brand" rel="start">
+      <i class="logo-line"></i>
+      <h1 class="site-title">qnjy's blog</h1>
+      <i class="logo-line"></i>
+    </a>
+      <p class="site-subtitle" itemprop="description">方向不对，努力白费</p>
+  </div>
+
+  <div class="site-nav-right">
+    <div class="toggle popup-trigger">
+        <i class="fa fa-search fa-fw fa-lg"></i>
+    </div>
+  </div>
+</div>
+
+
+
+<nav class="site-nav">
+  <ul class="main-menu menu">
+        <li class="menu-item menu-item-home">
+
+    <a href="/" rel="section"><i class="fa fa-home fa-fw"></i>首页</a>
+
+  </li>
+        <li class="menu-item menu-item-tags">
+
+    <a href="/tags/" rel="section"><i class="fa fa-tags fa-fw"></i>标签</a>
+
+  </li>
+        <li class="menu-item menu-item-categories">
+
+    <a href="/categories/" rel="section"><i class="fa fa-th fa-fw"></i>分类</a>
+
+  </li>
+        <li class="menu-item menu-item-archives">
+
+    <a href="/archives/" rel="section"><i class="fa fa-archive fa-fw"></i>归档</a>
+
+  </li>
+      <li class="menu-item menu-item-search">
+        <a role="button" class="popup-trigger"><i class="fa fa-search fa-fw"></i>搜索
+        </a>
+      </li>
+  </ul>
+</nav>
+
+
+
+  <div class="search-pop-overlay">
+    <div class="popup search-popup">
+        <div class="search-header">
+  <span class="search-icon">
+    <i class="fa fa-search"></i>
+  </span>
+  <div class="search-input-container">
+    <input autocomplete="off" autocapitalize="off" maxlength="80"
+           placeholder="搜索..." spellcheck="false"
+           type="search" class="search-input">
+  </div>
+  <span class="popup-btn-close">
+    <i class="fa fa-times-circle"></i>
+  </span>
+</div>
+<div class="search-result-container no-result">
+  <div class="search-result-icon">
+    <i class="fa fa-spinner fa-pulse fa-5x"></i>
+  </div>
+</div>
+
+    </div>
+  </div>
+
+</div>
+        
+  
+  <div class="toggle sidebar-toggle">
+    <span class="toggle-line"></span>
+    <span class="toggle-line"></span>
+    <span class="toggle-line"></span>
+  </div>
+
+  <aside class="sidebar">
+
+    <div class="sidebar-inner sidebar-nav-active sidebar-toc-active">
+      <ul class="sidebar-nav">
+        <li class="sidebar-nav-toc">
+          文章目录
+        </li>
+        <li class="sidebar-nav-overview">
+          站点概览
+        </li>
+      </ul>
+
+      <div class="sidebar-panel-container">
+        <!--noindex-->
+        <section class="post-toc-wrap sidebar-panel">
+            <div class="post-toc animated"><ol class="nav"><li class="nav-item nav-level-1"><a class="nav-link" href="#1-%E4%BB%80%E4%B9%88%E6%98%AFCSRF"><span class="nav-text">1.什么是CSRF</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#2-CSRF%E5%8F%AF%E4%BB%A5%E5%81%9A%E4%BA%9B%E4%BB%80%E4%B9%88"><span class="nav-text">2.CSRF可以做些什么</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#3-CSRF%E5%8E%9F%E7%90%86"><span class="nav-text">3.CSRF原理</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#4-CSRF%E6%94%BB%E5%87%BB%E7%B1%BB%E5%9E%8B"><span class="nav-text">4.CSRF攻击类型</span></a><ol class="nav-child"><li class="nav-item nav-level-2"><a class="nav-link" href="#4-1-GET%E7%B1%BB%E5%9E%8B%E7%9A%84CSRF"><span class="nav-text">4.1 GET类型的CSRF</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#4-2-POST%E7%B1%BB%E5%9E%8B%E7%9A%84CSRF"><span class="nav-text">4.2 POST类型的CSRF</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#4-3-%E9%93%BE%E6%8E%A5%E7%B1%BB%E5%9E%8B%E7%9A%84CSRF"><span class="nav-text">4.3 链接类型的CSRF</span></a></li></ol></li><li class="nav-item nav-level-1"><a class="nav-link" href="#5-CSRF%E7%9A%84%E7%89%B9%E7%82%B9"><span class="nav-text">5.CSRF的特点</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#6-%E9%98%B2%E6%8A%A4%E6%8E%AA%E6%96%BD"><span class="nav-text">6.防护措施</span></a><ol class="nav-child"><li class="nav-item nav-level-2"><a class="nav-link" href="#6-1-%E9%AA%8C%E8%AF%81HTTP-Referer%E5%AD%97%E6%AE%B5"><span class="nav-text">6.1 验证HTTP Referer字段</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#6-2-%E4%BD%BF%E7%94%A8token%EF%BC%88Anti-CSRF-Token%EF%BC%89"><span class="nav-text">6.2 使用token（Anti CSRF Token）</span></a></li></ol></li></ol></div>
+        </section>
+        <!--/noindex-->
+
+        <section class="site-overview-wrap sidebar-panel">
+          <div class="site-author site-overview-item animated" itemprop="author" itemscope itemtype="http://schema.org/Person">
+    <img class="site-author-image" itemprop="image" alt="qnjy"
+      src="/images/xigua.jpg">
+  <p class="site-author-name" itemprop="name">qnjy</p>
+  <div class="site-description" itemprop="description">宁静以致远</div>
+</div>
+<div class="site-state-wrap site-overview-item animated">
+  <nav class="site-state">
+      <div class="site-state-item site-state-posts">
+          <a href="/archives/">
+        
+          <span class="site-state-item-count">50</span>
+          <span class="site-state-item-name">日志</span>
+        </a>
+      </div>
+      <div class="site-state-item site-state-categories">
+            <a href="/categories/">
+          
+        <span class="site-state-item-count">17</span>
+        <span class="site-state-item-name">分类</span></a>
+      </div>
+      <div class="site-state-item site-state-tags">
+            <a href="/tags/">
+          
+        <span class="site-state-item-count">29</span>
+        <span class="site-state-item-name">标签</span></a>
+      </div>
+  </nav>
+</div>
+  <div class="links-of-author site-overview-item animated">
+      <span class="links-of-author-item">
+        <a href="https://github.com/qnjy" title="GitHub → https:&#x2F;&#x2F;github.com&#x2F;qnjy" rel="noopener" target="_blank"><i class="fab fa-github fa-fw"></i>GitHub</a>
+      </span>
+      <span class="links-of-author-item">
+        <a href="mailto:877900490@qq.com" title="E-Mail → mailto:877900490@qq.com" rel="noopener" target="_blank"><i class="fa fa-envelope fa-fw"></i>E-Mail</a>
+      </span>
+  </div>
+  <div class="cc-license site-overview-item animated" itemprop="license">
+    <a href="https://creativecommons.org/licenses/by-nc-sa/4.0/zh-CN" class="cc-opacity" rel="noopener" target="_blank"><img src="/images/cc-by-nc-sa.svg" alt="Creative Commons"></a>
+  </div>
+
+
+
+        </section>
+      </div>
+
+    </div>
+  </aside>
+  <div class="sidebar-dimmer"></div>
+
+
+    </header>
+
+    
+  <div class="back-to-top">
+    <i class="fa fa-arrow-up"></i>
+    <span>0%</span>
+  </div>
+  <div class="reading-progress-bar"></div>
+  <a role="button" class="book-mark-link book-mark-link-fixed"></a>
+
+<noscript>
+  <div class="noscript-warning">Theme NexT works best with JavaScript enabled</div>
+</noscript>
+
+
+    <div class="main-inner post posts-expand">
+      
+
+      
+
+  
+
+
+<div class="post-block">
+  
+  
+
+  <article itemscope itemtype="http://schema.org/Article" class="post-content" lang="zh-CN">
+    <link itemprop="mainEntityOfPage" href="https://qnjy.github.io/post/44b0db89.html">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="image" content="/images/xigua.jpg">
+      <meta itemprop="name" content="qnjy">
+      <meta itemprop="description" content="宁静以致远">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="qnjy's blog">
+    </span>
+      <header class="post-header">
+        <h1 class="post-title" itemprop="name headline">
+          CSRF攻击
+        </h1>
+
+        <div class="post-meta-container">
+          <div class="post-meta">
+    <span class="post-meta-item">
+      <span class="post-meta-item-icon">
+        <i class="far fa-calendar"></i>
+      </span>
+      <span class="post-meta-item-text">发表于</span>
+
+      <time title="创建时间：2020-11-23 18:55:49" itemprop="dateCreated datePublished" datetime="2020-11-23T18:55:49+08:00">2020-11-23</time>
+    </span>
+      <span class="post-meta-item">
+        <span class="post-meta-item-icon">
+          <i class="far fa-calendar-check"></i>
+        </span>
+        <span class="post-meta-item-text">更新于</span>
+        <time title="修改时间：2021-01-18 21:49:16" itemprop="dateModified" datetime="2021-01-18T21:49:16+08:00">2021-01-18</time>
+      </span>
+    <span class="post-meta-item">
+      <span class="post-meta-item-icon">
+        <i class="far fa-folder"></i>
+      </span>
+      <span class="post-meta-item-text">分类于</span>
+        <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
+          <a href="/categories/%E7%BD%91%E7%BB%9C%E5%AE%89%E5%85%A8%E7%9F%A5%E8%AF%86%E5%AD%A6%E4%B9%A0/" itemprop="url" rel="index"><span itemprop="name">网络安全知识学习</span></a>
+        </span>
+    </span>
+
+  
+    <span class="post-meta-item" title="阅读次数" id="busuanzi_container_page_pv" style="display: none;">
+      <span class="post-meta-item-icon">
+        <i class="far fa-eye"></i>
+      </span>
+      <span class="post-meta-item-text">阅读次数：</span>
+      <span id="busuanzi_value_page_pv"></span>
+    </span>
+</div>
+
+        </div>
+      </header>
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+        <p>　　学习了这部分之后，我感觉之前qq空间链接的那种盗号方式，应该就是这个原理<a id="more"></a></p>
+<h1 id="1-什么是CSRF"><a href="#1-什么是CSRF" class="headerlink" title="1.什么是CSRF"></a>1.什么是CSRF</h1><p>　　跨站请求伪造（Cross-site request forgery，CSRF），也被称为one click attack/session riding，通常缩写是CSRF/XSRF。</p>
+<h1 id="2-CSRF可以做些什么"><a href="#2-CSRF可以做些什么" class="headerlink" title="2.CSRF可以做些什么"></a>2.CSRF可以做些什么</h1><p>　　可以简单理解为：<font color="ff0000">攻击者盗用了你的身份，以你的名义发送恶意请求</font>，它利用网站对用户网页浏览器的信任。如：转移资金、修改电子邮件地址、密码。    </p>
+<h1 id="3-CSRF原理"><a href="#3-CSRF原理" class="headerlink" title="3.CSRF原理"></a>3.CSRF原理</h1><p>　　<font color="ff0000">受害者 Bob 在银行有一笔存款，通过对银行的网站发送请求 <a target="_blank" rel="noopener" href="http://bank.example/withdraw?account=bob&amp;amount=1000000&amp;for=bob2">http://bank.example/withdraw?account=bob&amp;amount=1000000&amp;for=bob2</a> 可以使 Bob 把 1000000 的存款转到 bob2 的账号下。通常情况下，该请求发送到网站后，服务器会先验证该请求是否来自一个合法的 session，并且该 session 的用户 Bob 已经成功登陆。</font></p>
+<p>　　<font color="ff0000">黑客 Mallory 自己在该银行也有账户，他知道上文中的 URL 可以把钱进行转帐操作。Mallory 可以自己发送一个请求给银行：<a target="_blank" rel="noopener" href="http://bank.example/withdraw?account=bob&amp;amount=1000000&amp;for=Mallory%E3%80%82%E4%BD%86%E6%98%AF%E8%BF%99%E4%B8%AA%E8%AF%B7%E6%B1%82%E6%9D%A5%E8%87%AA">http://bank.example/withdraw?account=bob&amp;amount=1000000&amp;for=Mallory。但是这个请求来自</a> Mallory 而非 Bob，他不能通过安全认证，因此该请求不会起作用。</font></p>
+<p>　　<font color="ff0000">这时，Mallory 想到使用 CSRF 的攻击方式，他先自己做一个网站，在网站中放入如下代码： src=”<a target="_blank" rel="noopener" href="http://bank.example/withdraw?account=bob&amp;amount=1000000&amp;for=Mallory">http://bank.example/withdraw?account=bob&amp;amount=1000000&amp;for=Mallory</a> ”，并且通过广告等诱使 Bob 来访问他的网站。当 Bob 访问该网站时，上述 url 就会从 Bob 的浏览器发向银行，而这个请求会附带 Bob 浏览器中的 cookie 一起发向银行服务器。大多数情况下，该请求会失败，因为他要求 Bob 的认证信息。但是，如果 Bob 当时恰巧刚访问他的银行后不久，他的浏览器与银行网站之间的 session 尚未过期，浏览器的 cookie 之中含有 Bob 的认证信息。这时，悲剧发生了，这个 url 请求就会得到响应，钱将从 Bob 的账号转移到 Mallory 的账号，而 Bob 当时毫不知情。等以后 Bob 发现账户钱少了，即使他去银行查询日志，他也只能发现确实有一个来自于他本人的合法请求转移了资金，没有任何被攻击的痕迹。而 Mallory 则可以拿到钱后逍遥法外。 </font></p>
+<p><img src="https://s3.ax1x.com/2021/01/11/s1xb59.png" alt="s1xb59.png"></p>
+<figure class="highlight angelscript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><span class="line"><span class="number">1.</span>Bob打开浏览器，访问受信任银行网站，输入用户名和密码请求登录网站；</span><br><span class="line"><span class="number">2.</span>在Bob信息通过验证后，银行网站产生Cookie信息并返回给浏览器，此时Bob登录网站成功，可以正常发送请求到网站；</span><br><span class="line"><span class="number">3.</span>Bob未退出银行网站之前，在同一浏览器中，打开一个TAB页访问其他网站B</span><br><span class="line"><span class="number">4.</span>这时候网站B 已被黑客注入诱导信息，加入是一张图片,图片地址指向</span><br><span class="line">   src=”http:<span class="comment">//bank.example/withdraw?account=bob&amp;amount=1000000&amp;for=hacker</span></span><br><span class="line">  点击之后转账给黑客这个账户</span><br><span class="line"><span class="number">5.</span>浏览器在接收到这些攻击性代码请求后，根据网站B的请求，在Bob不知情的情况下携带Cookie信息，根据用户的Cookie信息以Bob的权限处理该请求，导致来自黑客请求恶意代码被执行。 </span><br></pre></td></tr></table></figure>
+
+<h1 id="4-CSRF攻击类型"><a href="#4-CSRF攻击类型" class="headerlink" title="4.CSRF攻击类型"></a>4.CSRF攻击类型</h1><h2 id="4-1-GET类型的CSRF"><a href="#4-1-GET类型的CSRF" class="headerlink" title="4.1 GET类型的CSRF"></a>4.1 GET类型的CSRF</h2><p>GET类型的CSRF利用非常简单，只需要HTTP请求，一般这样利用：</p>
+<figure class="highlight awk"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">![](https:<span class="regexp">//</span>awps-assets.meituan.net<span class="regexp">/mit-x/</span>blog-images-bundle-<span class="number">2018</span>b<span class="regexp">/ff0cdbee.example/</span>withdraw?amount=<span class="number">10000</span>&amp;<span class="keyword">for</span>=hacker)</span><br></pre></td></tr></table></figure>
+
+<p>在受害者访问含有这个img的页面后，浏览器会自动向<code>http://bank.example/withdraw?account=xiaoming&amp;amount=10000&amp;for=hacker</code>发出一次HTTP请求。bank.example就会收到包含受害者登录信息的一次跨域请求。</p>
+<h2 id="4-2-POST类型的CSRF"><a href="#4-2-POST类型的CSRF" class="headerlink" title="4.2 POST类型的CSRF"></a>4.2 POST类型的CSRF</h2><p>这种类型的CSRF利用起来通常使用的是一个自动提交的表单，如：</p>
+<figure class="highlight"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><span class="line"> &lt;form action=<span class="string">&quot;http://bank.example/withdraw&quot;</span> method=POST&gt;</span><br><span class="line">    &lt;input type=<span class="string">&quot;hidden&quot;</span> name=<span class="string">&quot;account&quot;</span> value=<span class="string">&quot;xiaoming&quot;</span> /&gt;</span><br><span class="line">    &lt;input type=<span class="string">&quot;hidden&quot;</span> name=<span class="string">&quot;amount&quot;</span> value=<span class="string">&quot;10000&quot;</span> /&gt;</span><br><span class="line">    &lt;input type=<span class="string">&quot;hidden&quot;</span> name=<span class="string">&quot;for&quot;</span> value=<span class="string">&quot;hacker&quot;</span> /&gt;</span><br><span class="line">&lt;/form&gt;</span><br><span class="line">&lt;!--自动提交表单--&gt;</span><br><span class="line">&lt;script&gt; document.forms[0].submit(); &lt;/script&gt; </span><br></pre></td></tr></table></figure>
+
+<p>访问该页面后，表单会自动提交，相当于模拟用户完成了一次POST操作。POST类型的攻击通常比GET要求更加严格一点，但扔并不复杂。任何个人网站、博客，被黑客上传页面的往回走哪都有可能是发起攻击的来源。</p>
+<h2 id="4-3-链接类型的CSRF"><a href="#4-3-链接类型的CSRF" class="headerlink" title="4.3 链接类型的CSRF"></a>4.3 链接类型的CSRF</h2><p>这种需要用户点击链接才会触发。这种类型通常是杂论坛中发布的图片中嵌入恶意链接，或者以广告的形式诱导用户中招，例如：</p>
+<figure class="highlight php"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">&lt;a href=<span class="string">&quot;http://test.com/csrf/withdraw.php?amount=1000&amp;for=hacker&quot;</span> taget=<span class="string">&quot;_blank&quot;</span>&gt;</span><br><span class="line">  重磅消息！！</span><br><span class="line">  &lt;a/&gt;</span><br></pre></td></tr></table></figure>
+
+<p>由于之前用户登陆的信任的网站A，并且保存登录状态，只要用户主动访问上面的这个PHP页面，就表示攻击成功。</p>
+<h1 id="5-CSRF的特点"><a href="#5-CSRF的特点" class="headerlink" title="5.CSRF的特点"></a>5.CSRF的特点</h1><ul>
+<li>攻击一般发起在第三方网站，而不是被攻击的网站。</li>
+<li>攻击利用受害者在被攻击网站的登陆凭证，冒充受害者提交操作。</li>
+<li>整个过程攻击者并不能获取到受害者的登陆凭证，仅仅是冒用。</li>
+</ul>
+<h1 id="6-防护措施"><a href="#6-防护措施" class="headerlink" title="6.防护措施"></a>6.防护措施</h1><h2 id="6-1-验证HTTP-Referer字段"><a href="#6-1-验证HTTP-Referer字段" class="headerlink" title="6.1 验证HTTP Referer字段"></a>6.1 验证HTTP Referer字段</h2><p>HTTP头中有一个Referer的字段，它记录了该HTTP请求的来源网址</p>
+<p><img src="https://s3.ax1x.com/2021/01/11/s1xHUJ.png" alt="s1xHUJ.png"></p>
+<p>　　也就是说，服务器会验证客户端的请求来源，如果是本网站请求的就响应，否则不响应。</p>
+<p>　　正如上文所提到的，Bob必须登录银行网站，通过页面上的按钮触发转账事件。当用户提交请求时，该转账请求的Referer值就会是转账按钮所在页面的URL。黑客只能在自己网站构造请求，当用户通过攻击者的网站发送请求到银行时，该请求的Referer是指向黑客的网站。所以不能响应。</p>
+<p>但是这种方式仍然<font color="ff000">存在安全隐患</font></p>
+<figure class="highlight angelscript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line"><span class="number">1.</span>对于某些浏览器，比如IE6或FF2，目前已经有一些方法可以篡改Referer值</span><br><span class="line"><span class="number">2.</span>用户自己可以这只浏览器使其请求时不再提供Referer</span><br></pre></td></tr></table></figure>
+
+<h2 id="6-2-使用token（Anti-CSRF-Token）"><a href="#6-2-使用token（Anti-CSRF-Token）" class="headerlink" title="6.2 使用token（Anti CSRF Token）"></a>6.2 使用token（Anti CSRF Token）</h2><p>可以理解为防伪</p>
+<p>例子：</p>
+<p>1.用户访问某个表单页面。</p>
+<p>2.服务端生成一个Token，放在用户的Session中，或者浏览器的Cookie中。</p>
+<p>3.在页面表单附带上Token参数。</p>
+<p>4.用户提交请求后， 服务端验证表单中的Token是否与用户Session（或Cookies）中的      Token一致，一致为合法请求，不是则非法请求。</p>
+<p>　　这个Token的值必须是随机的。由于Token的存在，攻击者无法再构造一个带有合法Token的请求实施CSRF攻击。另外使用Token时应注意Token的保密性，尽量把敏感操作由GET改为<code>POST</code>，以form或AJAX形式提交，避免Token泄露。</p>
+
+    </div>
+
+    
+    
+    
+
+    <footer class="post-footer">
+          <div class="reward-container">
+  <div>Buy me a coffee</div>
+  <button onclick="document.querySelector('.post-reward').classList.toggle('active');">
+    赞赏
+  </button>
+  <div class="post-reward">
+      <div>
+        <img src="/images/wechatpay.jpg" alt="qnjy 微信">
+        <span>微信</span>
+      </div>
+      <div>
+        <img src="/images/alipay.jpg" alt="qnjy 支付宝">
+        <span>支付宝</span>
+      </div>
+
+  </div>
+</div>
+
+          <div class="post-tags">
+              <a href="/tags/CSRF/" rel="tag"><i class="fa fa-tag"></i> CSRF</a>
+          </div>
+
+        
+
+          <div class="post-nav">
+            <div class="post-nav-item">
+                <a href="/post/2507049e.html" rel="prev" title="SpringBoot学习（一）">
+                  <i class="fa fa-chevron-left"></i> SpringBoot学习（一）
+                </a>
+            </div>
+            <div class="post-nav-item">
+                <a href="/post/f497d7e2.html" rel="next" title="第一届DMCTF夺旗赛题解">
+                  第一届DMCTF夺旗赛题解 <i class="fa fa-chevron-right"></i>
+                </a>
+            </div>
+          </div>
+    </footer>
+  </article>
+</div>
+
+
+
+
+
+
+      
+
+<script>
+  window.addEventListener('tabs:register', () => {
+    let { activeClass } = CONFIG.comments;
+    if (CONFIG.comments.storage) {
+      activeClass = localStorage.getItem('comments_active') || activeClass;
+    }
+    if (activeClass) {
+      const activeTab = document.querySelector(`a[href="#comment-${activeClass}"]`);
+      if (activeTab) {
+        activeTab.click();
+      }
+    }
+  });
+  if (CONFIG.comments.storage) {
+    window.addEventListener('tabs:click', event => {
+      if (!event.target.matches('.tabs-comment .tab-content .tab-pane')) return;
+      const commentClass = event.target.classList[1];
+      localStorage.setItem('comments_active', commentClass);
+    });
+  }
+</script>
+
+    </div>
+  </main>
+
+  <footer class="footer">
+    <div class="footer-inner">
+      
+
+      
+
+<div class="copyright">
+  
+  &copy; 2020 – 
+  <span itemprop="copyrightYear">2021</span>
+  <span class="with-love">
+    <i class="fa fa-heart"></i>
+  </span>
+  <span class="author" itemprop="copyrightHolder">qnjy</span>
+</div>
+<div class="busuanzi-count">
+    <span class="post-meta-item" id="busuanzi_container_site_uv" style="display: none;">
+      <span class="post-meta-item-icon">
+        <i class="fa fa-user"></i>
+      </span>
+      <span class="site-uv" title="总访客量">
+        <span id="busuanzi_value_site_uv"></span>
+      </span>
+    </span>
+    <span class="post-meta-item" id="busuanzi_container_site_pv" style="display: none;">
+      <span class="post-meta-item-icon">
+        <i class="fa fa-eye"></i>
+      </span>
+      <span class="site-pv" title="总访问量">
+        <span id="busuanzi_value_site_pv"></span>
+      </span>
+    </span>
+</div>
+
+    </div>
+  </footer>
+
+  
+  <script src="//cdn.jsdelivr.net/npm/animejs@3.2.1/lib/anime.min.js"></script>
+<script src="/js/utils.js"></script><script src="/js/motion.js"></script><script src="/js/next-boot.js"></script><script src="/js/bookmark.js"></script>
+
+  
+
+
+
+
+  <script src="/js/local-search.js"></script>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+  
+  <script async src="https://busuanzi.ibruce.info/busuanzi/2.3/busuanzi.pure.mini.js"></script>
+
+
+
+
+
+
+
+
+  
+
+  
+
+
+
+
+
+</body>
+</html>

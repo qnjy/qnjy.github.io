@@ -1,0 +1,704 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+  <meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=2">
+<meta name="theme-color" content="#222">
+<meta name="generator" content="Hexo 5.2.0">
+
+
+  <link rel="apple-touch-icon" sizes="180x180" href="/images/apple-touch-icon-next.png">
+  <link rel="icon" type="image/png" sizes="32x32" href="/images/favicon-32x32-next.png">
+  <link rel="icon" type="image/png" sizes="16x16" href="/images/favicon-16x16-next.png">
+  <link rel="mask-icon" href="/images/logo.svg" color="#222">
+
+<link rel="stylesheet" href="/css/main.css">
+
+
+
+<link rel="stylesheet" href="//cdn.jsdelivr.net/npm/@fortawesome/fontawesome-free@5.15.1/css/all.min.css">
+  <link rel="stylesheet" href="//cdn.jsdelivr.net/npm/animate.css@3.1.1/animate.min.css">
+
+<script class="hexo-configurations">
+    var NexT = window.NexT || {};
+    var CONFIG = {"hostname":"qnjy.github.io","root":"/","images":"/images","scheme":"Gemini","version":"8.0.2","exturl":false,"sidebar":{"position":"left","display":"post","padding":18,"offset":12},"copycode":true,"bookmark":{"enable":true,"color":"#222","save":"auto"},"fancybox":false,"mediumzoom":false,"lazyload":false,"pangu":false,"comments":{"style":"tabs","active":null,"storage":true,"lazyload":false,"nav":null},"motion":{"enable":true,"async":false,"transition":{"post_block":"fadeIn","post_header":"fadeInDown","post_body":"fadeInDown","coll_header":"fadeInLeft","sidebar":"fadeInUp"}},"prism":false,"i18n":{"placeholder":"搜索...","empty":"没有找到任何搜索结果：${query}","hits_time":"找到 ${hits} 个搜索结果（用时 ${time} 毫秒）","hits":"找到 ${hits} 个搜索结果"},"path":"/search.xml","localsearch":{"enable":true,"trigger":"auto","top_n_per_article":1,"unescape":false,"preload":false}};
+  </script>
+
+  <meta name="description" content="网站存在文件上传漏洞，以后开发项目如果不注意过滤文件上传的类型，很容易被攻击">
+<meta property="og:type" content="article">
+<meta property="og:title" content="文件上传漏洞">
+<meta property="og:url" content="https://qnjy.github.io/post/931c692.html">
+<meta property="og:site_name" content="qnjy&#39;s blog">
+<meta property="og:description" content="网站存在文件上传漏洞，以后开发项目如果不注意过滤文件上传的类型，很容易被攻击">
+<meta property="og:locale" content="zh_CN">
+<meta property="article:published_time" content="2020-11-09T07:00:42.000Z">
+<meta property="article:modified_time" content="2021-03-07T12:16:57.649Z">
+<meta property="article:author" content="qnjy">
+<meta property="article:tag" content="文件上传">
+<meta name="twitter:card" content="summary">
+
+
+<link rel="canonical" href="https://qnjy.github.io/post/931c692.html">
+
+
+<script class="page-configurations">
+  // https://hexo.io/docs/variables.html
+  CONFIG.page = {
+    sidebar: "",
+    isHome : false,
+    isPost : true,
+    lang   : 'zh-CN'
+  };
+</script>
+
+  <title>文件上传漏洞 | qnjy's blog</title>
+  
+
+
+
+
+
+
+  <noscript>
+  <style>
+  body { margin-top: 2rem; }
+
+  .use-motion .menu-item,
+  .use-motion .sidebar,
+  .use-motion .post-block,
+  .use-motion .pagination,
+  .use-motion .comments,
+  .use-motion .post-header,
+  .use-motion .post-body,
+  .use-motion .collection-header {
+    visibility: visible;
+  }
+
+  .use-motion .header,
+  .use-motion .site-brand-container .toggle,
+  .use-motion .footer { opacity: initial; }
+
+  .use-motion .site-title,
+  .use-motion .site-subtitle,
+  .use-motion .custom-logo-image {
+    opacity: initial;
+    top: initial;
+  }
+
+  .use-motion .logo-line {
+    transform: scaleX(1);
+  }
+
+  .search-pop-overlay, .sidebar-nav { display: none; }
+  .sidebar-panel { display: block; }
+  </style>
+</noscript>
+
+</head>
+
+<body itemscope itemtype="http://schema.org/WebPage" class="use-motion">
+  <div class="headband"></div>
+
+  <main class="main">
+    <header class="header" itemscope itemtype="http://schema.org/WPHeader">
+      <div class="header-inner"><div class="site-brand-container">
+  <div class="site-nav-toggle">
+    <div class="toggle" aria-label="切换导航栏">
+        <span class="toggle-line"></span>
+        <span class="toggle-line"></span>
+        <span class="toggle-line"></span>
+    </div>
+  </div>
+
+  <div class="site-meta">
+
+    <a href="/" class="brand" rel="start">
+      <i class="logo-line"></i>
+      <h1 class="site-title">qnjy's blog</h1>
+      <i class="logo-line"></i>
+    </a>
+      <p class="site-subtitle" itemprop="description">方向不对，努力白费</p>
+  </div>
+
+  <div class="site-nav-right">
+    <div class="toggle popup-trigger">
+        <i class="fa fa-search fa-fw fa-lg"></i>
+    </div>
+  </div>
+</div>
+
+
+
+<nav class="site-nav">
+  <ul class="main-menu menu">
+        <li class="menu-item menu-item-home">
+
+    <a href="/" rel="section"><i class="fa fa-home fa-fw"></i>首页</a>
+
+  </li>
+        <li class="menu-item menu-item-tags">
+
+    <a href="/tags/" rel="section"><i class="fa fa-tags fa-fw"></i>标签</a>
+
+  </li>
+        <li class="menu-item menu-item-categories">
+
+    <a href="/categories/" rel="section"><i class="fa fa-th fa-fw"></i>分类</a>
+
+  </li>
+        <li class="menu-item menu-item-archives">
+
+    <a href="/archives/" rel="section"><i class="fa fa-archive fa-fw"></i>归档</a>
+
+  </li>
+      <li class="menu-item menu-item-search">
+        <a role="button" class="popup-trigger"><i class="fa fa-search fa-fw"></i>搜索
+        </a>
+      </li>
+  </ul>
+</nav>
+
+
+
+  <div class="search-pop-overlay">
+    <div class="popup search-popup">
+        <div class="search-header">
+  <span class="search-icon">
+    <i class="fa fa-search"></i>
+  </span>
+  <div class="search-input-container">
+    <input autocomplete="off" autocapitalize="off" maxlength="80"
+           placeholder="搜索..." spellcheck="false"
+           type="search" class="search-input">
+  </div>
+  <span class="popup-btn-close">
+    <i class="fa fa-times-circle"></i>
+  </span>
+</div>
+<div class="search-result-container no-result">
+  <div class="search-result-icon">
+    <i class="fa fa-spinner fa-pulse fa-5x"></i>
+  </div>
+</div>
+
+    </div>
+  </div>
+
+</div>
+        
+  
+  <div class="toggle sidebar-toggle">
+    <span class="toggle-line"></span>
+    <span class="toggle-line"></span>
+    <span class="toggle-line"></span>
+  </div>
+
+  <aside class="sidebar">
+
+    <div class="sidebar-inner sidebar-nav-active sidebar-toc-active">
+      <ul class="sidebar-nav">
+        <li class="sidebar-nav-toc">
+          文章目录
+        </li>
+        <li class="sidebar-nav-overview">
+          站点概览
+        </li>
+      </ul>
+
+      <div class="sidebar-panel-container">
+        <!--noindex-->
+        <section class="post-toc-wrap sidebar-panel">
+            <div class="post-toc animated"><ol class="nav"><li class="nav-item nav-level-1"><a class="nav-link" href="#%E4%B8%80%E5%8F%A5%E8%AF%9D%E6%9C%A8%E9%A9%AC"><span class="nav-text">一句话木马</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#%E4%BB%80%E4%B9%88%E6%98%AF%E6%96%87%E4%BB%B6%E4%B8%8A%E4%BC%A0%E6%BC%8F%E6%B4%9E"><span class="nav-text">什么是文件上传漏洞</span></a><ol class="nav-child"><li class="nav-item nav-level-2"><a class="nav-link" href="#1-WebShell"><span class="nav-text">1.WebShell</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#2-web%E5%AE%B9%E5%99%A8"><span class="nav-text">2.web容器</span></a></li></ol></li><li class="nav-item nav-level-1"><a class="nav-link" href="#%E9%80%A0%E6%88%90%E6%96%87%E4%BB%B6%E4%B8%8A%E4%BC%A0%E6%BC%8F%E6%B4%9E%E7%9A%84%E5%8E%9F%E5%9B%A0"><span class="nav-text">造成文件上传漏洞的原因</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#%E6%9C%8D%E5%8A%A1%E5%99%A8%E8%A7%A3%E6%9E%90%E5%AD%98%E5%9C%A8%E7%9A%84%E6%BC%8F%E6%B4%9E"><span class="nav-text">服务器解析存在的漏洞</span></a><ol class="nav-child"><li class="nav-item nav-level-2"><a class="nav-link" href="#1-IIS%E8%A7%A3%E6%9E%90%E6%BC%8F%E6%B4%9E"><span class="nav-text">1.IIS解析漏洞</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#2-apache%E8%A7%A3%E6%9E%90%E6%BC%8F%E6%B4%9E"><span class="nav-text">2.apache解析漏洞</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#3-Nginx%E8%A7%A3%E6%9E%90%E6%BC%8F%E6%B4%9E"><span class="nav-text">3.Nginx解析漏洞</span></a></li></ol></li><li class="nav-item nav-level-1"><a class="nav-link" href="#%E7%BB%95%E8%BF%87%E4%B8%8A%E4%BC%A0%E6%BC%8F%E6%B4%9E"><span class="nav-text">绕过上传漏洞</span></a><ol class="nav-child"><li class="nav-item nav-level-2"><a class="nav-link" href="#1-%E5%AE%A2%E6%88%B7%E7%AB%AF%E6%A3%80%E6%B5%8B"><span class="nav-text">1.客户端检测</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#2-%E6%9C%8D%E5%8A%A1%E5%99%A8%E7%AB%AF%E6%A3%80%E6%B5%8B"><span class="nav-text">2.服务器端检测</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#1-%E7%99%BD%E5%90%8D%E5%8D%95%E4%B8%8E%E9%BB%91%E5%90%8D%E5%8D%95%E9%AA%8C%E8%AF%81"><span class="nav-text">(1)白名单与黑名单验证</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#2-MIME%E9%AA%8C%E8%AF%81%EF%BC%88%E6%A3%80%E6%B5%8BContent-Type%EF%BC%89"><span class="nav-text">(2)MIME验证（检测Content-Type）</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#3-%E7%9B%AE%E5%BD%95%E9%AA%8C%E8%AF%81"><span class="nav-text">(3)目录验证</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#4-0x00%E6%88%AA%E6%96%AD"><span class="nav-text">(4)0x00截断</span></a></li></ol></li></ol></li></ol></div>
+        </section>
+        <!--/noindex-->
+
+        <section class="site-overview-wrap sidebar-panel">
+          <div class="site-author site-overview-item animated" itemprop="author" itemscope itemtype="http://schema.org/Person">
+    <img class="site-author-image" itemprop="image" alt="qnjy"
+      src="/images/xigua.jpg">
+  <p class="site-author-name" itemprop="name">qnjy</p>
+  <div class="site-description" itemprop="description">宁静以致远</div>
+</div>
+<div class="site-state-wrap site-overview-item animated">
+  <nav class="site-state">
+      <div class="site-state-item site-state-posts">
+          <a href="/archives/">
+        
+          <span class="site-state-item-count">50</span>
+          <span class="site-state-item-name">日志</span>
+        </a>
+      </div>
+      <div class="site-state-item site-state-categories">
+            <a href="/categories/">
+          
+        <span class="site-state-item-count">17</span>
+        <span class="site-state-item-name">分类</span></a>
+      </div>
+      <div class="site-state-item site-state-tags">
+            <a href="/tags/">
+          
+        <span class="site-state-item-count">29</span>
+        <span class="site-state-item-name">标签</span></a>
+      </div>
+  </nav>
+</div>
+  <div class="links-of-author site-overview-item animated">
+      <span class="links-of-author-item">
+        <a href="https://github.com/qnjy" title="GitHub → https:&#x2F;&#x2F;github.com&#x2F;qnjy" rel="noopener" target="_blank"><i class="fab fa-github fa-fw"></i>GitHub</a>
+      </span>
+      <span class="links-of-author-item">
+        <a href="mailto:877900490@qq.com" title="E-Mail → mailto:877900490@qq.com" rel="noopener" target="_blank"><i class="fa fa-envelope fa-fw"></i>E-Mail</a>
+      </span>
+  </div>
+  <div class="cc-license site-overview-item animated" itemprop="license">
+    <a href="https://creativecommons.org/licenses/by-nc-sa/4.0/zh-CN" class="cc-opacity" rel="noopener" target="_blank"><img src="/images/cc-by-nc-sa.svg" alt="Creative Commons"></a>
+  </div>
+
+
+
+        </section>
+      </div>
+
+    </div>
+  </aside>
+  <div class="sidebar-dimmer"></div>
+
+
+    </header>
+
+    
+  <div class="back-to-top">
+    <i class="fa fa-arrow-up"></i>
+    <span>0%</span>
+  </div>
+  <div class="reading-progress-bar"></div>
+  <a role="button" class="book-mark-link book-mark-link-fixed"></a>
+
+<noscript>
+  <div class="noscript-warning">Theme NexT works best with JavaScript enabled</div>
+</noscript>
+
+
+    <div class="main-inner post posts-expand">
+      
+
+      
+
+  
+
+
+<div class="post-block">
+  
+  
+
+  <article itemscope itemtype="http://schema.org/Article" class="post-content" lang="zh-CN">
+    <link itemprop="mainEntityOfPage" href="https://qnjy.github.io/post/931c692.html">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="image" content="/images/xigua.jpg">
+      <meta itemprop="name" content="qnjy">
+      <meta itemprop="description" content="宁静以致远">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="qnjy's blog">
+    </span>
+      <header class="post-header">
+        <h1 class="post-title" itemprop="name headline">
+          文件上传漏洞
+        </h1>
+
+        <div class="post-meta-container">
+          <div class="post-meta">
+    <span class="post-meta-item">
+      <span class="post-meta-item-icon">
+        <i class="far fa-calendar"></i>
+      </span>
+      <span class="post-meta-item-text">发表于</span>
+
+      <time title="创建时间：2020-11-09 15:00:42" itemprop="dateCreated datePublished" datetime="2020-11-09T15:00:42+08:00">2020-11-09</time>
+    </span>
+      <span class="post-meta-item">
+        <span class="post-meta-item-icon">
+          <i class="far fa-calendar-check"></i>
+        </span>
+        <span class="post-meta-item-text">更新于</span>
+        <time title="修改时间：2021-03-07 20:16:57" itemprop="dateModified" datetime="2021-03-07T20:16:57+08:00">2021-03-07</time>
+      </span>
+    <span class="post-meta-item">
+      <span class="post-meta-item-icon">
+        <i class="far fa-folder"></i>
+      </span>
+      <span class="post-meta-item-text">分类于</span>
+        <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
+          <a href="/categories/%E7%BD%91%E7%BB%9C%E5%AE%89%E5%85%A8%E7%9F%A5%E8%AF%86%E5%AD%A6%E4%B9%A0/" itemprop="url" rel="index"><span itemprop="name">网络安全知识学习</span></a>
+        </span>
+    </span>
+
+  
+    <span class="post-meta-item" title="阅读次数" id="busuanzi_container_page_pv" style="display: none;">
+      <span class="post-meta-item-icon">
+        <i class="far fa-eye"></i>
+      </span>
+      <span class="post-meta-item-text">阅读次数：</span>
+      <span id="busuanzi_value_page_pv"></span>
+    </span>
+</div>
+
+        </div>
+      </header>
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+        <p>　　网站存在文件上传漏洞，以后开发项目如果不注意过滤文件上传的类型，很容易被攻击<a id="more"></a></p>
+<h1 id="一句话木马"><a href="#一句话木马" class="headerlink" title="一句话木马"></a>一句话木马</h1><p>asp的一句话木马：</p>
+<figure class="highlight php"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">#1.eval使用php函数，例如phpinfo();</span></span><br><span class="line"><span class="meta">&lt;?php</span> <span class="keyword">eval</span>($_REQUEST[<span class="string">&#x27;pass&#x27;</span>]);<span class="meta">?&gt;</span></span><br><span class="line">    </span><br><span class="line">http:<span class="comment">//192.168.200.133/dvwa/hackable/uploads/shell.php?pass=phpinfo();</span></span><br></pre></td></tr></table></figure>
+
+<figure class="highlight php"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">#2.system使用linux系统命令，例如ls,cp,rm</span></span><br><span class="line"><span class="meta">&lt;?php</span> system(<span class="comment">#_REQUEST[&#x27;pass&#x27;]);?&gt;</span></span><br><span class="line">             </span><br><span class="line">http:<span class="comment">//192.168.200.133/dvwa/hackable/uploads/shell.php?pass=cat /etc/passwd</span></span><br></pre></td></tr></table></figure>
+
+<p>php的一句话木马：</p>
+<figure class="highlight php"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">#说明REQUEST是在网页端输入变量访问，POST是使用像中国菜刀之类的工具链接</span></span><br><span class="line"><span class="meta">&lt;?php</span> @<span class="keyword">eval</span>($_POST[<span class="string">&#x27;pass&#x27;</span>]);<span class="meta">?&gt;</span></span><br></pre></td></tr></table></figure>
+
+<h1 id="什么是文件上传漏洞"><a href="#什么是文件上传漏洞" class="headerlink" title="什么是文件上传漏洞"></a>什么是文件上传漏洞</h1><p>　　文件上传在Web业务中很常见，如用户上传头像、编写文章上传图片等在上传文件时候，未对上传得文件进行严格的验证和过滤，就有可能上传恶意的脚本文件、病毒、木马、webshell，从而控制网站甚至服务器。文件上传漏洞本身有很大的危害，webshell更是将这个漏洞的利用无限扩大。大多数的上传漏洞被利用后攻击者都会留下WebShell以方便后续进入系统。</p>
+<h2 id="1-WebShell"><a href="#1-WebShell" class="headerlink" title="1.WebShell"></a>1.WebShell</h2><p>　　<strong>以asp、php、jsp或者cgi等网页文件形式存在的一种命令执行环境，也叫作网页后门。</strong>这些文件与网站服务器web目录下正常网页文件混在一起，然后通过浏览器访问这些后门，得到一个命令执行环境，达到控制目的。</p>
+<h2 id="2-web容器"><a href="#2-web容器" class="headerlink" title="2.web容器"></a>2.web容器</h2><p>　　是一种服务程序，在服务器一个端口就有一个提供相应服务的程序，而这个程序就是处理从客户端发出的请求，如tomcat、apache、nginx。</p>
+<h1 id="造成文件上传漏洞的原因"><a href="#造成文件上传漏洞的原因" class="headerlink" title="造成文件上传漏洞的原因"></a>造成文件上传漏洞的原因</h1><p>​        1.对于上传的文件的后缀名没有做较为严格的限制</p>
+<p>​        2.对于上传文件的MIMETYPE（用于描述文件的类型的一种表述方法）没有做检查</p>
+<p>​        3.全线上没有对上传的文件目录设置不可执行权限</p>
+<p>​        4.对于web server上传文件或者制定目录的行为没有做限制</p>
+<h1 id="服务器解析存在的漏洞"><a href="#服务器解析存在的漏洞" class="headerlink" title="服务器解析存在的漏洞"></a>服务器解析存在的漏洞</h1><h2 id="1-IIS解析漏洞"><a href="#1-IIS解析漏洞" class="headerlink" title="1.IIS解析漏洞"></a>1.IIS解析漏洞</h2><p>IIS 6.0在解析文件时存在以下两个解析漏洞。</p>
+<p>1.当建立*.asa、*.asp格式的文件夹时，其目录下的任意文件都将被IIS当做asp文件来解析。</p>
+<p>例如：建立文件夹parsing.asp，在parsing.asp文件夹内新建一个文本文档test.txt，其内容为&lt;%=NOW()%&gt;，然后在浏览器内访问。<br>“NOW()”是ASP提供获取当前时间的函数，TXT是文本文档格式，IIS是不会去解析此类文件的，应该会直接显示其内容，而在parsing.asp文件夹中，却被当作ASP脚本来解析。</p>
+<p>2.当文件为*.asp;1.jpg时，IIS6.0同样会以ASP脚本来执行，如：新建文件test.asp;1.jpg，内容为&lt;%=NOW()%&gt;。</p>
+<h2 id="2-apache解析漏洞"><a href="#2-apache解析漏洞" class="headerlink" title="2.apache解析漏洞"></a>2.apache解析漏洞</h2><p><strong>Apache是从右到左开始判断解析，如果为不可识别解析，就再往左判断。</strong>如xxx.php.owf.rar ，”.owf”和”.rar”这两种后缀是apache解析不了的，apache就会把xxx.php.owf.rar解析成php。</p>
+<p>有些程序开发人员在上传文件时，判断文件名是否是PHP、ASP、ASPX、ASA、CER、ASPX等脚本扩展名，如果是，则不允许上传，这时攻击者就有可能上传1.php.rar等扩展名来绕过程序检测，并配合解析漏洞，获取到WebShell。</p>
+<p>在某些情况下，不只是php，就连<code>phtml</code>、<code>pht</code>、<code>php3</code>、<code>php4</code>和<code>php5</code>都是Apache和php认可的php程序的文件后缀。</p>
+<h2 id="3-Nginx解析漏洞"><a href="#3-Nginx解析漏洞" class="headerlink" title="3.Nginx解析漏洞"></a>3.Nginx解析漏洞</h2><p>1.Nginx版本：</p>
+<figure class="highlight apache"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line"><span class="attribute">Nginx</span> <span class="number">0</span>.<span class="number">5</span>.*</span><br><span class="line"><span class="attribute">Nginx</span> <span class="number">0</span>.<span class="number">6</span>.*</span><br><span class="line"><span class="attribute">Nginx</span> <span class="number">0</span>.<span class="number">7</span> &lt;= <span class="number">0</span>.<span class="number">7</span>.<span class="number">65</span></span><br><span class="line"><span class="attribute">Nginx</span> <span class="number">0</span>.<span class="number">8</span> &lt;= <span class="number">0</span>.<span class="number">8</span>.<span class="number">37</span></span><br></pre></td></tr></table></figure>
+
+<p>以上Nginx容器的版本下，上传一个在waf白名单之内扩展名的文件shell.jpg，然后以shell.jpg.php进行请求</p>
+<p>2.Nginx版本：</p>
+<figure class="highlight apache"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line"><span class="attribute">Nginx</span> <span class="number">0</span>.<span class="number">8</span>.<span class="number">41</span> – <span class="number">1</span>.<span class="number">5</span>.<span class="number">6</span>：</span><br></pre></td></tr></table></figure>
+
+<p>以上Nginx容器的版本下，上传一个在waf白名单之内扩展名的文件shell.jpg，然后以shell.jpg%20.php进行请求</p>
+<h1 id="绕过上传漏洞"><a href="#绕过上传漏洞" class="headerlink" title="绕过上传漏洞"></a>绕过上传漏洞</h1><h2 id="1-客户端检测"><a href="#1-客户端检测" class="headerlink" title="1.客户端检测"></a>1.客户端检测</h2><p>　　使用JavaScript检测，在文件未上传时（数据没有发送出去），就对文件进行验证。</p>
+<p><strong>绕过方法</strong></p>
+<p>1.使用FileBug浏览器插件</p>
+<p>FireBug是删除客户端的JavaScript验证</p>
+<p>2.BurpSuite代理工具</p>
+<p>使用Burp Suite则是按照正常的流程通过JavaScript验证，然后<strong>在传输中的HTTP层做手脚。</strong><br>首先把木马文件扩展名改为一张正常图片的扩展名，比如JPG扩展名，在上传时使用Burp Suite拦截上传数据，再将其中的扩展名JPG修改为PHP，就可以绕过客户端验。</p>
+<h2 id="2-服务器端检测"><a href="#2-服务器端检测" class="headerlink" title="2.服务器端检测"></a>2.服务器端检测</h2><p>服务端脚本一般会检测文件的MIME类型，检测文件扩展名是否合法，甚至有些程序员检测文件中是否嵌入恶意代码。</p>
+<h3 id="1-白名单与黑名单验证"><a href="#1-白名单与黑名单验证" class="headerlink" title="(1)白名单与黑名单验证"></a>(1)白名单与黑名单验证</h3><p>（1)黑名单过滤方法</p>
+<p>规定不允许上传的文件扩展名，用户上传的文件与黑名单匹配，相同则拒绝上传。</p>
+<p>（2）白名单过滤方式</p>
+<p>规定允许上传的文件扩展名，用户上传的文件与白名单匹配，相同允许上传。<strong>白名单往往比黑名单更有效。</strong></p>
+<h3 id="2-MIME验证（检测Content-Type）"><a href="#2-MIME验证（检测Content-Type）" class="headerlink" title="(2)MIME验证（检测Content-Type）"></a>(2)MIME验证（检测Content-Type）</h3><p><strong>MIME：</strong>在把输出结果传送到浏览器上的时候，浏览器必须启动应用程序来处理这个输出文档。这可以通过多种类型MIME（多功能网际邮件扩充协议）来完成。<br>在HTTP中，MIME类型被定义在Content-Type header中。</p>
+<p>当用户上传文件到服务器端的时候，服务器端的程序会获取上传文件的MIME类型，然后用这个获取到的类型来和期望的MIME类型进行匹配，如果匹配不上则说明上传的文件不合法。</p>
+<p><strong>1.绕过方法</strong></p>
+<p>设置检测文件的类型，可以通过burpsuite来修改文件的类型进行过滤即可。</p>
+<p>白名单的过滤方式与黑名单恰恰相反，黑名单是定义不允许上传的文件扩展名，而白名单则是定义允许上传的扩展名，白名单拥有比黑名单更好的防御机制。如：$WhiteList=array(rar’,jpg’,png,bmpy,gif,jpg；doc)；在获取到文件扩展名后对 WhiteList数组里的扩展名迭代判断，如果文件扩展名被命中，程序将认为文件是合法的，否则不允许上传。</p>
+<p><strong>2.MIME验证</strong></p>
+<p>MIME类型用来设定某种扩展名文件的打开方式，当具有该扩展名的文件被访问时，浏览器会自动使用指定的应用程序来打开。如GIF图片MIME为image/gif，CSS文件MIME类型为text/ess。</p>
+<table>
+<thead>
+<tr>
+<th>文件后缀</th>
+<th>Mime类型</th>
+<th>说明</th>
+</tr>
+</thead>
+<tbody><tr>
+<td>.flv</td>
+<td>flv/flv-flash</td>
+<td>在线播放</td>
+</tr>
+<tr>
+<td>.html或.htm</td>
+<td>text/html</td>
+<td>超文本标记语言文本</td>
+</tr>
+<tr>
+<td>.rtf</td>
+<td>application/rtf</td>
+<td>RTF文本</td>
+</tr>
+<tr>
+<td>.gif</td>
+<td>image/gif</td>
+<td>GIF图形</td>
+</tr>
+<tr>
+<td>.jpeg或.jpg</td>
+<td>image/jpeg</td>
+<td>JPEG图形</td>
+</tr>
+<tr>
+<td>.au</td>
+<td>audio/basic</td>
+<td>au声音文件</td>
+</tr>
+<tr>
+<td>.mid或.midi</td>
+<td>audio/midi或audio/x-midi</td>
+<td>MIDI音乐文件</td>
+</tr>
+<tr>
+<td>.ra或.ram或.rm</td>
+<td>audio/x-pn-realaudio</td>
+<td>RealAudio音乐文件</td>
+</tr>
+<tr>
+<td>.mpg或.mpeg或.mp3</td>
+<td>video/mpeg</td>
+<td>MPEG文件</td>
+</tr>
+<tr>
+<td>.avi</td>
+<td>video/x-msvideo</td>
+<td>AVI文件</td>
+</tr>
+<tr>
+<td>.gz</td>
+<td>application/x-gzip</td>
+<td>GZIP文件</td>
+</tr>
+<tr>
+<td>.tar</td>
+<td>application/x-tar</td>
+<td>TAR文件</td>
+</tr>
+<tr>
+<td>.exe</td>
+<td>application/octet-stream</td>
+<td>下载文件类型</td>
+</tr>
+<tr>
+<td>.rmvb</td>
+<td>video/vnd.rn-realvideo</td>
+<td>在线播放</td>
+</tr>
+<tr>
+<td>.txt</td>
+<td>text/plain</td>
+<td>普通文本</td>
+</tr>
+<tr>
+<td>.mrp</td>
+<td>application/octet-stream</td>
+<td>MRP文件（国内普遍的手机）</td>
+</tr>
+<tr>
+<td>.ipa</td>
+<td>application/iphone-package-archive</td>
+<td>IPA文件(IPHONE)</td>
+</tr>
+<tr>
+<td>.deb</td>
+<td>application/x-debian-package-archive</td>
+<td>DED文件(IPHONE)</td>
+</tr>
+<tr>
+<td>.apk</td>
+<td>application/vnd.android.package-archive</td>
+<td>APK文件(安卓系统)</td>
+</tr>
+<tr>
+<td>.cab</td>
+<td>application/vnd.cab-com-archive</td>
+<td>CAB文件(Windows Mobile)</td>
+</tr>
+<tr>
+<td>.xap</td>
+<td>application/x-silverlight-app</td>
+<td>XAP文件(Windows Phone 7)</td>
+</tr>
+<tr>
+<td>.sis</td>
+<td>application/vnd.symbian.install-archive</td>
+<td>SIS文件(symbian平台)</td>
+</tr>
+<tr>
+<td>.jar</td>
+<td>application/java-archive</td>
+<td>JAR文件(JAVA平台手机通用格式)</td>
+</tr>
+<tr>
+<td>.jad</td>
+<td>text/vnd.sun.j2me.app-descriptor</td>
+<td>JAD文件(JAVA平台手机通用格式)</td>
+</tr>
+<tr>
+<td>.sisx</td>
+<td>application/vnd.symbian.epoc/x-sisx-app</td>
+<td>SISX文件(symbian平台)</td>
+</tr>
+</tbody></table>
+<h3 id="3-目录验证"><a href="#3-目录验证" class="headerlink" title="(3)目录验证"></a>(3)目录验证</h3><p>在文件上传时，程序通常允许用户将文件放到指定的目录中，然而有些Web开发人员为了让代码更“健壮”，通常会做一个操作，如果指定的目录存在，就将文件写入目录中，不存在则先建立目录，然后写入。</p>
+<h3 id="4-0x00截断"><a href="#4-0x00截断" class="headerlink" title="(4)0x00截断"></a>(4)0x00截断</h3><p>因为PHP的底层代码是C语言，在C语言中，“\0”是字符串的结束符，如果用户能够传入“\0”，就能实现截断。</p>
+<p>00截断绕过上传限制适用的场景为，后端先获取用户上传文件的文件名，如x.php\00.jpg，再根据文件名获得文件的实际后缀jpg；通过后缀的白名单校验后，最终在保存文件时发生截断，实现上传的文件为x.php。</p>
+<p>当文件系统读到0x00时，会认为文件名已经结束。</p>
+<p>创建一个名为file.php0x00.jpg的文件，但实际上创建的文件是file.php。</p>
+
+    </div>
+
+    
+    
+    
+
+    <footer class="post-footer">
+          <div class="reward-container">
+  <div>Buy me a coffee</div>
+  <button onclick="document.querySelector('.post-reward').classList.toggle('active');">
+    赞赏
+  </button>
+  <div class="post-reward">
+      <div>
+        <img src="/images/wechatpay.jpg" alt="qnjy 微信">
+        <span>微信</span>
+      </div>
+      <div>
+        <img src="/images/alipay.jpg" alt="qnjy 支付宝">
+        <span>支付宝</span>
+      </div>
+
+  </div>
+</div>
+
+          <div class="post-tags">
+              <a href="/tags/%E6%96%87%E4%BB%B6%E4%B8%8A%E4%BC%A0/" rel="tag"><i class="fa fa-tag"></i> 文件上传</a>
+          </div>
+
+        
+
+          <div class="post-nav">
+            <div class="post-nav-item">
+                <a href="/post/4fa736d8.html" rel="prev" title="XSS攻击">
+                  <i class="fa fa-chevron-left"></i> XSS攻击
+                </a>
+            </div>
+            <div class="post-nav-item">
+                <a href="/post/16c3837a.html" rel="next" title="XXE攻击">
+                  XXE攻击 <i class="fa fa-chevron-right"></i>
+                </a>
+            </div>
+          </div>
+    </footer>
+  </article>
+</div>
+
+
+
+
+
+
+      
+
+<script>
+  window.addEventListener('tabs:register', () => {
+    let { activeClass } = CONFIG.comments;
+    if (CONFIG.comments.storage) {
+      activeClass = localStorage.getItem('comments_active') || activeClass;
+    }
+    if (activeClass) {
+      const activeTab = document.querySelector(`a[href="#comment-${activeClass}"]`);
+      if (activeTab) {
+        activeTab.click();
+      }
+    }
+  });
+  if (CONFIG.comments.storage) {
+    window.addEventListener('tabs:click', event => {
+      if (!event.target.matches('.tabs-comment .tab-content .tab-pane')) return;
+      const commentClass = event.target.classList[1];
+      localStorage.setItem('comments_active', commentClass);
+    });
+  }
+</script>
+
+    </div>
+  </main>
+
+  <footer class="footer">
+    <div class="footer-inner">
+      
+
+      
+
+<div class="copyright">
+  
+  &copy; 2020 – 
+  <span itemprop="copyrightYear">2021</span>
+  <span class="with-love">
+    <i class="fa fa-heart"></i>
+  </span>
+  <span class="author" itemprop="copyrightHolder">qnjy</span>
+</div>
+<div class="busuanzi-count">
+    <span class="post-meta-item" id="busuanzi_container_site_uv" style="display: none;">
+      <span class="post-meta-item-icon">
+        <i class="fa fa-user"></i>
+      </span>
+      <span class="site-uv" title="总访客量">
+        <span id="busuanzi_value_site_uv"></span>
+      </span>
+    </span>
+    <span class="post-meta-item" id="busuanzi_container_site_pv" style="display: none;">
+      <span class="post-meta-item-icon">
+        <i class="fa fa-eye"></i>
+      </span>
+      <span class="site-pv" title="总访问量">
+        <span id="busuanzi_value_site_pv"></span>
+      </span>
+    </span>
+</div>
+
+    </div>
+  </footer>
+
+  
+  <script src="//cdn.jsdelivr.net/npm/animejs@3.2.1/lib/anime.min.js"></script>
+<script src="/js/utils.js"></script><script src="/js/motion.js"></script><script src="/js/next-boot.js"></script><script src="/js/bookmark.js"></script>
+
+  
+
+
+
+
+  <script src="/js/local-search.js"></script>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+  
+  <script async src="https://busuanzi.ibruce.info/busuanzi/2.3/busuanzi.pure.mini.js"></script>
+
+
+
+
+
+
+
+
+  
+
+  
+
+
+
+
+
+</body>
+</html>

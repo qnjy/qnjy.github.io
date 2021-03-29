@@ -1,0 +1,866 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+  <meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=2">
+<meta name="theme-color" content="#222">
+<meta name="generator" content="Hexo 5.2.0">
+
+
+  <link rel="apple-touch-icon" sizes="180x180" href="/images/apple-touch-icon-next.png">
+  <link rel="icon" type="image/png" sizes="32x32" href="/images/favicon-32x32-next.png">
+  <link rel="icon" type="image/png" sizes="16x16" href="/images/favicon-16x16-next.png">
+  <link rel="mask-icon" href="/images/logo.svg" color="#222">
+
+<link rel="stylesheet" href="/css/main.css">
+
+
+
+<link rel="stylesheet" href="//cdn.jsdelivr.net/npm/@fortawesome/fontawesome-free@5.15.1/css/all.min.css">
+  <link rel="stylesheet" href="//cdn.jsdelivr.net/npm/animate.css@3.1.1/animate.min.css">
+
+<script class="hexo-configurations">
+    var NexT = window.NexT || {};
+    var CONFIG = {"hostname":"qnjy.github.io","root":"/","images":"/images","scheme":"Gemini","version":"8.0.2","exturl":false,"sidebar":{"position":"left","display":"post","padding":18,"offset":12},"copycode":true,"bookmark":{"enable":true,"color":"#222","save":"auto"},"fancybox":false,"mediumzoom":false,"lazyload":false,"pangu":false,"comments":{"style":"tabs","active":null,"storage":true,"lazyload":false,"nav":null},"motion":{"enable":true,"async":false,"transition":{"post_block":"fadeIn","post_header":"fadeInDown","post_body":"fadeInDown","coll_header":"fadeInLeft","sidebar":"fadeInUp"}},"prism":false,"i18n":{"placeholder":"搜索...","empty":"没有找到任何搜索结果：${query}","hits_time":"找到 ${hits} 个搜索结果（用时 ${time} 毫秒）","hits":"找到 ${hits} 个搜索结果"},"path":"/search.xml","localsearch":{"enable":true,"trigger":"auto","top_n_per_article":1,"unescape":false,"preload":false}};
+  </script>
+
+  <meta name="description" content="十次方项目的第二天，知道什么是MongoDB，并且在电脑上安装使用。使用代码实现MongoDB的增删改查。">
+<meta property="og:type" content="article">
+<meta property="og:title" content="十次方项目-day02">
+<meta property="og:url" content="https://qnjy.github.io/post/9c7e5fb.html">
+<meta property="og:site_name" content="qnjy&#39;s blog">
+<meta property="og:description" content="十次方项目的第二天，知道什么是MongoDB，并且在电脑上安装使用。使用代码实现MongoDB的增删改查。">
+<meta property="og:locale" content="zh_CN">
+<meta property="article:published_time" content="2021-01-18T01:02:05.000Z">
+<meta property="article:modified_time" content="2021-03-15T03:18:16.207Z">
+<meta property="article:author" content="qnjy">
+<meta name="twitter:card" content="summary">
+
+
+<link rel="canonical" href="https://qnjy.github.io/post/9c7e5fb.html">
+
+
+<script class="page-configurations">
+  // https://hexo.io/docs/variables.html
+  CONFIG.page = {
+    sidebar: "",
+    isHome : false,
+    isPost : true,
+    lang   : 'zh-CN'
+  };
+</script>
+
+  <title>十次方项目-day02 | qnjy's blog</title>
+  
+
+
+
+
+
+
+  <noscript>
+  <style>
+  body { margin-top: 2rem; }
+
+  .use-motion .menu-item,
+  .use-motion .sidebar,
+  .use-motion .post-block,
+  .use-motion .pagination,
+  .use-motion .comments,
+  .use-motion .post-header,
+  .use-motion .post-body,
+  .use-motion .collection-header {
+    visibility: visible;
+  }
+
+  .use-motion .header,
+  .use-motion .site-brand-container .toggle,
+  .use-motion .footer { opacity: initial; }
+
+  .use-motion .site-title,
+  .use-motion .site-subtitle,
+  .use-motion .custom-logo-image {
+    opacity: initial;
+    top: initial;
+  }
+
+  .use-motion .logo-line {
+    transform: scaleX(1);
+  }
+
+  .search-pop-overlay, .sidebar-nav { display: none; }
+  .sidebar-panel { display: block; }
+  </style>
+</noscript>
+
+</head>
+
+<body itemscope itemtype="http://schema.org/WebPage" class="use-motion">
+  <div class="headband"></div>
+
+  <main class="main">
+    <header class="header" itemscope itemtype="http://schema.org/WPHeader">
+      <div class="header-inner"><div class="site-brand-container">
+  <div class="site-nav-toggle">
+    <div class="toggle" aria-label="切换导航栏">
+        <span class="toggle-line"></span>
+        <span class="toggle-line"></span>
+        <span class="toggle-line"></span>
+    </div>
+  </div>
+
+  <div class="site-meta">
+
+    <a href="/" class="brand" rel="start">
+      <i class="logo-line"></i>
+      <h1 class="site-title">qnjy's blog</h1>
+      <i class="logo-line"></i>
+    </a>
+      <p class="site-subtitle" itemprop="description">方向不对，努力白费</p>
+  </div>
+
+  <div class="site-nav-right">
+    <div class="toggle popup-trigger">
+        <i class="fa fa-search fa-fw fa-lg"></i>
+    </div>
+  </div>
+</div>
+
+
+
+<nav class="site-nav">
+  <ul class="main-menu menu">
+        <li class="menu-item menu-item-home">
+
+    <a href="/" rel="section"><i class="fa fa-home fa-fw"></i>首页</a>
+
+  </li>
+        <li class="menu-item menu-item-tags">
+
+    <a href="/tags/" rel="section"><i class="fa fa-tags fa-fw"></i>标签</a>
+
+  </li>
+        <li class="menu-item menu-item-categories">
+
+    <a href="/categories/" rel="section"><i class="fa fa-th fa-fw"></i>分类</a>
+
+  </li>
+        <li class="menu-item menu-item-archives">
+
+    <a href="/archives/" rel="section"><i class="fa fa-archive fa-fw"></i>归档</a>
+
+  </li>
+      <li class="menu-item menu-item-search">
+        <a role="button" class="popup-trigger"><i class="fa fa-search fa-fw"></i>搜索
+        </a>
+      </li>
+  </ul>
+</nav>
+
+
+
+  <div class="search-pop-overlay">
+    <div class="popup search-popup">
+        <div class="search-header">
+  <span class="search-icon">
+    <i class="fa fa-search"></i>
+  </span>
+  <div class="search-input-container">
+    <input autocomplete="off" autocapitalize="off" maxlength="80"
+           placeholder="搜索..." spellcheck="false"
+           type="search" class="search-input">
+  </div>
+  <span class="popup-btn-close">
+    <i class="fa fa-times-circle"></i>
+  </span>
+</div>
+<div class="search-result-container no-result">
+  <div class="search-result-icon">
+    <i class="fa fa-spinner fa-pulse fa-5x"></i>
+  </div>
+</div>
+
+    </div>
+  </div>
+
+</div>
+        
+  
+  <div class="toggle sidebar-toggle">
+    <span class="toggle-line"></span>
+    <span class="toggle-line"></span>
+    <span class="toggle-line"></span>
+  </div>
+
+  <aside class="sidebar">
+
+    <div class="sidebar-inner sidebar-nav-active sidebar-toc-active">
+      <ul class="sidebar-nav">
+        <li class="sidebar-nav-toc">
+          文章目录
+        </li>
+        <li class="sidebar-nav-overview">
+          站点概览
+        </li>
+      </ul>
+
+      <div class="sidebar-panel-container">
+        <!--noindex-->
+        <section class="post-toc-wrap sidebar-panel">
+            <div class="post-toc animated"><ol class="nav"><li class="nav-item nav-level-1"><a class="nav-link" href="#%E4%BD%BF%E7%94%A8MongoDB%E5%92%8C%E8%AF%84%E8%AE%BA%E7%AE%A1%E7%90%86"><span class="nav-text">使用MongoDB和评论管理</span></a><ol class="nav-child"><li class="nav-item nav-level-2"><a class="nav-link" href="#1-MongoDB%E7%AE%80%E4%BB%8B"><span class="nav-text">1 MongoDB简介</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#1-1-%E6%96%87%E7%AB%A0%E8%AF%84%E8%AE%BA%E6%95%B0%E6%8D%AE%E5%88%86%E6%9E%90"><span class="nav-text">1.1 文章评论数据分析</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#1-2-%E4%BB%80%E4%B9%88%E6%98%AFMongoDB"><span class="nav-text">1.2 什么是MongoDB</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#1-3-MongoDB%E7%89%B9%E7%82%B9"><span class="nav-text">1.3  MongoDB特点</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#1-4-MongoDB%E4%BD%93%E7%B3%BB%E7%BB%93%E6%9E%84"><span class="nav-text">1.4 MongoDB体系结构</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#1-5-MongoDB%E6%95%B0%E6%8D%AE%E7%B1%BB%E5%9E%8B"><span class="nav-text">1.5 MongoDB数据类型</span></a></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#2-MongoDB%E5%9F%BA%E6%9C%AC%E4%BD%BF%E7%94%A8"><span class="nav-text">2 MongoDB基本使用</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#2-1-%E5%B8%B8%E7%94%A8%E5%91%BD%E4%BB%A4"><span class="nav-text">2.1 常用命令</span></a><ol class="nav-child"><li class="nav-item nav-level-4"><a class="nav-link" href="#2-1-1-%E9%80%89%E6%8B%A9%E5%92%8C%E5%88%9B%E5%BB%BA%E6%95%B0%E6%8D%AE%E5%BA%93"><span class="nav-text">2.1.1 选择和创建数据库</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#2-1-2-%E6%8F%92%E5%85%A5%E4%B8%8E%E6%9F%A5%E8%AF%A2%E6%96%87%E6%A1%A3"><span class="nav-text">2.1.2 插入与查询文档</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#2-1-3-%E4%BF%AE%E6%94%B9%E4%B8%8E%E5%88%A0%E9%99%A4%E6%96%87%E6%A1%A3"><span class="nav-text">2.1.3 修改与删除文档</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#2-1-4-%E7%BB%9F%E8%AE%A1%E6%9D%A1%E6%95%B0"><span class="nav-text">2.1.4 统计条数</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#2-1-5-%E6%A8%A1%E7%B3%8A%E6%9F%A5%E8%AF%A2"><span class="nav-text">2.1.5 模糊查询</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#2-1-6-%E5%A4%A7%E4%BA%8E-%E5%B0%8F%E4%BA%8E-%E4%B8%8D%E7%AD%89%E4%BA%8E"><span class="nav-text">2.1.6 大于 小于 不等于</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#2-1-7-%E5%8C%85%E5%90%AB%E4%B8%8E%E4%B8%8D%E5%8C%85%E5%90%AB"><span class="nav-text">2.1.7 包含与不包含</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#2-1-8-%E6%9D%A1%E4%BB%B6%E8%BF%9E%E6%8E%A5"><span class="nav-text">2.1.8 条件连接</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#2-1-9-%E5%88%97%E5%80%BC%E5%A2%9E%E9%95%BF"><span class="nav-text">2.1.9 列值增长</span></a></li></ol></li><li class="nav-item nav-level-3"><a class="nav-link" href="#2-2-%E5%90%AF%E5%8A%A8MongoDB"><span class="nav-text">2.2 启动MongoDB</span></a></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#3-MongoDB%E5%9C%A8%E4%BB%A3%E7%A0%81%E4%B8%AD%E7%9A%84%E4%BD%BF%E7%94%A8"><span class="nav-text">3 MongoDB在代码中的使用</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#3-1-%E6%9F%A5%E8%AF%A2%E6%89%80%E6%9C%89"><span class="nav-text">3.1 查询所有</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#3-2-%E6%A0%B9%E6%8D%AE%E6%9D%A1%E4%BB%B6%E6%9F%A5%E8%AF%A2"><span class="nav-text">3.2 根据条件查询</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#3-3-%E6%96%B0%E5%A2%9E"><span class="nav-text">3.3 新增</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#3-4-%E4%BF%AE%E6%94%B9"><span class="nav-text">3.4 修改</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#3-5-%E5%88%A0%E9%99%A4"><span class="nav-text">3.5 删除</span></a></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#4-%E6%96%87%E7%AB%A0%E8%AF%84%E8%AE%BA%E5%AE%9E%E7%8E%B0"><span class="nav-text">4 文章评论实现</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#4-1-%E9%9C%80%E6%B1%82%E5%88%86%E6%9E%90"><span class="nav-text">4.1 需求分析</span></a></li></ol></li></ol></li></ol></div>
+        </section>
+        <!--/noindex-->
+
+        <section class="site-overview-wrap sidebar-panel">
+          <div class="site-author site-overview-item animated" itemprop="author" itemscope itemtype="http://schema.org/Person">
+    <img class="site-author-image" itemprop="image" alt="qnjy"
+      src="/images/xigua.jpg">
+  <p class="site-author-name" itemprop="name">qnjy</p>
+  <div class="site-description" itemprop="description">宁静以致远</div>
+</div>
+<div class="site-state-wrap site-overview-item animated">
+  <nav class="site-state">
+      <div class="site-state-item site-state-posts">
+          <a href="/archives/">
+        
+          <span class="site-state-item-count">50</span>
+          <span class="site-state-item-name">日志</span>
+        </a>
+      </div>
+      <div class="site-state-item site-state-categories">
+            <a href="/categories/">
+          
+        <span class="site-state-item-count">17</span>
+        <span class="site-state-item-name">分类</span></a>
+      </div>
+      <div class="site-state-item site-state-tags">
+            <a href="/tags/">
+          
+        <span class="site-state-item-count">29</span>
+        <span class="site-state-item-name">标签</span></a>
+      </div>
+  </nav>
+</div>
+  <div class="links-of-author site-overview-item animated">
+      <span class="links-of-author-item">
+        <a href="https://github.com/qnjy" title="GitHub → https:&#x2F;&#x2F;github.com&#x2F;qnjy" rel="noopener" target="_blank"><i class="fab fa-github fa-fw"></i>GitHub</a>
+      </span>
+      <span class="links-of-author-item">
+        <a href="mailto:877900490@qq.com" title="E-Mail → mailto:877900490@qq.com" rel="noopener" target="_blank"><i class="fa fa-envelope fa-fw"></i>E-Mail</a>
+      </span>
+  </div>
+  <div class="cc-license site-overview-item animated" itemprop="license">
+    <a href="https://creativecommons.org/licenses/by-nc-sa/4.0/zh-CN" class="cc-opacity" rel="noopener" target="_blank"><img src="/images/cc-by-nc-sa.svg" alt="Creative Commons"></a>
+  </div>
+
+
+
+        </section>
+      </div>
+
+    </div>
+  </aside>
+  <div class="sidebar-dimmer"></div>
+
+
+    </header>
+
+    
+  <div class="back-to-top">
+    <i class="fa fa-arrow-up"></i>
+    <span>0%</span>
+  </div>
+  <div class="reading-progress-bar"></div>
+  <a role="button" class="book-mark-link book-mark-link-fixed"></a>
+
+<noscript>
+  <div class="noscript-warning">Theme NexT works best with JavaScript enabled</div>
+</noscript>
+
+
+    <div class="main-inner post posts-expand">
+      
+
+      
+
+  
+
+
+<div class="post-block">
+  
+  
+
+  <article itemscope itemtype="http://schema.org/Article" class="post-content" lang="zh-CN">
+    <link itemprop="mainEntityOfPage" href="https://qnjy.github.io/post/9c7e5fb.html">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="image" content="/images/xigua.jpg">
+      <meta itemprop="name" content="qnjy">
+      <meta itemprop="description" content="宁静以致远">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="qnjy's blog">
+    </span>
+      <header class="post-header">
+        <h1 class="post-title" itemprop="name headline">
+          十次方项目-day02
+        </h1>
+
+        <div class="post-meta-container">
+          <div class="post-meta">
+    <span class="post-meta-item">
+      <span class="post-meta-item-icon">
+        <i class="far fa-calendar"></i>
+      </span>
+      <span class="post-meta-item-text">发表于</span>
+
+      <time title="创建时间：2021-01-18 09:02:05" itemprop="dateCreated datePublished" datetime="2021-01-18T09:02:05+08:00">2021-01-18</time>
+    </span>
+      <span class="post-meta-item">
+        <span class="post-meta-item-icon">
+          <i class="far fa-calendar-check"></i>
+        </span>
+        <span class="post-meta-item-text">更新于</span>
+        <time title="修改时间：2021-03-15 11:18:16" itemprop="dateModified" datetime="2021-03-15T11:18:16+08:00">2021-03-15</time>
+      </span>
+    <span class="post-meta-item">
+      <span class="post-meta-item-icon">
+        <i class="far fa-folder"></i>
+      </span>
+      <span class="post-meta-item-text">分类于</span>
+        <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
+          <a href="/categories/SpringBoot%E9%A1%B9%E7%9B%AE/" itemprop="url" rel="index"><span itemprop="name">SpringBoot项目</span></a>
+        </span>
+    </span>
+
+  
+    <span class="post-meta-item" title="阅读次数" id="busuanzi_container_page_pv" style="display: none;">
+      <span class="post-meta-item-icon">
+        <i class="far fa-eye"></i>
+      </span>
+      <span class="post-meta-item-text">阅读次数：</span>
+      <span id="busuanzi_value_page_pv"></span>
+    </span>
+</div>
+
+        </div>
+      </header>
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+        <p>　　十次方项目的第二天，知道什么是MongoDB，并且在电脑上安装使用。使用代码实现MongoDB的增删改查。<a id="more"></a></p>
+<h1 id="使用MongoDB和评论管理"><a href="#使用MongoDB和评论管理" class="headerlink" title="使用MongoDB和评论管理"></a>使用MongoDB和评论管理</h1><h2 id="1-MongoDB简介"><a href="#1-MongoDB简介" class="headerlink" title="1 MongoDB简介"></a>1 MongoDB简介</h2><h3 id="1-1-文章评论数据分析"><a href="#1-1-文章评论数据分析" class="headerlink" title="1.1 文章评论数据分析"></a>1.1 文章评论数据分析</h3><p>文章评论功能存在以下特点：</p>
+<p>​    1. 数据量大</p>
+<p>​    2. 写入操作频繁</p>
+<p>​    3. 价值较低</p>
+<p>这样的数据，更适合使用MongoDB来实现数据的存储</p>
+<h3 id="1-2-什么是MongoDB"><a href="#1-2-什么是MongoDB" class="headerlink" title="1.2 什么是MongoDB"></a>1.2 什么是MongoDB</h3><p> 　　MongoDB是一个基于分布式文件存储的数据库。由C++语言编写。旨在为WEB应用提供可扩展的高性能数据存储解决方案。 MongoDB是一个介于关系数据库和非关系数据库之间的产品，是非关系数据库当中功能最丰富，最像关系数据库的。它支持的数据结构非常松散，是类似json的bson格式，因此可以存储比较复杂的数据类型。</p>
+<h3 id="1-3-MongoDB特点"><a href="#1-3-MongoDB特点" class="headerlink" title="1.3  MongoDB特点"></a>1.3  MongoDB特点</h3><p>　　Mongo最大的特点是它支持的查询语言非常强大，其语法有点类似于面向对象的查询语言，几乎可以实现类似关系数据库单表查询的绝大部分功能，而且还支持对数据建立索引。</p>
+<p>它的特点是高性能、易部署、易使用，存储数据非常方便。主要功能特性有：</p>
+<ol>
+<li>面向集合存储，易存储对象类型的数据。</li>
+<li>模式自由。</li>
+<li>支持动态查询。</li>
+<li>支持完全索引，包含内部对象。</li>
+<li>支持查询。</li>
+<li>支持复制和故障恢复。</li>
+<li>使用高效的二进制数据存储，包括大型对象（如视频等）。</li>
+<li>自动处理碎片，以支持云计算层次的扩展性。</li>
+<li>支持RUBY，PYTHON，JAVA，C++，PHP，C#等多种语言。</li>
+<li>文件存储格式为BSON（一种JSON的扩展）。</li>
+</ol>
+<h3 id="1-4-MongoDB体系结构"><a href="#1-4-MongoDB体系结构" class="headerlink" title="1.4 MongoDB体系结构"></a>1.4 MongoDB体系结构</h3><p>　　MongoDB的逻辑结构是一种层次结构，主要由：文档（document）、集合（collection）、数据库（databases）三部分组成。逻辑结构是面向用户的，用户使用MongoDB开发应用程序使用的就是逻辑结构。</p>
+<table>
+<thead>
+<tr>
+<th>MongoDB</th>
+<th>MySQL</th>
+</tr>
+</thead>
+<tbody><tr>
+<td>数据库（databases）</td>
+<td>数据库（databases）</td>
+</tr>
+<tr>
+<td>集合（collection）</td>
+<td>表（table）</td>
+</tr>
+<tr>
+<td>文档（document）</td>
+<td>行（row）</td>
+</tr>
+</tbody></table>
+<h3 id="1-5-MongoDB数据类型"><a href="#1-5-MongoDB数据类型" class="headerlink" title="1.5 MongoDB数据类型"></a>1.5 MongoDB数据类型</h3><table>
+<thead>
+<tr>
+<th>数据类型</th>
+<th>描述</th>
+</tr>
+</thead>
+<tbody><tr>
+<td>String</td>
+<td>字符串。存储数据常用的数据类型。在  MongoDB 中，UTF-8 编码的字符串才是合法的。</td>
+</tr>
+<tr>
+<td>Integer</td>
+<td>整型数值。用于存储数值。根据你所采用的服务器，可分为  32 位或 64 位。</td>
+</tr>
+<tr>
+<td>Boolean</td>
+<td>布尔值。用于存储布尔值（真/假）。</td>
+</tr>
+<tr>
+<td>Double</td>
+<td>双精度浮点值。用于存储浮点值。</td>
+</tr>
+<tr>
+<td>Array</td>
+<td>用于将数组或列表或多个值存储为一个键。</td>
+</tr>
+<tr>
+<td>Timestamp</td>
+<td>时间戳。记录文档修改或添加的具体时间。</td>
+</tr>
+<tr>
+<td>Object</td>
+<td>用于内嵌文档。</td>
+</tr>
+<tr>
+<td>Null</td>
+<td>用于创建空值。</td>
+</tr>
+<tr>
+<td>Date</td>
+<td>日期时间。用  UNIX 时间格式来存储当前日期或时间。你可以指定自己的日期时间：创建 Date 对象，传入年月日信息。</td>
+</tr>
+<tr>
+<td>Object  ID</td>
+<td>对象  ID。用于创建文档的 ID。</td>
+</tr>
+<tr>
+<td>Binary  Data</td>
+<td>二进制数据。用于存储二进制数据。</td>
+</tr>
+<tr>
+<td>Code</td>
+<td>代码类型。用于在文档中存储  JavaScript 代码。</td>
+</tr>
+<tr>
+<td>Regular  expression</td>
+<td>正则表达式类型。用于存储正则表达式。</td>
+</tr>
+</tbody></table>
+<p>特殊说明：</p>
+<ol>
+<li><p>ObjectId</p>
+<p>ObjectId 类似唯一主键，可以很快的去生成和排序，包含 12 bytes，含义是：</p>
+<ul>
+<li><p>前 4 个字节表示创建 unix 时间戳，格林尼治时间 UTC 时间，比北京时间晚了 8 个小时</p>
+</li>
+<li><p>接下来的 3 个字节是机器标识码</p>
+</li>
+<li><p>紧接的两个字节由进程 id 组成 PID</p>
+</li>
+<li><p>最后三个字节是随机数</p>
+</li>
+</ul>
+</li>
+</ol>
+<p>   day-02</p>
+<p>   MongoDB 中存储的文档必须有一个 _id 键。这个键的值可以是任何类型的，默认是个 ObjectId 对象</p>
+<ol start="2">
+<li><p>时间戳</p>
+<p>BSON 有一个特殊的时间戳类型，与普通的日期类型不相关。时间戳值是一个 64 位的值。其中：</p>
+<ul>
+<li>前32位是一个 time_t 值【与Unix新纪元（1970年1月1日）相差的秒数】</li>
+<li>后32位是在某秒中操作的一个递增的序数</li>
+</ul>
+<p>在单个 mongod 实例中，时间戳值通常是唯一的。</p>
+</li>
+<li><p>日期</p>
+<p>表示当前距离 Unix新纪元（1970年1月1日）的毫秒数。日期类型是有符号的, 负数表示 1970 年之前的日期。</p>
+</li>
+</ol>
+<h2 id="2-MongoDB基本使用"><a href="#2-MongoDB基本使用" class="headerlink" title="2 MongoDB基本使用"></a>2 MongoDB基本使用</h2><ul>
+<li><p>启动</p>
+<p>1.创建文件夹data，用于存放数据的目录</p>
+<p>2.打开命令行窗口执行：</p>
+<figure class="highlight routeros"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">mongod <span class="attribute">--dbpath</span>=D:\data</span><br></pre></td></tr></table></figure>
+
+<p>启动信息中默认端口号是27017，想要改变端口</p>
+<figure class="highlight routeros"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">mongod <span class="attribute">--dpath</span>=D:\data -port 8989</span><br></pre></td></tr></table></figure>
+</li>
+<li><p>登录</p>
+<p>再打开一个窗口执行</p>
+<figure class="highlight angelscript"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">mongo <span class="number">127.0</span><span class="number">.0</span><span class="number">.1</span>:<span class="number">27017</span></span><br></pre></td></tr></table></figure>
+</li>
+<li><p>退出</p>
+<figure class="highlight awk"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">exit</span></span><br></pre></td></tr></table></figure>
+
+</li>
+</ul>
+<h3 id="2-1-常用命令"><a href="#2-1-常用命令" class="headerlink" title="2.1 常用命令"></a>2.1 常用命令</h3><h4 id="2-1-1-选择和创建数据库"><a href="#2-1-1-选择和创建数据库" class="headerlink" title="2.1.1 选择和创建数据库"></a>2.1.1 选择和创建数据库</h4><p>选择和创建数据库的语法格式：</p>
+<figure class="highlight actionscript"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">use</span> 数据库名称</span><br></pre></td></tr></table></figure>
+
+<p>如果数据库存在则选择该数据库，如果数据库不存在则自动创建。以下语句创建commentdb数据库：</p>
+<figure class="highlight actionscript"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">use</span> commentdb</span><br></pre></td></tr></table></figure>
+
+<p>查看数据库：</p>
+<figure class="highlight dart"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">show</span> dbs</span><br></pre></td></tr></table></figure>
+
+<p>查看集合,需要先选择数据库之后，才能查看该数据库的集合：</p>
+<figure class="highlight dart"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">show</span> collections</span><br></pre></td></tr></table></figure>
+
+<h4 id="2-1-2-插入与查询文档"><a href="#2-1-2-插入与查询文档" class="headerlink" title="2.1.2 插入与查询文档"></a>2.1.2 插入与查询文档</h4><p>选择数据库后，使用集合来对文档进行操作，插入文档语法格式：</p>
+<figure class="highlight abnf"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">db.集合名称.insert(数据)<span class="comment">;</span></span><br></pre></td></tr></table></figure>
+
+<p>插入以下测试数据：</p>
+<figure class="highlight css"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line"><span class="selector-tag">db</span><span class="selector-class">.comment</span><span class="selector-class">.insert</span>(&#123;<span class="attribute">content</span>:<span class="string">&quot;十次方课程&quot;</span>,userid:<span class="string">&quot;1011&quot;</span>&#125;)</span><br></pre></td></tr></table></figure>
+
+<p>查询集合的语法格式：</p>
+<figure class="highlight routeros"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">db.集合名称.<span class="builtin-name">find</span>()</span><br></pre></td></tr></table></figure>
+
+<p>查询spit集合的所有文档，输入以下命令：</p>
+<figure class="highlight css"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line"><span class="selector-tag">db</span><span class="selector-class">.comment</span><span class="selector-class">.find</span>()</span><br></pre></td></tr></table></figure>
+
+<p>​    发现文档会有一个叫_id的字段，这个相当于我们原来关系数据库中表的主键，当你在插入文档记录时没有指定该字段，MongoDB会自动创建，其类型是ObjectID类型。如果我们在插入文档记录时指定该字段也可以，其类型可以是ObjectID类型，也可以是MongoDB支持的任意类型。</p>
+<p>输入以下测试语句:</p>
+<figure class="highlight css"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line"><span class="selector-tag">db</span><span class="selector-class">.comment</span><span class="selector-class">.insert</span>(&#123;<span class="attribute">_id</span>:<span class="string">&quot;1&quot;</span>,content:<span class="string">&quot;到底为啥出错&quot;</span>,userid:<span class="string">&quot;1012&quot;</span>,thumbup:<span class="number">2020</span>&#125;);</span><br><span class="line"><span class="selector-tag">db</span><span class="selector-class">.comment</span><span class="selector-class">.insert</span>(&#123;<span class="attribute">_id</span>:<span class="string">&quot;2&quot;</span>,content:<span class="string">&quot;加班到半夜&quot;</span>,userid:<span class="string">&quot;1013&quot;</span>,thumbup:<span class="number">1023</span>&#125;);</span><br><span class="line"><span class="selector-tag">db</span><span class="selector-class">.comment</span><span class="selector-class">.insert</span>(&#123;<span class="attribute">_id</span>:<span class="string">&quot;3&quot;</span>,content:<span class="string">&quot;手机流量超了咋办&quot;</span>,userid:<span class="string">&quot;1013&quot;</span>,thumbup:<span class="number">111</span>&#125;);</span><br><span class="line"><span class="selector-tag">db</span><span class="selector-class">.comment</span><span class="selector-class">.insert</span>(&#123;<span class="attribute">_id</span>:<span class="string">&quot;4&quot;</span>,content:<span class="string">&quot;坚持就是胜利&quot;</span>,userid:<span class="string">&quot;1014&quot;</span>,thumbup:<span class="number">1223</span>&#125;);</span><br></pre></td></tr></table></figure>
+
+<p>按一定条件来查询，比如查询userid为1013的记录，只要在find()中添加参数即可，参数也是json格式，如下：</p>
+<figure class="highlight css"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line"><span class="selector-tag">db</span><span class="selector-class">.comment</span><span class="selector-class">.find</span>(&#123;<span class="attribute">userid</span>:<span class="string">&#x27;1013&#x27;</span>&#125;)</span><br></pre></td></tr></table></figure>
+
+<p>只需要返回符合条件的第一条数据，我们可以使用findOne命令来实现：</p>
+<figure class="highlight css"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line"><span class="selector-tag">db</span><span class="selector-class">.comment</span><span class="selector-class">.findOne</span>(&#123;<span class="attribute">userid</span>:<span class="string">&#x27;1013&#x27;</span>&#125;)</span><br></pre></td></tr></table></figure>
+
+<p>返回指定条数的记录，可以在find方法后调用limit来返回结果，例如：</p>
+<figure class="highlight css"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line"><span class="selector-tag">db</span><span class="selector-class">.comment</span><span class="selector-class">.find</span>()<span class="selector-class">.limit</span>(2)</span><br></pre></td></tr></table></figure>
+
+<h4 id="2-1-3-修改与删除文档"><a href="#2-1-3-修改与删除文档" class="headerlink" title="2.1.3 修改与删除文档"></a>2.1.3 修改与删除文档</h4><p>修改文档的语法结构：</p>
+<figure class="highlight stata"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">db</span>.集合名称.<span class="keyword">update</span>(条件,修改后的数据)</span><br></pre></td></tr></table></figure>
+
+<p>修改_id为1的记录，点赞数为1000，输入以下语句：</p>
+<figure class="highlight css"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line"><span class="selector-tag">db</span><span class="selector-class">.comment</span><span class="selector-class">.update</span>(&#123;<span class="attribute">_id</span>:<span class="string">&quot;1&quot;</span>&#125;,&#123;<span class="attribute">thumbup</span>:<span class="number">1000</span>&#125;)</span><br></pre></td></tr></table></figure>
+
+<p>执行后发现，这条文档除了thumbup字段其它字段都不见了。</p>
+<p>为了解决这个问题，我们需要使用修改器$set来实现，命令如下：</p>
+<figure class="highlight less"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line"><span class="selector-tag">db</span><span class="selector-class">.comment</span><span class="selector-class">.update</span>(&#123;<span class="attribute">_id</span>:<span class="string">&quot;2&quot;</span>&#125;,&#123;$<span class="attribute">set</span>:&#123;<span class="attribute">thumbup</span>:<span class="number">2000</span>&#125;&#125;)</span><br></pre></td></tr></table></figure>
+
+<p>删除文档的语法结构：</p>
+<figure class="highlight routeros"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">db.集合名称.<span class="builtin-name">remove</span>(条件)</span><br></pre></td></tr></table></figure>
+
+<p>以下语句可以将数据全部删除，<font color="ff0000">慎用~</font></p>
+<figure class="highlight css"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line"><span class="selector-tag">db</span><span class="selector-class">.comment</span><span class="selector-class">.remove</span>(&#123;&#125;)</span><br></pre></td></tr></table></figure>
+
+<p>删除条件可以放到大括号中，例如删除thumbup为1000的数据，输入以下语句：</p>
+<figure class="highlight css"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line"><span class="selector-tag">db</span><span class="selector-class">.comment</span><span class="selector-class">.remove</span>(&#123;<span class="attribute">thumbup</span>:<span class="number">1000</span>&#125;)</span><br></pre></td></tr></table></figure>
+
+<h4 id="2-1-4-统计条数"><a href="#2-1-4-统计条数" class="headerlink" title="2.1.4 统计条数"></a>2.1.4 统计条数</h4><p>统计记录条件使用count()方法。以下语句统计spit集合的记录数：</p>
+<figure class="highlight css"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line"><span class="selector-tag">db</span><span class="selector-class">.comment</span><span class="selector-class">.count</span>()</span><br></pre></td></tr></table></figure>
+
+<p>按条件统计 ，例如统计userid为1013的记录条数：</p>
+<figure class="highlight css"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line"><span class="selector-tag">db</span><span class="selector-class">.comment</span><span class="selector-class">.count</span>(&#123;<span class="attribute">userid</span>:<span class="string">&quot;1013&quot;</span>&#125;)</span><br></pre></td></tr></table></figure>
+
+<h4 id="2-1-5-模糊查询"><a href="#2-1-5-模糊查询" class="headerlink" title="2.1.5 模糊查询"></a>2.1.5 模糊查询</h4><p>MongoDB的模糊查询是通过正则表达式的方式实现的。格式为：</p>
+<figure class="highlight awk"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line"><span class="regexp">/模糊查询字符串/</span></span><br></pre></td></tr></table></figure>
+
+<p>查询评论内容包含“流量”的所有文档，代码如下：</p>
+<figure class="highlight css"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line"><span class="selector-tag">db</span><span class="selector-class">.comment</span><span class="selector-class">.find</span>(&#123;<span class="attribute">content</span>:/流量/&#125;)</span><br></pre></td></tr></table></figure>
+
+<p>查询评论内容中以“加班”开头的，代码如下：</p>
+<figure class="highlight css"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line"><span class="selector-tag">db</span><span class="selector-class">.comment</span><span class="selector-class">.find</span>(&#123;<span class="attribute">content</span>:/^加班/&#125;)</span><br></pre></td></tr></table></figure>
+
+<h4 id="2-1-6-大于-小于-不等于"><a href="#2-1-6-大于-小于-不等于" class="headerlink" title="2.1.6 大于 小于 不等于"></a>2.1.6 大于 小于 不等于</h4><p>&lt;, &lt;=, &gt;, &gt;= 这个操作符也是很常用的，格式如下:</p>
+<figure class="highlight awk"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line">db.集合名称.find(&#123; <span class="string">&quot;field&quot;</span> : &#123; <span class="variable">$gt</span>: value &#125;&#125;) <span class="regexp">//</span> 大于: field &gt; value</span><br><span class="line">db.集合名称.find(&#123; <span class="string">&quot;field&quot;</span> : &#123; <span class="variable">$lt</span>: value &#125;&#125;) <span class="regexp">//</span> 小于: field &lt; value</span><br><span class="line">db.集合名称.find(&#123; <span class="string">&quot;field&quot;</span> : &#123; <span class="variable">$gte</span>: value &#125;&#125;) <span class="regexp">//</span> 大于等于: field &gt;= value</span><br><span class="line">db.集合名称.find(&#123; <span class="string">&quot;field&quot;</span> : &#123; <span class="variable">$lte</span>: value &#125;&#125;) <span class="regexp">//</span> 小于等于: field &lt;= value</span><br><span class="line">db.集合名称.find(&#123; <span class="string">&quot;field&quot;</span> : &#123; <span class="variable">$ne</span>: value &#125;&#125;) <span class="regexp">//</span> 不等于: field != value</span><br></pre></td></tr></table></figure>
+
+<p>查询评论点赞数大于1000的记录：</p>
+<figure class="highlight css"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line"><span class="selector-tag">db</span><span class="selector-class">.comment</span><span class="selector-class">.find</span>(&#123;<span class="attribute">thumbup</span>:&#123;$gt:<span class="number">1000</span>&#125;&#125;)</span><br></pre></td></tr></table></figure>
+
+<h4 id="2-1-7-包含与不包含"><a href="#2-1-7-包含与不包含" class="headerlink" title="2.1.7 包含与不包含"></a>2.1.7 包含与不包含</h4><p>包含使用$in操作符</p>
+<p>查询评论集合中userid字段包含1013和1014的文档：</p>
+<figure class="highlight css"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line"><span class="selector-tag">db</span><span class="selector-class">.comment</span><span class="selector-class">.find</span>(&#123;<span class="attribute">userid</span>:&#123;$in:[<span class="string">&quot;1013&quot;</span>,<span class="string">&quot;1014&quot;</span>]&#125;&#125;)</span><br></pre></td></tr></table></figure>
+
+<p>不包含使用$nin操作符</p>
+<p>查询评论集合中userid字段不包含1013和1014的文档：</p>
+<figure class="highlight css"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line"><span class="selector-tag">db</span><span class="selector-class">.comment</span><span class="selector-class">.find</span>(&#123;<span class="attribute">userid</span>:&#123;$nin:[<span class="string">&quot;1013&quot;</span>,<span class="string">&quot;1014&quot;</span>]&#125;&#125;)</span><br></pre></td></tr></table></figure>
+
+<h4 id="2-1-8-条件连接"><a href="#2-1-8-条件连接" class="headerlink" title="2.1.8 条件连接"></a>2.1.8 条件连接</h4><p>我们如果需要查询同时满足两个以上条件，需要使用$and操作符将条件进行关联（相当于SQL的and）。格式为：</p>
+<figure class="highlight dust"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line"><span class="xml">$and:[ </span><span class="template-variable">&#123;条件&#125;</span><span class="xml">,</span><span class="template-variable">&#123;条件&#125;</span><span class="xml">,</span><span class="template-variable">&#123;条件&#125;</span><span class="xml"> ]</span></span><br></pre></td></tr></table></figure>
+
+<p>查询评论集合中thumbup大于等于1000 并且小于2000的文档：</p>
+<figure class="highlight groovy"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">db.comment.find(&#123;<span class="attr">$and:</span>[ &#123;<span class="attr">thumbup:</span>&#123;<span class="attr">$gte:</span><span class="number">1000</span>&#125;&#125; ,&#123;<span class="attr">thumbup:</span>&#123;<span class="attr">$lt:</span><span class="number">2000</span>&#125; &#125;]&#125;)</span><br></pre></td></tr></table></figure>
+
+<p>如果两个以上条件之间是或者的关系，我们使用操作符进行关联，与前面and的使用方式相同，格式为：</p>
+<figure class="highlight dust"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line"><span class="xml">$or:[ </span><span class="template-variable">&#123;条件&#125;</span><span class="xml">,</span><span class="template-variable">&#123;条件&#125;</span><span class="xml">,</span><span class="template-variable">&#123;条件&#125;</span><span class="xml"> ]</span></span><br></pre></td></tr></table></figure>
+
+<p>查询评论集合中userid为1013，或者点赞数小于2000的文档记录：</p>
+<figure class="highlight groovy"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">db.comment.find(&#123;<span class="attr">$or:</span>[ &#123;<span class="attr">userid:</span><span class="string">&quot;1013&quot;</span>&#125; ,&#123;<span class="attr">thumbup:</span>&#123;<span class="attr">$lt:</span><span class="number">2000</span>&#125; &#125;]&#125;)</span><br></pre></td></tr></table></figure>
+
+<h4 id="2-1-9-列值增长"><a href="#2-1-9-列值增长" class="headerlink" title="2.1.9 列值增长"></a>2.1.9 列值增长</h4><p>对某列值在原有值的基础上进行增加或减少，可以使用$inc运算符：</p>
+<figure class="highlight less"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line"><span class="selector-tag">db</span><span class="selector-class">.comment</span><span class="selector-class">.update</span>(&#123;<span class="attribute">_id</span>:<span class="string">&quot;2&quot;</span>&#125;,&#123;$<span class="attribute">inc</span>:&#123;<span class="attribute">thumbup</span>:<span class="number">1</span>&#125;&#125;)</span><br></pre></td></tr></table></figure>
+
+<h3 id="2-2-启动MongoDB"><a href="#2-2-启动MongoDB" class="headerlink" title="2.2 启动MongoDB"></a>2.2 启动MongoDB</h3><ul>
+<li>window系统</li>
+</ul>
+<p><strong>启动</strong></p>
+<ol>
+<li>创建一个文件夹<code>d:\data</code>，用于存放数据的目录data</li>
+<li>打开命令行窗口，执行以下命令</li>
+</ol>
+<figure class="highlight routeros"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">mongod <span class="attribute">--dbpath</span>=D:\data</span><br></pre></td></tr></table></figure>
+
+<p>​    我们在启动信息中可以看到，mongoDB的默认端口是27017，如果我们想改变默认的启动端口，可以通过–port来指定端口，例如</p>
+<figure class="highlight routeros"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">mongod <span class="attribute">--dbpath</span>=D:\data -port 8989</span><br></pre></td></tr></table></figure>
+
+<p><strong>登录</strong></p>
+<p>再打开一个新的命令行窗口，执行以下命令</p>
+<figure class="highlight angelscript"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">mongo <span class="number">127.0</span><span class="number">.0</span><span class="number">.1</span>:<span class="number">27017</span></span><br></pre></td></tr></table></figure>
+
+<p>以上命令中，如果ip是本地服务，端口号是27017，则后面的<code>127.0.0.1:27017</code>可以省略</p>
+<ul>
+<li>Dokcer环境下</li>
+</ul>
+<p>在Linux虚拟机中创建mongo容器，命令如下：</p>
+<figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">docker run -id --name mongo -p 27017:27017 mongo</span><br></pre></td></tr></table></figure>
+
+<p>在Window命令行窗口出入登录命令：</p>
+<figure class="highlight angelscript"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">mongo <span class="number">192.168</span><span class="number">.200</span><span class="number">.131</span></span><br></pre></td></tr></table></figure>
+
+<h2 id="3-MongoDB在代码中的使用"><a href="#3-MongoDB在代码中的使用" class="headerlink" title="3 MongoDB在代码中的使用"></a>3 MongoDB在代码中的使用</h2><h3 id="3-1-查询所有"><a href="#3-1-查询所有" class="headerlink" title="3.1 查询所有"></a>3.1 查询所有</h3><figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">public</span> <span class="class"><span class="keyword">class</span> <span class="title">MongoDBTest</span></span>&#123;</span><br><span class="line">    <span class="comment">//客户端</span></span><br><span class="line">    <span class="keyword">private</span> MongoClient mongoClient;</span><br><span class="line">    <span class="comment">//集合</span></span><br><span class="line">    <span class="keyword">private</span> MongoCollection&lt;Document&gt; comment</span><br><span class="line"></span><br><span class="line">        <span class="meta">@Before</span></span><br><span class="line">        <span class="function"><span class="keyword">public</span> <span class="keyword">void</span> <span class="title">init</span><span class="params">()</span></span>&#123;</span><br><span class="line">        <span class="comment">// 1.创建操作MongoDB的客户端</span></span><br><span class="line">        mongoClient = <span class="keyword">new</span> MongoClient(<span class="string">&quot;&quot;</span><span class="number">192.168</span>.<span class="number">200.131</span>);</span><br><span class="line">        <span class="comment">// 2.选择数据库</span></span><br><span class="line">        MongoDatabase commentdb = mongoClient.getDatabase(<span class="string">&quot;commentdb&quot;</span>);</span><br><span class="line">        <span class="comment">// 3.获取集合        </span></span><br><span class="line">        comment = commentdb.getCollection(<span class="string">&quot;comment&quot;</span>);</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">    <span class="comment">//查询所有数据db.comment.find()</span></span><br><span class="line">    <span class="meta">@Test</span></span><br><span class="line">    <span class="function"><span class="keyword">public</span> <span class="keyword">void</span> <span class="title">test1</span><span class="params">()</span></span>&#123;</span><br><span class="line">        <span class="comment">// 4.使用集合进行查询</span></span><br><span class="line">        FindIterable&lt;Document&gt; documents = comment.find();</span><br><span class="line">        <span class="comment">// 5.处理查询结果集</span></span><br><span class="line">        <span class="keyword">for</span>(Document document : documents)&#123;</span><br><span class="line">            System.out.println(<span class="string">&quot;-----------&quot;</span>);</span><br><span class="line">            System.out.println(<span class="string">&quot;_id:&quot;</span> + document.get(<span class="string">&quot;_id&quot;</span>));</span><br><span class="line">            System.out.println(<span class="string">&quot;content:&quot;</span> + document.get(<span class="string">&quot;content&quot;</span>));</span><br><span class="line">            System.out.println(<span class="string">&quot;userid:&quot;</span> + document.get(<span class="string">&quot;userid&quot;</span>));</span><br><span class="line">            System.out.println(<span class="string">&quot;thumbup:&quot;</span> + document.get(<span class="string">&quot;thumbup&quot;</span>));</span><br><span class="line">        &#125;</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">    <span class="meta">@After</span></span><br><span class="line">    <span class="function"><span class="keyword">public</span> <span class="keyword">void</span> <span class="title">after</span><span class="params">()</span></span>&#123;</span><br><span class="line">        <span class="comment">// 6.释放资源</span></span><br><span class="line">        mongoClient.close();</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<h3 id="3-2-根据条件查询"><a href="#3-2-根据条件查询" class="headerlink" title="3.2 根据条件查询"></a>3.2 根据条件查询</h3><figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br></pre></td><td class="code"><pre><span class="line"><span class="function"><span class="keyword">public</span> <span class="keyword">void</span> <span class="title">test2</span><span class="params">()</span></span>&#123;</span><br><span class="line">    <span class="comment">//封装查询条件</span></span><br><span class="line">    BasicDBObject bson = <span class="keyword">new</span> BasicDBObject(<span class="string">&quot;_id&quot;</span>,<span class="string">&quot;1&quot;</span>);</span><br><span class="line">    <span class="comment">//执行查询</span></span><br><span class="line">    FindIterable&lt;Document&gt; documents = comment.find(bson);</span><br><span class="line"></span><br><span class="line">    <span class="keyword">for</span>(Document document : documents)&#123;</span><br><span class="line">        System.out.println(<span class="string">&quot;-----------&quot;</span>);</span><br><span class="line">        System.out.println(<span class="string">&quot;_id:&quot;</span> + document.get(<span class="string">&quot;_id&quot;</span>));</span><br><span class="line">        System.out.println(<span class="string">&quot;content:&quot;</span> + document.get(<span class="string">&quot;content&quot;</span>));</span><br><span class="line">        System.out.println(<span class="string">&quot;userid:&quot;</span> + document.get(<span class="string">&quot;userid&quot;</span>));</span><br><span class="line">        System.out.println(<span class="string">&quot;thumbup:&quot;</span> + document.get(<span class="string">&quot;thumbup&quot;</span>));</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<h3 id="3-3-新增"><a href="#3-3-新增" class="headerlink" title="3.3 新增"></a>3.3 新增</h3><figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br></pre></td><td class="code"><pre><span class="line"><span class="function"><span class="keyword">public</span> <span class="keyword">void</span> <span class="title">test3</span><span class="params">()</span></span>&#123;</span><br><span class="line">    <span class="comment">//封装新增数据</span></span><br><span class="line">    Map&lt;String,Object&gt; map = <span class="keyword">new</span> HashMap&lt;&gt;();</span><br><span class="line">    map.put(<span class="string">&quot;_id&quot;</span>,<span class="string">&quot;6&quot;</span>);</span><br><span class="line">    map.put(<span class="string">&quot;content:&quot;</span>,<span class="string">&quot;新增测试&quot;</span>);</span><br><span class="line">    map.put(<span class="string">&quot;userid&quot;</span>,<span class="string">&quot;1019&quot;</span>);</span><br><span class="line">    map.put(<span class="string">&quot;thumbup&quot;</span>,<span class="string">&quot;123&quot;</span>);</span><br><span class="line">    <span class="comment">// 封装新增文档对象</span></span><br><span class="line">    Document document = <span class="keyword">new</span> Document(map);</span><br><span class="line">    <span class="comment">// 执行新增操作</span></span><br><span class="line">    comment.insertOne(document);</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<h3 id="3-4-修改"><a href="#3-4-修改" class="headerlink" title="3.4 修改"></a>3.4 修改</h3><figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br></pre></td><td class="code"><pre><span class="line"><span class="function"><span class="keyword">public</span> <span class="keyword">void</span> <span class="title">test4</span><span class="params">()</span></span>&#123;</span><br><span class="line">    <span class="comment">// 创建修改的条件</span></span><br><span class="line">    BasicDBObject filter = <span class="keyword">new</span> BasicDBObject(<span class="string">&quot;_id&quot;</span>,<span class="string">&quot;6&quot;</span>);</span><br><span class="line"></span><br><span class="line">    <span class="comment">// 创建修改的值</span></span><br><span class="line">    BasicDBObject update = <span class="keyword">new</span> BasicDBObject(<span class="string">&quot;$set&quot;</span>,<span class="keyword">new</span> Document(<span class="string">&quot;userid&quot;</span>,<span class="string">&quot;999&quot;</span>));</span><br><span class="line">    <span class="comment">// 执行修改</span></span><br><span class="line">    comment.updateOne(filter,update);</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<h3 id="3-5-删除"><a href="#3-5-删除" class="headerlink" title="3.5 删除"></a>3.5 删除</h3><figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line"><span class="function"><span class="keyword">public</span> <span class="keyword">void</span> <span class="title">test5</span><span class="params">()</span></span>&#123;</span><br><span class="line">    <span class="comment">// 创建删除条件</span></span><br><span class="line">    BasicDBObject bson = <span class="keyword">new</span> BasicDBObject(<span class="string">&quot;_id&quot;</span>,<span class="string">&quot;6&quot;</span>);</span><br><span class="line">    <span class="comment">// 执行删除</span></span><br><span class="line">    comment.deleteOne(bson);</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<h2 id="4-文章评论实现"><a href="#4-文章评论实现" class="headerlink" title="4 文章评论实现"></a>4 文章评论实现</h2><p>　　SpringDataMongoDB是SpringData家族成员之一，用于操作MongoDB的持久层框架，封装了底层的mongodb-driver。本功能使用SpringDataMongoDB进行开发。</p>
+<h3 id="4-1-需求分析"><a href="#4-1-需求分析" class="headerlink" title="4.1 需求分析"></a>4.1 需求分析</h3><p>评论集合结构：</p>
+<table>
+<thead>
+<tr>
+<th>专栏文章评论</th>
+<th>comment</th>
+<th></th>
+<th></th>
+</tr>
+</thead>
+<tbody><tr>
+<td>字段名称</td>
+<td>字段含义</td>
+<td>字段类型</td>
+<td>备注</td>
+</tr>
+<tr>
+<td>_id</td>
+<td>ID</td>
+<td>文本</td>
+<td></td>
+</tr>
+<tr>
+<td>articleid</td>
+<td>文章ID</td>
+<td>文本</td>
+<td></td>
+</tr>
+<tr>
+<td>content</td>
+<td>评论内容</td>
+<td>文本</td>
+<td></td>
+</tr>
+<tr>
+<td>userid</td>
+<td>评论人ID</td>
+<td>文本</td>
+<td></td>
+</tr>
+<tr>
+<td>parentid</td>
+<td>评论ID</td>
+<td>文本</td>
+<td>如果为0表示文章的顶级评论</td>
+</tr>
+<tr>
+<td>publishdate</td>
+<td>评论日期</td>
+<td>日期</td>
+<td></td>
+</tr>
+<tr>
+<td>thumbup</td>
+<td>点赞数</td>
+<td>数字</td>
+<td></td>
+</tr>
+</tbody></table>
+<p>需要实现以下功能：</p>
+<ol>
+<li>基本增删改查API</li>
+<li>根据文章id查询评论</li>
+<li>评论点赞</li>
+</ol>
+
+    </div>
+
+    
+    
+    
+
+    <footer class="post-footer">
+          <div class="reward-container">
+  <div>Buy me a coffee</div>
+  <button onclick="document.querySelector('.post-reward').classList.toggle('active');">
+    赞赏
+  </button>
+  <div class="post-reward">
+      <div>
+        <img src="/images/wechatpay.jpg" alt="qnjy 微信">
+        <span>微信</span>
+      </div>
+      <div>
+        <img src="/images/alipay.jpg" alt="qnjy 支付宝">
+        <span>支付宝</span>
+      </div>
+
+  </div>
+</div>
+
+
+        
+
+          <div class="post-nav">
+            <div class="post-nav-item">
+                <a href="/post/7fb3659b.html" rel="prev" title="docker学习">
+                  <i class="fa fa-chevron-left"></i> docker学习
+                </a>
+            </div>
+            <div class="post-nav-item">
+                <a href="/post/f05f2e38.html" rel="next" title="Linux虚拟机网络配置">
+                  Linux虚拟机网络配置 <i class="fa fa-chevron-right"></i>
+                </a>
+            </div>
+          </div>
+    </footer>
+  </article>
+</div>
+
+
+
+
+
+
+      
+
+<script>
+  window.addEventListener('tabs:register', () => {
+    let { activeClass } = CONFIG.comments;
+    if (CONFIG.comments.storage) {
+      activeClass = localStorage.getItem('comments_active') || activeClass;
+    }
+    if (activeClass) {
+      const activeTab = document.querySelector(`a[href="#comment-${activeClass}"]`);
+      if (activeTab) {
+        activeTab.click();
+      }
+    }
+  });
+  if (CONFIG.comments.storage) {
+    window.addEventListener('tabs:click', event => {
+      if (!event.target.matches('.tabs-comment .tab-content .tab-pane')) return;
+      const commentClass = event.target.classList[1];
+      localStorage.setItem('comments_active', commentClass);
+    });
+  }
+</script>
+
+    </div>
+  </main>
+
+  <footer class="footer">
+    <div class="footer-inner">
+      
+
+      
+
+<div class="copyright">
+  
+  &copy; 2020 – 
+  <span itemprop="copyrightYear">2021</span>
+  <span class="with-love">
+    <i class="fa fa-heart"></i>
+  </span>
+  <span class="author" itemprop="copyrightHolder">qnjy</span>
+</div>
+<div class="busuanzi-count">
+    <span class="post-meta-item" id="busuanzi_container_site_uv" style="display: none;">
+      <span class="post-meta-item-icon">
+        <i class="fa fa-user"></i>
+      </span>
+      <span class="site-uv" title="总访客量">
+        <span id="busuanzi_value_site_uv"></span>
+      </span>
+    </span>
+    <span class="post-meta-item" id="busuanzi_container_site_pv" style="display: none;">
+      <span class="post-meta-item-icon">
+        <i class="fa fa-eye"></i>
+      </span>
+      <span class="site-pv" title="总访问量">
+        <span id="busuanzi_value_site_pv"></span>
+      </span>
+    </span>
+</div>
+
+    </div>
+  </footer>
+
+  
+  <script src="//cdn.jsdelivr.net/npm/animejs@3.2.1/lib/anime.min.js"></script>
+<script src="/js/utils.js"></script><script src="/js/motion.js"></script><script src="/js/next-boot.js"></script><script src="/js/bookmark.js"></script>
+
+  
+
+
+
+
+  <script src="/js/local-search.js"></script>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+  
+  <script async src="https://busuanzi.ibruce.info/busuanzi/2.3/busuanzi.pure.mini.js"></script>
+
+
+
+
+
+
+
+
+  
+
+  
+
+
+
+
+
+</body>
+</html>

