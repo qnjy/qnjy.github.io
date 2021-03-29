@@ -63,53 +63,6 @@
 <h1 id="网鼎杯-2018-Fakebook"><a href="#网鼎杯-2018-Fakebook" class="headerlink" title="[网鼎杯 2018]Fakebook"></a>[网鼎杯 2018]Fakebook</h1>]]></content>
   </entry>
   <entry>
-    <title>CSS学习</title>
-    <url>/post/238675c9.html</url>
-    <content><![CDATA[<p>基本了解CSS<a id="more"></a></p>
-<h1 id="1-什么是CSS"><a href="#1-什么是CSS" class="headerlink" title="1.什么是CSS"></a>1.什么是CSS</h1><p>　　CSS（Cascading Style Sheet）：层叠样式表语言，它的作用是修饰HTML页面，设置HTML页面中的某些元素的样式。</p>
-<h1 id="2-CSS实例"><a href="#2-CSS实例" class="headerlink" title="2.CSS实例"></a>2.CSS实例</h1><figure class="highlight css"><table><tr><td class="code"><pre><span class="line"><span class="selector-tag">P</span>&#123;</span><br><span class="line">	<span class="attribute">color</span>:red;</span><br><span class="line">	<span class="attribute">text-align</span>:center;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
-
-<h1 id="3-id和class选择器"><a href="#3-id和class选择器" class="headerlink" title="3.id和class选择器"></a>3.id和class选择器</h1><h2 id="3-1-id选择器"><a href="#3-1-id选择器" class="headerlink" title="3.1 id选择器"></a>3.1 id选择器</h2><p>　　可以为标有特定id的HTML元素指定特定的样式。HTML元素以id属性来设置id选择器，css中以“#”来定义。以下的央视规则应用于元素属性id=“para1”：</p>
-<p><a href="https://www.runoob.com/try/try.php?filename=trycss_syntax_id">实例1</a></p>
-<figure class="highlight css"><table><tr><td class="code"><pre><span class="line"><span class="selector-id">#para1</span>&#123;</span><br><span class="line">	<span class="attribute">text-align</span>:center;</span><br><span class="line">	<span class="attribute">color</span>:red;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
-
-<h2 id="3-2-class选择器"><a href="#3-2-class选择器" class="headerlink" title="3.2 class选择器"></a>3.2 class选择器</h2><p>　　class选择器用于描述一组元素的样式，class选择器有别于id选择器，class可以在多个元素中使用。class选择器在HTML中以class属性表示，在CSS中，类选择器以一个点“.”号显示：</p>
-<p>在以下例子中，所拥有center类的HTML元素均为居中。</p>
-<p><a href="https://www.runoob.com/try/try.php?filename=trycss_syntax_class">实例2</a></p>
-<figure class="highlight css"><table><tr><td class="code"><pre><span class="line"><span class="selector-class">.center</span>&#123;</span><br><span class="line">	<span class="attribute">text-align</span>:center;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
-
-<p>也可以指定特定的HTML元素使用class。在以下实例中，所有的p元素使用class=”center”让该元素的文本居中：</p>
-<p><a href="https://www.runoob.com/try/try.php?filename=trycss_syntax_element_class">实例3</a></p>
-<figure class="highlight css"><table><tr><td class="code"><pre><span class="line"><span class="selector-tag">p</span><span class="selector-class">.center</span>&#123;</span><br><span class="line">	<span class="attribute">text-align</span>:center;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
-
-<h1 id="4-CSS的三种使用方式"><a href="#4-CSS的三种使用方式" class="headerlink" title="4.CSS的三种使用方式"></a>4.CSS的三种使用方式</h1><h2 id="4-1-内联定义方式"><a href="#4-1-内联定义方式" class="headerlink" title="4.1 内联定义方式"></a>4.1 内联定义方式</h2><p>在标签内部使用style属性来设置元素的CSS样式，语法格式：</p>
-<figure class="highlight xml"><table><tr><td class="code"><pre><span class="line"><span class="tag">&lt;<span class="name">标签</span> <span class="attr">style</span>=<span class="string">&quot;样式名：样式值;样式名：样式值;样式名：样式值;...&quot;</span>&gt;</span><span class="tag">&lt;/<span class="name">标签</span>&gt;</span></span><br></pre></td></tr></table></figure>
-
-<h2 id="4-2-样式快方式"><a href="#4-2-样式快方式" class="headerlink" title="4.2 样式快方式"></a>4.2 样式快方式</h2><p>在head标签中使用style块，语法格式:</p>
-<figure class="highlight html"><table><tr><td class="code"><pre><span class="line"><span class="tag">&lt;<span class="name">head</span>&gt;</span></span><br><span class="line">	<span class="tag">&lt;<span class="name">style</span> <span class="attr">type</span>=<span class="string">&quot;text/css&quot;</span>&gt;</span></span><br><span class="line">		选择器&#123;</span><br><span class="line">			样式名：样式值;</span><br><span class="line">			样式名：样式值;</span><br><span class="line">			...</span><br><span class="line">		&#125;</span><br><span class="line">		选择器&#123;</span><br><span class="line">			样式名：样式值;</span><br><span class="line">			样式名：样式值;</span><br><span class="line">			...</span><br><span class="line">		&#125;</span><br><span class="line">	<span class="tag">&lt;/<span class="name">style</span>&gt;</span></span><br><span class="line"><span class="tag">&lt;/<span class="name">head</span>&gt;</span></span><br></pre></td></tr></table></figure>
-
-<h2 id="4-3-链入外部样式表文件"><a href="#4-3-链入外部样式表文件" class="headerlink" title="4.3 链入外部样式表文件"></a>4.3 链入外部样式表文件</h2><p>直接引入css文件，语法格式：</p>
-<figure class="highlight html"><table><tr><td class="code"><pre><span class="line"><span class="tag">&lt;<span class="name">link</span> <span class="attr">type</span>=<span class="string">&quot;text/css&quot;</span> <span class="attr">rel</span>=<span class="string">&quot;stylesheet&quot;</span> <span class="attr">href</span>=<span class="string">&quot;css文件的路径&quot;</span> /&gt;</span></span><br></pre></td></tr></table></figure>
-
-]]></content>
-      <categories>
-        <category>前端学习</category>
-      </categories>
-      <tags>
-        <tag>CSS</tag>
-      </tags>
-  </entry>
-  <entry>
-    <title>Drops CTF</title>
-    <url>/post/d02a9bc8.html</url>
-    <content><![CDATA[<h1 id="ZUT第一届信安杯"><a href="#ZUT第一届信安杯" class="headerlink" title="ZUT第一届信安杯"></a>ZUT第一届信安杯</h1><h2 id="file-include"><a href="#file-include" class="headerlink" title="file_include"></a>file_include</h2><p><a href="https://blog.csdn.net/wo41ge/article/details/109948000">php伪协议</a></p>
-<p>我们打开网页只能看到一张图片，看题目是文件包含漏洞</p>
-<figure class="highlight awk"><table><tr><td class="code"><pre><span class="line">?file=php:<span class="regexp">//</span>filter<span class="regexp">/read=convert.base64-encode/</span>resource=flag.php</span><br></pre></td></tr></table></figure>
-
-<p>ctf-file-1</p>
-]]></content>
-  </entry>
-  <entry>
     <title>CSRF攻击</title>
     <url>/post/44b0db89.html</url>
     <content><![CDATA[<p>　　学习了这部分之后，我感觉之前qq空间链接的那种盗号方式，应该就是这个原理<a id="more"></a></p>
@@ -159,6 +112,236 @@
       <tags>
         <tag>CSRF</tag>
       </tags>
+  </entry>
+  <entry>
+    <title>Drops CTF</title>
+    <url>/post/d02a9bc8.html</url>
+    <content><![CDATA[<h1 id="ZUT第一届信安杯"><a href="#ZUT第一届信安杯" class="headerlink" title="ZUT第一届信安杯"></a>ZUT第一届信安杯</h1><h2 id="file-include"><a href="#file-include" class="headerlink" title="file_include"></a>file_include</h2><p><a href="https://blog.csdn.net/wo41ge/article/details/109948000">php伪协议</a></p>
+<p>我们打开网页只能看到一张图片，看题目是文件包含漏洞</p>
+<figure class="highlight awk"><table><tr><td class="code"><pre><span class="line">?file=php:<span class="regexp">//</span>filter<span class="regexp">/read=convert.base64-encode/</span>resource=flag.php</span><br></pre></td></tr></table></figure>
+
+<p>ctf-file-1</p>
+]]></content>
+  </entry>
+  <entry>
+    <title>CSS学习</title>
+    <url>/post/238675c9.html</url>
+    <content><![CDATA[<p>基本了解CSS<a id="more"></a></p>
+<h1 id="1-什么是CSS"><a href="#1-什么是CSS" class="headerlink" title="1.什么是CSS"></a>1.什么是CSS</h1><p>　　CSS（Cascading Style Sheet）：层叠样式表语言，它的作用是修饰HTML页面，设置HTML页面中的某些元素的样式。</p>
+<h1 id="2-CSS实例"><a href="#2-CSS实例" class="headerlink" title="2.CSS实例"></a>2.CSS实例</h1><figure class="highlight css"><table><tr><td class="code"><pre><span class="line"><span class="selector-tag">P</span>&#123;</span><br><span class="line">	<span class="attribute">color</span>:red;</span><br><span class="line">	<span class="attribute">text-align</span>:center;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<h1 id="3-id和class选择器"><a href="#3-id和class选择器" class="headerlink" title="3.id和class选择器"></a>3.id和class选择器</h1><h2 id="3-1-id选择器"><a href="#3-1-id选择器" class="headerlink" title="3.1 id选择器"></a>3.1 id选择器</h2><p>　　可以为标有特定id的HTML元素指定特定的样式。HTML元素以id属性来设置id选择器，css中以“#”来定义。以下的央视规则应用于元素属性id=“para1”：</p>
+<p><a href="https://www.runoob.com/try/try.php?filename=trycss_syntax_id">实例1</a></p>
+<figure class="highlight css"><table><tr><td class="code"><pre><span class="line"><span class="selector-id">#para1</span>&#123;</span><br><span class="line">	<span class="attribute">text-align</span>:center;</span><br><span class="line">	<span class="attribute">color</span>:red;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<h2 id="3-2-class选择器"><a href="#3-2-class选择器" class="headerlink" title="3.2 class选择器"></a>3.2 class选择器</h2><p>　　class选择器用于描述一组元素的样式，class选择器有别于id选择器，class可以在多个元素中使用。class选择器在HTML中以class属性表示，在CSS中，类选择器以一个点“.”号显示：</p>
+<p>在以下例子中，所拥有center类的HTML元素均为居中。</p>
+<p><a href="https://www.runoob.com/try/try.php?filename=trycss_syntax_class">实例2</a></p>
+<figure class="highlight css"><table><tr><td class="code"><pre><span class="line"><span class="selector-class">.center</span>&#123;</span><br><span class="line">	<span class="attribute">text-align</span>:center;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<p>也可以指定特定的HTML元素使用class。在以下实例中，所有的p元素使用class=”center”让该元素的文本居中：</p>
+<p><a href="https://www.runoob.com/try/try.php?filename=trycss_syntax_element_class">实例3</a></p>
+<figure class="highlight css"><table><tr><td class="code"><pre><span class="line"><span class="selector-tag">p</span><span class="selector-class">.center</span>&#123;</span><br><span class="line">	<span class="attribute">text-align</span>:center;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<h1 id="4-CSS的三种使用方式"><a href="#4-CSS的三种使用方式" class="headerlink" title="4.CSS的三种使用方式"></a>4.CSS的三种使用方式</h1><h2 id="4-1-内联定义方式"><a href="#4-1-内联定义方式" class="headerlink" title="4.1 内联定义方式"></a>4.1 内联定义方式</h2><p>在标签内部使用style属性来设置元素的CSS样式，语法格式：</p>
+<figure class="highlight xml"><table><tr><td class="code"><pre><span class="line"><span class="tag">&lt;<span class="name">标签</span> <span class="attr">style</span>=<span class="string">&quot;样式名：样式值;样式名：样式值;样式名：样式值;...&quot;</span>&gt;</span><span class="tag">&lt;/<span class="name">标签</span>&gt;</span></span><br></pre></td></tr></table></figure>
+
+<h2 id="4-2-样式快方式"><a href="#4-2-样式快方式" class="headerlink" title="4.2 样式快方式"></a>4.2 样式快方式</h2><p>在head标签中使用style块，语法格式:</p>
+<figure class="highlight html"><table><tr><td class="code"><pre><span class="line"><span class="tag">&lt;<span class="name">head</span>&gt;</span></span><br><span class="line">	<span class="tag">&lt;<span class="name">style</span> <span class="attr">type</span>=<span class="string">&quot;text/css&quot;</span>&gt;</span></span><br><span class="line">		选择器&#123;</span><br><span class="line">			样式名：样式值;</span><br><span class="line">			样式名：样式值;</span><br><span class="line">			...</span><br><span class="line">		&#125;</span><br><span class="line">		选择器&#123;</span><br><span class="line">			样式名：样式值;</span><br><span class="line">			样式名：样式值;</span><br><span class="line">			...</span><br><span class="line">		&#125;</span><br><span class="line">	<span class="tag">&lt;/<span class="name">style</span>&gt;</span></span><br><span class="line"><span class="tag">&lt;/<span class="name">head</span>&gt;</span></span><br></pre></td></tr></table></figure>
+
+<h2 id="4-3-链入外部样式表文件"><a href="#4-3-链入外部样式表文件" class="headerlink" title="4.3 链入外部样式表文件"></a>4.3 链入外部样式表文件</h2><p>直接引入css文件，语法格式：</p>
+<figure class="highlight html"><table><tr><td class="code"><pre><span class="line"><span class="tag">&lt;<span class="name">link</span> <span class="attr">type</span>=<span class="string">&quot;text/css&quot;</span> <span class="attr">rel</span>=<span class="string">&quot;stylesheet&quot;</span> <span class="attr">href</span>=<span class="string">&quot;css文件的路径&quot;</span> /&gt;</span></span><br></pre></td></tr></table></figure>
+
+]]></content>
+      <categories>
+        <category>前端学习</category>
+      </categories>
+      <tags>
+        <tag>CSS</tag>
+      </tags>
+  </entry>
+  <entry>
+    <title>HTML学习</title>
+    <url>/post/9b6eaec3.html</url>
+    <content><![CDATA[<p>　　了解HTML的基本属性<a id="more"></a></p>
+<h1 id="1-表格"><a href="#1-表格" class="headerlink" title="1.表格"></a>1.表格</h1><h2 id="1-1-amp-nbsp-和-amp-lt-和-amp-gt"><a href="#1-1-amp-nbsp-和-amp-lt-和-amp-gt" class="headerlink" title="1.1 &amp;nbsp;和&amp;lt;和&amp;gt;"></a>1.1 &amp;nbsp;和&amp;lt;和&amp;gt;</h2><table>
+<thead>
+<tr>
+<th>标签</th>
+<th>功能</th>
+</tr>
+</thead>
+<tbody><tr>
+<td>&amp;nbsp;</td>
+<td>显示“ ”符号</td>
+</tr>
+<tr>
+<td>&amp;lt;</td>
+<td>显示“&lt;”号</td>
+</tr>
+<tr>
+<td>&amp;gt;</td>
+<td>显示“&gt;”号</td>
+</tr>
+</tbody></table>
+<h2 id="1-2-table表格"><a href="#1-2-table表格" class="headerlink" title="1.2 table表格"></a>1.2 table表格</h2><p>table标签包括tr（行）、td（单元格）、th（单元格，比td多的是加粗和居中）</p>
+<figure class="highlight html"><table><tr><td class="code"><pre><span class="line"><span class="comment">&lt;!--设置边框1px，宽度为300px，高度为20px--&gt;</span></span><br><span class="line"><span class="tag">&lt;<span class="name">table</span> <span class="attr">align</span>=<span class="string">&quot;center&quot;</span> <span class="attr">border</span>=<span class="string">&quot;1px&quot;</span> <span class="attr">width</span>=<span class="string">&quot;300px&quot;</span> <span class="attr">height</span>=<span class="string">&quot;20px&quot;</span>&gt;</span></span><br><span class="line">	<span class="comment">&lt;!--align是对齐方式--&gt;</span></span><br><span class="line">	<span class="tag">&lt;<span class="name">tr</span> <span class="attr">align</span>=<span class="string">&quot;center&quot;</span>&gt;</span></span><br><span class="line">		<span class="tag">&lt;<span class="name">td</span>&gt;</span>a<span class="tag">&lt;/<span class="name">td</span>&gt;</span></span><br><span class="line">		<span class="tag">&lt;<span class="name">td</span>&gt;</span>b<span class="tag">&lt;/<span class="name">td</span>&gt;</span></span><br><span class="line">		<span class="tag">&lt;<span class="name">td</span>&gt;</span>c<span class="tag">&lt;/<span class="name">td</span>&gt;</span></span><br><span class="line">		<span class="tag">&lt;<span class="name">td</span>&gt;</span>d<span class="tag">&lt;/<span class="name">td</span>&gt;</span></span><br><span class="line">	<span class="tag">&lt;/<span class="name">tr</span>&gt;</span></span><br><span class="line"></span><br><span class="line">	<span class="tag">&lt;<span class="name">tr</span> <span class="attr">align</span>=<span class="string">&quot;center&quot;</span>&gt;</span></span><br><span class="line">		<span class="tag">&lt;<span class="name">td</span>&gt;</span>e<span class="tag">&lt;/<span class="name">td</span>&gt;</span></span><br><span class="line">		<span class="tag">&lt;<span class="name">td</span>&gt;</span>f<span class="tag">&lt;/<span class="name">td</span>&gt;</span></span><br><span class="line">		<span class="tag">&lt;<span class="name">td</span>&gt;</span>g<span class="tag">&lt;/<span class="name">td</span>&gt;</span></span><br><span class="line">		<span class="tag">&lt;<span class="name">td</span>&gt;</span>h<span class="tag">&lt;/<span class="name">td</span>&gt;</span></span><br><span class="line">	<span class="tag">&lt;/<span class="name">tr</span>&gt;</span></span><br><span class="line"></span><br><span class="line">	<span class="tag">&lt;<span class="name">tr</span> <span class="attr">align</span>=<span class="string">&quot;center&quot;</span>&gt;</span></span><br><span class="line">		<span class="tag">&lt;<span class="name">td</span>&gt;</span>i<span class="tag">&lt;/<span class="name">td</span>&gt;</span></span><br><span class="line">		<span class="tag">&lt;<span class="name">td</span>&gt;</span>j<span class="tag">&lt;/<span class="name">td</span>&gt;</span></span><br><span class="line">		<span class="tag">&lt;<span class="name">td</span>&gt;</span>k<span class="tag">&lt;/<span class="name">td</span>&gt;</span></span><br><span class="line">		<span class="tag">&lt;<span class="name">td</span>&gt;</span>l<span class="tag">&lt;/<span class="name">td</span>&gt;</span></span><br><span class="line">	<span class="tag">&lt;/<span class="name">tr</span>&gt;</span></span><br><span class="line"></span><br><span class="line"><span class="tag">&lt;/<span class="name">table</span>&gt;</span></span><br></pre></td></tr></table></figure>
+
+<h2 id="1-3-colspan和rowspan合并"><a href="#1-3-colspan和rowspan合并" class="headerlink" title="1.3 colspan和rowspan合并"></a>1.3 colspan和rowspan合并</h2><table>
+<thead>
+<tr>
+<th>标签</th>
+<th>用法</th>
+</tr>
+</thead>
+<tbody><tr>
+<td>colspan</td>
+<td>删除下面的一行</td>
+</tr>
+<tr>
+<td>rowspan</td>
+<td>删除谁都可以</td>
+</tr>
+</tbody></table>
+<h2 id="1-4-thead和tbody和tfoot"><a href="#1-4-thead和tbody和tfoot" class="headerlink" title="1.4 thead和tbody和tfoot"></a>1.4 thead和tbody和tfoot</h2><h1 id="2-超链接或热点接"><a href="#2-超链接或热点接" class="headerlink" title="2.超链接或热点接"></a>2.超链接或热点接</h1><p>超链接使用：&lt;a href=””&gt;&lt;/a&gt;，href（hot reference 热引用）</p>
+<p>超链接的特点：有下划线，鼠标放上去是个小手</p>
+<p>超链接有个target属性：</p>
+<table>
+<thead>
+<tr>
+<th>值</th>
+<th>作用</th>
+</tr>
+</thead>
+<tbody><tr>
+<td>_blank</td>
+<td>新窗口打开</td>
+</tr>
+<tr>
+<td>_self</td>
+<td>当前窗口打开（默认方式）</td>
+</tr>
+<tr>
+<td>_top</td>
+<td>顶级窗口打开</td>
+</tr>
+<tr>
+<td>_parent</td>
+<td>父窗口打开</td>
+</tr>
+</tbody></table>
+<p>图片超链接：&lt;img src=””/&gt;</p>
+<h1 id="3-列表"><a href="#3-列表" class="headerlink" title="3.列表"></a>3.列表</h1><figure class="highlight html"><table><tr><td class="code"><pre><span class="line"><span class="comment">&lt;!--有序列表--&gt;</span></span><br><span class="line"><span class="tag">&lt;<span class="name">ol</span> <span class="attr">type</span>=<span class="string">&quot;I&quot;</span>&gt;</span></span><br><span class="line">        <span class="tag">&lt;<span class="name">li</span>&gt;</span>水果<span class="tag">&lt;/<span class="name">li</span>&gt;</span></span><br><span class="line">        <span class="tag">&lt;<span class="name">ol</span> <span class="attr">type</span>=<span class="string">&quot;A&quot;</span>&gt;</span></span><br><span class="line">            <span class="tag">&lt;<span class="name">li</span>&gt;</span>苹果<span class="tag">&lt;/<span class="name">li</span>&gt;</span></span><br><span class="line">            <span class="tag">&lt;<span class="name">li</span>&gt;</span>西瓜<span class="tag">&lt;/<span class="name">li</span>&gt;</span></span><br><span class="line">            <span class="tag">&lt;<span class="name">li</span>&gt;</span>草莓<span class="tag">&lt;/<span class="name">li</span>&gt;</span></span><br><span class="line">        <span class="tag">&lt;/<span class="name">ol</span>&gt;</span></span><br><span class="line">        <span class="tag">&lt;<span class="name">li</span>&gt;</span>蔬菜<span class="tag">&lt;/<span class="name">li</span>&gt;</span></span><br><span class="line">    <span class="tag">&lt;/<span class="name">ol</span>&gt;</span></span><br><span class="line"><span class="comment">&lt;!--无序列表--&gt;</span></span><br><span class="line">    <span class="tag">&lt;<span class="name">ul</span> <span class="attr">type</span>=<span class="string">&quot;circle&quot;</span>&gt;</span></span><br><span class="line">        <span class="tag">&lt;<span class="name">li</span>&gt;</span>中国<span class="tag">&lt;/<span class="name">li</span>&gt;</span></span><br><span class="line">        <span class="tag">&lt;<span class="name">ul</span> <span class="attr">type</span>=<span class="string">&quot;square&quot;</span>&gt;</span></span><br><span class="line">            <span class="tag">&lt;<span class="name">li</span>&gt;</span>北京<span class="tag">&lt;/<span class="name">li</span>&gt;</span></span><br><span class="line">            <span class="tag">&lt;<span class="name">li</span>&gt;</span>河南<span class="tag">&lt;/<span class="name">li</span>&gt;</span></span><br><span class="line">            <span class="tag">&lt;<span class="name">ul</span> <span class="attr">type</span>=<span class="string">&quot;disc&quot;</span>&gt;</span></span><br><span class="line">                <span class="tag">&lt;<span class="name">li</span>&gt;</span>洛阳<span class="tag">&lt;/<span class="name">li</span>&gt;</span></span><br><span class="line">                <span class="tag">&lt;<span class="name">li</span>&gt;</span>郑州<span class="tag">&lt;/<span class="name">li</span>&gt;</span></span><br><span class="line">                <span class="tag">&lt;<span class="name">li</span>&gt;</span>济源<span class="tag">&lt;/<span class="name">li</span>&gt;</span></span><br><span class="line">                <span class="tag">&lt;<span class="name">li</span>&gt;</span>商丘<span class="tag">&lt;/<span class="name">li</span>&gt;</span></span><br><span class="line">            <span class="tag">&lt;/<span class="name">ul</span>&gt;</span></span><br><span class="line">            <span class="tag">&lt;<span class="name">li</span>&gt;</span>宁夏<span class="tag">&lt;/<span class="name">li</span>&gt;</span></span><br><span class="line">            <span class="tag">&lt;<span class="name">li</span>&gt;</span>广东<span class="tag">&lt;/<span class="name">li</span>&gt;</span></span><br><span class="line">            <span class="tag">&lt;<span class="name">li</span>&gt;</span>西安<span class="tag">&lt;/<span class="name">li</span>&gt;</span></span><br><span class="line">        <span class="tag">&lt;/<span class="name">ul</span>&gt;</span></span><br><span class="line">        <span class="tag">&lt;<span class="name">li</span>&gt;</span>美国<span class="tag">&lt;/<span class="name">li</span>&gt;</span></span><br><span class="line">        <span class="tag">&lt;<span class="name">li</span>&gt;</span>英国<span class="tag">&lt;/<span class="name">li</span>&gt;</span></span><br><span class="line">    <span class="tag">&lt;/<span class="name">ul</span>&gt;</span></span><br><span class="line">    <span class="tag">&lt;/<span class="name">ul</span>&gt;</span></span><br></pre></td></tr></table></figure>
+
+<p>显示效果如下：</p>
+<p><img src="https://s3.ax1x.com/2021/01/11/s1xXgx.png" alt="s1xXgx.png"></p>
+<h1 id="4-表单"><a href="#4-表单" class="headerlink" title="4.表单"></a>4.表单</h1><p>用于收集用户信息，点击提交按钮提交数据给服务器</p>
+<figure class="highlight html"><table><tr><td class="code"><pre><span class="line"><span class="tag">&lt;<span class="name">form</span>&gt;</span></span><br><span class="line">      <span class="tag">&lt;<span class="name">table</span> <span class="attr">border</span>=<span class="string">&quot;1px&quot;</span>&gt;</span></span><br><span class="line">          <span class="comment">&lt;!--表单项写了name属性的，一律会提交给服务器。--&gt;</span>&gt;</span><br><span class="line">          <span class="tag">&lt;<span class="name">tr</span>&gt;</span></span><br><span class="line">              <span class="tag">&lt;<span class="name">td</span>&gt;</span>用户名<span class="tag">&lt;/<span class="name">td</span>&gt;</span></span><br><span class="line">              <span class="tag">&lt;<span class="name">td</span>&gt;</span><span class="tag">&lt;<span class="name">input</span> <span class="attr">type</span>=<span class="string">&quot;text&quot;</span> <span class="attr">name</span>=<span class="string">&quot;username&quot;</span> /&gt;</span><span class="tag">&lt;/<span class="name">td</span>&gt;</span></span><br><span class="line">          <span class="tag">&lt;/<span class="name">tr</span>&gt;</span></span><br><span class="line"></span><br><span class="line">          <span class="tag">&lt;<span class="name">tr</span>&gt;</span></span><br><span class="line">              <span class="tag">&lt;<span class="name">td</span>&gt;</span>密码<span class="tag">&lt;/<span class="name">td</span>&gt;</span></span><br><span class="line">              <span class="tag">&lt;<span class="name">td</span>&gt;</span><span class="tag">&lt;<span class="name">input</span> <span class="attr">type</span>=<span class="string">&quot;password&quot;</span> <span class="attr">name</span>=<span class="string">&quot;userpwd&quot;</span> /&gt;</span><span class="tag">&lt;/<span class="name">td</span>&gt;</span></span><br><span class="line">          <span class="tag">&lt;/<span class="name">tr</span>&gt;</span></span><br><span class="line"></span><br><span class="line">          <span class="tag">&lt;<span class="name">tr</span> <span class="attr">align</span>=<span class="string">&quot;center&quot;</span>&gt;</span></span><br><span class="line">              <span class="tag">&lt;<span class="name">td</span> <span class="attr">colspan</span>=<span class="string">&quot;2&quot;</span>&gt;</span></span><br><span class="line">                  <span class="tag">&lt;<span class="name">input</span> <span class="attr">type</span>=<span class="string">&quot;submit&quot;</span> <span class="attr">value</span>=<span class="string">&quot;登陆&quot;</span> /&gt;</span></span><br><span class="line">                  <span class="symbol">&amp;nbsp;</span><span class="symbol">&amp;nbsp;</span><span class="symbol">&amp;nbsp;</span><span class="symbol">&amp;nbsp;</span><span class="symbol">&amp;nbsp;</span><span class="symbol">&amp;nbsp;</span></span><br><span class="line">                  <span class="tag">&lt;<span class="name">input</span> <span class="attr">type</span>=<span class="string">&quot;reset&quot;</span> <span class="attr">value</span>=<span class="string">&quot;清空&quot;</span> /&gt;</span></span><br><span class="line">              <span class="tag">&lt;/<span class="name">td</span>&gt;</span></span><br><span class="line">          <span class="tag">&lt;/<span class="name">tr</span>&gt;</span></span><br><span class="line">      <span class="tag">&lt;/<span class="name">table</span>&gt;</span></span><br><span class="line">  <span class="tag">&lt;/<span class="name">form</span>&gt;</span></span><br></pre></td></tr></table></figure>
+
+<p>以下是完整的表单提交例子：</p>
+<figure class="highlight html"><table><tr><td class="code"><pre><span class="line"><span class="comment">&lt;!-- form表单method属性：</span></span><br><span class="line"><span class="comment">       get：采用get方式提交的时候，用户提交的信息会显示在浏览器的地址栏上。</span></span><br><span class="line"><span class="comment">       post：采用post方式提交的时候，用户提交的信息不回显示在浏览器地址栏上。</span></span><br><span class="line"><span class="comment">       当用户提交的信息中含有敏感信息，例如：密码，建议采用post方式提交 --&gt;</span></span><br><span class="line">   <span class="tag">&lt;<span class="name">form</span> <span class="attr">action</span>=<span class="string">&quot;#&quot;</span> <span class="attr">method</span>=<span class="string">&quot;post&quot;</span>&gt;</span></span><br><span class="line">       用户名</span><br><span class="line">       <span class="tag">&lt;<span class="name">input</span> <span class="attr">type</span>=<span class="string">&quot;text&quot;</span> <span class="attr">name</span>=<span class="string">&quot;username&quot;</span> /&gt;</span><span class="tag">&lt;<span class="name">br</span>&gt;</span></span><br><span class="line">       密码</span><br><span class="line">       <span class="tag">&lt;<span class="name">input</span> <span class="attr">type</span>=<span class="string">&quot;password&quot;</span> <span class="attr">name</span>=<span class="string">&quot;userpwd&quot;</span> /&gt;</span><span class="tag">&lt;<span class="name">br</span>&gt;</span></span><br><span class="line">       确认密码</span><br><span class="line">       <span class="tag">&lt;<span class="name">input</span> <span class="attr">type</span>=<span class="string">&quot;password&quot;</span> /&gt;</span><span class="tag">&lt;<span class="name">br</span>&gt;</span></span><br><span class="line">       性别</span><br><span class="line">       <span class="comment">&lt;!--默认选择checked--&gt;</span></span><br><span class="line">       <span class="tag">&lt;<span class="name">input</span> <span class="attr">type</span>=<span class="string">&quot;radio&quot;</span> <span class="attr">name</span>=<span class="string">&quot;gender&quot;</span> <span class="attr">value</span>=<span class="string">&quot;1&quot;</span> <span class="attr">checked</span> /&gt;</span>男</span><br><span class="line">       <span class="tag">&lt;<span class="name">input</span> <span class="attr">type</span>=<span class="string">&quot;radio&quot;</span> <span class="attr">name</span>=<span class="string">&quot;gender&quot;</span> <span class="attr">value</span>=<span class="string">&quot;0&quot;</span> /&gt;</span>女<span class="tag">&lt;<span class="name">br</span>&gt;</span></span><br><span class="line">       兴趣爱好:</span><br><span class="line">       <span class="tag">&lt;<span class="name">input</span> <span class="attr">type</span>=<span class="string">&quot;checkbox&quot;</span> <span class="attr">name</span>=<span class="string">&quot;interest&quot;</span> <span class="attr">value</span>=<span class="string">&quot;smoke&quot;</span> /&gt;</span>抽烟</span><br><span class="line">       <span class="tag">&lt;<span class="name">input</span> <span class="attr">type</span>=<span class="string">&quot;checkbox&quot;</span> <span class="attr">name</span>=<span class="string">&quot;interest&quot;</span> <span class="attr">value</span>=<span class="string">&quot;drink&quot;</span> /&gt;</span>喝酒</span><br><span class="line">       <span class="tag">&lt;<span class="name">input</span> <span class="attr">type</span>=<span class="string">&quot;checkbox&quot;</span> <span class="attr">name</span>=<span class="string">&quot;interest&quot;</span> <span class="attr">value</span>=<span class="string">&quot;fireHair&quot;</span> /&gt;</span>烫头<span class="tag">&lt;<span class="name">br</span>&gt;</span></span><br><span class="line">       学历</span><br><span class="line">       <span class="tag">&lt;<span class="name">select</span> <span class="attr">name</span>=<span class="string">&quot;grade&quot;</span>&gt;</span></span><br><span class="line">           <span class="tag">&lt;<span class="name">option</span> <span class="attr">value</span>=<span class="string">&quot;小学&quot;</span>&gt;</span>小学<span class="tag">&lt;/<span class="name">option</span>&gt;</span></span><br><span class="line">           <span class="tag">&lt;<span class="name">option</span> <span class="attr">value</span>=<span class="string">&quot;初中&quot;</span>&gt;</span>初中<span class="tag">&lt;/<span class="name">option</span>&gt;</span></span><br><span class="line">           <span class="comment">&lt;!--默认选择selected--&gt;</span></span><br><span class="line">           <span class="tag">&lt;<span class="name">option</span> <span class="attr">value</span>=<span class="string">&quot;高中&quot;</span> <span class="attr">selected</span>&gt;</span>高中<span class="tag">&lt;/<span class="name">option</span>&gt;</span></span><br><span class="line">           <span class="tag">&lt;<span class="name">option</span> <span class="attr">value</span>=<span class="string">&quot;专科&quot;</span>&gt;</span>专科<span class="tag">&lt;/<span class="name">option</span>&gt;</span></span><br><span class="line">           <span class="tag">&lt;<span class="name">option</span> <span class="attr">value</span>=<span class="string">&quot;本科&quot;</span>&gt;</span>本科<span class="tag">&lt;/<span class="name">option</span>&gt;</span></span><br><span class="line">       <span class="tag">&lt;/<span class="name">select</span>&gt;</span><span class="tag">&lt;<span class="name">br</span>&gt;</span></span><br><span class="line">       简介</span><br><span class="line">       <span class="comment">&lt;!--文本域，文本域没有value属性，填写的就是value--&gt;</span></span><br><span class="line">       <span class="tag">&lt;<span class="name">textarea</span> <span class="attr">rows</span>=<span class="string">&quot;10&quot;</span> <span class="attr">cols</span>=<span class="string">&quot;60&quot;</span> <span class="attr">name</span>=<span class="string">&quot;introduce&quot;</span>&gt;</span><span class="tag">&lt;/<span class="name">textarea</span>&gt;</span></span><br><span class="line">       <span class="tag">&lt;<span class="name">br</span>&gt;</span></span><br><span class="line">       <span class="tag">&lt;<span class="name">input</span> <span class="attr">type</span>=<span class="string">&quot;submit&quot;</span> <span class="attr">value</span>=<span class="string">&quot;注册&quot;</span> /&gt;</span></span><br><span class="line">       <span class="tag">&lt;<span class="name">input</span> <span class="attr">type</span>=<span class="string">&quot;reset&quot;</span> <span class="attr">value</span>=<span class="string">&quot;清空&quot;</span> /&gt;</span></span><br><span class="line">   <span class="tag">&lt;/<span class="name">form</span>&gt;</span></span><br></pre></td></tr></table></figure>
+
+<h1 id="5-下拉列表支持多选"><a href="#5-下拉列表支持多选" class="headerlink" title="5.下拉列表支持多选"></a>5.下拉列表支持多选</h1><p>multiple支持多选，size设置条目数量</p>
+<figure class="highlight html"><table><tr><td class="code"><pre><span class="line"><span class="tag">&lt;<span class="name">select</span> <span class="attr">multiple</span>=<span class="string">&quot;multiple&quot;</span> <span class="attr">size</span>=<span class="string">&quot;3&quot;</span>&gt;</span></span><br><span class="line">       <span class="tag">&lt;<span class="name">option</span> &gt;</span>河南省<span class="tag">&lt;/<span class="name">option</span>&gt;</span></span><br><span class="line">       <span class="tag">&lt;<span class="name">option</span> &gt;</span>河北省<span class="tag">&lt;/<span class="name">option</span>&gt;</span></span><br><span class="line">       <span class="tag">&lt;<span class="name">option</span> &gt;</span>山西省<span class="tag">&lt;/<span class="name">option</span>&gt;</span></span><br><span class="line">       <span class="tag">&lt;<span class="name">option</span> &gt;</span>山东省<span class="tag">&lt;/<span class="name">option</span>&gt;</span></span><br><span class="line">       <span class="tag">&lt;<span class="name">option</span> &gt;</span>陕西省<span class="tag">&lt;/<span class="name">option</span>&gt;</span></span><br><span class="line"><span class="tag">&lt;/<span class="name">select</span>&gt;</span></span><br></pre></td></tr></table></figure>
+
+<h1 id="6-控件"><a href="#6-控件" class="headerlink" title="6.控件"></a>6.控件</h1><h2 id="1-file控件"><a href="#1-file控件" class="headerlink" title="1.file控件"></a>1.file控件</h2><p>文件上传专用</p>
+<figure class="highlight html"><table><tr><td class="code"><pre><span class="line"><span class="tag">&lt;<span class="name">input</span> <span class="attr">type</span>=<span class="string">&quot;file&quot;</span>/&gt;</span></span><br></pre></td></tr></table></figure>
+
+<h2 id="2-hidden控件"><a href="#2-hidden控件" class="headerlink" title="2.hidden控件"></a>2.hidden控件</h2><figure class="highlight html"><table><tr><td class="code"><pre><span class="line"><span class="tag">&lt;<span class="name">input</span> <span class="attr">type</span>=<span class="string">&quot;hidden&quot;</span> <span class="attr">name</span>=<span class="string">&quot;userid&quot;</span> <span class="attr">value</span>=<span class="string">&quot;111&quot;</span>&gt;</span></span><br></pre></td></tr></table></figure>
+]]></content>
+      <categories>
+        <category>前端学习</category>
+      </categories>
+      <tags>
+        <tag>HTML</tag>
+      </tags>
+  </entry>
+  <entry>
+    <title>CTF隐写术工具</title>
+    <url>/post/fa8f33cf.html</url>
+    <content><![CDATA[<p>　　隐写术是一门关于信息隐藏的技巧与科学，所谓信息隐藏指的是不让除预期的接受者之外的任何人知道信息的传递事件或内容。<a id="more"></a></p>
+<h2 id="隐写术用到的工具"><a href="#隐写术用到的工具" class="headerlink" title="隐写术用到的工具"></a>隐写术用到的工具</h2><h3 id="1-16进制修改器"><a href="#1-16进制修改器" class="headerlink" title="1.16进制修改器"></a>1.16进制修改器</h3><h3 id="2-binwalk（Linux）"><a href="#2-binwalk（Linux）" class="headerlink" title="2.binwalk（Linux）"></a>2.binwalk（Linux）</h3><p>分析文件信息，用来查看文件中是否包含其他隐藏文件，简单用法：</p>
+<p><code>binwalk filename</code> 分析构成</p>
+<p><code>binwalk -e filename</code>自动解压已知文件格式</p>
+<p><code>binwalk -D=[extension] filename</code>根据后缀名解压，如-D=zip等</p>
+<h3 id="3-StegSolve（Windows）"><a href="#3-StegSolve（Windows）" class="headerlink" title="3.StegSolve（Windows）"></a>3.StegSolve（Windows）</h3><p>能够对常见的照片格式进行偏移、LSB提取、帧提取、拉长等</p>
+<h3 id="4-Stegdetect（Windows）"><a href="#4-Stegdetect（Windows）" class="headerlink" title="4.Stegdetect（Windows）"></a>4.Stegdetect（Windows）</h3><p>用于检测JPEG文件中是否包含隐藏内容，并尝试分析是哪个工具嵌入的，使用方式：</p>
+<p><code>stegdetect [-nqV] [-s &lt;float&gt;] [-d &lt;num&gt;] [-t &lt;tests&gt;] [file.jpg]</code></p>
+<table>
+<thead>
+<tr>
+<th>参数信息</th>
+</tr>
+</thead>
+<tbody><tr>
+<td>-q 仅显示可能包含隐藏内容的图像。</td>
+</tr>
+<tr>
+<td>-n 启用检查 JPEG 文件头功能，以降低误报率。如果启用，所有带有批注区域的文件将被视为没有被嵌入信息。如果 JPEG 文件的 JFIF 标识符中的版本号不是1.1，则禁用 OutGuess 检测。</td>
+</tr>
+<tr>
+<td>-s 修改检测算法的敏感度，该值的默认值为1。检测结果的匹配度与检测算法的敏感度成正比，算法敏感度的值越大，检测出的可疑文件包含敏感信息的可能性越大。</td>
+</tr>
+<tr>
+<td>-d 打印带行号的调试信息。</td>
+</tr>
+<tr>
+<td>-t 设置要检测哪些隐写工具（默认检测 jopi），可设置的选项如下： j 检测图像中的信息是否是用 jsteg 嵌入的。 o  检测图像中的信息是否是用 outguess 嵌入的。 p 检测图像中的信息是否是用 jphide 嵌入的。 i 检测图像中的信息是否是用  invisible secrets 嵌入的。</td>
+</tr>
+</tbody></table>
+<h3 id="5-Outguess（Windows）"><a href="#5-Outguess（Windows）" class="headerlink" title="5.Outguess（Windows）"></a>5.Outguess（Windows）</h3><p>提取JPEG文件中使用Outguess算法的加入的隐藏信息</p>
+<h3 id="6-MP3Stego（Windows）"><a href="#6-MP3Stego（Windows）" class="headerlink" title="6.MP3Stego（Windows）"></a>6.MP3Stego（Windows）</h3><p>对于MP3音频文件的隐写和提取，如一个名为“123.mp3”的文件</p>
+<table>
+<thead>
+<tr>
+<th>命令</th>
+<th>功能</th>
+</tr>
+</thead>
+<tbody><tr>
+<td>decode -X -P 123.mp3</td>
+<td>提取123mp3信息到123.txt中</td>
+</tr>
+<tr>
+<td>encode -E 123.txt -P pass 123.mp3</td>
+<td>把123.txt文件写入123.mp3中</td>
+</tr>
+</tbody></table>
+<p><a href="https://www.petitcolas.net/steganography/mp3stego/">下载链接</a></p>
+<h3 id="7-ZipCenOp伪加密（Windows）"><a href="#7-ZipCenOp伪加密（Windows）" class="headerlink" title="7.ZipCenOp伪加密（Windows）"></a>7.ZipCenOp伪加密（Windows）</h3><table>
+<thead>
+<tr>
+<th>命令</th>
+<th>功能</th>
+</tr>
+</thead>
+<tbody><tr>
+<td>java -jar ZipCenOp.jar e xxx.zip</td>
+<td>加密</td>
+</tr>
+<tr>
+<td>java -jar ZipCenOp.jar r xxx.zip</td>
+<td>解密</td>
+</tr>
+</tbody></table>
+<p><img src="https://s3.ax1x.com/2020/11/29/D6LBon.jpg" alt="D6LBon.jpg"></p>
+<p><strong>a.压缩源文件数据区：</strong></p>
+<p>50 4B 03 04：这是头文件标记（0x04034b50）<br> 14 00：解压文件所需 pkware 版本<br> 09 00：全局方式位标记（有无加密）<br> 08 00：压缩方式<br> 50 A3：最后修改文件时间<br> A5 4A：最后修改文件日期<br> 21 38 76 64：CRC-32校验（1480B516）<br> 19 00 00 00：压缩后尺寸（25）<br> 17 00 00 00：未压缩尺寸（23）<br> 08 00：文件名长度<br> 00 00：扩展记录长度</p>
+<p>666C61672E7478744BCB494CAF764CC935F4D3753272D7CD0ED50D8EF20CA80500</p>
+<p><strong>b.压缩源文件目录区:</strong></p>
+<p>50 4B 01 02：目录中文件文件头标记(0x02014b50)<br> 1F 00：压缩使用的 pkware 版本<br> 14 00：解压文件所需 pkware 版本<br> 09 00：全局方式位标记（有无加密，这个更改这里进行伪加密，改为09 00打开就会提示有密码了）<br> 08 00：压缩方式<br> 50 A3：最后修改文件时间<br> A5 4A：最后修改文件日期<br> 21 38 76 65：CRC-32校验（1480B516）<br> 19 00 00 00：压缩后尺寸（25）<br> 17 00 00 00：未压缩尺寸（23）<br> 08 00：文件名长度<br> 24 00：扩展字段长度<br> 00 00：文件注释长度<br> 00 00：磁盘开始号<br> 00 00：内部文件属性<br> 20 00 00 00：外部文件属性<br> 00 00 00 00：局部头部偏移量<br> 666C61672E7478740A00200000000000010018000FF504D59AC5D201461FCB8A9AC5D201461FCB8A9AC5D201</p>
+<p><strong>c.压缩源文件目录结束标志:</strong></p>
+<p>50 4B 05 06：目录结束标记<br> 00 00：当前磁盘编号<br> 00 00：目录区开始磁盘编号<br> 01 00：本磁盘上纪录总数<br> 01 00：目录区中纪录总数<br> 5A 00 00 00：目录区尺寸大小<br> 3F 00 00 00：目录区对第一张磁盘的偏移量<br> 00 00 00：ZIP 文件注释长度</p>
+<h4 id="识别真假加密"><a href="#识别真假加密" class="headerlink" title="识别真假加密"></a>识别真假加密</h4><p><strong>无加密</strong><br> 压缩源文件数据区的全局加密应当为00 00<br> 且压缩源文件目录区的全局方式位标记应当为00 00</p>
+<p><strong>假加密</strong><br> 压缩源文件数据区的全局加密应当为00 00<br> 且压缩源文件目录区的全局方式位标记应当为09 00</p>
+<p><strong>真加密</strong><br> 压缩源文件数据区的全局加密应当为09 00<br> 且压缩源文件目录区的全局方式位标记应当为09 00</p>
+<p>把09 00 改成00 00 之后，保存，重新打开，即可看到flag</p>
+<h3 id="8-Steghide"><a href="#8-Steghide" class="headerlink" title="8.Steghide"></a>8.Steghide</h3><h3 id="9-cloacked-pixel"><a href="#9-cloacked-pixel" class="headerlink" title="9.cloacked-pixel"></a>9.cloacked-pixel</h3><p>用于lsb解密，但是没有密码</p>
+<p>python2 lsb.py extract flag.png 1.txt password</p>
+]]></content>
+      <categories>
+        <category>第一届DMCTF夺旗赛</category>
+      </categories>
   </entry>
   <entry>
     <title>Hadoop集群环境搭建1</title>
@@ -369,189 +552,6 @@
       <categories>
         <category>环境搭建</category>
       </categories>
-  </entry>
-  <entry>
-    <title>CTF隐写术工具</title>
-    <url>/post/fa8f33cf.html</url>
-    <content><![CDATA[<p>　　隐写术是一门关于信息隐藏的技巧与科学，所谓信息隐藏指的是不让除预期的接受者之外的任何人知道信息的传递事件或内容。<a id="more"></a></p>
-<h2 id="隐写术用到的工具"><a href="#隐写术用到的工具" class="headerlink" title="隐写术用到的工具"></a>隐写术用到的工具</h2><h3 id="1-16进制修改器"><a href="#1-16进制修改器" class="headerlink" title="1.16进制修改器"></a>1.16进制修改器</h3><h3 id="2-binwalk（Linux）"><a href="#2-binwalk（Linux）" class="headerlink" title="2.binwalk（Linux）"></a>2.binwalk（Linux）</h3><p>分析文件信息，用来查看文件中是否包含其他隐藏文件，简单用法：</p>
-<p><code>binwalk filename</code> 分析构成</p>
-<p><code>binwalk -e filename</code>自动解压已知文件格式</p>
-<p><code>binwalk -D=[extension] filename</code>根据后缀名解压，如-D=zip等</p>
-<h3 id="3-StegSolve（Windows）"><a href="#3-StegSolve（Windows）" class="headerlink" title="3.StegSolve（Windows）"></a>3.StegSolve（Windows）</h3><p>能够对常见的照片格式进行偏移、LSB提取、帧提取、拉长等</p>
-<h3 id="4-Stegdetect（Windows）"><a href="#4-Stegdetect（Windows）" class="headerlink" title="4.Stegdetect（Windows）"></a>4.Stegdetect（Windows）</h3><p>用于检测JPEG文件中是否包含隐藏内容，并尝试分析是哪个工具嵌入的，使用方式：</p>
-<p><code>stegdetect [-nqV] [-s &lt;float&gt;] [-d &lt;num&gt;] [-t &lt;tests&gt;] [file.jpg]</code></p>
-<table>
-<thead>
-<tr>
-<th>参数信息</th>
-</tr>
-</thead>
-<tbody><tr>
-<td>-q 仅显示可能包含隐藏内容的图像。</td>
-</tr>
-<tr>
-<td>-n 启用检查 JPEG 文件头功能，以降低误报率。如果启用，所有带有批注区域的文件将被视为没有被嵌入信息。如果 JPEG 文件的 JFIF 标识符中的版本号不是1.1，则禁用 OutGuess 检测。</td>
-</tr>
-<tr>
-<td>-s 修改检测算法的敏感度，该值的默认值为1。检测结果的匹配度与检测算法的敏感度成正比，算法敏感度的值越大，检测出的可疑文件包含敏感信息的可能性越大。</td>
-</tr>
-<tr>
-<td>-d 打印带行号的调试信息。</td>
-</tr>
-<tr>
-<td>-t 设置要检测哪些隐写工具（默认检测 jopi），可设置的选项如下： j 检测图像中的信息是否是用 jsteg 嵌入的。 o  检测图像中的信息是否是用 outguess 嵌入的。 p 检测图像中的信息是否是用 jphide 嵌入的。 i 检测图像中的信息是否是用  invisible secrets 嵌入的。</td>
-</tr>
-</tbody></table>
-<h3 id="5-Outguess（Windows）"><a href="#5-Outguess（Windows）" class="headerlink" title="5.Outguess（Windows）"></a>5.Outguess（Windows）</h3><p>提取JPEG文件中使用Outguess算法的加入的隐藏信息</p>
-<h3 id="6-MP3Stego（Windows）"><a href="#6-MP3Stego（Windows）" class="headerlink" title="6.MP3Stego（Windows）"></a>6.MP3Stego（Windows）</h3><p>对于MP3音频文件的隐写和提取，如一个名为“123.mp3”的文件</p>
-<table>
-<thead>
-<tr>
-<th>命令</th>
-<th>功能</th>
-</tr>
-</thead>
-<tbody><tr>
-<td>decode -X -P 123.mp3</td>
-<td>提取123mp3信息到123.txt中</td>
-</tr>
-<tr>
-<td>encode -E 123.txt -P pass 123.mp3</td>
-<td>把123.txt文件写入123.mp3中</td>
-</tr>
-</tbody></table>
-<p><a href="https://www.petitcolas.net/steganography/mp3stego/">下载链接</a></p>
-<h3 id="7-ZipCenOp伪加密（Windows）"><a href="#7-ZipCenOp伪加密（Windows）" class="headerlink" title="7.ZipCenOp伪加密（Windows）"></a>7.ZipCenOp伪加密（Windows）</h3><table>
-<thead>
-<tr>
-<th>命令</th>
-<th>功能</th>
-</tr>
-</thead>
-<tbody><tr>
-<td>java -jar ZipCenOp.jar e xxx.zip</td>
-<td>加密</td>
-</tr>
-<tr>
-<td>java -jar ZipCenOp.jar r xxx.zip</td>
-<td>解密</td>
-</tr>
-</tbody></table>
-<p><img src="https://s3.ax1x.com/2020/11/29/D6LBon.jpg" alt="D6LBon.jpg"></p>
-<p><strong>a.压缩源文件数据区：</strong></p>
-<p>50 4B 03 04：这是头文件标记（0x04034b50）<br> 14 00：解压文件所需 pkware 版本<br> 09 00：全局方式位标记（有无加密）<br> 08 00：压缩方式<br> 50 A3：最后修改文件时间<br> A5 4A：最后修改文件日期<br> 21 38 76 64：CRC-32校验（1480B516）<br> 19 00 00 00：压缩后尺寸（25）<br> 17 00 00 00：未压缩尺寸（23）<br> 08 00：文件名长度<br> 00 00：扩展记录长度</p>
-<p>666C61672E7478744BCB494CAF764CC935F4D3753272D7CD0ED50D8EF20CA80500</p>
-<p><strong>b.压缩源文件目录区:</strong></p>
-<p>50 4B 01 02：目录中文件文件头标记(0x02014b50)<br> 1F 00：压缩使用的 pkware 版本<br> 14 00：解压文件所需 pkware 版本<br> 09 00：全局方式位标记（有无加密，这个更改这里进行伪加密，改为09 00打开就会提示有密码了）<br> 08 00：压缩方式<br> 50 A3：最后修改文件时间<br> A5 4A：最后修改文件日期<br> 21 38 76 65：CRC-32校验（1480B516）<br> 19 00 00 00：压缩后尺寸（25）<br> 17 00 00 00：未压缩尺寸（23）<br> 08 00：文件名长度<br> 24 00：扩展字段长度<br> 00 00：文件注释长度<br> 00 00：磁盘开始号<br> 00 00：内部文件属性<br> 20 00 00 00：外部文件属性<br> 00 00 00 00：局部头部偏移量<br> 666C61672E7478740A00200000000000010018000FF504D59AC5D201461FCB8A9AC5D201461FCB8A9AC5D201</p>
-<p><strong>c.压缩源文件目录结束标志:</strong></p>
-<p>50 4B 05 06：目录结束标记<br> 00 00：当前磁盘编号<br> 00 00：目录区开始磁盘编号<br> 01 00：本磁盘上纪录总数<br> 01 00：目录区中纪录总数<br> 5A 00 00 00：目录区尺寸大小<br> 3F 00 00 00：目录区对第一张磁盘的偏移量<br> 00 00 00：ZIP 文件注释长度</p>
-<h4 id="识别真假加密"><a href="#识别真假加密" class="headerlink" title="识别真假加密"></a>识别真假加密</h4><p><strong>无加密</strong><br> 压缩源文件数据区的全局加密应当为00 00<br> 且压缩源文件目录区的全局方式位标记应当为00 00</p>
-<p><strong>假加密</strong><br> 压缩源文件数据区的全局加密应当为00 00<br> 且压缩源文件目录区的全局方式位标记应当为09 00</p>
-<p><strong>真加密</strong><br> 压缩源文件数据区的全局加密应当为09 00<br> 且压缩源文件目录区的全局方式位标记应当为09 00</p>
-<p>把09 00 改成00 00 之后，保存，重新打开，即可看到flag</p>
-<h3 id="8-Steghide"><a href="#8-Steghide" class="headerlink" title="8.Steghide"></a>8.Steghide</h3><h3 id="9-cloacked-pixel"><a href="#9-cloacked-pixel" class="headerlink" title="9.cloacked-pixel"></a>9.cloacked-pixel</h3><p>用于lsb解密，但是没有密码</p>
-<p>python2 lsb.py extract flag.png 1.txt password</p>
-]]></content>
-      <categories>
-        <category>第一届DMCTF夺旗赛</category>
-      </categories>
-  </entry>
-  <entry>
-    <title>HTML学习</title>
-    <url>/post/9b6eaec3.html</url>
-    <content><![CDATA[<p>　　了解HTML的基本属性<a id="more"></a></p>
-<h1 id="1-表格"><a href="#1-表格" class="headerlink" title="1.表格"></a>1.表格</h1><h2 id="1-1-amp-nbsp-和-amp-lt-和-amp-gt"><a href="#1-1-amp-nbsp-和-amp-lt-和-amp-gt" class="headerlink" title="1.1 &amp;nbsp;和&amp;lt;和&amp;gt;"></a>1.1 &amp;nbsp;和&amp;lt;和&amp;gt;</h2><table>
-<thead>
-<tr>
-<th>标签</th>
-<th>功能</th>
-</tr>
-</thead>
-<tbody><tr>
-<td>&amp;nbsp;</td>
-<td>显示“ ”符号</td>
-</tr>
-<tr>
-<td>&amp;lt;</td>
-<td>显示“&lt;”号</td>
-</tr>
-<tr>
-<td>&amp;gt;</td>
-<td>显示“&gt;”号</td>
-</tr>
-</tbody></table>
-<h2 id="1-2-table表格"><a href="#1-2-table表格" class="headerlink" title="1.2 table表格"></a>1.2 table表格</h2><p>table标签包括tr（行）、td（单元格）、th（单元格，比td多的是加粗和居中）</p>
-<figure class="highlight html"><table><tr><td class="code"><pre><span class="line"><span class="comment">&lt;!--设置边框1px，宽度为300px，高度为20px--&gt;</span></span><br><span class="line"><span class="tag">&lt;<span class="name">table</span> <span class="attr">align</span>=<span class="string">&quot;center&quot;</span> <span class="attr">border</span>=<span class="string">&quot;1px&quot;</span> <span class="attr">width</span>=<span class="string">&quot;300px&quot;</span> <span class="attr">height</span>=<span class="string">&quot;20px&quot;</span>&gt;</span></span><br><span class="line">	<span class="comment">&lt;!--align是对齐方式--&gt;</span></span><br><span class="line">	<span class="tag">&lt;<span class="name">tr</span> <span class="attr">align</span>=<span class="string">&quot;center&quot;</span>&gt;</span></span><br><span class="line">		<span class="tag">&lt;<span class="name">td</span>&gt;</span>a<span class="tag">&lt;/<span class="name">td</span>&gt;</span></span><br><span class="line">		<span class="tag">&lt;<span class="name">td</span>&gt;</span>b<span class="tag">&lt;/<span class="name">td</span>&gt;</span></span><br><span class="line">		<span class="tag">&lt;<span class="name">td</span>&gt;</span>c<span class="tag">&lt;/<span class="name">td</span>&gt;</span></span><br><span class="line">		<span class="tag">&lt;<span class="name">td</span>&gt;</span>d<span class="tag">&lt;/<span class="name">td</span>&gt;</span></span><br><span class="line">	<span class="tag">&lt;/<span class="name">tr</span>&gt;</span></span><br><span class="line"></span><br><span class="line">	<span class="tag">&lt;<span class="name">tr</span> <span class="attr">align</span>=<span class="string">&quot;center&quot;</span>&gt;</span></span><br><span class="line">		<span class="tag">&lt;<span class="name">td</span>&gt;</span>e<span class="tag">&lt;/<span class="name">td</span>&gt;</span></span><br><span class="line">		<span class="tag">&lt;<span class="name">td</span>&gt;</span>f<span class="tag">&lt;/<span class="name">td</span>&gt;</span></span><br><span class="line">		<span class="tag">&lt;<span class="name">td</span>&gt;</span>g<span class="tag">&lt;/<span class="name">td</span>&gt;</span></span><br><span class="line">		<span class="tag">&lt;<span class="name">td</span>&gt;</span>h<span class="tag">&lt;/<span class="name">td</span>&gt;</span></span><br><span class="line">	<span class="tag">&lt;/<span class="name">tr</span>&gt;</span></span><br><span class="line"></span><br><span class="line">	<span class="tag">&lt;<span class="name">tr</span> <span class="attr">align</span>=<span class="string">&quot;center&quot;</span>&gt;</span></span><br><span class="line">		<span class="tag">&lt;<span class="name">td</span>&gt;</span>i<span class="tag">&lt;/<span class="name">td</span>&gt;</span></span><br><span class="line">		<span class="tag">&lt;<span class="name">td</span>&gt;</span>j<span class="tag">&lt;/<span class="name">td</span>&gt;</span></span><br><span class="line">		<span class="tag">&lt;<span class="name">td</span>&gt;</span>k<span class="tag">&lt;/<span class="name">td</span>&gt;</span></span><br><span class="line">		<span class="tag">&lt;<span class="name">td</span>&gt;</span>l<span class="tag">&lt;/<span class="name">td</span>&gt;</span></span><br><span class="line">	<span class="tag">&lt;/<span class="name">tr</span>&gt;</span></span><br><span class="line"></span><br><span class="line"><span class="tag">&lt;/<span class="name">table</span>&gt;</span></span><br></pre></td></tr></table></figure>
-
-<h2 id="1-3-colspan和rowspan合并"><a href="#1-3-colspan和rowspan合并" class="headerlink" title="1.3 colspan和rowspan合并"></a>1.3 colspan和rowspan合并</h2><table>
-<thead>
-<tr>
-<th>标签</th>
-<th>用法</th>
-</tr>
-</thead>
-<tbody><tr>
-<td>colspan</td>
-<td>删除下面的一行</td>
-</tr>
-<tr>
-<td>rowspan</td>
-<td>删除谁都可以</td>
-</tr>
-</tbody></table>
-<h2 id="1-4-thead和tbody和tfoot"><a href="#1-4-thead和tbody和tfoot" class="headerlink" title="1.4 thead和tbody和tfoot"></a>1.4 thead和tbody和tfoot</h2><h1 id="2-超链接或热点接"><a href="#2-超链接或热点接" class="headerlink" title="2.超链接或热点接"></a>2.超链接或热点接</h1><p>超链接使用：&lt;a href=””&gt;&lt;/a&gt;，href（hot reference 热引用）</p>
-<p>超链接的特点：有下划线，鼠标放上去是个小手</p>
-<p>超链接有个target属性：</p>
-<table>
-<thead>
-<tr>
-<th>值</th>
-<th>作用</th>
-</tr>
-</thead>
-<tbody><tr>
-<td>_blank</td>
-<td>新窗口打开</td>
-</tr>
-<tr>
-<td>_self</td>
-<td>当前窗口打开（默认方式）</td>
-</tr>
-<tr>
-<td>_top</td>
-<td>顶级窗口打开</td>
-</tr>
-<tr>
-<td>_parent</td>
-<td>父窗口打开</td>
-</tr>
-</tbody></table>
-<p>图片超链接：&lt;img src=””/&gt;</p>
-<h1 id="3-列表"><a href="#3-列表" class="headerlink" title="3.列表"></a>3.列表</h1><figure class="highlight html"><table><tr><td class="code"><pre><span class="line"><span class="comment">&lt;!--有序列表--&gt;</span></span><br><span class="line"><span class="tag">&lt;<span class="name">ol</span> <span class="attr">type</span>=<span class="string">&quot;I&quot;</span>&gt;</span></span><br><span class="line">        <span class="tag">&lt;<span class="name">li</span>&gt;</span>水果<span class="tag">&lt;/<span class="name">li</span>&gt;</span></span><br><span class="line">        <span class="tag">&lt;<span class="name">ol</span> <span class="attr">type</span>=<span class="string">&quot;A&quot;</span>&gt;</span></span><br><span class="line">            <span class="tag">&lt;<span class="name">li</span>&gt;</span>苹果<span class="tag">&lt;/<span class="name">li</span>&gt;</span></span><br><span class="line">            <span class="tag">&lt;<span class="name">li</span>&gt;</span>西瓜<span class="tag">&lt;/<span class="name">li</span>&gt;</span></span><br><span class="line">            <span class="tag">&lt;<span class="name">li</span>&gt;</span>草莓<span class="tag">&lt;/<span class="name">li</span>&gt;</span></span><br><span class="line">        <span class="tag">&lt;/<span class="name">ol</span>&gt;</span></span><br><span class="line">        <span class="tag">&lt;<span class="name">li</span>&gt;</span>蔬菜<span class="tag">&lt;/<span class="name">li</span>&gt;</span></span><br><span class="line">    <span class="tag">&lt;/<span class="name">ol</span>&gt;</span></span><br><span class="line"><span class="comment">&lt;!--无序列表--&gt;</span></span><br><span class="line">    <span class="tag">&lt;<span class="name">ul</span> <span class="attr">type</span>=<span class="string">&quot;circle&quot;</span>&gt;</span></span><br><span class="line">        <span class="tag">&lt;<span class="name">li</span>&gt;</span>中国<span class="tag">&lt;/<span class="name">li</span>&gt;</span></span><br><span class="line">        <span class="tag">&lt;<span class="name">ul</span> <span class="attr">type</span>=<span class="string">&quot;square&quot;</span>&gt;</span></span><br><span class="line">            <span class="tag">&lt;<span class="name">li</span>&gt;</span>北京<span class="tag">&lt;/<span class="name">li</span>&gt;</span></span><br><span class="line">            <span class="tag">&lt;<span class="name">li</span>&gt;</span>河南<span class="tag">&lt;/<span class="name">li</span>&gt;</span></span><br><span class="line">            <span class="tag">&lt;<span class="name">ul</span> <span class="attr">type</span>=<span class="string">&quot;disc&quot;</span>&gt;</span></span><br><span class="line">                <span class="tag">&lt;<span class="name">li</span>&gt;</span>洛阳<span class="tag">&lt;/<span class="name">li</span>&gt;</span></span><br><span class="line">                <span class="tag">&lt;<span class="name">li</span>&gt;</span>郑州<span class="tag">&lt;/<span class="name">li</span>&gt;</span></span><br><span class="line">                <span class="tag">&lt;<span class="name">li</span>&gt;</span>济源<span class="tag">&lt;/<span class="name">li</span>&gt;</span></span><br><span class="line">                <span class="tag">&lt;<span class="name">li</span>&gt;</span>商丘<span class="tag">&lt;/<span class="name">li</span>&gt;</span></span><br><span class="line">            <span class="tag">&lt;/<span class="name">ul</span>&gt;</span></span><br><span class="line">            <span class="tag">&lt;<span class="name">li</span>&gt;</span>宁夏<span class="tag">&lt;/<span class="name">li</span>&gt;</span></span><br><span class="line">            <span class="tag">&lt;<span class="name">li</span>&gt;</span>广东<span class="tag">&lt;/<span class="name">li</span>&gt;</span></span><br><span class="line">            <span class="tag">&lt;<span class="name">li</span>&gt;</span>西安<span class="tag">&lt;/<span class="name">li</span>&gt;</span></span><br><span class="line">        <span class="tag">&lt;/<span class="name">ul</span>&gt;</span></span><br><span class="line">        <span class="tag">&lt;<span class="name">li</span>&gt;</span>美国<span class="tag">&lt;/<span class="name">li</span>&gt;</span></span><br><span class="line">        <span class="tag">&lt;<span class="name">li</span>&gt;</span>英国<span class="tag">&lt;/<span class="name">li</span>&gt;</span></span><br><span class="line">    <span class="tag">&lt;/<span class="name">ul</span>&gt;</span></span><br><span class="line">    <span class="tag">&lt;/<span class="name">ul</span>&gt;</span></span><br></pre></td></tr></table></figure>
-
-<p>显示效果如下：</p>
-<p><img src="https://s3.ax1x.com/2021/01/11/s1xXgx.png" alt="s1xXgx.png"></p>
-<h1 id="4-表单"><a href="#4-表单" class="headerlink" title="4.表单"></a>4.表单</h1><p>用于收集用户信息，点击提交按钮提交数据给服务器</p>
-<figure class="highlight html"><table><tr><td class="code"><pre><span class="line"><span class="tag">&lt;<span class="name">form</span>&gt;</span></span><br><span class="line">      <span class="tag">&lt;<span class="name">table</span> <span class="attr">border</span>=<span class="string">&quot;1px&quot;</span>&gt;</span></span><br><span class="line">          <span class="comment">&lt;!--表单项写了name属性的，一律会提交给服务器。--&gt;</span>&gt;</span><br><span class="line">          <span class="tag">&lt;<span class="name">tr</span>&gt;</span></span><br><span class="line">              <span class="tag">&lt;<span class="name">td</span>&gt;</span>用户名<span class="tag">&lt;/<span class="name">td</span>&gt;</span></span><br><span class="line">              <span class="tag">&lt;<span class="name">td</span>&gt;</span><span class="tag">&lt;<span class="name">input</span> <span class="attr">type</span>=<span class="string">&quot;text&quot;</span> <span class="attr">name</span>=<span class="string">&quot;username&quot;</span> /&gt;</span><span class="tag">&lt;/<span class="name">td</span>&gt;</span></span><br><span class="line">          <span class="tag">&lt;/<span class="name">tr</span>&gt;</span></span><br><span class="line"></span><br><span class="line">          <span class="tag">&lt;<span class="name">tr</span>&gt;</span></span><br><span class="line">              <span class="tag">&lt;<span class="name">td</span>&gt;</span>密码<span class="tag">&lt;/<span class="name">td</span>&gt;</span></span><br><span class="line">              <span class="tag">&lt;<span class="name">td</span>&gt;</span><span class="tag">&lt;<span class="name">input</span> <span class="attr">type</span>=<span class="string">&quot;password&quot;</span> <span class="attr">name</span>=<span class="string">&quot;userpwd&quot;</span> /&gt;</span><span class="tag">&lt;/<span class="name">td</span>&gt;</span></span><br><span class="line">          <span class="tag">&lt;/<span class="name">tr</span>&gt;</span></span><br><span class="line"></span><br><span class="line">          <span class="tag">&lt;<span class="name">tr</span> <span class="attr">align</span>=<span class="string">&quot;center&quot;</span>&gt;</span></span><br><span class="line">              <span class="tag">&lt;<span class="name">td</span> <span class="attr">colspan</span>=<span class="string">&quot;2&quot;</span>&gt;</span></span><br><span class="line">                  <span class="tag">&lt;<span class="name">input</span> <span class="attr">type</span>=<span class="string">&quot;submit&quot;</span> <span class="attr">value</span>=<span class="string">&quot;登陆&quot;</span> /&gt;</span></span><br><span class="line">                  <span class="symbol">&amp;nbsp;</span><span class="symbol">&amp;nbsp;</span><span class="symbol">&amp;nbsp;</span><span class="symbol">&amp;nbsp;</span><span class="symbol">&amp;nbsp;</span><span class="symbol">&amp;nbsp;</span></span><br><span class="line">                  <span class="tag">&lt;<span class="name">input</span> <span class="attr">type</span>=<span class="string">&quot;reset&quot;</span> <span class="attr">value</span>=<span class="string">&quot;清空&quot;</span> /&gt;</span></span><br><span class="line">              <span class="tag">&lt;/<span class="name">td</span>&gt;</span></span><br><span class="line">          <span class="tag">&lt;/<span class="name">tr</span>&gt;</span></span><br><span class="line">      <span class="tag">&lt;/<span class="name">table</span>&gt;</span></span><br><span class="line">  <span class="tag">&lt;/<span class="name">form</span>&gt;</span></span><br></pre></td></tr></table></figure>
-
-<p>以下是完整的表单提交例子：</p>
-<figure class="highlight html"><table><tr><td class="code"><pre><span class="line"><span class="comment">&lt;!-- form表单method属性：</span></span><br><span class="line"><span class="comment">       get：采用get方式提交的时候，用户提交的信息会显示在浏览器的地址栏上。</span></span><br><span class="line"><span class="comment">       post：采用post方式提交的时候，用户提交的信息不回显示在浏览器地址栏上。</span></span><br><span class="line"><span class="comment">       当用户提交的信息中含有敏感信息，例如：密码，建议采用post方式提交 --&gt;</span></span><br><span class="line">   <span class="tag">&lt;<span class="name">form</span> <span class="attr">action</span>=<span class="string">&quot;#&quot;</span> <span class="attr">method</span>=<span class="string">&quot;post&quot;</span>&gt;</span></span><br><span class="line">       用户名</span><br><span class="line">       <span class="tag">&lt;<span class="name">input</span> <span class="attr">type</span>=<span class="string">&quot;text&quot;</span> <span class="attr">name</span>=<span class="string">&quot;username&quot;</span> /&gt;</span><span class="tag">&lt;<span class="name">br</span>&gt;</span></span><br><span class="line">       密码</span><br><span class="line">       <span class="tag">&lt;<span class="name">input</span> <span class="attr">type</span>=<span class="string">&quot;password&quot;</span> <span class="attr">name</span>=<span class="string">&quot;userpwd&quot;</span> /&gt;</span><span class="tag">&lt;<span class="name">br</span>&gt;</span></span><br><span class="line">       确认密码</span><br><span class="line">       <span class="tag">&lt;<span class="name">input</span> <span class="attr">type</span>=<span class="string">&quot;password&quot;</span> /&gt;</span><span class="tag">&lt;<span class="name">br</span>&gt;</span></span><br><span class="line">       性别</span><br><span class="line">       <span class="comment">&lt;!--默认选择checked--&gt;</span></span><br><span class="line">       <span class="tag">&lt;<span class="name">input</span> <span class="attr">type</span>=<span class="string">&quot;radio&quot;</span> <span class="attr">name</span>=<span class="string">&quot;gender&quot;</span> <span class="attr">value</span>=<span class="string">&quot;1&quot;</span> <span class="attr">checked</span> /&gt;</span>男</span><br><span class="line">       <span class="tag">&lt;<span class="name">input</span> <span class="attr">type</span>=<span class="string">&quot;radio&quot;</span> <span class="attr">name</span>=<span class="string">&quot;gender&quot;</span> <span class="attr">value</span>=<span class="string">&quot;0&quot;</span> /&gt;</span>女<span class="tag">&lt;<span class="name">br</span>&gt;</span></span><br><span class="line">       兴趣爱好:</span><br><span class="line">       <span class="tag">&lt;<span class="name">input</span> <span class="attr">type</span>=<span class="string">&quot;checkbox&quot;</span> <span class="attr">name</span>=<span class="string">&quot;interest&quot;</span> <span class="attr">value</span>=<span class="string">&quot;smoke&quot;</span> /&gt;</span>抽烟</span><br><span class="line">       <span class="tag">&lt;<span class="name">input</span> <span class="attr">type</span>=<span class="string">&quot;checkbox&quot;</span> <span class="attr">name</span>=<span class="string">&quot;interest&quot;</span> <span class="attr">value</span>=<span class="string">&quot;drink&quot;</span> /&gt;</span>喝酒</span><br><span class="line">       <span class="tag">&lt;<span class="name">input</span> <span class="attr">type</span>=<span class="string">&quot;checkbox&quot;</span> <span class="attr">name</span>=<span class="string">&quot;interest&quot;</span> <span class="attr">value</span>=<span class="string">&quot;fireHair&quot;</span> /&gt;</span>烫头<span class="tag">&lt;<span class="name">br</span>&gt;</span></span><br><span class="line">       学历</span><br><span class="line">       <span class="tag">&lt;<span class="name">select</span> <span class="attr">name</span>=<span class="string">&quot;grade&quot;</span>&gt;</span></span><br><span class="line">           <span class="tag">&lt;<span class="name">option</span> <span class="attr">value</span>=<span class="string">&quot;小学&quot;</span>&gt;</span>小学<span class="tag">&lt;/<span class="name">option</span>&gt;</span></span><br><span class="line">           <span class="tag">&lt;<span class="name">option</span> <span class="attr">value</span>=<span class="string">&quot;初中&quot;</span>&gt;</span>初中<span class="tag">&lt;/<span class="name">option</span>&gt;</span></span><br><span class="line">           <span class="comment">&lt;!--默认选择selected--&gt;</span></span><br><span class="line">           <span class="tag">&lt;<span class="name">option</span> <span class="attr">value</span>=<span class="string">&quot;高中&quot;</span> <span class="attr">selected</span>&gt;</span>高中<span class="tag">&lt;/<span class="name">option</span>&gt;</span></span><br><span class="line">           <span class="tag">&lt;<span class="name">option</span> <span class="attr">value</span>=<span class="string">&quot;专科&quot;</span>&gt;</span>专科<span class="tag">&lt;/<span class="name">option</span>&gt;</span></span><br><span class="line">           <span class="tag">&lt;<span class="name">option</span> <span class="attr">value</span>=<span class="string">&quot;本科&quot;</span>&gt;</span>本科<span class="tag">&lt;/<span class="name">option</span>&gt;</span></span><br><span class="line">       <span class="tag">&lt;/<span class="name">select</span>&gt;</span><span class="tag">&lt;<span class="name">br</span>&gt;</span></span><br><span class="line">       简介</span><br><span class="line">       <span class="comment">&lt;!--文本域，文本域没有value属性，填写的就是value--&gt;</span></span><br><span class="line">       <span class="tag">&lt;<span class="name">textarea</span> <span class="attr">rows</span>=<span class="string">&quot;10&quot;</span> <span class="attr">cols</span>=<span class="string">&quot;60&quot;</span> <span class="attr">name</span>=<span class="string">&quot;introduce&quot;</span>&gt;</span><span class="tag">&lt;/<span class="name">textarea</span>&gt;</span></span><br><span class="line">       <span class="tag">&lt;<span class="name">br</span>&gt;</span></span><br><span class="line">       <span class="tag">&lt;<span class="name">input</span> <span class="attr">type</span>=<span class="string">&quot;submit&quot;</span> <span class="attr">value</span>=<span class="string">&quot;注册&quot;</span> /&gt;</span></span><br><span class="line">       <span class="tag">&lt;<span class="name">input</span> <span class="attr">type</span>=<span class="string">&quot;reset&quot;</span> <span class="attr">value</span>=<span class="string">&quot;清空&quot;</span> /&gt;</span></span><br><span class="line">   <span class="tag">&lt;/<span class="name">form</span>&gt;</span></span><br></pre></td></tr></table></figure>
-
-<h1 id="5-下拉列表支持多选"><a href="#5-下拉列表支持多选" class="headerlink" title="5.下拉列表支持多选"></a>5.下拉列表支持多选</h1><p>multiple支持多选，size设置条目数量</p>
-<figure class="highlight html"><table><tr><td class="code"><pre><span class="line"><span class="tag">&lt;<span class="name">select</span> <span class="attr">multiple</span>=<span class="string">&quot;multiple&quot;</span> <span class="attr">size</span>=<span class="string">&quot;3&quot;</span>&gt;</span></span><br><span class="line">       <span class="tag">&lt;<span class="name">option</span> &gt;</span>河南省<span class="tag">&lt;/<span class="name">option</span>&gt;</span></span><br><span class="line">       <span class="tag">&lt;<span class="name">option</span> &gt;</span>河北省<span class="tag">&lt;/<span class="name">option</span>&gt;</span></span><br><span class="line">       <span class="tag">&lt;<span class="name">option</span> &gt;</span>山西省<span class="tag">&lt;/<span class="name">option</span>&gt;</span></span><br><span class="line">       <span class="tag">&lt;<span class="name">option</span> &gt;</span>山东省<span class="tag">&lt;/<span class="name">option</span>&gt;</span></span><br><span class="line">       <span class="tag">&lt;<span class="name">option</span> &gt;</span>陕西省<span class="tag">&lt;/<span class="name">option</span>&gt;</span></span><br><span class="line"><span class="tag">&lt;/<span class="name">select</span>&gt;</span></span><br></pre></td></tr></table></figure>
-
-<h1 id="6-控件"><a href="#6-控件" class="headerlink" title="6.控件"></a>6.控件</h1><h2 id="1-file控件"><a href="#1-file控件" class="headerlink" title="1.file控件"></a>1.file控件</h2><p>文件上传专用</p>
-<figure class="highlight html"><table><tr><td class="code"><pre><span class="line"><span class="tag">&lt;<span class="name">input</span> <span class="attr">type</span>=<span class="string">&quot;file&quot;</span>/&gt;</span></span><br></pre></td></tr></table></figure>
-
-<h2 id="2-hidden控件"><a href="#2-hidden控件" class="headerlink" title="2.hidden控件"></a>2.hidden控件</h2><figure class="highlight html"><table><tr><td class="code"><pre><span class="line"><span class="tag">&lt;<span class="name">input</span> <span class="attr">type</span>=<span class="string">&quot;hidden&quot;</span> <span class="attr">name</span>=<span class="string">&quot;userid&quot;</span> <span class="attr">value</span>=<span class="string">&quot;111&quot;</span>&gt;</span></span><br></pre></td></tr></table></figure>
-]]></content>
-      <categories>
-        <category>前端学习</category>
-      </categories>
-      <tags>
-        <tag>HTML</tag>
-      </tags>
   </entry>
   <entry>
     <title>Hadoop集群环境搭建2</title>
@@ -793,32 +793,6 @@
       </tags>
   </entry>
   <entry>
-    <title>JavaScript学习</title>
-    <url>/post/d3a7443d.html</url>
-    <content><![CDATA[<p>　　在学习小程序期间，没有了解JavaScript，回来补充<a id="more"></a></p>
-<h1 id="1-异步编程"><a href="#1-异步编程" class="headerlink" title="1.异步编程"></a>1.异步编程</h1><p>　　同步按照代码顺序执行，异步不按照代码顺序执行，异步的执行效率更高，简单来说：一步就是从主线程发射一个子线程来完成任务。</p>
-<h2 id="1-1-什么时候用异步编程"><a href="#1-1-什么时候用异步编程" class="headerlink" title="1.1 什么时候用异步编程"></a>1.1 什么时候用异步编程</h2><p>　　通常用子线程来完成一些可能消耗时间足够长以至于被用户察觉的事情，如读取一个大文件或者发出一个网络请求。因为子线程独立于主线程，所以及时出现阻塞也不会影响到主线程的运行。但是子线程有个局限：一旦发射了以后就会与主线程失去同步，我们无法确定它的结束，如果结束之后需要处理一些事情，比如处理来自服务器的信息，我们是无法将它合并到主线程的。所以，JavaScript中的异步操作函数往往通过回调函数来实现异步任务的结果处理。</p>
-<h2 id="1-2-回调函数"><a href="#1-2-回调函数" class="headerlink" title="1.2 回调函数"></a>1.2 回调函数</h2><p>　　回调函数就是一个函数，它是在启动一个异步任务时候告诉它：等你完成了这个任务之后要干什么。这样一来主线程几乎不用关心异步任务状态。<a href="https://www.runoob.com/js/js-async.html">详情链接</a></p>
-<h1 id="2-JavaSricpt-Promist"><a href="#2-JavaSricpt-Promist" class="headerlink" title="2.JavaSricpt Promist"></a>2.JavaSricpt Promist</h1><p>　　由于 Promise 是 ES6 新增加的，苹果的 Safari 10 和 Windows 的 Edge 14 版本以上浏览器才开始支持 ES6 特性。在微信小程序开发中，请求request我们就可以采用这个函数。</p>
-<h2 id="2-1-构造Promise"><a href="#2-1-构造Promise" class="headerlink" title="2.1 构造Promise"></a>2.1 构造Promise</h2><p>现在新建一个Proise对象：</p>
-<figure class="highlight js"><table><tr><td class="code"><pre><span class="line"><span class="keyword">new</span> <span class="built_in">Promise</span>(<span class="function"><span class="keyword">function</span> (<span class="params">resolve, reject</span>) </span>&#123;</span><br><span class="line">    <span class="comment">// 要做的事情...</span></span><br><span class="line">&#125;);</span><br></pre></td></tr></table></figure>
-
-<p>我们之前遇到的异步任务都是一次异步，如果需要多次调用异步函数呢？例如，如果我想分三次输出字符串，第一次间隔 1 秒，第二次间隔 4 秒，第三次间隔 3 秒：</p>
-<figure class="highlight js"><table><tr><td class="code"><pre><span class="line"><span class="built_in">setTimeout</span>(<span class="function"><span class="keyword">function</span> (<span class="params"></span>) </span>&#123;</span><br><span class="line">    <span class="built_in">console</span>.log(<span class="string">&quot;First&quot;</span>);</span><br><span class="line">    <span class="built_in">setTimeout</span>(<span class="function"><span class="keyword">function</span> (<span class="params"></span>) </span>&#123;</span><br><span class="line">        <span class="built_in">console</span>.log(<span class="string">&quot;Second&quot;</span>);</span><br><span class="line">        <span class="built_in">setTimeout</span>(<span class="function"><span class="keyword">function</span> (<span class="params"></span>) </span>&#123;</span><br><span class="line">            <span class="built_in">console</span>.log(<span class="string">&quot;Third&quot;</span>);</span><br><span class="line">        &#125;, <span class="number">3000</span>);</span><br><span class="line">    &#125;, <span class="number">4000</span>);</span><br><span class="line">&#125;, <span class="number">1000</span>);</span><br></pre></td></tr></table></figure>
-
-<p>以上代码非常冗杂，可以使用Promise进行优化：</p>
-<figure class="highlight js"><table><tr><td class="code"><pre><span class="line"><span class="keyword">new</span> <span class="built_in">Promise</span>(<span class="function"><span class="keyword">function</span> (<span class="params">resolve, reject</span>) </span>&#123;</span><br><span class="line">    <span class="built_in">setTimeout</span>(<span class="function"><span class="keyword">function</span> (<span class="params"></span>) </span>&#123;</span><br><span class="line">        <span class="built_in">console</span>.log(<span class="string">&quot;First&quot;</span>);</span><br><span class="line">        resolve();</span><br><span class="line">    &#125;, <span class="number">1000</span>);</span><br><span class="line">&#125;)</span><br><span class="line">    .then(<span class="function"><span class="keyword">function</span> (<span class="params"></span>) </span>&#123;</span><br><span class="line">    <span class="keyword">return</span> <span class="keyword">new</span> <span class="built_in">Promise</span>(<span class="function"><span class="keyword">function</span> (<span class="params">resolve, reject</span>) </span>&#123;</span><br><span class="line">        <span class="built_in">setTimeout</span>(<span class="function"><span class="keyword">function</span> (<span class="params"></span>) </span>&#123;</span><br><span class="line">            <span class="built_in">console</span>.log(<span class="string">&quot;Second&quot;</span>);</span><br><span class="line">            resolve();</span><br><span class="line">        &#125;, <span class="number">4000</span>);</span><br><span class="line">    &#125;);</span><br><span class="line">&#125;)</span><br><span class="line">    .then(<span class="function"><span class="keyword">function</span> (<span class="params"></span>) </span>&#123;</span><br><span class="line">    <span class="built_in">setTimeout</span>(<span class="function"><span class="keyword">function</span> (<span class="params"></span>) </span>&#123;</span><br><span class="line">        <span class="built_in">console</span>.log(<span class="string">&quot;Third&quot;</span>);</span><br><span class="line">    &#125;, <span class="number">3000</span>);</span><br><span class="line">&#125;);</span><br></pre></td></tr></table></figure>
-
-<p><font color="#ff0000"> Promise 将嵌套格式的代码变成了顺序格式的代码。</font></p>
-]]></content>
-      <categories>
-        <category>前端学习</category>
-      </categories>
-      <tags>
-        <tag>JavaScript</tag>
-      </tags>
-  </entry>
-  <entry>
     <title>IDEA新建Web项目</title>
     <url>/post/f1926f41.html</url>
     <content><![CDATA[<p>　　这个是创建普通javaweb项目的步骤，建议使用maven创建，导包不用这么麻烦<a href="/post/4bd31b3a.html" title="Maven环境变量配置">Maven环境变量配置</a><a id="more"></a></p>
@@ -1007,20 +981,29 @@
 ]]></content>
   </entry>
   <entry>
-    <title>Linux虚拟机网络配置</title>
-    <url>/post/f05f2e38.html</url>
-    <content><![CDATA[<p>　　每次新建完虚拟机之后忘记快照，都得重新安装虚拟机并且配置网络，把配置过程记录在这里。<a id="more"></a></p>
-<p><strong>1.VMware选择NAT模式</strong></p>
-<p><strong>2.在虚拟机中操作</strong></p>
-<p><code>vi /etc/sysconfig/network-scripts/ifcfg-ens33</code></p>
-<p>根据IP修改为以下内容</p>
-<figure class="highlight shell"><table><tr><td class="code"><pre><span class="line">TYPE=Ethernet #网络类型</span><br><span class="line">BOOTPROTO=none #IP获取方式，有dhcp自动获取和静态IP（none/static）</span><br><span class="line">NAME=ens33 #网络名称</span><br><span class="line">UUID=d1755a41-8026-42f1-871d-9cd78fa2aa3c </span><br><span class="line">DEVICE=ens33 #驱动名称</span><br><span class="line">ONBOOT=yes #设置开机启动</span><br><span class="line">IPADDR=192.168.137.3 #设置静态IP地址</span><br><span class="line">NETMASK=255.255.255.0 #子网掩码</span><br><span class="line">GATEWAY=192.168.137.254 #网关</span><br><span class="line">DNS1=114.114.114.114 #DNS</span><br><span class="line">DNS2=202.96.134.133</span><br></pre></td></tr></table></figure>
+    <title>JavaScript学习</title>
+    <url>/post/d3a7443d.html</url>
+    <content><![CDATA[<p>　　在学习小程序期间，没有了解JavaScript，回来补充<a id="more"></a></p>
+<h1 id="1-异步编程"><a href="#1-异步编程" class="headerlink" title="1.异步编程"></a>1.异步编程</h1><p>　　同步按照代码顺序执行，异步不按照代码顺序执行，异步的执行效率更高，简单来说：一步就是从主线程发射一个子线程来完成任务。</p>
+<h2 id="1-1-什么时候用异步编程"><a href="#1-1-什么时候用异步编程" class="headerlink" title="1.1 什么时候用异步编程"></a>1.1 什么时候用异步编程</h2><p>　　通常用子线程来完成一些可能消耗时间足够长以至于被用户察觉的事情，如读取一个大文件或者发出一个网络请求。因为子线程独立于主线程，所以及时出现阻塞也不会影响到主线程的运行。但是子线程有个局限：一旦发射了以后就会与主线程失去同步，我们无法确定它的结束，如果结束之后需要处理一些事情，比如处理来自服务器的信息，我们是无法将它合并到主线程的。所以，JavaScript中的异步操作函数往往通过回调函数来实现异步任务的结果处理。</p>
+<h2 id="1-2-回调函数"><a href="#1-2-回调函数" class="headerlink" title="1.2 回调函数"></a>1.2 回调函数</h2><p>　　回调函数就是一个函数，它是在启动一个异步任务时候告诉它：等你完成了这个任务之后要干什么。这样一来主线程几乎不用关心异步任务状态。<a href="https://www.runoob.com/js/js-async.html">详情链接</a></p>
+<h1 id="2-JavaSricpt-Promist"><a href="#2-JavaSricpt-Promist" class="headerlink" title="2.JavaSricpt Promist"></a>2.JavaSricpt Promist</h1><p>　　由于 Promise 是 ES6 新增加的，苹果的 Safari 10 和 Windows 的 Edge 14 版本以上浏览器才开始支持 ES6 特性。在微信小程序开发中，请求request我们就可以采用这个函数。</p>
+<h2 id="2-1-构造Promise"><a href="#2-1-构造Promise" class="headerlink" title="2.1 构造Promise"></a>2.1 构造Promise</h2><p>现在新建一个Proise对象：</p>
+<figure class="highlight js"><table><tr><td class="code"><pre><span class="line"><span class="keyword">new</span> <span class="built_in">Promise</span>(<span class="function"><span class="keyword">function</span> (<span class="params">resolve, reject</span>) </span>&#123;</span><br><span class="line">    <span class="comment">// 要做的事情...</span></span><br><span class="line">&#125;);</span><br></pre></td></tr></table></figure>
 
-<p>保存退出后重启网络服务</p>
-<p><code>systemctl restart network.service</code></p>
+<p>我们之前遇到的异步任务都是一次异步，如果需要多次调用异步函数呢？例如，如果我想分三次输出字符串，第一次间隔 1 秒，第二次间隔 4 秒，第三次间隔 3 秒：</p>
+<figure class="highlight js"><table><tr><td class="code"><pre><span class="line"><span class="built_in">setTimeout</span>(<span class="function"><span class="keyword">function</span> (<span class="params"></span>) </span>&#123;</span><br><span class="line">    <span class="built_in">console</span>.log(<span class="string">&quot;First&quot;</span>);</span><br><span class="line">    <span class="built_in">setTimeout</span>(<span class="function"><span class="keyword">function</span> (<span class="params"></span>) </span>&#123;</span><br><span class="line">        <span class="built_in">console</span>.log(<span class="string">&quot;Second&quot;</span>);</span><br><span class="line">        <span class="built_in">setTimeout</span>(<span class="function"><span class="keyword">function</span> (<span class="params"></span>) </span>&#123;</span><br><span class="line">            <span class="built_in">console</span>.log(<span class="string">&quot;Third&quot;</span>);</span><br><span class="line">        &#125;, <span class="number">3000</span>);</span><br><span class="line">    &#125;, <span class="number">4000</span>);</span><br><span class="line">&#125;, <span class="number">1000</span>);</span><br></pre></td></tr></table></figure>
+
+<p>以上代码非常冗杂，可以使用Promise进行优化：</p>
+<figure class="highlight js"><table><tr><td class="code"><pre><span class="line"><span class="keyword">new</span> <span class="built_in">Promise</span>(<span class="function"><span class="keyword">function</span> (<span class="params">resolve, reject</span>) </span>&#123;</span><br><span class="line">    <span class="built_in">setTimeout</span>(<span class="function"><span class="keyword">function</span> (<span class="params"></span>) </span>&#123;</span><br><span class="line">        <span class="built_in">console</span>.log(<span class="string">&quot;First&quot;</span>);</span><br><span class="line">        resolve();</span><br><span class="line">    &#125;, <span class="number">1000</span>);</span><br><span class="line">&#125;)</span><br><span class="line">    .then(<span class="function"><span class="keyword">function</span> (<span class="params"></span>) </span>&#123;</span><br><span class="line">    <span class="keyword">return</span> <span class="keyword">new</span> <span class="built_in">Promise</span>(<span class="function"><span class="keyword">function</span> (<span class="params">resolve, reject</span>) </span>&#123;</span><br><span class="line">        <span class="built_in">setTimeout</span>(<span class="function"><span class="keyword">function</span> (<span class="params"></span>) </span>&#123;</span><br><span class="line">            <span class="built_in">console</span>.log(<span class="string">&quot;Second&quot;</span>);</span><br><span class="line">            resolve();</span><br><span class="line">        &#125;, <span class="number">4000</span>);</span><br><span class="line">    &#125;);</span><br><span class="line">&#125;)</span><br><span class="line">    .then(<span class="function"><span class="keyword">function</span> (<span class="params"></span>) </span>&#123;</span><br><span class="line">    <span class="built_in">setTimeout</span>(<span class="function"><span class="keyword">function</span> (<span class="params"></span>) </span>&#123;</span><br><span class="line">        <span class="built_in">console</span>.log(<span class="string">&quot;Third&quot;</span>);</span><br><span class="line">    &#125;, <span class="number">3000</span>);</span><br><span class="line">&#125;);</span><br></pre></td></tr></table></figure>
+
+<p><font color="#ff0000"> Promise 将嵌套格式的代码变成了顺序格式的代码。</font></p>
 ]]></content>
+      <categories>
+        <category>前端学习</category>
+      </categories>
       <tags>
-        <tag>Linux</tag>
+        <tag>JavaScript</tag>
       </tags>
   </entry>
   <entry>
@@ -1035,6 +1018,23 @@
       </categories>
       <tags>
         <tag>Java</tag>
+      </tags>
+  </entry>
+  <entry>
+    <title>Linux虚拟机网络配置</title>
+    <url>/post/f05f2e38.html</url>
+    <content><![CDATA[<p>　　每次新建完虚拟机之后忘记快照，都得重新安装虚拟机并且配置网络，把配置过程记录在这里。<a id="more"></a></p>
+<p><strong>1.VMware选择NAT模式</strong></p>
+<p><strong>2.在虚拟机中操作</strong></p>
+<p><code>vi /etc/sysconfig/network-scripts/ifcfg-ens33</code></p>
+<p>根据IP修改为以下内容</p>
+<figure class="highlight shell"><table><tr><td class="code"><pre><span class="line">TYPE=Ethernet #网络类型</span><br><span class="line">BOOTPROTO=none #IP获取方式，有dhcp自动获取和静态IP（none/static）</span><br><span class="line">NAME=ens33 #网络名称</span><br><span class="line">UUID=d1755a41-8026-42f1-871d-9cd78fa2aa3c </span><br><span class="line">DEVICE=ens33 #驱动名称</span><br><span class="line">ONBOOT=yes #设置开机启动</span><br><span class="line">IPADDR=192.168.137.3 #设置静态IP地址</span><br><span class="line">NETMASK=255.255.255.0 #子网掩码</span><br><span class="line">GATEWAY=192.168.137.254 #网关</span><br><span class="line">DNS1=114.114.114.114 #DNS</span><br><span class="line">DNS2=202.96.134.133</span><br></pre></td></tr></table></figure>
+
+<p>保存退出后重启网络服务</p>
+<p><code>systemctl restart network.service</code></p>
+]]></content>
+      <tags>
+        <tag>Linux</tag>
       </tags>
   </entry>
   <entry>
@@ -1208,6 +1208,71 @@
 ]]></content>
   </entry>
   <entry>
+    <title>SpringBoot-拦截器</title>
+    <url>/post/e3a97206.html</url>
+    <content><![CDATA[<p>　　SpringBoot学习，主要内容是拦截器，可以实现网站的登录功能<a id="more"></a></p>
+<h1 id="1-实现登录拦截"><a href="#1-实现登录拦截" class="headerlink" title="1.实现登录拦截"></a>1.实现登录拦截</h1><p>　　首先需要编写相应模块的类实现HandlerInterceptor，然后再拦截配置类里面编辑要拦截胡页面。</p>
+<h2 id="1-1-编写类实现HandlerInterceptor类"><a href="#1-1-编写类实现HandlerInterceptor类" class="headerlink" title="1.1 编写类实现HandlerInterceptor类"></a>1.1 编写类实现HandlerInterceptor类</h2><figure class="highlight java"><table><tr><td class="code"><pre><span class="line"><span class="keyword">public</span> <span class="class"><span class="keyword">class</span> <span class="title">UserInterceptor</span> <span class="keyword">implements</span> <span class="title">HandlerInterceptor</span></span>&#123;</span><br><span class="line">    <span class="meta">@Override</span></span><br><span class="line">    <span class="function"><span class="keyword">public</span> <span class="keyword">boolean</span> <span class="title">preHandle</span><span class="params">(HttpServletRequest request, HttpServletResponse response, Object handler)</span> <span class="keyword">throws</span> Exception </span>&#123;</span><br><span class="line">        <span class="comment">//编写业务拦截的规则</span></span><br><span class="line">        <span class="comment">//从session中获取用户的信息</span></span><br><span class="line">        User user = (User) request.getSession().getAttribute(<span class="string">&quot;user&quot;</span>);</span><br><span class="line"></span><br><span class="line">        <span class="comment">//判断用户是否登录</span></span><br><span class="line">        <span class="keyword">if</span> (<span class="keyword">null</span> == user) &#123;</span><br><span class="line">            <span class="comment">//未登录</span></span><br><span class="line">            response.sendRedirect(request.getContextPath() + <span class="string">&quot;/nologin&quot;</span>);</span><br><span class="line">            <span class="keyword">return</span> <span class="keyword">false</span>;</span><br><span class="line">        &#125;</span><br><span class="line">        <span class="keyword">return</span> <span class="keyword">true</span>;</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">    <span class="meta">@Override</span></span><br><span class="line">    <span class="function"><span class="keyword">public</span> <span class="keyword">void</span> <span class="title">postHandle</span><span class="params">(HttpServletRequest request, HttpServletResponse response, Object handler, ModelAndView modelAndView)</span> <span class="keyword">throws</span> Exception </span>&#123;</span><br><span class="line"></span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">    <span class="meta">@Override</span></span><br><span class="line">    <span class="function"><span class="keyword">public</span> <span class="keyword">void</span> <span class="title">afterCompletion</span><span class="params">(HttpServletRequest request, HttpServletResponse response, Object handler, Exception ex)</span> <span class="keyword">throws</span> Exception </span>&#123;</span><br><span class="line"></span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<p>　　实现HanderInterceptor，重写preHandle、postHandle、afterCompletion三个方法，先获取session的用户信息，然后判断是否登录。</p>
+<h2 id="1-2-声明拦截配置类"><a href="#1-2-声明拦截配置类" class="headerlink" title="1.2 声明拦截配置类"></a>1.2 声明拦截配置类</h2><figure class="highlight java"><table><tr><td class="code"><pre><span class="line"><span class="meta">@Configuration</span></span><br><span class="line"><span class="comment">//定义此类为配置文件</span></span><br><span class="line"><span class="keyword">public</span> <span class="class"><span class="keyword">class</span> <span class="title">InterceptorConfig</span> <span class="keyword">implements</span> <span class="title">WebMvcConfigurer</span> </span>&#123;</span><br><span class="line"></span><br><span class="line">    <span class="meta">@Override</span></span><br><span class="line">    <span class="function"><span class="keyword">public</span> <span class="keyword">void</span> <span class="title">addInterceptors</span><span class="params">(InterceptorRegistry registry)</span> </span>&#123;</span><br><span class="line"></span><br><span class="line">        <span class="comment">//要拦截user下的所有访问请求，必须用户登录后才能访问</span></span><br><span class="line">        String[] addPathPatterns = &#123;</span><br><span class="line">            <span class="string">&quot;/user/**&quot;</span></span><br><span class="line">        &#125;;</span><br><span class="line"></span><br><span class="line">        <span class="comment">//排除路径，排除的路径说明不需要用户登录也可以访问</span></span><br><span class="line">        String[] excludePathPatterns = &#123;</span><br><span class="line">            <span class="string">&quot;/user/out&quot;</span>,<span class="string">&quot;/user/error&quot;</span>,<span class="string">&quot;/user/login&quot;</span></span><br><span class="line">        &#125;;</span><br><span class="line"></span><br><span class="line">        registry.addInterceptor(<span class="keyword">new</span> UserInterceptor()).addPathPatterns(addPathPatterns).excludePathPatterns(excludePathPatterns);</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<p>　　需要实现WebMvcConfigurer，重写addInterceptors方法，在里面配置需要拦截的请求和排除的请求。</p>
+<h2 id="1-3-编写Controller类进行验证"><a href="#1-3-编写Controller类进行验证" class="headerlink" title="1.3 编写Controller类进行验证"></a>1.3 编写Controller类进行验证</h2><figure class="highlight java"><table><tr><td class="code"><pre><span class="line"><span class="meta">@Controller</span></span><br><span class="line"><span class="meta">@RequestMapping(value = &quot;/user&quot;)</span></span><br><span class="line"><span class="keyword">public</span> <span class="class"><span class="keyword">class</span> <span class="title">UserController</span> </span>&#123;</span><br><span class="line"></span><br><span class="line">    <span class="meta">@RequestMapping(value = &quot;/login&quot;)</span></span><br><span class="line">    <span class="keyword">public</span> <span class="meta">@ResponseBody</span> <span class="function">Object <span class="title">login</span><span class="params">(HttpServletRequest request, HttpServletResponse response)</span></span>&#123;</span><br><span class="line">        <span class="comment">//将user用户存入session</span></span><br><span class="line">        User user = <span class="keyword">new</span> User();</span><br><span class="line">        user.setId(<span class="number">1001</span>);</span><br><span class="line">        user.setUsername(<span class="string">&quot;zhangsan&quot;</span>);</span><br><span class="line">        request.getSession().setAttribute(<span class="string">&quot;user&quot;</span>,user);</span><br><span class="line"></span><br><span class="line">        <span class="keyword">return</span> <span class="string">&quot;login SUCCESS&quot;</span>;</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">    <span class="comment">//登录成功才能看到的信息</span></span><br><span class="line">    <span class="meta">@RequestMapping(value = &quot;/center&quot;)</span></span><br><span class="line">    <span class="keyword">public</span> <span class="meta">@ResponseBody</span> <span class="function">Object <span class="title">center</span><span class="params">()</span></span>&#123;</span><br><span class="line">        <span class="keyword">return</span> <span class="string">&quot;See Center Message&quot;</span>;</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">    <span class="comment">//不用登录就能看到的信息</span></span><br><span class="line">    <span class="meta">@RequestMapping(value = &quot;/out&quot;)</span></span><br><span class="line">    <span class="keyword">public</span> <span class="meta">@ResponseBody</span> <span class="function">Object <span class="title">out</span><span class="params">()</span></span>&#123;</span><br><span class="line">        <span class="keyword">return</span> <span class="string">&quot;See Out Message&quot;</span>;</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">    <span class="comment">//如果用户未登录访问了需要登录才可访问的请求，才会出错</span></span><br><span class="line">    <span class="meta">@RequestMapping(value = &quot;/error&quot;)</span></span><br><span class="line">    <span class="keyword">public</span> <span class="meta">@ResponseBody</span> <span class="function">Object <span class="title">error</span><span class="params">()</span></span>&#123;</span><br><span class="line">        <span class="keyword">return</span> <span class="string">&quot;error&quot;</span>;</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<h1 id="2-在SpringBoot框架下使用Servlet"><a href="#2-在SpringBoot框架下使用Servlet" class="headerlink" title="2.在SpringBoot框架下使用Servlet"></a>2.在SpringBoot框架下使用Servlet</h1><ul>
+<li><p>第一种方式</p>
+<p>在主程序入口处加上@ServletComponentScan注解，然后正常使用@WebServlet注解</p>
+</li>
+<li><p>第二种方式</p>
+<p>使用@Configuration注解定义一个配置类</p>
+</li>
+</ul>
+]]></content>
+      <categories>
+        <category>SpringBoot学习</category>
+      </categories>
+      <tags>
+        <tag>SpringBoot学习</tag>
+      </tags>
+  </entry>
+  <entry>
+    <title>SpringBoot-请求方式注解</title>
+    <url>/post/6cd03ce5.html</url>
+    <content><![CDATA[<p>　　主要是在开发过程中，如何区别各种请求类型，还有RESTful风格的了解<a id="more"></a></p>
+<h1 id="1-注解"><a href="#1-注解" class="headerlink" title="1.注解"></a>1.注解</h1><h2 id="1-1-RestController"><a href="#1-1-RestController" class="headerlink" title="1.1 @RestController"></a>1.1 @RestController</h2><p>　　相当于控制层类加上@Controller+方法上加@ResponseBody ，意味着当前控制层类中所有方法返还的都是JSON对象</p>
+<figure class="highlight java"><table><tr><td class="code"><pre><span class="line"><span class="comment">//@Controller</span></span><br><span class="line"><span class="comment">//相当于控制层类加上@Controller+方法上加@ResponseBody</span></span><br><span class="line"><span class="comment">//意味着当前控制层类中所有方法返还的都是JSON对象</span></span><br><span class="line"><span class="meta">@RestController</span></span><br><span class="line"><span class="keyword">public</span> <span class="class"><span class="keyword">class</span> <span class="title">StudentController</span> </span>&#123;</span><br><span class="line"></span><br><span class="line">    <span class="meta">@RequestMapping(value = &quot;/student&quot;)</span></span><br><span class="line"><span class="comment">//    @ResponseBody</span></span><br><span class="line">    <span class="function"><span class="keyword">public</span> Object <span class="title">student</span><span class="params">()</span> </span>&#123;</span><br><span class="line">        Student student = <span class="keyword">new</span> Student();</span><br><span class="line">        student.setName(<span class="string">&quot;zhangsan&quot;</span>);</span><br><span class="line">        student.setId(<span class="number">1011</span>);</span><br><span class="line">        <span class="keyword">return</span> student;</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<h2 id="1-2-GetMapping查"><a href="#1-2-GetMapping查" class="headerlink" title="1.2 @GetMapping查"></a>1.2 @GetMapping查</h2><figure class="highlight java"><table><tr><td class="code"><pre><span class="line"><span class="comment">//    查询数据使用</span></span><br><span class="line"><span class="meta">@GetMapping(value = &quot;/queryStudentById2&quot;)</span></span><br><span class="line"><span class="function"><span class="keyword">public</span> Object <span class="title">queryStudentById2</span><span class="params">()</span></span>&#123;</span><br><span class="line">    <span class="keyword">return</span> <span class="string">&quot;Only GET Method&quot;</span>;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<h2 id="1-3-PostMapping增"><a href="#1-3-PostMapping增" class="headerlink" title="1.3 @PostMapping增"></a>1.3 @PostMapping增</h2><figure class="highlight java"><table><tr><td class="code"><pre><span class="line"><span class="meta">@PostMapping(value = &quot;/insert&quot;)</span></span><br><span class="line"><span class="comment">//    新增数据使用</span></span><br><span class="line"><span class="comment">//    该注解通常在新增数据的时候使用</span></span><br><span class="line"><span class="function"><span class="keyword">public</span> Object <span class="title">insert</span><span class="params">()</span></span>&#123;</span><br><span class="line">    <span class="keyword">return</span> <span class="string">&quot;Insert success&quot;</span>;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<h2 id="1-4-DeleteMapping删"><a href="#1-4-DeleteMapping删" class="headerlink" title="1.4 @DeleteMapping删"></a>1.4 @DeleteMapping删</h2><figure class="highlight java"><table><tr><td class="code"><pre><span class="line"><span class="meta">@DeleteMapping(value = &quot;/delete&quot;)</span></span><br><span class="line"><span class="comment">//    删除数据时候使用</span></span><br><span class="line"><span class="function"><span class="keyword">public</span> Object <span class="title">delete</span><span class="params">()</span></span>&#123;</span><br><span class="line">    <span class="keyword">return</span> <span class="string">&quot;delete Student&quot;</span>;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<h2 id="1-5-PutMapping改"><a href="#1-5-PutMapping改" class="headerlink" title="1.5 @PutMapping改"></a>1.5 @PutMapping改</h2><figure class="highlight java"><table><tr><td class="code"><pre><span class="line"><span class="comment">//    @RequestMapping(value = &quot;/update&quot;,method = RequestMethod.PUT)</span></span><br><span class="line"><span class="meta">@PutMapping(value = &quot;/update&quot;)</span></span><br><span class="line"><span class="comment">//    更改数据时候使用</span></span><br><span class="line"><span class="function"><span class="keyword">public</span> Object <span class="title">update</span><span class="params">()</span></span>&#123;</span><br><span class="line">    <span class="keyword">return</span> <span class="string">&quot;update student info&quot;</span>;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<h1 id="2-RESTful风格"><a href="#2-RESTful风格" class="headerlink" title="2.RESTful风格"></a>2.RESTful风格</h1><p>localhost:8080/sutdent?id=1001&amp;age=23</p>
+<p>可以优化为</p>
+<p>localhost:8080/sutdent?/1001/23</p>
+<figure class="highlight java"><table><tr><td class="code"><pre><span class="line"><span class="meta">@RestController</span></span><br><span class="line"><span class="keyword">public</span> <span class="class"><span class="keyword">class</span> <span class="title">StudentController</span> </span>&#123;</span><br><span class="line"></span><br><span class="line">    <span class="meta">@RequestMapping(value = &quot;/student/detail/&#123;id&#125;/&#123;age&#125;&quot;)</span></span><br><span class="line">    <span class="function"><span class="keyword">public</span> Object <span class="title">student1</span><span class="params">(<span class="meta">@PathVariable(&quot;id&quot;)</span> Integer id,</span></span></span><br><span class="line"><span class="function"><span class="params">                           <span class="meta">@PathVariable(&quot;age&quot;)</span> Integer age)</span> </span>&#123;</span><br><span class="line">        Map&lt;String, Object&gt; retMap = <span class="keyword">new</span> HashMap&lt;&gt;();</span><br><span class="line"></span><br><span class="line">        retMap.put(<span class="string">&quot;id&quot;</span>, id);</span><br><span class="line">        retMap.put(<span class="string">&quot;age&quot;</span>, age);</span><br><span class="line"></span><br><span class="line">        <span class="keyword">return</span> retMap;</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">    <span class="meta">@RequestMapping(value = &quot;/student/detail/&#123;id&#125;/&#123;status&#125;&quot;)</span></span><br><span class="line">    <span class="function"><span class="keyword">public</span> Object <span class="title">student2</span><span class="params">(<span class="meta">@PathVariable(&quot;id&quot;)</span> Integer id,</span></span></span><br><span class="line"><span class="function"><span class="params">                           <span class="meta">@PathVariable(&quot;status&quot;)</span> Integer status)</span> </span>&#123;</span><br><span class="line">        Map&lt;String, Object&gt; retMap = <span class="keyword">new</span> HashMap&lt;&gt;();</span><br><span class="line"></span><br><span class="line">        retMap.put(<span class="string">&quot;id&quot;</span>, id);</span><br><span class="line">        retMap.put(<span class="string">&quot;status&quot;</span>, status);</span><br><span class="line"></span><br><span class="line">        <span class="keyword">return</span> retMap;</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<p><font color="ff0000">以上代码studen1和studen2出现请求模糊</font></p>
+<p>使用时候需要注意增删改查的请求方式进行区分</font></p>
+<ul>
+<li><p>student1需要加@GetMapping、student2需要加@DeleteMapping</p>
+</li>
+<li><p>修改请求路径顺序</p>
+</li>
+</ul>
+]]></content>
+      <categories>
+        <category>SpringBoot学习</category>
+      </categories>
+      <tags>
+        <tag>SpringBoot学习</tag>
+      </tags>
+  </entry>
+  <entry>
     <title>SpringBoot-逆向工程</title>
     <url>/post/1511e846.html</url>
     <content><![CDATA[<p>　　之前建立实体类，需要手动慢慢建立，很没有效率，了解了逆向工程之后，确实很方便<a id="more"></a></p>
@@ -1314,65 +1379,72 @@
       </tags>
   </entry>
   <entry>
-    <title>SpringBoot-拦截器</title>
-    <url>/post/e3a97206.html</url>
-    <content><![CDATA[<p>　　SpringBoot学习，主要内容是拦截器，可以实现网站的登录功能<a id="more"></a></p>
-<h1 id="1-实现登录拦截"><a href="#1-实现登录拦截" class="headerlink" title="1.实现登录拦截"></a>1.实现登录拦截</h1><p>　　首先需要编写相应模块的类实现HandlerInterceptor，然后再拦截配置类里面编辑要拦截胡页面。</p>
-<h2 id="1-1-编写类实现HandlerInterceptor类"><a href="#1-1-编写类实现HandlerInterceptor类" class="headerlink" title="1.1 编写类实现HandlerInterceptor类"></a>1.1 编写类实现HandlerInterceptor类</h2><figure class="highlight java"><table><tr><td class="code"><pre><span class="line"><span class="keyword">public</span> <span class="class"><span class="keyword">class</span> <span class="title">UserInterceptor</span> <span class="keyword">implements</span> <span class="title">HandlerInterceptor</span></span>&#123;</span><br><span class="line">    <span class="meta">@Override</span></span><br><span class="line">    <span class="function"><span class="keyword">public</span> <span class="keyword">boolean</span> <span class="title">preHandle</span><span class="params">(HttpServletRequest request, HttpServletResponse response, Object handler)</span> <span class="keyword">throws</span> Exception </span>&#123;</span><br><span class="line">        <span class="comment">//编写业务拦截的规则</span></span><br><span class="line">        <span class="comment">//从session中获取用户的信息</span></span><br><span class="line">        User user = (User) request.getSession().getAttribute(<span class="string">&quot;user&quot;</span>);</span><br><span class="line"></span><br><span class="line">        <span class="comment">//判断用户是否登录</span></span><br><span class="line">        <span class="keyword">if</span> (<span class="keyword">null</span> == user) &#123;</span><br><span class="line">            <span class="comment">//未登录</span></span><br><span class="line">            response.sendRedirect(request.getContextPath() + <span class="string">&quot;/nologin&quot;</span>);</span><br><span class="line">            <span class="keyword">return</span> <span class="keyword">false</span>;</span><br><span class="line">        &#125;</span><br><span class="line">        <span class="keyword">return</span> <span class="keyword">true</span>;</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">    <span class="meta">@Override</span></span><br><span class="line">    <span class="function"><span class="keyword">public</span> <span class="keyword">void</span> <span class="title">postHandle</span><span class="params">(HttpServletRequest request, HttpServletResponse response, Object handler, ModelAndView modelAndView)</span> <span class="keyword">throws</span> Exception </span>&#123;</span><br><span class="line"></span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">    <span class="meta">@Override</span></span><br><span class="line">    <span class="function"><span class="keyword">public</span> <span class="keyword">void</span> <span class="title">afterCompletion</span><span class="params">(HttpServletRequest request, HttpServletResponse response, Object handler, Exception ex)</span> <span class="keyword">throws</span> Exception </span>&#123;</span><br><span class="line"></span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
-
-<p>　　实现HanderInterceptor，重写preHandle、postHandle、afterCompletion三个方法，先获取session的用户信息，然后判断是否登录。</p>
-<h2 id="1-2-声明拦截配置类"><a href="#1-2-声明拦截配置类" class="headerlink" title="1.2 声明拦截配置类"></a>1.2 声明拦截配置类</h2><figure class="highlight java"><table><tr><td class="code"><pre><span class="line"><span class="meta">@Configuration</span></span><br><span class="line"><span class="comment">//定义此类为配置文件</span></span><br><span class="line"><span class="keyword">public</span> <span class="class"><span class="keyword">class</span> <span class="title">InterceptorConfig</span> <span class="keyword">implements</span> <span class="title">WebMvcConfigurer</span> </span>&#123;</span><br><span class="line"></span><br><span class="line">    <span class="meta">@Override</span></span><br><span class="line">    <span class="function"><span class="keyword">public</span> <span class="keyword">void</span> <span class="title">addInterceptors</span><span class="params">(InterceptorRegistry registry)</span> </span>&#123;</span><br><span class="line"></span><br><span class="line">        <span class="comment">//要拦截user下的所有访问请求，必须用户登录后才能访问</span></span><br><span class="line">        String[] addPathPatterns = &#123;</span><br><span class="line">            <span class="string">&quot;/user/**&quot;</span></span><br><span class="line">        &#125;;</span><br><span class="line"></span><br><span class="line">        <span class="comment">//排除路径，排除的路径说明不需要用户登录也可以访问</span></span><br><span class="line">        String[] excludePathPatterns = &#123;</span><br><span class="line">            <span class="string">&quot;/user/out&quot;</span>,<span class="string">&quot;/user/error&quot;</span>,<span class="string">&quot;/user/login&quot;</span></span><br><span class="line">        &#125;;</span><br><span class="line"></span><br><span class="line">        registry.addInterceptor(<span class="keyword">new</span> UserInterceptor()).addPathPatterns(addPathPatterns).excludePathPatterns(excludePathPatterns);</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
-
-<p>　　需要实现WebMvcConfigurer，重写addInterceptors方法，在里面配置需要拦截的请求和排除的请求。</p>
-<h2 id="1-3-编写Controller类进行验证"><a href="#1-3-编写Controller类进行验证" class="headerlink" title="1.3 编写Controller类进行验证"></a>1.3 编写Controller类进行验证</h2><figure class="highlight java"><table><tr><td class="code"><pre><span class="line"><span class="meta">@Controller</span></span><br><span class="line"><span class="meta">@RequestMapping(value = &quot;/user&quot;)</span></span><br><span class="line"><span class="keyword">public</span> <span class="class"><span class="keyword">class</span> <span class="title">UserController</span> </span>&#123;</span><br><span class="line"></span><br><span class="line">    <span class="meta">@RequestMapping(value = &quot;/login&quot;)</span></span><br><span class="line">    <span class="keyword">public</span> <span class="meta">@ResponseBody</span> <span class="function">Object <span class="title">login</span><span class="params">(HttpServletRequest request, HttpServletResponse response)</span></span>&#123;</span><br><span class="line">        <span class="comment">//将user用户存入session</span></span><br><span class="line">        User user = <span class="keyword">new</span> User();</span><br><span class="line">        user.setId(<span class="number">1001</span>);</span><br><span class="line">        user.setUsername(<span class="string">&quot;zhangsan&quot;</span>);</span><br><span class="line">        request.getSession().setAttribute(<span class="string">&quot;user&quot;</span>,user);</span><br><span class="line"></span><br><span class="line">        <span class="keyword">return</span> <span class="string">&quot;login SUCCESS&quot;</span>;</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">    <span class="comment">//登录成功才能看到的信息</span></span><br><span class="line">    <span class="meta">@RequestMapping(value = &quot;/center&quot;)</span></span><br><span class="line">    <span class="keyword">public</span> <span class="meta">@ResponseBody</span> <span class="function">Object <span class="title">center</span><span class="params">()</span></span>&#123;</span><br><span class="line">        <span class="keyword">return</span> <span class="string">&quot;See Center Message&quot;</span>;</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">    <span class="comment">//不用登录就能看到的信息</span></span><br><span class="line">    <span class="meta">@RequestMapping(value = &quot;/out&quot;)</span></span><br><span class="line">    <span class="keyword">public</span> <span class="meta">@ResponseBody</span> <span class="function">Object <span class="title">out</span><span class="params">()</span></span>&#123;</span><br><span class="line">        <span class="keyword">return</span> <span class="string">&quot;See Out Message&quot;</span>;</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">    <span class="comment">//如果用户未登录访问了需要登录才可访问的请求，才会出错</span></span><br><span class="line">    <span class="meta">@RequestMapping(value = &quot;/error&quot;)</span></span><br><span class="line">    <span class="keyword">public</span> <span class="meta">@ResponseBody</span> <span class="function">Object <span class="title">error</span><span class="params">()</span></span>&#123;</span><br><span class="line">        <span class="keyword">return</span> <span class="string">&quot;error&quot;</span>;</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
-
-<h1 id="2-在SpringBoot框架下使用Servlet"><a href="#2-在SpringBoot框架下使用Servlet" class="headerlink" title="2.在SpringBoot框架下使用Servlet"></a>2.在SpringBoot框架下使用Servlet</h1><ul>
-<li><p>第一种方式</p>
-<p>在主程序入口处加上@ServletComponentScan注解，然后正常使用@WebServlet注解</p>
-</li>
-<li><p>第二种方式</p>
-<p>使用@Configuration注解定义一个配置类</p>
-</li>
-</ul>
+    <title>SpringBoot注解</title>
+    <url>/post/2f294b8e.html</url>
+    <content><![CDATA[<p>　　在开发过程中经常用到的注解<a id="more"></a></p>
+<h1 id="常用注解"><a href="#常用注解" class="headerlink" title="常用注解"></a>常用注解</h1><table>
+<thead>
+<tr>
+<th>注解</th>
+<th align="left">作用</th>
+</tr>
+</thead>
+<tbody><tr>
+<td>@Controller注解</td>
+<td align="left">用于定义控制器类，在spring项目中由控制器负责将用户发来的URL请求转发到对应的服务接口（service层），一般这个注解在类中，通常方法需要配合注解@RequestMapping。</td>
+</tr>
+<tr>
+<td>@RequestMapping注解</td>
+<td align="left">@RequestMapping(“/path”)表示该控制器处理所有“/path”的UR L请求。RequestMapping是一个用来处理请求地址映射的注解，可用于类或方法上。</td>
+</tr>
+<tr>
+<td>@ResponseBody注解</td>
+<td align="left">直接写入HTTP response body中。比如异步获取json数据，加上@Responsebody后，会直接返回json数据。该注解一般会配合@RequestMapping一起使用。</td>
+</tr>
+<tr>
+<td>@Conponent注解</td>
+<td align="left"></td>
+</tr>
+<tr>
+<td>@ConfigurationProperties注解</td>
+<td align="left">加入前缀区分properties文件获取的值</td>
+</tr>
+<tr>
+<td>@Autowired注解</td>
+<td align="left">注解导入。可以自动收集所有的Spring组件，包括@Configuration类。我们经常使用@ComponentScan注解搜索beans，并结合@Autowired注解导入。如果没有配置的话，Spring Boot会扫描启动类所在包下以及子包下的使用了@Service,@Repository等注解的类。</td>
+</tr>
+<tr>
+<td>@Service注解</td>
+<td align="left"></td>
+</tr>
+<tr>
+<td>@Mapper注解</td>
+<td align="left">扫描DAO接口到Spring容器</td>
+</tr>
+<tr>
+<td>@MapperScan注解</td>
+<td align="left">开启扫描Mapper接口的包以及子目录</td>
+</tr>
+<tr>
+<td>@Transactional注解</td>
+<td align="left">事务管理器</td>
+</tr>
+<tr>
+<td>@RestController注解</td>
+<td align="left">相当于控制层类加上@Controller+方法上加@ResponseBody ，意味着当前控制层类中所有方法返还的都是JSON对象</td>
+</tr>
+<tr>
+<td>@Bean注解</td>
+<td align="left">主要在配置类中，相当于&lt;beans&gt;&lt;bean id=”” class=””&gt;&lt;/beans&gt;</td>
+</tr>
+<tr>
+<td></td>
+<td align="left"></td>
+</tr>
+</tbody></table>
 ]]></content>
       <categories>
-        <category>SpringBoot学习</category>
-      </categories>
-      <tags>
-        <tag>SpringBoot学习</tag>
-      </tags>
-  </entry>
-  <entry>
-    <title>SpringBoot-请求方式注解</title>
-    <url>/post/6cd03ce5.html</url>
-    <content><![CDATA[<p>　　主要是在开发过程中，如何区别各种请求类型，还有RESTful风格的了解<a id="more"></a></p>
-<h1 id="1-注解"><a href="#1-注解" class="headerlink" title="1.注解"></a>1.注解</h1><h2 id="1-1-RestController"><a href="#1-1-RestController" class="headerlink" title="1.1 @RestController"></a>1.1 @RestController</h2><p>　　相当于控制层类加上@Controller+方法上加@ResponseBody ，意味着当前控制层类中所有方法返还的都是JSON对象</p>
-<figure class="highlight java"><table><tr><td class="code"><pre><span class="line"><span class="comment">//@Controller</span></span><br><span class="line"><span class="comment">//相当于控制层类加上@Controller+方法上加@ResponseBody</span></span><br><span class="line"><span class="comment">//意味着当前控制层类中所有方法返还的都是JSON对象</span></span><br><span class="line"><span class="meta">@RestController</span></span><br><span class="line"><span class="keyword">public</span> <span class="class"><span class="keyword">class</span> <span class="title">StudentController</span> </span>&#123;</span><br><span class="line"></span><br><span class="line">    <span class="meta">@RequestMapping(value = &quot;/student&quot;)</span></span><br><span class="line"><span class="comment">//    @ResponseBody</span></span><br><span class="line">    <span class="function"><span class="keyword">public</span> Object <span class="title">student</span><span class="params">()</span> </span>&#123;</span><br><span class="line">        Student student = <span class="keyword">new</span> Student();</span><br><span class="line">        student.setName(<span class="string">&quot;zhangsan&quot;</span>);</span><br><span class="line">        student.setId(<span class="number">1011</span>);</span><br><span class="line">        <span class="keyword">return</span> student;</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
-
-<h2 id="1-2-GetMapping查"><a href="#1-2-GetMapping查" class="headerlink" title="1.2 @GetMapping查"></a>1.2 @GetMapping查</h2><figure class="highlight java"><table><tr><td class="code"><pre><span class="line"><span class="comment">//    查询数据使用</span></span><br><span class="line"><span class="meta">@GetMapping(value = &quot;/queryStudentById2&quot;)</span></span><br><span class="line"><span class="function"><span class="keyword">public</span> Object <span class="title">queryStudentById2</span><span class="params">()</span></span>&#123;</span><br><span class="line">    <span class="keyword">return</span> <span class="string">&quot;Only GET Method&quot;</span>;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
-
-<h2 id="1-3-PostMapping增"><a href="#1-3-PostMapping增" class="headerlink" title="1.3 @PostMapping增"></a>1.3 @PostMapping增</h2><figure class="highlight java"><table><tr><td class="code"><pre><span class="line"><span class="meta">@PostMapping(value = &quot;/insert&quot;)</span></span><br><span class="line"><span class="comment">//    新增数据使用</span></span><br><span class="line"><span class="comment">//    该注解通常在新增数据的时候使用</span></span><br><span class="line"><span class="function"><span class="keyword">public</span> Object <span class="title">insert</span><span class="params">()</span></span>&#123;</span><br><span class="line">    <span class="keyword">return</span> <span class="string">&quot;Insert success&quot;</span>;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
-
-<h2 id="1-4-DeleteMapping删"><a href="#1-4-DeleteMapping删" class="headerlink" title="1.4 @DeleteMapping删"></a>1.4 @DeleteMapping删</h2><figure class="highlight java"><table><tr><td class="code"><pre><span class="line"><span class="meta">@DeleteMapping(value = &quot;/delete&quot;)</span></span><br><span class="line"><span class="comment">//    删除数据时候使用</span></span><br><span class="line"><span class="function"><span class="keyword">public</span> Object <span class="title">delete</span><span class="params">()</span></span>&#123;</span><br><span class="line">    <span class="keyword">return</span> <span class="string">&quot;delete Student&quot;</span>;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
-
-<h2 id="1-5-PutMapping改"><a href="#1-5-PutMapping改" class="headerlink" title="1.5 @PutMapping改"></a>1.5 @PutMapping改</h2><figure class="highlight java"><table><tr><td class="code"><pre><span class="line"><span class="comment">//    @RequestMapping(value = &quot;/update&quot;,method = RequestMethod.PUT)</span></span><br><span class="line"><span class="meta">@PutMapping(value = &quot;/update&quot;)</span></span><br><span class="line"><span class="comment">//    更改数据时候使用</span></span><br><span class="line"><span class="function"><span class="keyword">public</span> Object <span class="title">update</span><span class="params">()</span></span>&#123;</span><br><span class="line">    <span class="keyword">return</span> <span class="string">&quot;update student info&quot;</span>;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
-
-<h1 id="2-RESTful风格"><a href="#2-RESTful风格" class="headerlink" title="2.RESTful风格"></a>2.RESTful风格</h1><p>localhost:8080/sutdent?id=1001&amp;age=23</p>
-<p>可以优化为</p>
-<p>localhost:8080/sutdent?/1001/23</p>
-<figure class="highlight java"><table><tr><td class="code"><pre><span class="line"><span class="meta">@RestController</span></span><br><span class="line"><span class="keyword">public</span> <span class="class"><span class="keyword">class</span> <span class="title">StudentController</span> </span>&#123;</span><br><span class="line"></span><br><span class="line">    <span class="meta">@RequestMapping(value = &quot;/student/detail/&#123;id&#125;/&#123;age&#125;&quot;)</span></span><br><span class="line">    <span class="function"><span class="keyword">public</span> Object <span class="title">student1</span><span class="params">(<span class="meta">@PathVariable(&quot;id&quot;)</span> Integer id,</span></span></span><br><span class="line"><span class="function"><span class="params">                           <span class="meta">@PathVariable(&quot;age&quot;)</span> Integer age)</span> </span>&#123;</span><br><span class="line">        Map&lt;String, Object&gt; retMap = <span class="keyword">new</span> HashMap&lt;&gt;();</span><br><span class="line"></span><br><span class="line">        retMap.put(<span class="string">&quot;id&quot;</span>, id);</span><br><span class="line">        retMap.put(<span class="string">&quot;age&quot;</span>, age);</span><br><span class="line"></span><br><span class="line">        <span class="keyword">return</span> retMap;</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">    <span class="meta">@RequestMapping(value = &quot;/student/detail/&#123;id&#125;/&#123;status&#125;&quot;)</span></span><br><span class="line">    <span class="function"><span class="keyword">public</span> Object <span class="title">student2</span><span class="params">(<span class="meta">@PathVariable(&quot;id&quot;)</span> Integer id,</span></span></span><br><span class="line"><span class="function"><span class="params">                           <span class="meta">@PathVariable(&quot;status&quot;)</span> Integer status)</span> </span>&#123;</span><br><span class="line">        Map&lt;String, Object&gt; retMap = <span class="keyword">new</span> HashMap&lt;&gt;();</span><br><span class="line"></span><br><span class="line">        retMap.put(<span class="string">&quot;id&quot;</span>, id);</span><br><span class="line">        retMap.put(<span class="string">&quot;status&quot;</span>, status);</span><br><span class="line"></span><br><span class="line">        <span class="keyword">return</span> retMap;</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
-
-<p><font color="ff0000">以上代码studen1和studen2出现请求模糊</font></p>
-<p>使用时候需要注意增删改查的请求方式进行区分</font></p>
-<ul>
-<li><p>student1需要加@GetMapping、student2需要加@DeleteMapping</p>
-</li>
-<li><p>修改请求路径顺序</p>
-</li>
-</ul>
-]]></content>
-      <categories>
-        <category>SpringBoot学习</category>
+        <category>SpringBoot框架</category>
       </categories>
       <tags>
         <tag>SpringBoot学习</tag>
@@ -1579,78 +1651,6 @@
       </tags>
   </entry>
   <entry>
-    <title>SpringBoot注解</title>
-    <url>/post/2f294b8e.html</url>
-    <content><![CDATA[<p>　　在开发过程中经常用到的注解<a id="more"></a></p>
-<h1 id="常用注解"><a href="#常用注解" class="headerlink" title="常用注解"></a>常用注解</h1><table>
-<thead>
-<tr>
-<th>注解</th>
-<th align="left">作用</th>
-</tr>
-</thead>
-<tbody><tr>
-<td>@Controller注解</td>
-<td align="left">用于定义控制器类，在spring项目中由控制器负责将用户发来的URL请求转发到对应的服务接口（service层），一般这个注解在类中，通常方法需要配合注解@RequestMapping。</td>
-</tr>
-<tr>
-<td>@RequestMapping注解</td>
-<td align="left">@RequestMapping(“/path”)表示该控制器处理所有“/path”的UR L请求。RequestMapping是一个用来处理请求地址映射的注解，可用于类或方法上。</td>
-</tr>
-<tr>
-<td>@ResponseBody注解</td>
-<td align="left">直接写入HTTP response body中。比如异步获取json数据，加上@Responsebody后，会直接返回json数据。该注解一般会配合@RequestMapping一起使用。</td>
-</tr>
-<tr>
-<td>@Conponent注解</td>
-<td align="left"></td>
-</tr>
-<tr>
-<td>@ConfigurationProperties注解</td>
-<td align="left">加入前缀区分properties文件获取的值</td>
-</tr>
-<tr>
-<td>@Autowired注解</td>
-<td align="left">注解导入。可以自动收集所有的Spring组件，包括@Configuration类。我们经常使用@ComponentScan注解搜索beans，并结合@Autowired注解导入。如果没有配置的话，Spring Boot会扫描启动类所在包下以及子包下的使用了@Service,@Repository等注解的类。</td>
-</tr>
-<tr>
-<td>@Service注解</td>
-<td align="left"></td>
-</tr>
-<tr>
-<td>@Mapper注解</td>
-<td align="left">扫描DAO接口到Spring容器</td>
-</tr>
-<tr>
-<td>@MapperScan注解</td>
-<td align="left">开启扫描Mapper接口的包以及子目录</td>
-</tr>
-<tr>
-<td>@Transactional注解</td>
-<td align="left">事务管理器</td>
-</tr>
-<tr>
-<td>@RestController注解</td>
-<td align="left">相当于控制层类加上@Controller+方法上加@ResponseBody ，意味着当前控制层类中所有方法返还的都是JSON对象</td>
-</tr>
-<tr>
-<td>@Bean注解</td>
-<td align="left">主要在配置类中，相当于&lt;beans&gt;&lt;bean id=”” class=””&gt;&lt;/beans&gt;</td>
-</tr>
-<tr>
-<td></td>
-<td align="left"></td>
-</tr>
-</tbody></table>
-]]></content>
-      <categories>
-        <category>SpringBoot框架</category>
-      </categories>
-      <tags>
-        <tag>SpringBoot学习</tag>
-      </tags>
-  </entry>
-  <entry>
     <title>XSS攻击</title>
     <url>/post/4fa736d8.html</url>
     <content><![CDATA[<p>　　通过DVWA学习这个挺好<a id="more"></a></p>
@@ -1702,6 +1702,26 @@
       </tags>
   </entry>
   <entry>
+    <title>cloacked-pixel艰难使用</title>
+    <url>/post/387a909.html</url>
+    <content><![CDATA[<p>python2下载安装，安装成功后，尝试使用<a id="more"></a></p>
+<p><img src="https://s3.ax1x.com/2020/11/28/DyZcfU.jpg" alt="DyZcfU.jpg"></p>
+<p>见到没有这个包</p>
+<p>之后开始安装缺少的包</p>
+<figure class="highlight awk"><table><tr><td class="code"><pre><span class="line">pip2 install numpy -i https:<span class="regexp">//</span>pypi.tuna.tsinghua.edu.cn<span class="regexp">/simple/</span></span><br></pre></td></tr></table></figure>
+
+<p>[<img src="https://s3.ax1x.com/2020/11/28/DyZW6J.jpg" alt="DyZW6J.jpg"></p>
+<p>最后终于能够成功使用，拿到flag</p>
+<p><img src="https://s3.ax1x.com/2020/11/28/DyZ6YT.jpg" alt="DyZ6YT.jpg"></p>
+]]></content>
+      <categories>
+        <category>第一届DMCTF夺旗赛</category>
+      </categories>
+      <tags>
+        <tag>cloacked-pixel</tag>
+      </tags>
+  </entry>
+  <entry>
     <title>XXE攻击</title>
     <url>/post/16c3837a.html</url>
     <content><![CDATA[<p>　　XML语言，还是不能够理解<a id="more"></a></p>
@@ -1723,70 +1743,6 @@
       </categories>
       <tags>
         <tag>XXE</tag>
-      </tags>
-  </entry>
-  <entry>
-    <title>linux磁盘管理</title>
-    <url>/post/af2754a4.html</url>
-    <content><![CDATA[<p>　　一些linux对磁盘管理的基本命令<a id="more"></a></p>
-<h1 id="命令df和du"><a href="#命令df和du" class="headerlink" title="命令df和du"></a>命令df和du</h1><h2 id="1-命令df"><a href="#1-命令df" class="headerlink" title="1.命令df"></a>1.命令df</h2><p>df查看已挂载磁盘的总容量、使用容量、剩余容量等，可以不加任何参数，默认是k单位显示。</p>
-<p><img src="https://s1.ax1x.com/2020/11/10/BqP9qH.jpg" alt="BqP9qH.jpg"></p>
-<p>其中/、/boot是我们在安装系统时划分出来了。/dev、/dev/shm为内存分区，默认大小为内存大小的1/2，如果把文件存到这个分区，相当于存到了内存中，好处是读写非常快，坏处是系统重启文件就会丢失。/run、/sys/fs/cgroup等分区都是tmpfs，跟/dev/shm类似，为临时文件系统。</p>
-<p>df常用的参数有-i -h -k -m等</p>
-<p>-i 使用inodes显示结果</p>
-<p>-h 使用合适的单位显示</p>
-<p>-k -m分别是以k，m为单位显示</p>
-<h2 id="2-命令du"><a href="#2-命令du" class="headerlink" title="2.命令du"></a>2.命令du</h2><p>用来查看某个目录或文件所占空间的大小，其格式为du [-abckmsh] [文件或者目录名] 常用的参数：</p>
-<p>-a:全部文件与目录大小都列出来。如不加任何选项和参数只列出目录大小</p>
-<p>-b:列出的值以bytes为单位输出，默认以Kbytes</p>
-<p>-c:最后加总</p>
-<p>-k:以KB为单位输出</p>
-<p>-m:以MB为单位输出</p>
-<p>-s:只列出总和</p>
-<p>-h:系统自动调节单位，例如文件太小就以k为单位，太大就用G为单位</p>
-<h1 id="磁盘的分区和格式化"><a href="#磁盘的分区和格式化" class="headerlink" title="磁盘的分区和格式化"></a>磁盘的分区和格式化</h1><p>fdisk linux下的硬盘分区工具，只能划分小于2TB的分区</p>
-<p>fdisk [-l] [设备名字]</p>
-<p>-l：后面不跟设备名会直接列出系统中所有的磁盘设备及分区表，加上设备名会列出该设备的分区表。</p>
-<img src="https://s1.ax1x.com/2020/11/10/BqPPZd.jpg" alt="BqPPZd.jpg" style="zoom:67%;" />
-
-<p>如果不加-l就会进入另一个模式，在该模式下，可以对磁盘进行分区操作。</p>
-<p>刚进入该模式下，会有一个提示Command (m for help): 此时按m则会打印出帮助列表，如果你英文好，我想你不难理解这些字母的功能。笔者常用的有p, n,d, w, q.</p>
-<img src="https://s1.ax1x.com/2020/11/10/BqPpse.jpg" alt="BqPpse.jpg" style="zoom:67%;" />
-
-<p>P：打印当前磁盘的分区情况。</p>
-<p>n：重新建立一个新的分区。</p>
-<p>w：保存操作。</p>
-<p>q：退出。</p>
-<p>d：删除一个分区</p>
-<h1 id="格式化磁盘分区"><a href="#格式化磁盘分区" class="headerlink" title="格式化磁盘分区"></a>格式化磁盘分区</h1><h2 id="1-命令mke2fs、mkfs-ext2、mkfs-ext3、mkfs-ext4和mkfs-xfs"><a href="#1-命令mke2fs、mkfs-ext2、mkfs-ext3、mkfs-ext4和mkfs-xfs" class="headerlink" title="1.命令mke2fs、mkfs.ext2、mkfs.ext3、mkfs.ext4和mkfs.xfs"></a>1.命令mke2fs、mkfs.ext2、mkfs.ext3、mkfs.ext4和mkfs.xfs</h2><p>前四个命令是一样的，以mkfs举例</p>
-<p>mkfs [-t 文件系统格式] 装置文件名</p>
-<p>-t可以接文件系统格式，例如ext3，ext2，vfat等（系统支持才会生效）</p>
-]]></content>
-      <categories>
-        <category>linux学习</category>
-      </categories>
-      <tags>
-        <tag>Linux</tag>
-      </tags>
-  </entry>
-  <entry>
-    <title>cloacked-pixel艰难使用</title>
-    <url>/post/387a909.html</url>
-    <content><![CDATA[<p>python2下载安装，安装成功后，尝试使用<a id="more"></a></p>
-<p><img src="https://s3.ax1x.com/2020/11/28/DyZcfU.jpg" alt="DyZcfU.jpg"></p>
-<p>见到没有这个包</p>
-<p>之后开始安装缺少的包</p>
-<figure class="highlight awk"><table><tr><td class="code"><pre><span class="line">pip2 install numpy -i https:<span class="regexp">//</span>pypi.tuna.tsinghua.edu.cn<span class="regexp">/simple/</span></span><br></pre></td></tr></table></figure>
-
-<p>[<img src="https://s3.ax1x.com/2020/11/28/DyZW6J.jpg" alt="DyZW6J.jpg"></p>
-<p>最后终于能够成功使用，拿到flag</p>
-<p><img src="https://s3.ax1x.com/2020/11/28/DyZ6YT.jpg" alt="DyZ6YT.jpg"></p>
-]]></content>
-      <categories>
-        <category>第一届DMCTF夺旗赛</category>
-      </categories>
-      <tags>
-        <tag>cloacked-pixel</tag>
       </tags>
   </entry>
   <entry>
@@ -1945,6 +1901,50 @@
       <tags>
         <tag>Java</tag>
         <tag>环境配置</tag>
+      </tags>
+  </entry>
+  <entry>
+    <title>linux磁盘管理</title>
+    <url>/post/af2754a4.html</url>
+    <content><![CDATA[<p>　　一些linux对磁盘管理的基本命令<a id="more"></a></p>
+<h1 id="命令df和du"><a href="#命令df和du" class="headerlink" title="命令df和du"></a>命令df和du</h1><h2 id="1-命令df"><a href="#1-命令df" class="headerlink" title="1.命令df"></a>1.命令df</h2><p>df查看已挂载磁盘的总容量、使用容量、剩余容量等，可以不加任何参数，默认是k单位显示。</p>
+<p><img src="https://s1.ax1x.com/2020/11/10/BqP9qH.jpg" alt="BqP9qH.jpg"></p>
+<p>其中/、/boot是我们在安装系统时划分出来了。/dev、/dev/shm为内存分区，默认大小为内存大小的1/2，如果把文件存到这个分区，相当于存到了内存中，好处是读写非常快，坏处是系统重启文件就会丢失。/run、/sys/fs/cgroup等分区都是tmpfs，跟/dev/shm类似，为临时文件系统。</p>
+<p>df常用的参数有-i -h -k -m等</p>
+<p>-i 使用inodes显示结果</p>
+<p>-h 使用合适的单位显示</p>
+<p>-k -m分别是以k，m为单位显示</p>
+<h2 id="2-命令du"><a href="#2-命令du" class="headerlink" title="2.命令du"></a>2.命令du</h2><p>用来查看某个目录或文件所占空间的大小，其格式为du [-abckmsh] [文件或者目录名] 常用的参数：</p>
+<p>-a:全部文件与目录大小都列出来。如不加任何选项和参数只列出目录大小</p>
+<p>-b:列出的值以bytes为单位输出，默认以Kbytes</p>
+<p>-c:最后加总</p>
+<p>-k:以KB为单位输出</p>
+<p>-m:以MB为单位输出</p>
+<p>-s:只列出总和</p>
+<p>-h:系统自动调节单位，例如文件太小就以k为单位，太大就用G为单位</p>
+<h1 id="磁盘的分区和格式化"><a href="#磁盘的分区和格式化" class="headerlink" title="磁盘的分区和格式化"></a>磁盘的分区和格式化</h1><p>fdisk linux下的硬盘分区工具，只能划分小于2TB的分区</p>
+<p>fdisk [-l] [设备名字]</p>
+<p>-l：后面不跟设备名会直接列出系统中所有的磁盘设备及分区表，加上设备名会列出该设备的分区表。</p>
+<img src="https://s1.ax1x.com/2020/11/10/BqPPZd.jpg" alt="BqPPZd.jpg" style="zoom:67%;" />
+
+<p>如果不加-l就会进入另一个模式，在该模式下，可以对磁盘进行分区操作。</p>
+<p>刚进入该模式下，会有一个提示Command (m for help): 此时按m则会打印出帮助列表，如果你英文好，我想你不难理解这些字母的功能。笔者常用的有p, n,d, w, q.</p>
+<img src="https://s1.ax1x.com/2020/11/10/BqPpse.jpg" alt="BqPpse.jpg" style="zoom:67%;" />
+
+<p>P：打印当前磁盘的分区情况。</p>
+<p>n：重新建立一个新的分区。</p>
+<p>w：保存操作。</p>
+<p>q：退出。</p>
+<p>d：删除一个分区</p>
+<h1 id="格式化磁盘分区"><a href="#格式化磁盘分区" class="headerlink" title="格式化磁盘分区"></a>格式化磁盘分区</h1><h2 id="1-命令mke2fs、mkfs-ext2、mkfs-ext3、mkfs-ext4和mkfs-xfs"><a href="#1-命令mke2fs、mkfs-ext2、mkfs-ext3、mkfs-ext4和mkfs-xfs" class="headerlink" title="1.命令mke2fs、mkfs.ext2、mkfs.ext3、mkfs.ext4和mkfs.xfs"></a>1.命令mke2fs、mkfs.ext2、mkfs.ext3、mkfs.ext4和mkfs.xfs</h2><p>前四个命令是一样的，以mkfs举例</p>
+<p>mkfs [-t 文件系统格式] 装置文件名</p>
+<p>-t可以接文件系统格式，例如ext3，ext2，vfat等（系统支持才会生效）</p>
+]]></content>
+      <categories>
+        <category>linux学习</category>
+      </categories>
+      <tags>
+        <tag>Linux</tag>
       </tags>
   </entry>
   <entry>
@@ -2224,6 +2224,119 @@
       </tags>
   </entry>
   <entry>
+    <title>sql注入学习</title>
+    <url>/post/6d789c72.html</url>
+    <content><![CDATA[<p>　　这个漏洞以后再写项目的时候必须注意<a id="more"></a></p>
+<h1 id="SQLI-Labs简介"><a href="#SQLI-Labs简介" class="headerlink" title="SQLI-Labs简介"></a>SQLI-Labs简介</h1><h2 id="1-sql注入"><a href="#1-sql注入" class="headerlink" title="1.sql注入"></a>1.sql注入</h2><p>　　通过把SQL命令插入到Web表单提交或输入域名或页面请求的查询字符串，最终达到欺骗服务器执行恶意的SQL命令。</p>
+<h2 id="2-sql注入类型"><a href="#2-sql注入类型" class="headerlink" title="2.sql注入类型"></a>2.sql注入类型</h2><p>按照注入点类型来分类</p>
+<h3 id="（1）数字型注入点"><a href="#（1）数字型注入点" class="headerlink" title="（1）数字型注入点"></a>（1）数字型注入点</h3><p>sql语句为<code>select * from table_name where id = x</code></p>
+<p>这种类型可以使用and 1=1 和 and 1=2判断：</p>
+<p>​        1.url地址中输入id=x and 1=1页面正常回显</p>
+<p>​        2.url地址中输入id=x and 1=2页面回显不正常，则属于该类型</p>
+<p>原因：</p>
+<p>当输入and 1=1时，执行的sql语句：<code>selece * from table_name where id=x and 1=1</code>，没有逻辑错误，返回正常</p>
+<p>当输入and 1=2时，执行的sql语句：<code>selece * from table_name where id=x and 1=2</code></p>
+<p>如果是字符型注入，则应该是以下情况</p>
+<p>1）<code>selece * from table_name where &#39;id=x and 1=1&#39;</code></p>
+<p>2）<code>selece * from table_name where &#39;id=x and 1=2&#39;</code></p>
+<p>引号里面的被转换为字符串，没有进行逻辑判断，不会出现上述结果，所以这种情况不成立。</p>
+<h3 id="（2）字符型注入点"><a href="#（2）字符型注入点" class="headerlink" title="（2）字符型注入点"></a>（2）字符型注入点</h3><p>　　当输入的参数x为字符型时，执行的sql语句：<code>select * from table_name where id=&#39;x&#39;</code></p>
+<p>同样可以用and ‘1’=’1和and ‘1’=’2判断：</p>
+<p>​        1.url地址输入id=x’ and ‘1’=’1页面正常，继续下一步</p>
+<p>​        2.url地址中继续输入id=x’ and ‘1’=’2页面错误，则为字符型注入</p>
+<p>原因：</p>
+<p>当输入id=x’ and ‘1’=’1时，执行的sql语句：<code>select * from table_name where id=&#39;x&#39; and &#39;1&#39;=&#39;1&#39;</code></p>
+<p>语法正确，逻辑正确，所以返回正确</p>
+<p>当输入and ‘1’=’2，执行的sql语句：<code>select * from table_name where id=&#39;x&#39; and &#39;1&#39;=&#39;2&#39;</code></p>
+<p>语法正确，但是逻辑判断错误</p>
+<h3 id="（3）搜索型注入点"><a href="#（3）搜索型注入点" class="headerlink" title="（3）搜索型注入点"></a>（3）搜索型注入点</h3><p>　　这是一类特殊的注入类型。这类注入主要是指在进行数据搜索时没过滤搜索参数，一般在链接地址中有“keyword=关键字”，有的不显示在的链接地址里面，而是直接通过搜索框表单提交。此类注入点提交的 SQL 语句，其原形大致为：<code>select * from 表名 where 字段 like &#39;%关键字%&#39;</code>。</p>
+<p>组合出来的sql注入语句为：<code>select * from news where search like &#39;%测试 %&#39; and &#39;%1%&#39;=&#39;%1%&#39;</code></p>
+<p>测试%’ union select 1,2,3,4 and ‘%’=’</p>
+<p>按照数据提交的方式来分类</p>
+<p>（1）GET 注入</p>
+<p>提交数据的方式是 GET , 注入点的位置在 GET 参数部分。比如有这样的一个链接<code>http://xxx.com/news.php?id=1</code> , id 是注入点。</p>
+<p>（2）POST 注入</p>
+<p>使用 POST 方式提交数据，注入点位置在 POST 数据部分，常发生在表单中。</p>
+<p>（3）Cookie 注入</p>
+<p>HTTP 请求的时候会带上客户端的 Cookie, 注入点存在 Cookie 当中的某个字段中。</p>
+<p>（4）HTTP 头部注入</p>
+<p>注入点在 HTTP 请求头部的某个字段中。比如存在 User-Agent 字段中。严格讲的话，Cookie 其实应该也是算头部注入的一种形式。因为在 HTTP 请求的时候，Cookie 是头部的一个字段。</p>
+<p>按照执行效果来分类</p>
+<p>（1）基于布尔的盲注，即可以根据返回页面判断条件真假的注入。</p>
+<p>（2）基于时间的盲注，即不能根据页面返回内容判断任何信息，用条件语句查看时间延迟语句是否执行（即页面返回时间是否增加）来判断。</p>
+<p>（3）基于报错注入，即页面会返回错误信息，或者把注入的语句的结果直接返回在页面中。</p>
+<p>*（4）联合查询注入，可以使用union的情况下的注入。</p>
+<p>*（5）堆查询注入，可以同时执行多条语句的执行时的注入。</p>
+<h1 id="SQLI-LABS学习"><a href="#SQLI-LABS学习" class="headerlink" title="SQLI-LABS学习"></a>SQLI-LABS学习</h1><h2 id="声明"><a href="#声明" class="headerlink" title="声明"></a>声明</h2><p>首先说一下我在学习过程中经常弄混淆的一些单词</p>
+<p>table_schema：数据库名</p>
+<p>information_schema.schemata：所有的数据库中</p>
+<p>information_schema.tables：该数据库中的所有表</p>
+<p>information_schema.column：该表中的所有列</p>
+<p>table_name：表名</p>
+<p>column_name：列名</p>
+<h2 id="第一关"><a href="#第一关" class="headerlink" title="第一关"></a>第一关</h2><p>– （这里有一个空格）在sql语句中表示注释，但是在url中，如果在最后一行加上– ，浏览器在发送请求的时候会把URL末尾的空格舍去，所以我们用–+代替，因为+在URL被编码后会变成空格。</p>
+<p>1.输入<code>http://127.0.0.1/sqli/Less-1/?id=1</code>，页面回显正常，所以改地方不是数值查询。<br><img src="https://img-blog.csdnimg.cn/20201027175301124.jpg?x-oss-process=image/watermark,type_ZmFuZ3poZW5naGVpdGk,shadow_10,text_aHR0cHM6Ly9ibG9nLmNzZG4ubmV0L3FpbmduaWppYXlvdQ==,size_16,color_FFFFFF,t_70#pic_center"></p>
+<p>2.在id后面加上’，页面回显不正常，可能存在字符注入<br><img src="https://img-blog.csdnimg.cn/20201027175440385.jpg?x-oss-process=image/watermark,type_ZmFuZ3poZW5naGVpdGk,shadow_10,text_aHR0cHM6Ly9ibG9nLmNzZG4ubmV0L3FpbmduaWppYXlvdQ==,size_16,color_FFFFFF,t_70#pic_center" alt="在这里插入图片描述"></p>
+<p>3.输入–+将sql后面的语句注释掉，页面回显正常，说明是单引号字符型注入<br><img src="https://img-blog.csdnimg.cn/20201027175502223.png?x-oss-process=image/watermark,type_ZmFuZ3poZW5naGVpdGk,shadow_10,text_aHR0cHM6Ly9ibG9nLmNzZG4ubmV0L3FpbmduaWppYXlvdQ==,size_16,color_FFFFFF,t_70#pic_center" alt="在这里插入图片描述"></p>
+<p>4.接着使用order by语句判断该数据库有几列输入，order by 4、order by 5、order by 6···页面都回显错误，只有order by 3正常，说明该表有3列<br><img src="https://img-blog.csdnimg.cn/20201027175622660.png?x-oss-process=image/watermark,type_ZmFuZ3poZW5naGVpdGk,shadow_10,text_aHR0cHM6Ly9ibG9nLmNzZG4ubmV0L3FpbmduaWppYXlvdQ==,size_16,color_FFFFFF,t_70#pic_center" alt="在这里插入图片描述"></p>
+<p>5.将id=1改成id=-1，然后使用union select 1,2,3联合查询语句查询是否有显示位。显示2和3，表明有2个显示位，说明第2列和第3列可以显示信息。<br><img src="https://img-blog.csdnimg.cn/20201027180119978.png?x-oss-process=image/watermark,type_ZmFuZ3poZW5naGVpdGk,shadow_10,text_aHR0cHM6Ly9ibG9nLmNzZG4ubmV0L3FpbmduaWppYXlvdQ==,size_16,color_FFFFFF,t_70#pic_center" alt="在这里插入图片描述"></p>
+<p>6.然后利用sql查询语句爆破出数据库的库名，表名，列名，字段信息：<br>库名：<code>http://127.0.0.1/sqli/Less-1/?id=-1&#39; union select 1,2,group_concat(schema_name) from information_schema.schemata--+</code><br><img src="https://img-blog.csdnimg.cn/20201027182524974.png?x-oss-process=image/watermark,type_ZmFuZ3poZW5naGVpdGk,shadow_10,text_aHR0cHM6Ly9ibG9nLmNzZG4ubmV0L3FpbmduaWppYXlvdQ==,size_16,color_FFFFFF,t_70#pic_center" alt="在这里插入图片描述"></p>
+<p>表名：<code>http://127.0.0.1/sqli/Less-1/?id=-1&#39; union select 1,2,group_concat(table_name) from information_schema.tables where table_schema=0x7365637572697479--+</code><br>这里0x7365637572697479是查询的库名security的16进制<br><img src="https://img-blog.csdnimg.cn/20201027182008418.png?x-oss-process=image/watermark,type_ZmFuZ3poZW5naGVpdGk,shadow_10,text_aHR0cHM6Ly9ibG9nLmNzZG4ubmV0L3FpbmduaWppYXlvdQ==,size_16,color_FFFFFF,t_70#pic_center" alt="在这里插入图片描述"></p>
+<p>users表中的列名：<code>http://127.0.0.1/sqli/Less-1/?id=-1&#39; union select 1,2,group_concat(column_name) from information_schema.columns where table_name=0x7573657273--+</code><br><img src="https://img-blog.csdnimg.cn/20201027182640634.png?x-oss-process=image/watermark,type_ZmFuZ3poZW5naGVpdGk,shadow_10,text_aHR0cHM6Ly9ibG9nLmNzZG4ubmV0L3FpbmduaWppYXlvdQ==,size_16,color_FFFFFF,t_70#pic_center" alt="在这里插入图片描述"></p>
+<p>接着使用一下语句查询账号密码<br><code>http://127.0.0.1/sqli/Less-1/?id=-1&#39; union select 1,2,group_concat(concat_ws(0x7e,username,password)) from security.users--+ </code><br><img src="https://img-blog.csdnimg.cn/20201027182951559.png?x-oss-process=image/watermark,type_ZmFuZ3poZW5naGVpdGk,shadow_10,text_aHR0cHM6Ly9ibG9nLmNzZG4ubmV0L3FpbmduaWppYXlvdQ==,size_16,color_FFFFFF,t_70#pic_center" alt="在这里插入图片描述"></p>
+<h2 id="第二关"><a href="#第二关" class="headerlink" title="第二关"></a>第二关</h2><p>第二关和第一关是一个类型的</p>
+<p>1.输入id=1回显正常</p>
+<p>2.id=1’出错，可以见是单引号闭合出错</p>
+<p>3.之后继续按照第一关的步骤进行爆破信息</p>
+<h2 id="第三次"><a href="#第三次" class="headerlink" title="第三次"></a>第三次</h2><p>1.和之前一样输入</p>
+<p><img src="https://s1.ax1x.com/2020/11/09/BHiUhV.png" alt="BHiUhV.png"></p>
+<p>2.使id=1’–+</p>
+<p><img src="https://s1.ax1x.com/2020/11/09/BHirnJ.png" alt="BHirnJ.png"></p>
+<p>但是输入id=1’) –+页面回显正常，说明此处是字符型注入，而且以(‘’)的方式闭合字符串</p>
+<p>3.接着使用order by判断表中有3列数据</p>
+<p>4.使用联合查询union select 1,2,3判断是有回显位，回显位是2,3</p>
+<p><img src="https://s1.ax1x.com/2020/11/09/BHiG0s.png" alt="BHiG0s.png"></p>
+<p>5.爆出库名是security</p>
+<p><img src="https://s1.ax1x.com/2020/11/09/BHitkq.png" alt="BHitkq.png"></p>
+<p>列出security库中所有的表名</p>
+<p><img src="https://s1.ax1x.com/2020/11/09/BHiJ7n.png" alt="BHiJ7n.png"></p>
+<p>列出users表中所有的列名</p>
+<p><img src="https://s1.ax1x.com/2020/11/09/BHidpT.png" alt="BHidpT.png"></p>
+<h2 id="第四关"><a href="#第四关" class="headerlink" title="第四关"></a>第四关</h2><p>与之前的都类似，先判断这一关是(“”)闭合异常</p>
+<p>1.输入id=1，页面回显正常</p>
+<p>2.输入id=1“–+，页面回显不正常</p>
+<p><img src="https://s1.ax1x.com/2020/11/09/BHi0cF.png" alt="BHi0cF.png"></p>
+<p>3.进行和第三关一样的步骤</p>
+<h2 id="第五关"><a href="#第五关" class="headerlink" title="第五关"></a>第五关</h2><p>这一关输入id=3时发现页面回显是you are in…</p>
+<p>可见是布尔型注入，它并不能正常显示内容，正确回显只会显示you are in…，错误就不显示，所以无法用order by查看显示位</p>
+<p>1.输入id=1</p>
+<p><img src="https://s1.ax1x.com/2020/11/09/BHiBX4.png" alt="BHiBX4.png"></p>
+<p>2.输入id=1‘</p>
+<p><img src="https://s1.ax1x.com/2020/11/09/BHirnJ.png" alt="BHirnJ.png"></p>
+<p>页面显示sql语句错误，在这里进行新的注入方式：报错注入</p>
+<p>以下三种常用的语句：</p>
+<p><strong>payload</strong>是我们要输入的sql查询语句</p>
+<p>a.通过floor报错</p>
+<p><code>and (select 1 from (select count(*),concat(( **payload**),floor (rand(0)*2))x from information_schema.tables group by x)a)</code></p>
+<p>其中payload为你要插入的SQL语句</p>
+<p>需要注意的是该语句将 输出字符长度限制为64个字符</p>
+<p>b.通过updatexml报错</p>
+<p>and updatexml(1, <strong>payload</strong>,1)</p>
+<p>同样该语句对输出的字符长度也做了限制，其最长输出32位</p>
+<p>并且该语句对payload的返回类型也做了限制，只有在payload返回的不是xml格式才会生效</p>
+<p>c.通过ExtractValue报错</p>
+<p>通过ExtractValue报错</p>
+<p>and extractvalue(1, <strong>payload</strong>)</p>
+<p>输出字符有长度限制，最长32位。</p>
+]]></content>
+      <categories>
+        <category>网络安全知识学习</category>
+      </categories>
+      <tags>
+        <tag>sqli-labs</tag>
+      </tags>
+  </entry>
+  <entry>
     <title>python基础</title>
     <url>/post/81b2f4bf.html</url>
     <content><![CDATA[<p>　　基本了解Python能读懂别人的程序<a id="more"></a></p>
@@ -2421,119 +2534,6 @@
       </tags>
   </entry>
   <entry>
-    <title>sql注入学习</title>
-    <url>/post/6d789c72.html</url>
-    <content><![CDATA[<p>　　这个漏洞以后再写项目的时候必须注意<a id="more"></a></p>
-<h1 id="SQLI-Labs简介"><a href="#SQLI-Labs简介" class="headerlink" title="SQLI-Labs简介"></a>SQLI-Labs简介</h1><h2 id="1-sql注入"><a href="#1-sql注入" class="headerlink" title="1.sql注入"></a>1.sql注入</h2><p>　　通过把SQL命令插入到Web表单提交或输入域名或页面请求的查询字符串，最终达到欺骗服务器执行恶意的SQL命令。</p>
-<h2 id="2-sql注入类型"><a href="#2-sql注入类型" class="headerlink" title="2.sql注入类型"></a>2.sql注入类型</h2><p>按照注入点类型来分类</p>
-<h3 id="（1）数字型注入点"><a href="#（1）数字型注入点" class="headerlink" title="（1）数字型注入点"></a>（1）数字型注入点</h3><p>sql语句为<code>select * from table_name where id = x</code></p>
-<p>这种类型可以使用and 1=1 和 and 1=2判断：</p>
-<p>​        1.url地址中输入id=x and 1=1页面正常回显</p>
-<p>​        2.url地址中输入id=x and 1=2页面回显不正常，则属于该类型</p>
-<p>原因：</p>
-<p>当输入and 1=1时，执行的sql语句：<code>selece * from table_name where id=x and 1=1</code>，没有逻辑错误，返回正常</p>
-<p>当输入and 1=2时，执行的sql语句：<code>selece * from table_name where id=x and 1=2</code></p>
-<p>如果是字符型注入，则应该是以下情况</p>
-<p>1）<code>selece * from table_name where &#39;id=x and 1=1&#39;</code></p>
-<p>2）<code>selece * from table_name where &#39;id=x and 1=2&#39;</code></p>
-<p>引号里面的被转换为字符串，没有进行逻辑判断，不会出现上述结果，所以这种情况不成立。</p>
-<h3 id="（2）字符型注入点"><a href="#（2）字符型注入点" class="headerlink" title="（2）字符型注入点"></a>（2）字符型注入点</h3><p>　　当输入的参数x为字符型时，执行的sql语句：<code>select * from table_name where id=&#39;x&#39;</code></p>
-<p>同样可以用and ‘1’=’1和and ‘1’=’2判断：</p>
-<p>​        1.url地址输入id=x’ and ‘1’=’1页面正常，继续下一步</p>
-<p>​        2.url地址中继续输入id=x’ and ‘1’=’2页面错误，则为字符型注入</p>
-<p>原因：</p>
-<p>当输入id=x’ and ‘1’=’1时，执行的sql语句：<code>select * from table_name where id=&#39;x&#39; and &#39;1&#39;=&#39;1&#39;</code></p>
-<p>语法正确，逻辑正确，所以返回正确</p>
-<p>当输入and ‘1’=’2，执行的sql语句：<code>select * from table_name where id=&#39;x&#39; and &#39;1&#39;=&#39;2&#39;</code></p>
-<p>语法正确，但是逻辑判断错误</p>
-<h3 id="（3）搜索型注入点"><a href="#（3）搜索型注入点" class="headerlink" title="（3）搜索型注入点"></a>（3）搜索型注入点</h3><p>　　这是一类特殊的注入类型。这类注入主要是指在进行数据搜索时没过滤搜索参数，一般在链接地址中有“keyword=关键字”，有的不显示在的链接地址里面，而是直接通过搜索框表单提交。此类注入点提交的 SQL 语句，其原形大致为：<code>select * from 表名 where 字段 like &#39;%关键字%&#39;</code>。</p>
-<p>组合出来的sql注入语句为：<code>select * from news where search like &#39;%测试 %&#39; and &#39;%1%&#39;=&#39;%1%&#39;</code></p>
-<p>测试%’ union select 1,2,3,4 and ‘%’=’</p>
-<p>按照数据提交的方式来分类</p>
-<p>（1）GET 注入</p>
-<p>提交数据的方式是 GET , 注入点的位置在 GET 参数部分。比如有这样的一个链接<code>http://xxx.com/news.php?id=1</code> , id 是注入点。</p>
-<p>（2）POST 注入</p>
-<p>使用 POST 方式提交数据，注入点位置在 POST 数据部分，常发生在表单中。</p>
-<p>（3）Cookie 注入</p>
-<p>HTTP 请求的时候会带上客户端的 Cookie, 注入点存在 Cookie 当中的某个字段中。</p>
-<p>（4）HTTP 头部注入</p>
-<p>注入点在 HTTP 请求头部的某个字段中。比如存在 User-Agent 字段中。严格讲的话，Cookie 其实应该也是算头部注入的一种形式。因为在 HTTP 请求的时候，Cookie 是头部的一个字段。</p>
-<p>按照执行效果来分类</p>
-<p>（1）基于布尔的盲注，即可以根据返回页面判断条件真假的注入。</p>
-<p>（2）基于时间的盲注，即不能根据页面返回内容判断任何信息，用条件语句查看时间延迟语句是否执行（即页面返回时间是否增加）来判断。</p>
-<p>（3）基于报错注入，即页面会返回错误信息，或者把注入的语句的结果直接返回在页面中。</p>
-<p>*（4）联合查询注入，可以使用union的情况下的注入。</p>
-<p>*（5）堆查询注入，可以同时执行多条语句的执行时的注入。</p>
-<h1 id="SQLI-LABS学习"><a href="#SQLI-LABS学习" class="headerlink" title="SQLI-LABS学习"></a>SQLI-LABS学习</h1><h2 id="声明"><a href="#声明" class="headerlink" title="声明"></a>声明</h2><p>首先说一下我在学习过程中经常弄混淆的一些单词</p>
-<p>table_schema：数据库名</p>
-<p>information_schema.schemata：所有的数据库中</p>
-<p>information_schema.tables：该数据库中的所有表</p>
-<p>information_schema.column：该表中的所有列</p>
-<p>table_name：表名</p>
-<p>column_name：列名</p>
-<h2 id="第一关"><a href="#第一关" class="headerlink" title="第一关"></a>第一关</h2><p>– （这里有一个空格）在sql语句中表示注释，但是在url中，如果在最后一行加上– ，浏览器在发送请求的时候会把URL末尾的空格舍去，所以我们用–+代替，因为+在URL被编码后会变成空格。</p>
-<p>1.输入<code>http://127.0.0.1/sqli/Less-1/?id=1</code>，页面回显正常，所以改地方不是数值查询。<br><img src="https://img-blog.csdnimg.cn/20201027175301124.jpg?x-oss-process=image/watermark,type_ZmFuZ3poZW5naGVpdGk,shadow_10,text_aHR0cHM6Ly9ibG9nLmNzZG4ubmV0L3FpbmduaWppYXlvdQ==,size_16,color_FFFFFF,t_70#pic_center"></p>
-<p>2.在id后面加上’，页面回显不正常，可能存在字符注入<br><img src="https://img-blog.csdnimg.cn/20201027175440385.jpg?x-oss-process=image/watermark,type_ZmFuZ3poZW5naGVpdGk,shadow_10,text_aHR0cHM6Ly9ibG9nLmNzZG4ubmV0L3FpbmduaWppYXlvdQ==,size_16,color_FFFFFF,t_70#pic_center" alt="在这里插入图片描述"></p>
-<p>3.输入–+将sql后面的语句注释掉，页面回显正常，说明是单引号字符型注入<br><img src="https://img-blog.csdnimg.cn/20201027175502223.png?x-oss-process=image/watermark,type_ZmFuZ3poZW5naGVpdGk,shadow_10,text_aHR0cHM6Ly9ibG9nLmNzZG4ubmV0L3FpbmduaWppYXlvdQ==,size_16,color_FFFFFF,t_70#pic_center" alt="在这里插入图片描述"></p>
-<p>4.接着使用order by语句判断该数据库有几列输入，order by 4、order by 5、order by 6···页面都回显错误，只有order by 3正常，说明该表有3列<br><img src="https://img-blog.csdnimg.cn/20201027175622660.png?x-oss-process=image/watermark,type_ZmFuZ3poZW5naGVpdGk,shadow_10,text_aHR0cHM6Ly9ibG9nLmNzZG4ubmV0L3FpbmduaWppYXlvdQ==,size_16,color_FFFFFF,t_70#pic_center" alt="在这里插入图片描述"></p>
-<p>5.将id=1改成id=-1，然后使用union select 1,2,3联合查询语句查询是否有显示位。显示2和3，表明有2个显示位，说明第2列和第3列可以显示信息。<br><img src="https://img-blog.csdnimg.cn/20201027180119978.png?x-oss-process=image/watermark,type_ZmFuZ3poZW5naGVpdGk,shadow_10,text_aHR0cHM6Ly9ibG9nLmNzZG4ubmV0L3FpbmduaWppYXlvdQ==,size_16,color_FFFFFF,t_70#pic_center" alt="在这里插入图片描述"></p>
-<p>6.然后利用sql查询语句爆破出数据库的库名，表名，列名，字段信息：<br>库名：<code>http://127.0.0.1/sqli/Less-1/?id=-1&#39; union select 1,2,group_concat(schema_name) from information_schema.schemata--+</code><br><img src="https://img-blog.csdnimg.cn/20201027182524974.png?x-oss-process=image/watermark,type_ZmFuZ3poZW5naGVpdGk,shadow_10,text_aHR0cHM6Ly9ibG9nLmNzZG4ubmV0L3FpbmduaWppYXlvdQ==,size_16,color_FFFFFF,t_70#pic_center" alt="在这里插入图片描述"></p>
-<p>表名：<code>http://127.0.0.1/sqli/Less-1/?id=-1&#39; union select 1,2,group_concat(table_name) from information_schema.tables where table_schema=0x7365637572697479--+</code><br>这里0x7365637572697479是查询的库名security的16进制<br><img src="https://img-blog.csdnimg.cn/20201027182008418.png?x-oss-process=image/watermark,type_ZmFuZ3poZW5naGVpdGk,shadow_10,text_aHR0cHM6Ly9ibG9nLmNzZG4ubmV0L3FpbmduaWppYXlvdQ==,size_16,color_FFFFFF,t_70#pic_center" alt="在这里插入图片描述"></p>
-<p>users表中的列名：<code>http://127.0.0.1/sqli/Less-1/?id=-1&#39; union select 1,2,group_concat(column_name) from information_schema.columns where table_name=0x7573657273--+</code><br><img src="https://img-blog.csdnimg.cn/20201027182640634.png?x-oss-process=image/watermark,type_ZmFuZ3poZW5naGVpdGk,shadow_10,text_aHR0cHM6Ly9ibG9nLmNzZG4ubmV0L3FpbmduaWppYXlvdQ==,size_16,color_FFFFFF,t_70#pic_center" alt="在这里插入图片描述"></p>
-<p>接着使用一下语句查询账号密码<br><code>http://127.0.0.1/sqli/Less-1/?id=-1&#39; union select 1,2,group_concat(concat_ws(0x7e,username,password)) from security.users--+ </code><br><img src="https://img-blog.csdnimg.cn/20201027182951559.png?x-oss-process=image/watermark,type_ZmFuZ3poZW5naGVpdGk,shadow_10,text_aHR0cHM6Ly9ibG9nLmNzZG4ubmV0L3FpbmduaWppYXlvdQ==,size_16,color_FFFFFF,t_70#pic_center" alt="在这里插入图片描述"></p>
-<h2 id="第二关"><a href="#第二关" class="headerlink" title="第二关"></a>第二关</h2><p>第二关和第一关是一个类型的</p>
-<p>1.输入id=1回显正常</p>
-<p>2.id=1’出错，可以见是单引号闭合出错</p>
-<p>3.之后继续按照第一关的步骤进行爆破信息</p>
-<h2 id="第三次"><a href="#第三次" class="headerlink" title="第三次"></a>第三次</h2><p>1.和之前一样输入</p>
-<p><img src="https://s1.ax1x.com/2020/11/09/BHiUhV.png" alt="BHiUhV.png"></p>
-<p>2.使id=1’–+</p>
-<p><img src="https://s1.ax1x.com/2020/11/09/BHirnJ.png" alt="BHirnJ.png"></p>
-<p>但是输入id=1’) –+页面回显正常，说明此处是字符型注入，而且以(‘’)的方式闭合字符串</p>
-<p>3.接着使用order by判断表中有3列数据</p>
-<p>4.使用联合查询union select 1,2,3判断是有回显位，回显位是2,3</p>
-<p><img src="https://s1.ax1x.com/2020/11/09/BHiG0s.png" alt="BHiG0s.png"></p>
-<p>5.爆出库名是security</p>
-<p><img src="https://s1.ax1x.com/2020/11/09/BHitkq.png" alt="BHitkq.png"></p>
-<p>列出security库中所有的表名</p>
-<p><img src="https://s1.ax1x.com/2020/11/09/BHiJ7n.png" alt="BHiJ7n.png"></p>
-<p>列出users表中所有的列名</p>
-<p><img src="https://s1.ax1x.com/2020/11/09/BHidpT.png" alt="BHidpT.png"></p>
-<h2 id="第四关"><a href="#第四关" class="headerlink" title="第四关"></a>第四关</h2><p>与之前的都类似，先判断这一关是(“”)闭合异常</p>
-<p>1.输入id=1，页面回显正常</p>
-<p>2.输入id=1“–+，页面回显不正常</p>
-<p><img src="https://s1.ax1x.com/2020/11/09/BHi0cF.png" alt="BHi0cF.png"></p>
-<p>3.进行和第三关一样的步骤</p>
-<h2 id="第五关"><a href="#第五关" class="headerlink" title="第五关"></a>第五关</h2><p>这一关输入id=3时发现页面回显是you are in…</p>
-<p>可见是布尔型注入，它并不能正常显示内容，正确回显只会显示you are in…，错误就不显示，所以无法用order by查看显示位</p>
-<p>1.输入id=1</p>
-<p><img src="https://s1.ax1x.com/2020/11/09/BHiBX4.png" alt="BHiBX4.png"></p>
-<p>2.输入id=1‘</p>
-<p><img src="https://s1.ax1x.com/2020/11/09/BHirnJ.png" alt="BHirnJ.png"></p>
-<p>页面显示sql语句错误，在这里进行新的注入方式：报错注入</p>
-<p>以下三种常用的语句：</p>
-<p><strong>payload</strong>是我们要输入的sql查询语句</p>
-<p>a.通过floor报错</p>
-<p><code>and (select 1 from (select count(*),concat(( **payload**),floor (rand(0)*2))x from information_schema.tables group by x)a)</code></p>
-<p>其中payload为你要插入的SQL语句</p>
-<p>需要注意的是该语句将 输出字符长度限制为64个字符</p>
-<p>b.通过updatexml报错</p>
-<p>and updatexml(1, <strong>payload</strong>,1)</p>
-<p>同样该语句对输出的字符长度也做了限制，其最长输出32位</p>
-<p>并且该语句对payload的返回类型也做了限制，只有在payload返回的不是xml格式才会生效</p>
-<p>c.通过ExtractValue报错</p>
-<p>通过ExtractValue报错</p>
-<p>and extractvalue(1, <strong>payload</strong>)</p>
-<p>输出字符有长度限制，最长32位。</p>
-]]></content>
-      <categories>
-        <category>网络安全知识学习</category>
-      </categories>
-      <tags>
-        <tag>sqli-labs</tag>
-      </tags>
-  </entry>
-  <entry>
     <title>upload-labs</title>
     <url>/post/80f02bc5.html</url>
     <content><![CDATA[<p>　　BBUCTF的upload-labs关卡<a id="more"></a></p>
@@ -2656,18 +2656,6 @@
       <tags>
         <tag>upload-labs</tag>
       </tags>
-  </entry>
-  <entry>
-    <title>博客文章链接优化</title>
-    <url>/post/341885c6.html</url>
-    <content><![CDATA[<p>　　hexo的默认永久链接在_config.yml里的配置permalink: :year/:month/:day/:title，这种链接会掺杂中文路径，导致url中出现中文，并不能够分享。<a id="more"></a></p>
-<h1 id="安装hexo-abbrlink插件"><a href="#安装hexo-abbrlink插件" class="headerlink" title="安装hexo-abbrlink插件"></a>安装hexo-abbrlink插件</h1><figure class="highlight sql"><table><tr><td class="code"><pre><span class="line">npm <span class="keyword">install</span> hexo-abbrlink <span class="comment">--save</span></span><br></pre></td></tr></table></figure>
-
-<p>然后在_config.yml文件中修改permalink</p>
-<figure class="highlight yml"><table><tr><td class="code"><pre><span class="line"><span class="attr">permalink:</span> <span class="string">post/:abbrlink.html</span></span><br><span class="line"><span class="attr">abbrlink:</span></span><br><span class="line">  <span class="comment"># 算法：crc16(default) and crc32</span></span><br><span class="line">  <span class="attr">alg:</span> <span class="string">crc32</span>  </span><br><span class="line">  <span class="comment"># 进制：dec(default) and hex</span></span><br><span class="line">  <span class="attr">rep:</span> <span class="string">hex</span>    </span><br></pre></td></tr></table></figure>
-
-<p>之后使用hexo clean清除静态文件，再使用hexo d -g重新生成静态文件，会自动在文章中加上abbrlink: ba5852c2</p>
-]]></content>
   </entry>
   <entry>
     <title>使用IDEA搭建SSM框架</title>
@@ -3067,6 +3055,18 @@
       </tags>
   </entry>
   <entry>
+    <title>博客文章链接优化</title>
+    <url>/post/341885c6.html</url>
+    <content><![CDATA[<p>　　hexo的默认永久链接在_config.yml里的配置permalink: :year/:month/:day/:title，这种链接会掺杂中文路径，导致url中出现中文，并不能够分享。<a id="more"></a></p>
+<h1 id="安装hexo-abbrlink插件"><a href="#安装hexo-abbrlink插件" class="headerlink" title="安装hexo-abbrlink插件"></a>安装hexo-abbrlink插件</h1><figure class="highlight sql"><table><tr><td class="code"><pre><span class="line">npm <span class="keyword">install</span> hexo-abbrlink <span class="comment">--save</span></span><br></pre></td></tr></table></figure>
+
+<p>然后在_config.yml文件中修改permalink</p>
+<figure class="highlight yml"><table><tr><td class="code"><pre><span class="line"><span class="attr">permalink:</span> <span class="string">post/:abbrlink.html</span></span><br><span class="line"><span class="attr">abbrlink:</span></span><br><span class="line">  <span class="comment"># 算法：crc16(default) and crc32</span></span><br><span class="line">  <span class="attr">alg:</span> <span class="string">crc32</span>  </span><br><span class="line">  <span class="comment"># 进制：dec(default) and hex</span></span><br><span class="line">  <span class="attr">rep:</span> <span class="string">hex</span>    </span><br></pre></td></tr></table></figure>
+
+<p>之后使用hexo clean清除静态文件，再使用hexo d -g重新生成静态文件，会自动在文章中加上abbrlink: ba5852c2</p>
+]]></content>
+  </entry>
+  <entry>
     <title>常见的密码类型</title>
     <url>/post/ba5852c2.html</url>
     <content><![CDATA[<p>　　对Base家族密码类型做的一次总结<a id="more"></a></p>
@@ -3114,6 +3114,96 @@
       <categories>
         <category>网络安全知识学习</category>
       </categories>
+  </entry>
+  <entry>
+    <title>房租管理系统</title>
+    <url>/post/cedff539.html</url>
+    <content><![CDATA[<p>　　在学校的三级课题实训期间，跟着做的一个基于servlet的项目，通过前后端传实现的增删改查<a id="more"></a></p>
+<h1 id="2-项目演示"><a href="#2-项目演示" class="headerlink" title="2.项目演示"></a>2.项目演示</h1><img src="https://s3.ax1x.com/2021/01/11/s1zZKf.png" alt="s1zZKf.png" style="zoom: 50%;" />
+
+<img src="https://s3.ax1x.com/2021/01/11/s1zA2t.png" alt="s1zA2t.png" style="zoom: 50%;" />
+
+<img src="https://s3.ax1x.com/2021/01/11/s1zmqS.png" alt="s1zmqS.png" style="zoom: 33%;" />
+
+<img src="https://s3.ax1x.com/2021/01/11/s1zer8.png" alt="s1zer8.png" style="zoom: 50%;" />
+
+<img src="https://s3.ax1x.com/2021/01/11/s1zExP.png" alt="s1zExP.png" style="zoom:50%;" />
+
+<h1 id="3-CRUD功能实现"><a href="#3-CRUD功能实现" class="headerlink" title="3.CRUD功能实现"></a>3.CRUD功能实现</h1><h2 id="3-1-添加用户功能"><a href="#3-1-添加用户功能" class="headerlink" title="3.1 添加用户功能"></a>3.1 添加用户功能</h2><p>username，idnumber，tel，sex，registertime拿到也页面的参数数据，之后让dao层和service层发生联系，这时候可以定义一个boolean类型来保证不会重复添加同一个人</p>
+<figure class="highlight java"><table><tr><td class="code"><pre><span class="line"><span class="comment">//增加用户</span></span><br><span class="line"><span class="function"><span class="keyword">private</span> <span class="keyword">void</span> <span class="title">insert</span><span class="params">(HttpServletRequest req, HttpServletResponse resp)</span> </span>&#123;</span><br><span class="line">    String username = req.getParameter(<span class="string">&quot;username&quot;</span>);</span><br><span class="line">    String idnumber = req.getParameter(<span class="string">&quot;idnumber&quot;</span>);</span><br><span class="line">    String tel = req.getParameter(<span class="string">&quot;tel&quot;</span>);</span><br><span class="line">    String sex = req.getParameter(<span class="string">&quot;sex&quot;</span>);</span><br><span class="line">    String registertime = req.getParameter(<span class="string">&quot;registertime&quot;</span>);</span><br><span class="line"></span><br><span class="line">    <span class="comment">//是否获得数据</span></span><br><span class="line">    System.out.println(username + idnumber + tel + sex + registertime + <span class="string">&quot;租户新增&quot;</span>);</span><br><span class="line"></span><br><span class="line">    RentUserService service = <span class="keyword">new</span> RentUserServiceImpl();</span><br><span class="line">    <span class="keyword">boolean</span> f = service.duplicate(idnumber);</span><br><span class="line">    <span class="comment">//输出是否是获得f值</span></span><br><span class="line">    System.out.println(f);</span><br><span class="line">    HttpSession session = req.getSession();</span><br><span class="line">    <span class="comment">//如果是真，已存在该用户，不能新增</span></span><br><span class="line">    <span class="keyword">if</span> (f) &#123;</span><br><span class="line">        session.setAttribute(<span class="string">&quot;err&quot;</span>, <span class="string">&quot;该用户已存在&quot;</span>);</span><br><span class="line">        <span class="keyword">try</span> &#123;</span><br><span class="line">            <span class="comment">//重新输入</span></span><br><span class="line">            resp.sendRedirect(<span class="string">&quot;/XX/view/rentUser/edit.jsp&quot;</span>);</span><br><span class="line">        &#125; <span class="keyword">catch</span> (IOException e) &#123;</span><br><span class="line">            e.printStackTrace();</span><br><span class="line">        &#125;</span><br><span class="line">        <span class="keyword">return</span>;</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+
+
+]]></content>
+      <categories>
+        <category>JavaWeb项目</category>
+      </categories>
+  </entry>
+  <entry>
+    <title>文件包含漏洞</title>
+    <url>/post/4089de4e.html</url>
+    <content><![CDATA[<p>　　网络安全内容方面的学习，了解了网站的文件包含漏洞<a id="more"></a></p>
+<h1 id="什么是文件包含漏洞"><a href="#什么是文件包含漏洞" class="headerlink" title="什么是文件包含漏洞"></a>什么是文件包含漏洞</h1><p>　　php文件包含漏洞的产生原因是在通过php的函数引入文件时，使用了预想之外的文件，就可能导致文件泄露甚至恶意代码的注入。</p>
+<h1 id="PHP文件包含的函数"><a href="#PHP文件包含的函数" class="headerlink" title="PHP文件包含的函数"></a>PHP文件包含的函数</h1><h2 id="1-四种函数理解"><a href="#1-四种函数理解" class="headerlink" title="1.四种函数理解"></a>1.四种函数理解</h2><p>创建inc.php文件</p>
+<figure class="highlight php"><table><tr><td class="code"><pre><span class="line"><span class="meta">&lt;?php</span></span><br><span class="line"><span class="keyword">echo</span> <span class="string">&quot;This is inc.php&quot;</span>;</span><br><span class="line"><span class="meta">?&gt;</span></span><br></pre></td></tr></table></figure>
+
+<p>创建include.php文件</p>
+<figure class="highlight php"><table><tr><td class="code"><pre><span class="line"><span class="meta">&lt;?php</span></span><br><span class="line"><span class="keyword">include</span>(<span class="string">&quot;./inc.php&quot;</span>);</span><br><span class="line"><span class="keyword">echo</span> <span class="string">&quot;&lt;h1&gt;This is include.php!&lt;/h1&gt;&quot;</span>;</span><br><span class="line"><span class="keyword">include</span> <span class="string">&quot;./inc.php&quot;</span>;</span><br><span class="line"><span class="meta">?&gt;</span></span><br></pre></td></tr></table></figure>
+
+<p>创建include_once.php文件，但是调用同一文件只调用第一次</p>
+<figure class="highlight php"><table><tr><td class="code"><pre><span class="line"><span class="meta">&lt;?php</span></span><br><span class="line"><span class="keyword">include_once</span>(<span class="string">&quot;./inc.php&quot;</span>);<span class="comment">//包含inc文件</span></span><br><span class="line"><span class="keyword">echo</span> <span class="string">&quot;&lt;h1&gt;This is include_once.php&lt;/h1&gt;&quot;</span>;</span><br><span class="line"><span class="keyword">include_once</span> <span class="string">&quot;./inc.php&quot;</span>;<span class="comment">//包含inc文件</span></span><br><span class="line"><span class="meta">?&gt;</span></span><br></pre></td></tr></table></figure>
+
+<p>创建require.php文件，如果包含失败，会报出错误信息，并终止脚本运行</p>
+<figure class="highlight php"><table><tr><td class="code"><pre><span class="line"><span class="meta">&lt;?php</span></span><br><span class="line"><span class="keyword">require</span>(<span class="string">&quot;./inc.php&quot;</span>);</span><br><span class="line"><span class="keyword">echo</span> <span class="string">&quot;&lt;h1&gt;This is require.php!&lt;/h1&gt;&quot;</span>;</span><br><span class="line"><span class="keyword">require</span> <span class="string">&quot;./inc.php&quot;</span>;</span><br><span class="line"><span class="meta">?&gt;</span></span><br></pre></td></tr></table></figure>
+
+<p>创建require_once.php文件，功能和require一样，但是只包含一次</p>
+<figure class="highlight php"><table><tr><td class="code"><pre><span class="line"><span class="meta">&lt;?php</span></span><br><span class="line"><span class="keyword">require_once</span>(<span class="string">&quot;./inc.php&quot;</span>);</span><br><span class="line"><span class="keyword">echo</span> <span class="string">&quot;&lt;h1&gt;This is require_once.php!&lt;/h1&gt;&quot;</span>;</span><br><span class="line"><span class="keyword">require_once</span> <span class="string">&quot;./inc.php&quot;</span>;</span><br><span class="line"><span class="meta">?&gt;</span></span><br></pre></td></tr></table></figure>
+
+<h2 id="2-发生文件包含漏洞"><a href="#2-发生文件包含漏洞" class="headerlink" title="2.发生文件包含漏洞"></a>2.发生文件包含漏洞</h2><p>如果将require_once.php文件改为</p>
+<figure class="highlight php"><table><tr><td class="code"><pre><span class="line"><span class="meta">&lt;?php</span></span><br><span class="line"><span class="keyword">require_once</span>(<span class="string">&quot;./inc.php&quot;</span>);</span><br><span class="line"><span class="keyword">echo</span> <span class="string">&quot;&lt;h1&gt;This is require_once.php!&lt;/h1&gt;&quot;</span>;</span><br><span class="line"><span class="keyword">require_once</span> <span class="string">&quot;./inc.php&quot;</span>;</span><br><span class="line"><span class="meta">?&gt;</span></span><br></pre></td></tr></table></figure>
+
+<p><img src="https://s3.ax1x.com/2020/11/19/DK8jQH.jpg" alt="DK8jQH.jpg"></p>
+<h2 id="3-四种函数总结"><a href="#3-四种函数总结" class="headerlink" title="3.四种函数总结"></a>3.四种函数总结</h2><table>
+<thead>
+<tr>
+<th>函数名</th>
+<th></th>
+</tr>
+</thead>
+<tbody><tr>
+<td>include()</td>
+<td>当使用该函数包含文件时，只有代码执行到includ()函数时才会将文件包含进来，发生错误时给出一个警告，继续向下执行</td>
+</tr>
+<tr>
+<td>include_once()</td>
+<td>功能与include()相同，区别在于当重复调用同一文件时，程序只调用一次</td>
+</tr>
+<tr>
+<td>require()</td>
+<td>require()与include()区别在于require()执行如果发生错误，函数就会输出错误信息，并终止脚本运行</td>
+</tr>
+<tr>
+<td>require_once()</td>
+<td>功能与require()相同，区别在于当重复调用同一文件时，程序只调用一次</td>
+</tr>
+</tbody></table>
+<h1 id="文件包含漏洞分类"><a href="#文件包含漏洞分类" class="headerlink" title="文件包含漏洞分类"></a>文件包含漏洞分类</h1><h2 id="1-本地文件包含漏洞"><a href="#1-本地文件包含漏洞" class="headerlink" title="1.本地文件包含漏洞"></a>1.本地文件包含漏洞</h2><p>当别包含的文件在服务器本地</p>
+<h2 id="2-远程文件包含漏洞"><a href="#2-远程文件包含漏洞" class="headerlink" title="2.远程文件包含漏洞"></a>2.远程文件包含漏洞</h2><p>当被包含的文件在第三方服务器本地</p>
+<h1 id="文件包含漏洞产生原因"><a href="#文件包含漏洞产生原因" class="headerlink" title="文件包含漏洞产生原因"></a>文件包含漏洞产生原因</h1><h1 id="文件包含漏洞渗透"><a href="#文件包含漏洞渗透" class="headerlink" title="文件包含漏洞渗透"></a>文件包含漏洞渗透</h1><p>1.制作一句话图片木马</p>
+<figure class="highlight dockerfile"><table><tr><td class="code"><pre><span class="line">方法一：windows 命令：</span><br><span class="line"><span class="keyword">copy</span><span class="bash"> hack.jpg/b+shell.php hack.jpg</span></span><br><span class="line"></span><br><span class="line">方法二：使用edjpgcom</span><br></pre></td></tr></table></figure>
+
+<figure class="highlight php"><table><tr><td class="code"><pre><span class="line"><span class="meta">&lt;?</span>fputs(fopen(<span class="string">&quot;shell2.php&quot;</span>,<span class="string">&quot;w&quot;</span>),<span class="string">&#x27;&lt;?php evla(#_POST[hack]);?&gt;&#x27;</span>)<span class="meta">?&gt;</span></span><br></pre></td></tr></table></figure>
+
+<p>2.上传木马图片文件</p>
+<p>3.执行文件包含并生成后门</p>
+<p>4.通过蚁剑连接</p>
+]]></content>
+      <categories>
+        <category>网络安全知识学习</category>
+      </categories>
+      <tags>
+        <tag>文件包含</tag>
+      </tags>
   </entry>
   <entry>
     <title>数据结构</title>
@@ -3301,116 +3391,6 @@
 </ol>
 </blockquote>
 ]]></content>
-  </entry>
-  <entry>
-    <title>房租管理系统</title>
-    <url>/post/cedff539.html</url>
-    <content><![CDATA[<p>　　在学校的三级课题实训期间，跟着做的一个基于servlet的项目，通过前后端传实现的增删改查<a id="more"></a></p>
-<h1 id="2-项目演示"><a href="#2-项目演示" class="headerlink" title="2.项目演示"></a>2.项目演示</h1><img src="https://s3.ax1x.com/2021/01/11/s1zZKf.png" alt="s1zZKf.png" style="zoom: 50%;" />
-
-<img src="https://s3.ax1x.com/2021/01/11/s1zA2t.png" alt="s1zA2t.png" style="zoom: 50%;" />
-
-<img src="https://s3.ax1x.com/2021/01/11/s1zmqS.png" alt="s1zmqS.png" style="zoom: 33%;" />
-
-<img src="https://s3.ax1x.com/2021/01/11/s1zer8.png" alt="s1zer8.png" style="zoom: 50%;" />
-
-<img src="https://s3.ax1x.com/2021/01/11/s1zExP.png" alt="s1zExP.png" style="zoom:50%;" />
-
-<h1 id="3-CRUD功能实现"><a href="#3-CRUD功能实现" class="headerlink" title="3.CRUD功能实现"></a>3.CRUD功能实现</h1><h2 id="3-1-添加用户功能"><a href="#3-1-添加用户功能" class="headerlink" title="3.1 添加用户功能"></a>3.1 添加用户功能</h2><p>username，idnumber，tel，sex，registertime拿到也页面的参数数据，之后让dao层和service层发生联系，这时候可以定义一个boolean类型来保证不会重复添加同一个人</p>
-<figure class="highlight java"><table><tr><td class="code"><pre><span class="line"><span class="comment">//增加用户</span></span><br><span class="line"><span class="function"><span class="keyword">private</span> <span class="keyword">void</span> <span class="title">insert</span><span class="params">(HttpServletRequest req, HttpServletResponse resp)</span> </span>&#123;</span><br><span class="line">    String username = req.getParameter(<span class="string">&quot;username&quot;</span>);</span><br><span class="line">    String idnumber = req.getParameter(<span class="string">&quot;idnumber&quot;</span>);</span><br><span class="line">    String tel = req.getParameter(<span class="string">&quot;tel&quot;</span>);</span><br><span class="line">    String sex = req.getParameter(<span class="string">&quot;sex&quot;</span>);</span><br><span class="line">    String registertime = req.getParameter(<span class="string">&quot;registertime&quot;</span>);</span><br><span class="line"></span><br><span class="line">    <span class="comment">//是否获得数据</span></span><br><span class="line">    System.out.println(username + idnumber + tel + sex + registertime + <span class="string">&quot;租户新增&quot;</span>);</span><br><span class="line"></span><br><span class="line">    RentUserService service = <span class="keyword">new</span> RentUserServiceImpl();</span><br><span class="line">    <span class="keyword">boolean</span> f = service.duplicate(idnumber);</span><br><span class="line">    <span class="comment">//输出是否是获得f值</span></span><br><span class="line">    System.out.println(f);</span><br><span class="line">    HttpSession session = req.getSession();</span><br><span class="line">    <span class="comment">//如果是真，已存在该用户，不能新增</span></span><br><span class="line">    <span class="keyword">if</span> (f) &#123;</span><br><span class="line">        session.setAttribute(<span class="string">&quot;err&quot;</span>, <span class="string">&quot;该用户已存在&quot;</span>);</span><br><span class="line">        <span class="keyword">try</span> &#123;</span><br><span class="line">            <span class="comment">//重新输入</span></span><br><span class="line">            resp.sendRedirect(<span class="string">&quot;/XX/view/rentUser/edit.jsp&quot;</span>);</span><br><span class="line">        &#125; <span class="keyword">catch</span> (IOException e) &#123;</span><br><span class="line">            e.printStackTrace();</span><br><span class="line">        &#125;</span><br><span class="line">        <span class="keyword">return</span>;</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
-
-
-
-]]></content>
-      <categories>
-        <category>JavaWeb项目</category>
-      </categories>
-  </entry>
-  <entry>
-    <title>文件包含漏洞</title>
-    <url>/post/4089de4e.html</url>
-    <content><![CDATA[<p>　　网络安全内容方面的学习，了解了网站的文件包含漏洞<a id="more"></a></p>
-<h1 id="什么是文件包含漏洞"><a href="#什么是文件包含漏洞" class="headerlink" title="什么是文件包含漏洞"></a>什么是文件包含漏洞</h1><p>　　php文件包含漏洞的产生原因是在通过php的函数引入文件时，使用了预想之外的文件，就可能导致文件泄露甚至恶意代码的注入。</p>
-<h1 id="PHP文件包含的函数"><a href="#PHP文件包含的函数" class="headerlink" title="PHP文件包含的函数"></a>PHP文件包含的函数</h1><h2 id="1-四种函数理解"><a href="#1-四种函数理解" class="headerlink" title="1.四种函数理解"></a>1.四种函数理解</h2><p>创建inc.php文件</p>
-<figure class="highlight php"><table><tr><td class="code"><pre><span class="line"><span class="meta">&lt;?php</span></span><br><span class="line"><span class="keyword">echo</span> <span class="string">&quot;This is inc.php&quot;</span>;</span><br><span class="line"><span class="meta">?&gt;</span></span><br></pre></td></tr></table></figure>
-
-<p>创建include.php文件</p>
-<figure class="highlight php"><table><tr><td class="code"><pre><span class="line"><span class="meta">&lt;?php</span></span><br><span class="line"><span class="keyword">include</span>(<span class="string">&quot;./inc.php&quot;</span>);</span><br><span class="line"><span class="keyword">echo</span> <span class="string">&quot;&lt;h1&gt;This is include.php!&lt;/h1&gt;&quot;</span>;</span><br><span class="line"><span class="keyword">include</span> <span class="string">&quot;./inc.php&quot;</span>;</span><br><span class="line"><span class="meta">?&gt;</span></span><br></pre></td></tr></table></figure>
-
-<p>创建include_once.php文件，但是调用同一文件只调用第一次</p>
-<figure class="highlight php"><table><tr><td class="code"><pre><span class="line"><span class="meta">&lt;?php</span></span><br><span class="line"><span class="keyword">include_once</span>(<span class="string">&quot;./inc.php&quot;</span>);<span class="comment">//包含inc文件</span></span><br><span class="line"><span class="keyword">echo</span> <span class="string">&quot;&lt;h1&gt;This is include_once.php&lt;/h1&gt;&quot;</span>;</span><br><span class="line"><span class="keyword">include_once</span> <span class="string">&quot;./inc.php&quot;</span>;<span class="comment">//包含inc文件</span></span><br><span class="line"><span class="meta">?&gt;</span></span><br></pre></td></tr></table></figure>
-
-<p>创建require.php文件，如果包含失败，会报出错误信息，并终止脚本运行</p>
-<figure class="highlight php"><table><tr><td class="code"><pre><span class="line"><span class="meta">&lt;?php</span></span><br><span class="line"><span class="keyword">require</span>(<span class="string">&quot;./inc.php&quot;</span>);</span><br><span class="line"><span class="keyword">echo</span> <span class="string">&quot;&lt;h1&gt;This is require.php!&lt;/h1&gt;&quot;</span>;</span><br><span class="line"><span class="keyword">require</span> <span class="string">&quot;./inc.php&quot;</span>;</span><br><span class="line"><span class="meta">?&gt;</span></span><br></pre></td></tr></table></figure>
-
-<p>创建require_once.php文件，功能和require一样，但是只包含一次</p>
-<figure class="highlight php"><table><tr><td class="code"><pre><span class="line"><span class="meta">&lt;?php</span></span><br><span class="line"><span class="keyword">require_once</span>(<span class="string">&quot;./inc.php&quot;</span>);</span><br><span class="line"><span class="keyword">echo</span> <span class="string">&quot;&lt;h1&gt;This is require_once.php!&lt;/h1&gt;&quot;</span>;</span><br><span class="line"><span class="keyword">require_once</span> <span class="string">&quot;./inc.php&quot;</span>;</span><br><span class="line"><span class="meta">?&gt;</span></span><br></pre></td></tr></table></figure>
-
-<h2 id="2-发生文件包含漏洞"><a href="#2-发生文件包含漏洞" class="headerlink" title="2.发生文件包含漏洞"></a>2.发生文件包含漏洞</h2><p>如果将require_once.php文件改为</p>
-<figure class="highlight php"><table><tr><td class="code"><pre><span class="line"><span class="meta">&lt;?php</span></span><br><span class="line"><span class="keyword">require_once</span>(<span class="string">&quot;./inc.php&quot;</span>);</span><br><span class="line"><span class="keyword">echo</span> <span class="string">&quot;&lt;h1&gt;This is require_once.php!&lt;/h1&gt;&quot;</span>;</span><br><span class="line"><span class="keyword">require_once</span> <span class="string">&quot;./inc.php&quot;</span>;</span><br><span class="line"><span class="meta">?&gt;</span></span><br></pre></td></tr></table></figure>
-
-<p><img src="https://s3.ax1x.com/2020/11/19/DK8jQH.jpg" alt="DK8jQH.jpg"></p>
-<h2 id="3-四种函数总结"><a href="#3-四种函数总结" class="headerlink" title="3.四种函数总结"></a>3.四种函数总结</h2><table>
-<thead>
-<tr>
-<th>函数名</th>
-<th></th>
-</tr>
-</thead>
-<tbody><tr>
-<td>include()</td>
-<td>当使用该函数包含文件时，只有代码执行到includ()函数时才会将文件包含进来，发生错误时给出一个警告，继续向下执行</td>
-</tr>
-<tr>
-<td>include_once()</td>
-<td>功能与include()相同，区别在于当重复调用同一文件时，程序只调用一次</td>
-</tr>
-<tr>
-<td>require()</td>
-<td>require()与include()区别在于require()执行如果发生错误，函数就会输出错误信息，并终止脚本运行</td>
-</tr>
-<tr>
-<td>require_once()</td>
-<td>功能与require()相同，区别在于当重复调用同一文件时，程序只调用一次</td>
-</tr>
-</tbody></table>
-<h1 id="文件包含漏洞分类"><a href="#文件包含漏洞分类" class="headerlink" title="文件包含漏洞分类"></a>文件包含漏洞分类</h1><h2 id="1-本地文件包含漏洞"><a href="#1-本地文件包含漏洞" class="headerlink" title="1.本地文件包含漏洞"></a>1.本地文件包含漏洞</h2><p>当别包含的文件在服务器本地</p>
-<h2 id="2-远程文件包含漏洞"><a href="#2-远程文件包含漏洞" class="headerlink" title="2.远程文件包含漏洞"></a>2.远程文件包含漏洞</h2><p>当被包含的文件在第三方服务器本地</p>
-<h1 id="文件包含漏洞产生原因"><a href="#文件包含漏洞产生原因" class="headerlink" title="文件包含漏洞产生原因"></a>文件包含漏洞产生原因</h1><h1 id="文件包含漏洞渗透"><a href="#文件包含漏洞渗透" class="headerlink" title="文件包含漏洞渗透"></a>文件包含漏洞渗透</h1><p>1.制作一句话图片木马</p>
-<figure class="highlight dockerfile"><table><tr><td class="code"><pre><span class="line">方法一：windows 命令：</span><br><span class="line"><span class="keyword">copy</span><span class="bash"> hack.jpg/b+shell.php hack.jpg</span></span><br><span class="line"></span><br><span class="line">方法二：使用edjpgcom</span><br></pre></td></tr></table></figure>
-
-<figure class="highlight php"><table><tr><td class="code"><pre><span class="line"><span class="meta">&lt;?</span>fputs(fopen(<span class="string">&quot;shell2.php&quot;</span>,<span class="string">&quot;w&quot;</span>),<span class="string">&#x27;&lt;?php evla(#_POST[hack]);?&gt;&#x27;</span>)<span class="meta">?&gt;</span></span><br></pre></td></tr></table></figure>
-
-<p>2.上传木马图片文件</p>
-<p>3.执行文件包含并生成后门</p>
-<p>4.通过蚁剑连接</p>
-]]></content>
-      <categories>
-        <category>网络安全知识学习</category>
-      </categories>
-      <tags>
-        <tag>文件包含</tag>
-      </tags>
-  </entry>
-  <entry>
-    <title>根据标记文件中的TLD或attribute指令</title>
-    <url>/post/a0cc1c5.html</url>
-    <content><![CDATA[<p>　　在做房租管理系统期间，访问出现以下错误，原来不是代码问题，而是IDEA的问题<a id="more"></a></p>
-<p><strong>According to TLD or attribute directive in tag file, attribute items does not accept any expressions</strong></p>
-<p><strong>解释：根据标记文件中的tld或attribute指令，attribute items不接受任何表达式**</strong></p>
-<p>造成错误出现可能的原因：</p>
-<p>web.xml文件中的版本号不兼容，有两种方法可解决。</p>
-<h2 id="第一种方法："><a href="#第一种方法：" class="headerlink" title="第一种方法："></a>第一种方法：</h2><p><strong>修改导入jstl包的引入代码</strong><br> 将jsp文件中导入jstl包语句修改一下：<br> 修改前：<br> &lt;%@ taglib uri=“<a href="http://java.sun.com/jstl/core%E2%80%9D">http://java.sun.com/jstl/core”</a> prefix=“c”%&gt;<br> 修改后：<br> &lt;%@ taglib uri=“<a href="http://java.sun.com/jstl/core_rt%E2%80%9D">http://java.sun.com/jstl/core_rt”</a> prefix=“c”%&gt;</p>
-<h2 id="第二种方法："><a href="#第二种方法：" class="headerlink" title="第二种方法："></a>第二种方法：</h2><p><strong>修改版本号</strong></p>
-<p>　　主要修改在web-app中，我的版本兼容3.1的，自己可以新建一个Dynamic Web  Project，同时自动生成一个web.xml文件，将两个web.xml文件替换为自己新生成的web.xml中的web-app。新建项目时不会生成web.xml的看下图（新建项目时，一步一步来，最后一步时，将红圈处打上勾，就会自动生成web.xml了，生成的web.xml在WebContent\WEB-INF目录下）。</p>
-<p><strong>修改前：</strong></p>
-<figure class="highlight xml"><table><tr><td class="code"><pre><span class="line"><span class="tag">&lt;<span class="name">web-app</span> <span class="attr">xmlns:xsi</span>=<span class="string">&quot;http://www.w3.org/2001/XMLSchema-instance&quot;</span></span></span><br><span class="line"><span class="tag"> <span class="attr">xmlns</span>=<span class="string">&quot;http://java.sun.com/xml/ns/javaee&quot;</span> </span></span><br><span class="line"><span class="tag"> <span class="attr">xsi:schemaLocation</span>=<span class="string">&quot;http://java.sun.com/xml/ns/javaee </span></span></span><br><span class="line"><span class="tag"><span class="string"> http://java.sun.com/xml/ns/javaee/web-app_3_0.xsd&quot;</span> </span></span><br><span class="line"><span class="tag"> <span class="attr">id</span>=<span class="string">&quot;WebApp_ID&quot;</span> <span class="attr">version</span>=<span class="string">&quot;3.0&quot;</span>&gt;</span></span><br><span class="line">12345</span><br></pre></td></tr></table></figure>
-
-<p><strong>修改后：</strong></p>
-<figure class="highlight xml"><table><tr><td class="code"><pre><span class="line"><span class="tag">&lt;<span class="name">web-app</span> <span class="attr">xmlns:xsi</span>=<span class="string">&quot;http://www.w3.org/2001/XMLSchema-instance&quot;</span></span></span><br><span class="line"><span class="tag"> <span class="attr">xmlns</span>=<span class="string">&quot;http://xmlns.jcp.org/xml/ns/javaee&quot;</span></span></span><br><span class="line"><span class="tag">  <span class="attr">xsi:schemaLocation</span>=<span class="string">&quot;http://xmlns.jcp.org/xml/ns/javaee</span></span></span><br><span class="line"><span class="tag"><span class="string">   http://xmlns.jcp.org/xml/ns/javaee/web-app_3_1.xsd&quot;</span></span></span><br><span class="line"><span class="tag">    <span class="attr">id</span>=<span class="string">&quot;WebApp_ID&quot;</span> <span class="attr">version</span>=<span class="string">&quot;3.1&quot;</span>&gt;</span></span><br></pre></td></tr></table></figure>]]></content>
-      <categories>
-        <category>工具使用问题</category>
-      </categories>
   </entry>
   <entry>
     <title>文件上传漏洞</title>
@@ -3610,6 +3590,26 @@
       <tags>
         <tag>文件上传</tag>
       </tags>
+  </entry>
+  <entry>
+    <title>根据标记文件中的TLD或attribute指令</title>
+    <url>/post/a0cc1c5.html</url>
+    <content><![CDATA[<p>　　在做房租管理系统期间，访问出现以下错误，原来不是代码问题，而是IDEA的问题<a id="more"></a></p>
+<p><strong>According to TLD or attribute directive in tag file, attribute items does not accept any expressions</strong></p>
+<p><strong>解释：根据标记文件中的tld或attribute指令，attribute items不接受任何表达式**</strong></p>
+<p>造成错误出现可能的原因：</p>
+<p>web.xml文件中的版本号不兼容，有两种方法可解决。</p>
+<h2 id="第一种方法："><a href="#第一种方法：" class="headerlink" title="第一种方法："></a>第一种方法：</h2><p><strong>修改导入jstl包的引入代码</strong><br> 将jsp文件中导入jstl包语句修改一下：<br> 修改前：<br> &lt;%@ taglib uri=“<a href="http://java.sun.com/jstl/core%E2%80%9D">http://java.sun.com/jstl/core”</a> prefix=“c”%&gt;<br> 修改后：<br> &lt;%@ taglib uri=“<a href="http://java.sun.com/jstl/core_rt%E2%80%9D">http://java.sun.com/jstl/core_rt”</a> prefix=“c”%&gt;</p>
+<h2 id="第二种方法："><a href="#第二种方法：" class="headerlink" title="第二种方法："></a>第二种方法：</h2><p><strong>修改版本号</strong></p>
+<p>　　主要修改在web-app中，我的版本兼容3.1的，自己可以新建一个Dynamic Web  Project，同时自动生成一个web.xml文件，将两个web.xml文件替换为自己新生成的web.xml中的web-app。新建项目时不会生成web.xml的看下图（新建项目时，一步一步来，最后一步时，将红圈处打上勾，就会自动生成web.xml了，生成的web.xml在WebContent\WEB-INF目录下）。</p>
+<p><strong>修改前：</strong></p>
+<figure class="highlight xml"><table><tr><td class="code"><pre><span class="line"><span class="tag">&lt;<span class="name">web-app</span> <span class="attr">xmlns:xsi</span>=<span class="string">&quot;http://www.w3.org/2001/XMLSchema-instance&quot;</span></span></span><br><span class="line"><span class="tag"> <span class="attr">xmlns</span>=<span class="string">&quot;http://java.sun.com/xml/ns/javaee&quot;</span> </span></span><br><span class="line"><span class="tag"> <span class="attr">xsi:schemaLocation</span>=<span class="string">&quot;http://java.sun.com/xml/ns/javaee </span></span></span><br><span class="line"><span class="tag"><span class="string"> http://java.sun.com/xml/ns/javaee/web-app_3_0.xsd&quot;</span> </span></span><br><span class="line"><span class="tag"> <span class="attr">id</span>=<span class="string">&quot;WebApp_ID&quot;</span> <span class="attr">version</span>=<span class="string">&quot;3.0&quot;</span>&gt;</span></span><br><span class="line">12345</span><br></pre></td></tr></table></figure>
+
+<p><strong>修改后：</strong></p>
+<figure class="highlight xml"><table><tr><td class="code"><pre><span class="line"><span class="tag">&lt;<span class="name">web-app</span> <span class="attr">xmlns:xsi</span>=<span class="string">&quot;http://www.w3.org/2001/XMLSchema-instance&quot;</span></span></span><br><span class="line"><span class="tag"> <span class="attr">xmlns</span>=<span class="string">&quot;http://xmlns.jcp.org/xml/ns/javaee&quot;</span></span></span><br><span class="line"><span class="tag">  <span class="attr">xsi:schemaLocation</span>=<span class="string">&quot;http://xmlns.jcp.org/xml/ns/javaee</span></span></span><br><span class="line"><span class="tag"><span class="string">   http://xmlns.jcp.org/xml/ns/javaee/web-app_3_1.xsd&quot;</span></span></span><br><span class="line"><span class="tag">    <span class="attr">id</span>=<span class="string">&quot;WebApp_ID&quot;</span> <span class="attr">version</span>=<span class="string">&quot;3.1&quot;</span>&gt;</span></span><br></pre></td></tr></table></figure>]]></content>
+      <categories>
+        <category>工具使用问题</category>
+      </categories>
   </entry>
   <entry>
     <title>第一届DMCTF夺旗赛题解</title>
