@@ -207,7 +207,7 @@
       <div class="sidebar-panel-container">
         <!--noindex-->
         <section class="post-toc-wrap sidebar-panel">
-            <div class="post-toc animated"><ol class="nav"><li class="nav-item nav-level-2"><a class="nav-link" href="#%E7%AC%AC%E4%B8%80%E7%A7%8D%E6%96%B9%E6%B3%95%EF%BC%9A"><span class="nav-text">第一种方法：</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#%E7%AC%AC%E4%BA%8C%E7%A7%8D%E6%96%B9%E6%B3%95%EF%BC%9A"><span class="nav-text">第二种方法：</span></a></li></ol></div>
+            <div class="post-toc animated"><ol class="nav"><li class="nav-item nav-level-2"><a class="nav-link" href="#%E7%AC%AC%E4%B8%80%E7%A7%8D%E6%96%B9%E6%B3%95"><span class="nav-text">第一种方法：</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#%E7%AC%AC%E4%BA%8C%E7%A7%8D%E6%96%B9%E6%B3%95"><span class="nav-text">第二种方法：</span></a></li></ol></div>
         </section>
         <!--/noindex-->
 
@@ -353,17 +353,19 @@
     <div class="post-body" itemprop="articleBody">
         <p>　　在做房租管理系统期间，访问出现以下错误，原来不是代码问题，而是IDEA的问题<a id="more"></a></p>
 <p><strong>According to TLD or attribute directive in tag file, attribute items does not accept any expressions</strong></p>
-<p><strong>解释：根据标记文件中的tld或attribute指令，attribute items不接受任何表达式**</strong></p>
+<p><strong>解释：根据标记文件中的tld或attribute指令，attribute items不接受任何表达式</strong>**</p>
 <p>造成错误出现可能的原因：</p>
 <p>web.xml文件中的版本号不兼容，有两种方法可解决。</p>
-<h2 id="第一种方法："><a href="#第一种方法：" class="headerlink" title="第一种方法："></a>第一种方法：</h2><p><strong>修改导入jstl包的引入代码</strong><br> 将jsp文件中导入jstl包语句修改一下：<br> 修改前：<br> &lt;%@ taglib uri=“<a target="_blank" rel="noopener" href="http://java.sun.com/jstl/core%E2%80%9D">http://java.sun.com/jstl/core”</a> prefix=“c”%&gt;<br> 修改后：<br> &lt;%@ taglib uri=“<a target="_blank" rel="noopener" href="http://java.sun.com/jstl/core_rt%E2%80%9D">http://java.sun.com/jstl/core_rt”</a> prefix=“c”%&gt;</p>
-<h2 id="第二种方法："><a href="#第二种方法：" class="headerlink" title="第二种方法："></a>第二种方法：</h2><p><strong>修改版本号</strong></p>
-<p>　　主要修改在web-app中，我的版本兼容3.1的，自己可以新建一个Dynamic Web  Project，同时自动生成一个web.xml文件，将两个web.xml文件替换为自己新生成的web.xml中的web-app。新建项目时不会生成web.xml的看下图（新建项目时，一步一步来，最后一步时，将红圈处打上勾，就会自动生成web.xml了，生成的web.xml在WebContent\WEB-INF目录下）。</p>
+<h2 id="第一种方法">第一种方法：</h2>
+<p><strong>修改导入jstl包的引入代码</strong> 将jsp文件中导入jstl包语句修改一下： 修改前： &lt;%@ taglib uri=“http://java.sun.com/jstl/core” prefix=“c”%&gt; 修改后： &lt;%@ taglib uri=“http://java.sun.com/jstl/core_rt” prefix=“c”%&gt;</p>
+<h2 id="第二种方法">第二种方法：</h2>
+<p><strong>修改版本号</strong></p>
+<p>　　主要修改在web-app中，我的版本兼容3.1的，自己可以新建一个Dynamic Web Project，同时自动生成一个web.xml文件，将两个web.xml文件替换为自己新生成的web.xml中的web-app。新建项目时不会生成web.xml的看下图（新建项目时，一步一步来，最后一步时，将红圈处打上勾，就会自动生成web.xml了，生成的web.xml在WebContent-INF目录下）。</p>
 <p><strong>修改前：</strong></p>
 <figure class="highlight xml"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line"><span class="tag">&lt;<span class="name">web-app</span> <span class="attr">xmlns:xsi</span>=<span class="string">&quot;http://www.w3.org/2001/XMLSchema-instance&quot;</span></span></span><br><span class="line"><span class="tag"> <span class="attr">xmlns</span>=<span class="string">&quot;http://java.sun.com/xml/ns/javaee&quot;</span> </span></span><br><span class="line"><span class="tag"> <span class="attr">xsi:schemaLocation</span>=<span class="string">&quot;http://java.sun.com/xml/ns/javaee </span></span></span><br><span class="line"><span class="tag"><span class="string"> http://java.sun.com/xml/ns/javaee/web-app_3_0.xsd&quot;</span> </span></span><br><span class="line"><span class="tag"> <span class="attr">id</span>=<span class="string">&quot;WebApp_ID&quot;</span> <span class="attr">version</span>=<span class="string">&quot;3.0&quot;</span>&gt;</span></span><br><span class="line">12345</span><br></pre></td></tr></table></figure>
-
 <p><strong>修改后：</strong></p>
 <figure class="highlight xml"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line"><span class="tag">&lt;<span class="name">web-app</span> <span class="attr">xmlns:xsi</span>=<span class="string">&quot;http://www.w3.org/2001/XMLSchema-instance&quot;</span></span></span><br><span class="line"><span class="tag"> <span class="attr">xmlns</span>=<span class="string">&quot;http://xmlns.jcp.org/xml/ns/javaee&quot;</span></span></span><br><span class="line"><span class="tag">  <span class="attr">xsi:schemaLocation</span>=<span class="string">&quot;http://xmlns.jcp.org/xml/ns/javaee</span></span></span><br><span class="line"><span class="tag"><span class="string">   http://xmlns.jcp.org/xml/ns/javaee/web-app_3_1.xsd&quot;</span></span></span><br><span class="line"><span class="tag">    <span class="attr">id</span>=<span class="string">&quot;WebApp_ID&quot;</span> <span class="attr">version</span>=<span class="string">&quot;3.1&quot;</span>&gt;</span></span><br></pre></td></tr></table></figure>
+
     </div>
 
     

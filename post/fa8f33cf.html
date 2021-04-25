@@ -209,7 +209,7 @@
       <div class="sidebar-panel-container">
         <!--noindex-->
         <section class="post-toc-wrap sidebar-panel">
-            <div class="post-toc animated"><ol class="nav"><li class="nav-item nav-level-2"><a class="nav-link" href="#%E9%9A%90%E5%86%99%E6%9C%AF%E7%94%A8%E5%88%B0%E7%9A%84%E5%B7%A5%E5%85%B7"><span class="nav-text">隐写术用到的工具</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#1-16%E8%BF%9B%E5%88%B6%E4%BF%AE%E6%94%B9%E5%99%A8"><span class="nav-text">1.16进制修改器</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#2-binwalk%EF%BC%88Linux%EF%BC%89"><span class="nav-text">2.binwalk（Linux）</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#3-StegSolve%EF%BC%88Windows%EF%BC%89"><span class="nav-text">3.StegSolve（Windows）</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#4-Stegdetect%EF%BC%88Windows%EF%BC%89"><span class="nav-text">4.Stegdetect（Windows）</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#5-Outguess%EF%BC%88Windows%EF%BC%89"><span class="nav-text">5.Outguess（Windows）</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#6-MP3Stego%EF%BC%88Windows%EF%BC%89"><span class="nav-text">6.MP3Stego（Windows）</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#7-ZipCenOp%E4%BC%AA%E5%8A%A0%E5%AF%86%EF%BC%88Windows%EF%BC%89"><span class="nav-text">7.ZipCenOp伪加密（Windows）</span></a><ol class="nav-child"><li class="nav-item nav-level-4"><a class="nav-link" href="#%E8%AF%86%E5%88%AB%E7%9C%9F%E5%81%87%E5%8A%A0%E5%AF%86"><span class="nav-text">识别真假加密</span></a></li></ol></li><li class="nav-item nav-level-3"><a class="nav-link" href="#8-Steghide"><span class="nav-text">8.Steghide</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#9-cloacked-pixel"><span class="nav-text">9.cloacked-pixel</span></a></li></ol></li></ol></div>
+            <div class="post-toc animated"><ol class="nav"><li class="nav-item nav-level-2"><a class="nav-link" href="#%E9%9A%90%E5%86%99%E6%9C%AF%E7%94%A8%E5%88%B0%E7%9A%84%E5%B7%A5%E5%85%B7"><span class="nav-text">隐写术用到的工具</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#%E8%BF%9B%E5%88%B6%E4%BF%AE%E6%94%B9%E5%99%A8"><span class="nav-text">1.16进制修改器</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#binwalklinux"><span class="nav-text">2.binwalk（Linux）</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#stegsolvewindows"><span class="nav-text">3.StegSolve（Windows）</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#stegdetectwindows"><span class="nav-text">4.Stegdetect（Windows）</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#outguesswindows"><span class="nav-text">5.Outguess（Windows）</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#mp3stegowindows"><span class="nav-text">6.MP3Stego（Windows）</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#zipcenop%E4%BC%AA%E5%8A%A0%E5%AF%86windows"><span class="nav-text">7.ZipCenOp伪加密（Windows）</span></a><ol class="nav-child"><li class="nav-item nav-level-4"><a class="nav-link" href="#%E8%AF%86%E5%88%AB%E7%9C%9F%E5%81%87%E5%8A%A0%E5%AF%86"><span class="nav-text">识别真假加密</span></a></li></ol></li><li class="nav-item nav-level-3"><a class="nav-link" href="#steghide"><span class="nav-text">8.Steghide</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#cloacked-pixel"><span class="nav-text">9.cloacked-pixel</span></a></li></ol></li></ol></div>
         </section>
         <!--/noindex-->
 
@@ -354,83 +354,105 @@
     
     <div class="post-body" itemprop="articleBody">
         <p>　　隐写术是一门关于信息隐藏的技巧与科学，所谓信息隐藏指的是不让除预期的接受者之外的任何人知道信息的传递事件或内容。<a id="more"></a></p>
-<h2 id="隐写术用到的工具"><a href="#隐写术用到的工具" class="headerlink" title="隐写术用到的工具"></a>隐写术用到的工具</h2><h3 id="1-16进制修改器"><a href="#1-16进制修改器" class="headerlink" title="1.16进制修改器"></a>1.16进制修改器</h3><h3 id="2-binwalk（Linux）"><a href="#2-binwalk（Linux）" class="headerlink" title="2.binwalk（Linux）"></a>2.binwalk（Linux）</h3><p>分析文件信息，用来查看文件中是否包含其他隐藏文件，简单用法：</p>
+<h2 id="隐写术用到的工具">隐写术用到的工具</h2>
+<h3 id="进制修改器">1.16进制修改器</h3>
+<h3 id="binwalklinux">2.binwalk（Linux）</h3>
+<p>分析文件信息，用来查看文件中是否包含其他隐藏文件，简单用法：</p>
 <p><code>binwalk filename</code> 分析构成</p>
 <p><code>binwalk -e filename</code>自动解压已知文件格式</p>
 <p><code>binwalk -D=[extension] filename</code>根据后缀名解压，如-D=zip等</p>
-<h3 id="3-StegSolve（Windows）"><a href="#3-StegSolve（Windows）" class="headerlink" title="3.StegSolve（Windows）"></a>3.StegSolve（Windows）</h3><p>能够对常见的照片格式进行偏移、LSB提取、帧提取、拉长等</p>
-<h3 id="4-Stegdetect（Windows）"><a href="#4-Stegdetect（Windows）" class="headerlink" title="4.Stegdetect（Windows）"></a>4.Stegdetect（Windows）</h3><p>用于检测JPEG文件中是否包含隐藏内容，并尝试分析是哪个工具嵌入的，使用方式：</p>
+<h3 id="stegsolvewindows">3.StegSolve（Windows）</h3>
+<p>能够对常见的照片格式进行偏移、LSB提取、帧提取、拉长等</p>
+<h3 id="stegdetectwindows">4.Stegdetect（Windows）</h3>
+<p>用于检测JPEG文件中是否包含隐藏内容，并尝试分析是哪个工具嵌入的，使用方式：</p>
 <p><code>stegdetect [-nqV] [-s &lt;float&gt;] [-d &lt;num&gt;] [-t &lt;tests&gt;] [file.jpg]</code></p>
 <table>
+<colgroup>
+<col style="width: 100%" />
+</colgroup>
 <thead>
-<tr>
+<tr class="header">
 <th>参数信息</th>
 </tr>
 </thead>
-<tbody><tr>
+<tbody>
+<tr class="odd">
 <td>-q 仅显示可能包含隐藏内容的图像。</td>
 </tr>
-<tr>
+<tr class="even">
 <td>-n 启用检查 JPEG 文件头功能，以降低误报率。如果启用，所有带有批注区域的文件将被视为没有被嵌入信息。如果 JPEG 文件的 JFIF 标识符中的版本号不是1.1，则禁用 OutGuess 检测。</td>
 </tr>
-<tr>
+<tr class="odd">
 <td>-s 修改检测算法的敏感度，该值的默认值为1。检测结果的匹配度与检测算法的敏感度成正比，算法敏感度的值越大，检测出的可疑文件包含敏感信息的可能性越大。</td>
 </tr>
-<tr>
+<tr class="even">
 <td>-d 打印带行号的调试信息。</td>
 </tr>
-<tr>
-<td>-t 设置要检测哪些隐写工具（默认检测 jopi），可设置的选项如下： j 检测图像中的信息是否是用 jsteg 嵌入的。 o  检测图像中的信息是否是用 outguess 嵌入的。 p 检测图像中的信息是否是用 jphide 嵌入的。 i 检测图像中的信息是否是用  invisible secrets 嵌入的。</td>
+<tr class="odd">
+<td>-t 设置要检测哪些隐写工具（默认检测 jopi），可设置的选项如下： j 检测图像中的信息是否是用 jsteg 嵌入的。 o 检测图像中的信息是否是用 outguess 嵌入的。 p 检测图像中的信息是否是用 jphide 嵌入的。 i 检测图像中的信息是否是用 invisible secrets 嵌入的。</td>
 </tr>
-</tbody></table>
-<h3 id="5-Outguess（Windows）"><a href="#5-Outguess（Windows）" class="headerlink" title="5.Outguess（Windows）"></a>5.Outguess（Windows）</h3><p>提取JPEG文件中使用Outguess算法的加入的隐藏信息</p>
-<h3 id="6-MP3Stego（Windows）"><a href="#6-MP3Stego（Windows）" class="headerlink" title="6.MP3Stego（Windows）"></a>6.MP3Stego（Windows）</h3><p>对于MP3音频文件的隐写和提取，如一个名为“123.mp3”的文件</p>
+</tbody>
+</table>
+<h3 id="outguesswindows">5.Outguess（Windows）</h3>
+<p>提取JPEG文件中使用Outguess算法的加入的隐藏信息</p>
+<h3 id="mp3stegowindows">6.MP3Stego（Windows）</h3>
+<p>对于MP3音频文件的隐写和提取，如一个名为“123.mp3”的文件</p>
 <table>
 <thead>
-<tr>
+<tr class="header">
 <th>命令</th>
 <th>功能</th>
 </tr>
 </thead>
-<tbody><tr>
+<tbody>
+<tr class="odd">
 <td>decode -X -P 123.mp3</td>
 <td>提取123mp3信息到123.txt中</td>
 </tr>
-<tr>
+<tr class="even">
 <td>encode -E 123.txt -P pass 123.mp3</td>
 <td>把123.txt文件写入123.mp3中</td>
 </tr>
-</tbody></table>
+</tbody>
+</table>
 <p><a target="_blank" rel="noopener" href="https://www.petitcolas.net/steganography/mp3stego/">下载链接</a></p>
-<h3 id="7-ZipCenOp伪加密（Windows）"><a href="#7-ZipCenOp伪加密（Windows）" class="headerlink" title="7.ZipCenOp伪加密（Windows）"></a>7.ZipCenOp伪加密（Windows）</h3><table>
+<h3 id="zipcenop伪加密windows">7.ZipCenOp伪加密（Windows）</h3>
+<table>
 <thead>
-<tr>
+<tr class="header">
 <th>命令</th>
 <th>功能</th>
 </tr>
 </thead>
-<tbody><tr>
+<tbody>
+<tr class="odd">
 <td>java -jar ZipCenOp.jar e xxx.zip</td>
 <td>加密</td>
 </tr>
-<tr>
+<tr class="even">
 <td>java -jar ZipCenOp.jar r xxx.zip</td>
 <td>解密</td>
 </tr>
-</tbody></table>
-<p><img src="https://s3.ax1x.com/2020/11/29/D6LBon.jpg" alt="D6LBon.jpg"></p>
+</tbody>
+</table>
+<figure>
+<img src="https://s3.ax1x.com/2020/11/29/D6LBon.jpg" alt="D6LBon.jpg" /><figcaption aria-hidden="true">D6LBon.jpg</figcaption>
+</figure>
 <p><strong>a.压缩源文件数据区：</strong></p>
-<p>50 4B 03 04：这是头文件标记（0x04034b50）<br> 14 00：解压文件所需 pkware 版本<br> 09 00：全局方式位标记（有无加密）<br> 08 00：压缩方式<br> 50 A3：最后修改文件时间<br> A5 4A：最后修改文件日期<br> 21 38 76 64：CRC-32校验（1480B516）<br> 19 00 00 00：压缩后尺寸（25）<br> 17 00 00 00：未压缩尺寸（23）<br> 08 00：文件名长度<br> 00 00：扩展记录长度</p>
+<p>50 4B 03 04：这是头文件标记（0x04034b50） 14 00：解压文件所需 pkware 版本 09 00：全局方式位标记（有无加密） 08 00：压缩方式 50 A3：最后修改文件时间 A5 4A：最后修改文件日期 21 38 76 64：CRC-32校验（1480B516） 19 00 00 00：压缩后尺寸（25） 17 00 00 00：未压缩尺寸（23） 08 00：文件名长度 00 00：扩展记录长度</p>
 <p>666C61672E7478744BCB494CAF764CC935F4D3753272D7CD0ED50D8EF20CA80500</p>
 <p><strong>b.压缩源文件目录区:</strong></p>
-<p>50 4B 01 02：目录中文件文件头标记(0x02014b50)<br> 1F 00：压缩使用的 pkware 版本<br> 14 00：解压文件所需 pkware 版本<br> 09 00：全局方式位标记（有无加密，这个更改这里进行伪加密，改为09 00打开就会提示有密码了）<br> 08 00：压缩方式<br> 50 A3：最后修改文件时间<br> A5 4A：最后修改文件日期<br> 21 38 76 65：CRC-32校验（1480B516）<br> 19 00 00 00：压缩后尺寸（25）<br> 17 00 00 00：未压缩尺寸（23）<br> 08 00：文件名长度<br> 24 00：扩展字段长度<br> 00 00：文件注释长度<br> 00 00：磁盘开始号<br> 00 00：内部文件属性<br> 20 00 00 00：外部文件属性<br> 00 00 00 00：局部头部偏移量<br> 666C61672E7478740A00200000000000010018000FF504D59AC5D201461FCB8A9AC5D201461FCB8A9AC5D201</p>
+<p>50 4B 01 02：目录中文件文件头标记(0x02014b50) 1F 00：压缩使用的 pkware 版本 14 00：解压文件所需 pkware 版本 09 00：全局方式位标记（有无加密，这个更改这里进行伪加密，改为09 00打开就会提示有密码了） 08 00：压缩方式 50 A3：最后修改文件时间 A5 4A：最后修改文件日期 21 38 76 65：CRC-32校验（1480B516） 19 00 00 00：压缩后尺寸（25） 17 00 00 00：未压缩尺寸（23） 08 00：文件名长度 24 00：扩展字段长度 00 00：文件注释长度 00 00：磁盘开始号 00 00：内部文件属性 20 00 00 00：外部文件属性 00 00 00 00：局部头部偏移量 666C61672E7478740A00200000000000010018000FF504D59AC5D201461FCB8A9AC5D201461FCB8A9AC5D201</p>
 <p><strong>c.压缩源文件目录结束标志:</strong></p>
-<p>50 4B 05 06：目录结束标记<br> 00 00：当前磁盘编号<br> 00 00：目录区开始磁盘编号<br> 01 00：本磁盘上纪录总数<br> 01 00：目录区中纪录总数<br> 5A 00 00 00：目录区尺寸大小<br> 3F 00 00 00：目录区对第一张磁盘的偏移量<br> 00 00 00：ZIP 文件注释长度</p>
-<h4 id="识别真假加密"><a href="#识别真假加密" class="headerlink" title="识别真假加密"></a>识别真假加密</h4><p><strong>无加密</strong><br> 压缩源文件数据区的全局加密应当为00 00<br> 且压缩源文件目录区的全局方式位标记应当为00 00</p>
-<p><strong>假加密</strong><br> 压缩源文件数据区的全局加密应当为00 00<br> 且压缩源文件目录区的全局方式位标记应当为09 00</p>
-<p><strong>真加密</strong><br> 压缩源文件数据区的全局加密应当为09 00<br> 且压缩源文件目录区的全局方式位标记应当为09 00</p>
+<p>50 4B 05 06：目录结束标记 00 00：当前磁盘编号 00 00：目录区开始磁盘编号 01 00：本磁盘上纪录总数 01 00：目录区中纪录总数 5A 00 00 00：目录区尺寸大小 3F 00 00 00：目录区对第一张磁盘的偏移量 00 00 00：ZIP 文件注释长度</p>
+<h4 id="识别真假加密">识别真假加密</h4>
+<p><strong>无加密</strong> 压缩源文件数据区的全局加密应当为00 00 且压缩源文件目录区的全局方式位标记应当为00 00</p>
+<p><strong>假加密</strong> 压缩源文件数据区的全局加密应当为00 00 且压缩源文件目录区的全局方式位标记应当为09 00</p>
+<p><strong>真加密</strong> 压缩源文件数据区的全局加密应当为09 00 且压缩源文件目录区的全局方式位标记应当为09 00</p>
 <p>把09 00 改成00 00 之后，保存，重新打开，即可看到flag</p>
-<h3 id="8-Steghide"><a href="#8-Steghide" class="headerlink" title="8.Steghide"></a>8.Steghide</h3><h3 id="9-cloacked-pixel"><a href="#9-cloacked-pixel" class="headerlink" title="9.cloacked-pixel"></a>9.cloacked-pixel</h3><p>用于lsb解密，但是没有密码</p>
+<h3 id="steghide">8.Steghide</h3>
+<h3 id="cloacked-pixel">9.cloacked-pixel</h3>
+<p>用于lsb解密，但是没有密码</p>
 <p>python2 lsb.py extract flag.png 1.txt password</p>
 
     </div>

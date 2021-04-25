@@ -343,11 +343,10 @@
     
     <div class="post-body" itemprop="articleBody">
         <p>　　hexo的默认永久链接在_config.yml里的配置permalink: :year/:month/:day/:title，这种链接会掺杂中文路径，导致url中出现中文，并不能够分享。<a id="more"></a></p>
-<h1 id="安装hexo-abbrlink插件"><a href="#安装hexo-abbrlink插件" class="headerlink" title="安装hexo-abbrlink插件"></a>安装hexo-abbrlink插件</h1><figure class="highlight sql"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">npm <span class="keyword">install</span> hexo-abbrlink <span class="comment">--save</span></span><br></pre></td></tr></table></figure>
-
+<h1 id="安装hexo-abbrlink插件">安装hexo-abbrlink插件</h1>
+<figure class="highlight sql"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">npm <span class="keyword">install</span> hexo-abbrlink <span class="comment">--save</span></span><br></pre></td></tr></table></figure>
 <p>然后在_config.yml文件中修改permalink</p>
 <figure class="highlight yml"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line"><span class="attr">permalink:</span> <span class="string">post/:abbrlink.html</span></span><br><span class="line"><span class="attr">abbrlink:</span></span><br><span class="line">  <span class="comment"># 算法：crc16(default) and crc32</span></span><br><span class="line">  <span class="attr">alg:</span> <span class="string">crc32</span>  </span><br><span class="line">  <span class="comment"># 进制：dec(default) and hex</span></span><br><span class="line">  <span class="attr">rep:</span> <span class="string">hex</span>    </span><br></pre></td></tr></table></figure>
-
 <p>之后使用hexo clean清除静态文件，再使用hexo d -g重新生成静态文件，会自动在文章中加上abbrlink: ba5852c2</p>
 
     </div>

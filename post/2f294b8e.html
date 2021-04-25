@@ -353,66 +353,73 @@
     
     <div class="post-body" itemprop="articleBody">
         <p>　　在开发过程中经常用到的注解<a id="more"></a></p>
-<h1 id="常用注解"><a href="#常用注解" class="headerlink" title="常用注解"></a>常用注解</h1><table>
+<h1 id="常用注解">常用注解</h1>
+<table>
+<colgroup>
+<col style="width: 31%" />
+<col style="width: 68%" />
+</colgroup>
 <thead>
-<tr>
+<tr class="header">
 <th>注解</th>
-<th align="left">作用</th>
+<th style="text-align: left;">作用</th>
 </tr>
 </thead>
-<tbody><tr>
-<td>@Controller注解</td>
-<td align="left">用于定义控制器类，在spring项目中由控制器负责将用户发来的URL请求转发到对应的服务接口（service层），一般这个注解在类中，通常方法需要配合注解@RequestMapping。</td>
+<tbody>
+<tr class="odd">
+<td><span class="citation" data-cites="Controller注解">@Controller注解</span></td>
+<td style="text-align: left;">用于定义控制器类，在spring项目中由控制器负责将用户发来的URL请求转发到对应的服务接口（service层），一般这个注解在类中，通常方法需要配合注解@RequestMapping。</td>
 </tr>
-<tr>
-<td>@RequestMapping注解</td>
-<td align="left">@RequestMapping(“/path”)表示该控制器处理所有“/path”的UR L请求。RequestMapping是一个用来处理请求地址映射的注解，可用于类或方法上。</td>
+<tr class="even">
+<td><span class="citation" data-cites="RequestMapping注解">@RequestMapping注解</span></td>
+<td style="text-align: left;"><span class="citation" data-cites="RequestMapping">@RequestMapping</span>(“/path”)表示该控制器处理所有“/path”的UR L请求。RequestMapping是一个用来处理请求地址映射的注解，可用于类或方法上。</td>
 </tr>
-<tr>
-<td>@ResponseBody注解</td>
-<td align="left">直接写入HTTP response body中。比如异步获取json数据，加上@Responsebody后，会直接返回json数据。该注解一般会配合@RequestMapping一起使用。</td>
+<tr class="odd">
+<td><span class="citation" data-cites="ResponseBody注解">@ResponseBody注解</span></td>
+<td style="text-align: left;">直接写入HTTP response body中。比如异步获取json数据，加上@Responsebody后，会直接返回json数据。该注解一般会配合@RequestMapping一起使用。</td>
 </tr>
-<tr>
-<td>@Conponent注解</td>
-<td align="left"></td>
+<tr class="even">
+<td><span class="citation" data-cites="Conponent注解">@Conponent注解</span></td>
+<td style="text-align: left;"></td>
 </tr>
-<tr>
-<td>@ConfigurationProperties注解</td>
-<td align="left">加入前缀区分properties文件获取的值</td>
+<tr class="odd">
+<td><span class="citation" data-cites="ConfigurationProperties注解">@ConfigurationProperties注解</span></td>
+<td style="text-align: left;">加入前缀区分properties文件获取的值</td>
 </tr>
-<tr>
-<td>@Autowired注解</td>
-<td align="left">注解导入。可以自动收集所有的Spring组件，包括@Configuration类。我们经常使用@ComponentScan注解搜索beans，并结合@Autowired注解导入。如果没有配置的话，Spring Boot会扫描启动类所在包下以及子包下的使用了@Service,@Repository等注解的类。</td>
+<tr class="even">
+<td><span class="citation" data-cites="Autowired注解">@Autowired注解</span></td>
+<td style="text-align: left;">注解导入。可以自动收集所有的Spring组件，包括@Configuration类。我们经常使用@ComponentScan注解搜索beans，并结合@Autowired注解导入。如果没有配置的话，Spring Boot会扫描启动类所在包下以及子包下的使用了@Service,<span class="citation" data-cites="Repository等注解的类">@Repository等注解的类</span>。</td>
 </tr>
-<tr>
-<td>@Service注解</td>
-<td align="left"></td>
+<tr class="odd">
+<td><span class="citation" data-cites="Service注解">@Service注解</span></td>
+<td style="text-align: left;"></td>
 </tr>
-<tr>
-<td>@Mapper注解</td>
-<td align="left">扫描DAO接口到Spring容器</td>
+<tr class="even">
+<td><span class="citation" data-cites="Mapper注解">@Mapper注解</span></td>
+<td style="text-align: left;">扫描DAO接口到Spring容器</td>
 </tr>
-<tr>
-<td>@MapperScan注解</td>
-<td align="left">开启扫描Mapper接口的包以及子目录</td>
+<tr class="odd">
+<td><span class="citation" data-cites="MapperScan注解">@MapperScan注解</span></td>
+<td style="text-align: left;">开启扫描Mapper接口的包以及子目录</td>
 </tr>
-<tr>
-<td>@Transactional注解</td>
-<td align="left">事务管理器</td>
+<tr class="even">
+<td><span class="citation" data-cites="Transactional注解">@Transactional注解</span></td>
+<td style="text-align: left;">事务管理器</td>
 </tr>
-<tr>
-<td>@RestController注解</td>
-<td align="left">相当于控制层类加上@Controller+方法上加@ResponseBody ，意味着当前控制层类中所有方法返还的都是JSON对象</td>
+<tr class="odd">
+<td><span class="citation" data-cites="RestController注解">@RestController注解</span></td>
+<td style="text-align: left;">相当于控制层类加上@Controller+方法上加@ResponseBody ，意味着当前控制层类中所有方法返还的都是JSON对象</td>
 </tr>
-<tr>
-<td>@Bean注解</td>
-<td align="left">主要在配置类中，相当于&lt;beans&gt;&lt;bean id=”” class=””&gt;&lt;/beans&gt;</td>
+<tr class="even">
+<td><span class="citation" data-cites="Bean注解">@Bean注解</span></td>
+<td style="text-align: left;">主要在配置类中，相当于&lt;beans&gt;&lt;bean id="" class=""&gt;&lt;/beans&gt;</td>
 </tr>
-<tr>
+<tr class="odd">
 <td></td>
-<td align="left"></td>
+<td style="text-align: left;"></td>
 </tr>
-</tbody></table>
+</tbody>
+</table>
 
     </div>
 

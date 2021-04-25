@@ -213,7 +213,7 @@
       <div class="sidebar-panel-container">
         <!--noindex-->
         <section class="post-toc-wrap sidebar-panel">
-            <div class="post-toc animated"><ol class="nav"><li class="nav-item nav-level-1"><a class="nav-link" href="#1-%E7%8E%AF%E5%A2%83"><span class="nav-text">1.环境</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#2-%E5%AE%89%E8%A3%85nginx"><span class="nav-text">2.安装nginx</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#3-vsftp%E7%9A%84%E5%AE%89%E8%A3%85"><span class="nav-text">3.vsftp的安装</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#4-%E9%85%8D%E7%BD%AEnginx%E4%B8%BA%E5%9B%BE%E7%89%87%E6%9C%8D%E5%8A%A1%E5%99%A8"><span class="nav-text">4.配置nginx为图片服务器</span></a></li></ol></div>
+            <div class="post-toc animated"><ol class="nav"><li class="nav-item nav-level-1"><a class="nav-link" href="#%E7%8E%AF%E5%A2%83"><span class="nav-text">1.环境</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#%E5%AE%89%E8%A3%85nginx"><span class="nav-text">2.安装nginx</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#vsftp%E7%9A%84%E5%AE%89%E8%A3%85"><span class="nav-text">3.vsftp的安装</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#%E9%85%8D%E7%BD%AEnginx%E4%B8%BA%E5%9B%BE%E7%89%87%E6%9C%8D%E5%8A%A1%E5%99%A8"><span class="nav-text">4.配置nginx为图片服务器</span></a></li></ol></div>
         </section>
         <!--/noindex-->
 
@@ -349,9 +349,10 @@
     
     <div class="post-body" itemprop="articleBody">
         <p>　　在写小程序项目的时候需要用到图片服务器，没有云服务器，只能自己搭建，linux最好是静态ip，动态ip的话，如果虚拟机的地址发生变化，访问路径也在改变，影响做项目进展。<a id="more"></a></p>
-<h1 id="1-环境"><a href="#1-环境" class="headerlink" title="1.环境"></a>1.环境</h1><p>　　nginx是C语言开发，建议在linux上运行，本教程使用Centos 7作为安装环境。先要安装如下东西:</p>
+<h1 id="环境">1.环境</h1>
+<p>　　nginx是C语言开发，建议在linux上运行，本教程使用Centos 7作为安装环境。先要安装如下东西:</p>
 <p><strong>1.gcc</strong></p>
-<p><code>yum install gcc-c++ </code></p>
+<p><code>yum install gcc-c++</code></p>
 <p><strong>2.pcre</strong></p>
 <p><code>yum install -y pcre pcre-devel</code></p>
 <p><strong>3.zlib</strong></p>
@@ -361,42 +362,35 @@
 <p><strong>5.开启防火墙端口</strong></p>
 <p>先把nginx和vsftp需要用到的端口先开启，以免后面出错</p>
 <figure class="highlight routeros"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line">firewall-cmd <span class="attribute">--zone</span>=public <span class="attribute">--add-port</span>=80/tcp --permanent</span><br><span class="line">firewall-cmd <span class="attribute">--zone</span>=public <span class="attribute">--add-port</span>=443/tcp --permanent</span><br><span class="line">firewall-cmd <span class="attribute">--zone</span>=public <span class="attribute">--add-port</span>=22/tcp --permanent</span><br><span class="line">firewall-cmd <span class="attribute">--zone</span>=public <span class="attribute">--add-port</span>=21/tcp --permanent</span><br><span class="line">firewall-cmd <span class="attribute">--zone</span>=public <span class="attribute">--add-port</span>=30000-30999/tcp --permanent</span><br></pre></td></tr></table></figure>
-
 <p>逐条运行以上命令就可以。</p>
-<h1 id="2-安装nginx"><a href="#2-安装nginx" class="headerlink" title="2.安装nginx"></a>2.安装nginx</h1><p><strong>1.下载nginx</strong></p>
+<h1 id="安装nginx">2.安装nginx</h1>
+<p><strong>1.下载nginx</strong></p>
 <figure class="highlight awk"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">wget -c https:<span class="regexp">//</span>nginx.org<span class="regexp">/download/</span>nginx-<span class="number">1.8</span>.<span class="number">0</span>.tar.gz</span><br></pre></td></tr></table></figure>
-
 <p>可以上nginx官网看一下，把版本号改成自己需要的</p>
 <p><strong>2.解压</strong></p>
 <figure class="highlight apache"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line"><span class="attribute">tar</span> -zxvf nginx-<span class="number">1</span>.<span class="number">8</span>.<span class="number">0</span>.tar.gz</span><br><span class="line"><span class="attribute">cd</span> nginx-<span class="number">1</span>.<span class="number">8</span>.<span class="number">0</span></span><br></pre></td></tr></table></figure>
-
 <p><strong>3.设置编译参数</strong></p>
 <figure class="highlight awk"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br></pre></td><td class="code"><pre><span class="line">./configure \</span><br><span class="line">--prefix=<span class="regexp">/usr/</span>local/nginx \</span><br><span class="line">--pid-path=<span class="regexp">/var/</span>run<span class="regexp">/nginx/</span>nginx.pid \</span><br><span class="line">--lock-path=<span class="regexp">/var/</span>lock/nginx.lock \</span><br><span class="line">--error-log-path=<span class="regexp">/var/</span>log<span class="regexp">/nginx/</span>error.log \</span><br><span class="line">--http-log-path=<span class="regexp">/var/</span>log<span class="regexp">/nginx/</span>access.log \</span><br><span class="line">--with-http_gzip_static_module \</span><br><span class="line">--http-client-body-temp-path=<span class="regexp">/var/</span>temp<span class="regexp">/nginx/</span>client \</span><br><span class="line">--http-proxy-temp-path=<span class="regexp">/var/</span>temp<span class="regexp">/nginx/</span>proxy \</span><br><span class="line">--http-fastcgi-temp-path=<span class="regexp">/var/</span>temp<span class="regexp">/nginx/</span>fastcgi \</span><br><span class="line">--http-uwsgi-temp-path=<span class="regexp">/var/</span>temp<span class="regexp">/nginx/u</span>wsgi \</span><br><span class="line">--http-scgi-temp-path=<span class="regexp">/var/</span>temp<span class="regexp">/nginx/</span>scgi</span><br></pre></td></tr></table></figure>
-
 <p>直接将这段代码复制粘贴的linux中执行就可以</p>
 <p><strong>4.编译</strong></p>
 <figure class="highlight ebnf"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line"><span class="attribute">make</span></span><br></pre></td></tr></table></figure>
-
 <p><strong>5.安装</strong></p>
 <figure class="highlight cmake"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">make <span class="keyword">install</span></span><br></pre></td></tr></table></figure>
-
 <p><strong>6.启动nginx</strong></p>
 <figure class="highlight awk"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">cd <span class="regexp">/usr/</span>local<span class="regexp">/nginx/</span>sbin</span><br><span class="line">./nginx</span><br></pre></td></tr></table></figure>
-
 <p>执行这个命令后是没有任何提示的，然后在浏览器中访问虚拟机的ip，出现nginx欢迎页则安装成功。</p>
 <p><strong>7.关闭nginx</strong></p>
-<p>关闭nginx:<br>在刚才的sbin目录下执行:</p>
+<p>关闭nginx: 在刚才的sbin目录下执行:</p>
 <figure class="highlight arduino"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">./nginx -s <span class="built_in">stop</span></span><br></pre></td></tr></table></figure>
-
 <p><strong>遇到的坑</strong></p>
 <p>第一次启动nginx没问题，但是如果重启虚拟机，再次到ngin的sbin目录下执行./nginx，出现以下错误</p>
-<p><code>&quot;var/run/nginx/nginx.pid&quot; no such file or directory</code></p>
+<p><code>"var/run/nginx/nginx.pid" no such file or directory</code></p>
 <p><strong>解决办法</strong></p>
 <p>在linux中输入，修改nginx.conf配置文件</p>
 <figure class="highlight awk"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">vi <span class="regexp">/usr/</span>local<span class="regexp">/nginx/</span>conf/nginx.conf</span><br></pre></td></tr></table></figure>
-
-<p>将<code>#pid    logs/nginx.pid</code>前面的#号去掉，之后<code>:wq</code>保存退出</p>
-<h1 id="3-vsftp的安装"><a href="#3-vsftp的安装" class="headerlink" title="3.vsftp的安装"></a>3.vsftp的安装</h1><p><strong>1.安装</strong></p>
+<p>将<code>#pid  logs/nginx.pid</code>前面的#号去掉，之后<code>:wq</code>保存退出</p>
+<h1 id="vsftp的安装">3.vsftp的安装</h1>
+<p><strong>1.安装</strong></p>
 <p><strong>2.添加ftp用户</strong></p>
 <p><strong>3.给ftp用户添加密码</strong></p>
 <p>输入两次密码后修改密码</p>
@@ -406,31 +400,33 @@
 </ul>
 <p>执行之后可以看到</p>
 <figure class="highlight livescript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">allow_ftpd_full_access<span class="function"> --&gt;</span> <span class="literal">off</span></span><br><span class="line">tftp_home_dir<span class="function"> --&gt;</span> <span class="literal">off</span></span><br></pre></td></tr></table></figure>
-
 <p>两个都是off，执行下面命令设置on</p>
 <figure class="highlight applescript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">setsebool -P ftpd_full_access <span class="keyword">on</span></span><br><span class="line">setsebool -P tftp_home_dir <span class="keyword">on</span></span><br></pre></td></tr></table></figure>
-
 <p>再次执行<code>getsebool -a | grep ftp</code>看到那两个状态是on就行了。</p>
 <p><strong>5.关闭匿名访问</strong></p>
 <figure class="highlight awk"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">vi <span class="regexp">/etc/</span>vsftpd/vsftpd.conf</span><br></pre></td></tr></table></figure>
-
-<p><img src="https://s3.ax1x.com/2021/01/16/sDhK3j.jpg" alt="sDhK3j.jpg"></p>
+<figure>
+<img src="https://s3.ax1x.com/2021/01/16/sDhK3j.jpg" alt="sDhK3j.jpg" /><figcaption aria-hidden="true">sDhK3j.jpg</figcaption>
+</figure>
 <p>还要在vsftp.conf文件最下面添加</p>
 <figure class="highlight ini"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line"><span class="attr">pasv_min_port</span>=<span class="number">30000</span></span><br><span class="line"><span class="attr">pasv_max_port</span>=<span class="number">30999</span></span><br></pre></td></tr></table></figure>
-
 <p><strong>6.设置开机启动</strong></p>
 <figure class="highlight applescript"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">chkconfig vsftpd <span class="keyword">on</span></span><br></pre></td></tr></table></figure>
-
-<h1 id="4-配置nginx为图片服务器"><a href="#4-配置nginx为图片服务器" class="headerlink" title="4.配置nginx为图片服务器"></a>4.配置nginx为图片服务器</h1><figure class="highlight awk"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">vi  <span class="regexp">/usr/</span>local<span class="regexp">/nginx/</span>conf/ nginx.conf</span><br></pre></td></tr></table></figure>
-
+<h1 id="配置nginx为图片服务器">4.配置nginx为图片服务器</h1>
+<figure class="highlight awk"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">vi  <span class="regexp">/usr/</span>local<span class="regexp">/nginx/</span>conf/ nginx.conf</span><br></pre></td></tr></table></figure>
 <p>命令，打开nginx的配置文件:</p>
-<p><img src="https://s3.ax1x.com/2021/01/16/sDhMgs.jpg" alt="sDhMgs.jpg"></p>
+<figure>
+<img src="https://s3.ax1x.com/2021/01/16/sDhMgs.jpg" alt="sDhMgs.jpg" /><figcaption aria-hidden="true">sDhMgs.jpg</figcaption>
+</figure>
 <p>设置ftpuser文件夹可读权限，执行如下命令:</p>
 <figure class="highlight awk"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">chmod -R <span class="number">755</span> <span class="regexp">/home/</span>ftpuser</span><br></pre></td></tr></table></figure>
-
 <p>可以使用xftp等文件传输工具将图片传送至虚拟机</p>
-<p><img src="https://s3.ax1x.com/2021/01/16/sDhO2j.jpg" alt="sDhO2j.jpg"></p>
-<p><img src="https://s3.ax1x.com/2021/01/16/sDhxrq.md.jpg" alt="sDhxrq.md.jpg"></p>
+<figure>
+<img src="https://s3.ax1x.com/2021/01/16/sDhO2j.jpg" alt="sDhO2j.jpg" /><figcaption aria-hidden="true">sDhO2j.jpg</figcaption>
+</figure>
+<figure>
+<img src="https://s3.ax1x.com/2021/01/16/sDhxrq.md.jpg" alt="sDhxrq.md.jpg" /><figcaption aria-hidden="true">sDhxrq.md.jpg</figcaption>
+</figure>
 
     </div>
 

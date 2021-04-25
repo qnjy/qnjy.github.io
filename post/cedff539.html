@@ -213,7 +213,7 @@
       <div class="sidebar-panel-container">
         <!--noindex-->
         <section class="post-toc-wrap sidebar-panel">
-            <div class="post-toc animated"><ol class="nav"><li class="nav-item nav-level-1"><a class="nav-link" href="#2-%E9%A1%B9%E7%9B%AE%E6%BC%94%E7%A4%BA"><span class="nav-text">2.项目演示</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#3-CRUD%E5%8A%9F%E8%83%BD%E5%AE%9E%E7%8E%B0"><span class="nav-text">3.CRUD功能实现</span></a><ol class="nav-child"><li class="nav-item nav-level-2"><a class="nav-link" href="#3-1-%E6%B7%BB%E5%8A%A0%E7%94%A8%E6%88%B7%E5%8A%9F%E8%83%BD"><span class="nav-text">3.1 添加用户功能</span></a></li></ol></li></ol></div>
+            <div class="post-toc animated"><ol class="nav"><li class="nav-item nav-level-1"><a class="nav-link" href="#%E9%A1%B9%E7%9B%AE%E6%BC%94%E7%A4%BA"><span class="nav-text">2.项目演示</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#crud%E5%8A%9F%E8%83%BD%E5%AE%9E%E7%8E%B0"><span class="nav-text">3.CRUD功能实现</span></a><ol class="nav-child"><li class="nav-item nav-level-2"><a class="nav-link" href="#%E6%B7%BB%E5%8A%A0%E7%94%A8%E6%88%B7%E5%8A%9F%E8%83%BD"><span class="nav-text">3.1 添加用户功能</span></a></li></ol></li></ol></div>
         </section>
         <!--/noindex-->
 
@@ -358,21 +358,16 @@
     
     <div class="post-body" itemprop="articleBody">
         <p>　　在学校的三级课题实训期间，跟着做的一个基于servlet的项目，通过前后端传实现的增删改查<a id="more"></a></p>
-<h1 id="2-项目演示"><a href="#2-项目演示" class="headerlink" title="2.项目演示"></a>2.项目演示</h1><img src="https://s3.ax1x.com/2021/01/11/s1zZKf.png" alt="s1zZKf.png" style="zoom: 50%;" />
-
-<img src="https://s3.ax1x.com/2021/01/11/s1zA2t.png" alt="s1zA2t.png" style="zoom: 50%;" />
-
-<img src="https://s3.ax1x.com/2021/01/11/s1zmqS.png" alt="s1zmqS.png" style="zoom: 33%;" />
-
-<img src="https://s3.ax1x.com/2021/01/11/s1zer8.png" alt="s1zer8.png" style="zoom: 50%;" />
-
-<img src="https://s3.ax1x.com/2021/01/11/s1zExP.png" alt="s1zExP.png" style="zoom:50%;" />
-
-<h1 id="3-CRUD功能实现"><a href="#3-CRUD功能实现" class="headerlink" title="3.CRUD功能实现"></a>3.CRUD功能实现</h1><h2 id="3-1-添加用户功能"><a href="#3-1-添加用户功能" class="headerlink" title="3.1 添加用户功能"></a>3.1 添加用户功能</h2><p>username，idnumber，tel，sex，registertime拿到也页面的参数数据，之后让dao层和service层发生联系，这时候可以定义一个boolean类型来保证不会重复添加同一个人</p>
+<h1 id="项目演示">2.项目演示</h1>
+<p><img src="https://s3.ax1x.com/2021/01/11/s1zZKf.png" alt="s1zZKf.png" style="zoom: 50%;" /></p>
+<p><img src="https://s3.ax1x.com/2021/01/11/s1zA2t.png" alt="s1zA2t.png" style="zoom: 50%;" /></p>
+<p><img src="https://s3.ax1x.com/2021/01/11/s1zmqS.png" alt="s1zmqS.png" style="zoom: 33%;" /></p>
+<p><img src="https://s3.ax1x.com/2021/01/11/s1zer8.png" alt="s1zer8.png" style="zoom: 50%;" /></p>
+<p><img src="https://s3.ax1x.com/2021/01/11/s1zExP.png" alt="s1zExP.png" style="zoom:50%;" /></p>
+<h1 id="crud功能实现">3.CRUD功能实现</h1>
+<h2 id="添加用户功能">3.1 添加用户功能</h2>
+<p>username，idnumber，tel，sex，registertime拿到也页面的参数数据，之后让dao层和service层发生联系，这时候可以定义一个boolean类型来保证不会重复添加同一个人</p>
 <figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">//增加用户</span></span><br><span class="line"><span class="function"><span class="keyword">private</span> <span class="keyword">void</span> <span class="title">insert</span><span class="params">(HttpServletRequest req, HttpServletResponse resp)</span> </span>&#123;</span><br><span class="line">    String username = req.getParameter(<span class="string">&quot;username&quot;</span>);</span><br><span class="line">    String idnumber = req.getParameter(<span class="string">&quot;idnumber&quot;</span>);</span><br><span class="line">    String tel = req.getParameter(<span class="string">&quot;tel&quot;</span>);</span><br><span class="line">    String sex = req.getParameter(<span class="string">&quot;sex&quot;</span>);</span><br><span class="line">    String registertime = req.getParameter(<span class="string">&quot;registertime&quot;</span>);</span><br><span class="line"></span><br><span class="line">    <span class="comment">//是否获得数据</span></span><br><span class="line">    System.out.println(username + idnumber + tel + sex + registertime + <span class="string">&quot;租户新增&quot;</span>);</span><br><span class="line"></span><br><span class="line">    RentUserService service = <span class="keyword">new</span> RentUserServiceImpl();</span><br><span class="line">    <span class="keyword">boolean</span> f = service.duplicate(idnumber);</span><br><span class="line">    <span class="comment">//输出是否是获得f值</span></span><br><span class="line">    System.out.println(f);</span><br><span class="line">    HttpSession session = req.getSession();</span><br><span class="line">    <span class="comment">//如果是真，已存在该用户，不能新增</span></span><br><span class="line">    <span class="keyword">if</span> (f) &#123;</span><br><span class="line">        session.setAttribute(<span class="string">&quot;err&quot;</span>, <span class="string">&quot;该用户已存在&quot;</span>);</span><br><span class="line">        <span class="keyword">try</span> &#123;</span><br><span class="line">            <span class="comment">//重新输入</span></span><br><span class="line">            resp.sendRedirect(<span class="string">&quot;/XX/view/rentUser/edit.jsp&quot;</span>);</span><br><span class="line">        &#125; <span class="keyword">catch</span> (IOException e) &#123;</span><br><span class="line">            e.printStackTrace();</span><br><span class="line">        &#125;</span><br><span class="line">        <span class="keyword">return</span>;</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
-
-
-
 
     </div>
 

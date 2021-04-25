@@ -365,47 +365,57 @@
     
     <div class="post-body" itemprop="articleBody">
         <p>　　这个是在搭建博客的时候配置nodejs的过程，记录下来<a id="more"></a></p>
-<h1 id="下载"><a href="#下载" class="headerlink" title="下载"></a>下载</h1><p>下载地址：<a target="_blank" rel="noopener" href="http://jingyan.baidu.com/article/b907e627b641b646e6891c6b.html">http://jingyan.baidu.com/article/b907e627b641b646e6891c6b.html</a></p>
-<img src="https://s3.ax1x.com/2020/11/20/DMwC1x.jpg" alt="DMwC1x.jpg" style="zoom:50%;" />
-
-<h1 id="安装"><a href="#安装" class="headerlink" title="安装"></a>安装</h1><p>双击打开安装文件：</p>
-<p><img src="https://upload-images.jianshu.io/upload_images/2267589-f40b21a6ccbebefa.png?imageMogr2/auto-orient/strip%7CimageView2/2"></p>
+<h1 id="下载">下载</h1>
+<p>下载地址：http://jingyan.baidu.com/article/b907e627b641b646e6891c6b.html</p>
+<p><img src="https://s3.ax1x.com/2020/11/20/DMwC1x.jpg" alt="DMwC1x.jpg" style="zoom:50%;" /></p>
+<h1 id="安装">安装</h1>
+<p>双击打开安装文件：</p>
+<p><img src="https://upload-images.jianshu.io/upload_images/2267589-f40b21a6ccbebefa.png?imageMogr2/auto-orient/strip%7CimageView2/2" /></p>
 <p>安装完成之后，在dos窗口中输入”node -v“查看版本号，这里我下载的12版本</p>
-<p><img src="https://s3.ax1x.com/2020/11/20/DMwPc6.jpg" alt="DMwPc6.jpg"></p>
-<h1 id="配置环境"><a href="#配置环境" class="headerlink" title="配置环境"></a>配置环境</h1><p>1.在nodejs文件夹下创建两个文件夹：node_global和node_cache</p>
+<figure>
+<img src="https://s3.ax1x.com/2020/11/20/DMwPc6.jpg" alt="DMwPc6.jpg" /><figcaption aria-hidden="true">DMwPc6.jpg</figcaption>
+</figure>
+<h1 id="配置环境">配置环境</h1>
+<p>1.在nodejs文件夹下创建两个文件夹：node_global和node_cache</p>
 <table>
 <thead>
-<tr>
+<tr class="header">
 <th>新建文件夹</th>
 <th>作用</th>
 </tr>
 </thead>
-<tbody><tr>
+<tbody>
+<tr class="odd">
 <td>node_global</td>
 <td>放安装过程中的缓存文件</td>
 </tr>
-<tr>
+<tr class="even">
 <td>node_cache</td>
 <td>最终的模块配置位置</td>
 </tr>
-</tbody></table>
-<p><img src="https://s3.ax1x.com/2020/11/20/DMwijK.jpg" alt="DMwijK.jpg"></p>
+</tbody>
+</table>
+<figure>
+<img src="https://s3.ax1x.com/2020/11/20/DMwijK.jpg" alt="DMwijK.jpg" /><figcaption aria-hidden="true">DMwijK.jpg</figcaption>
+</figure>
 <p>2.创建完两个文件夹之后，打开dos窗口，输入</p>
 <figure class="highlight routeros"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">npm<span class="built_in"> config </span><span class="builtin-name">set</span><span class="built_in"> prefix </span><span class="string">&quot;D:\Drops\NODEJS\node_global&quot;</span></span><br><span class="line">npm<span class="built_in"> config </span><span class="builtin-name">set</span> cache <span class="string">&quot;D:\Drops\NODEJS\node_cache&quot;</span></span><br></pre></td></tr></table></figure>
-
 <p><strong>注意引号之间的路径填上自己的目录路径</strong></p>
-<p><img src="https://s3.ax1x.com/2020/11/20/DMwknO.jpg" alt="DMwknO.jpg"></p>
-<p>3.在”系统变量下“新建”NODE_PATH“，填入D:\Drops\NODEJS\node_global\node_modules</p>
-<img src="https://s3.ax1x.com/2020/11/20/DMw991.jpg" alt="DMw991.jpg" style="zoom:67%;" />
-
-<p>4.将用户变量下的“PATH”修改为D:\Drops\NODEJS\node_global</p>
-<img src="https://s3.ax1x.com/2020/11/20/DMwShR.jpg" alt="DMwShR.jpg" style="zoom:67%;" />
-
-<img src="https://s3.ax1x.com/2020/11/20/DMdzN9.jpg" alt="DMdzN9.jpg" style="zoom:67%;" />
-
-<p><img src="https://s3.ax1x.com/2020/11/20/DMdxAJ.jpg" alt="DMdxAJ.jpg"></p>
-<p>5.在dos窗口中输入node回车，再输入require(‘cluster’)出现下图，既安装成功</p>
-<p><img src="https://s3.ax1x.com/2020/11/20/DMdj74.jpg" alt="DMdj74.jpg"></p>
+<figure>
+<img src="https://s3.ax1x.com/2020/11/20/DMwknO.jpg" alt="DMwknO.jpg" /><figcaption aria-hidden="true">DMwknO.jpg</figcaption>
+</figure>
+<p>3.在”系统变量下“新建”NODE_PATH“，填入D:_global_modules</p>
+<p><img src="https://s3.ax1x.com/2020/11/20/DMw991.jpg" alt="DMw991.jpg" style="zoom:67%;" /></p>
+<p>4.将用户变量下的“PATH”修改为D:_global</p>
+<p><img src="https://s3.ax1x.com/2020/11/20/DMwShR.jpg" alt="DMwShR.jpg" style="zoom:67%;" /></p>
+<p><img src="https://s3.ax1x.com/2020/11/20/DMdzN9.jpg" alt="DMdzN9.jpg" style="zoom:67%;" /></p>
+<figure>
+<img src="https://s3.ax1x.com/2020/11/20/DMdxAJ.jpg" alt="DMdxAJ.jpg" /><figcaption aria-hidden="true">DMdxAJ.jpg</figcaption>
+</figure>
+<p>5.在dos窗口中输入node回车，再输入require('cluster')出现下图，既安装成功</p>
+<figure>
+<img src="https://s3.ax1x.com/2020/11/20/DMdj74.jpg" alt="DMdj74.jpg" /><figcaption aria-hidden="true">DMdj74.jpg</figcaption>
+</figure>
 
     </div>
 

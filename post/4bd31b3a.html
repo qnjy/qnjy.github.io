@@ -234,7 +234,7 @@
       <div class="sidebar-panel-container">
         <!--noindex-->
         <section class="post-toc-wrap sidebar-panel">
-            <div class="post-toc animated"><ol class="nav"><li class="nav-item nav-level-1"><a class="nav-link" href="#%E4%B8%8B%E8%BD%BD"><span class="nav-text">下载</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#%E9%85%8D%E7%BD%AE"><span class="nav-text">配置</span></a><ol class="nav-child"><li class="nav-item nav-level-2"><a class="nav-link" href="#1-%E9%A6%96%E5%85%88%E6%9F%A5%E7%9C%8Bjava%E5%AE%89%E8%A3%85"><span class="nav-text">1.首先查看java安装</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#2-%E8%AE%BE%E7%BD%AEMaven%E7%8E%AF%E5%A2%83%E5%8F%98%E9%87%8F"><span class="nav-text">2.设置Maven环境变量</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#3-%E6%A3%80%E6%B5%8B%E6%98%AF%E5%90%A6%E9%85%8D%E7%BD%AE%E6%88%90%E5%8A%9F"><span class="nav-text">3.检测是否配置成功</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#4-maven%E9%95%9C%E5%83%8F"><span class="nav-text">4.maven镜像</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#5-idea%E4%B8%AD%E9%85%8D%E7%BD%AEmaven"><span class="nav-text">5.idea中配置maven</span></a></li></ol></li><li class="nav-item nav-level-1"><a class="nav-link" href="#%E5%88%9B%E5%BB%BAmaven-web%E9%A1%B9%E7%9B%AE%EF%BC%88%E5%8F%AF%E5%BF%BD%E7%95%A5%EF%BC%89"><span class="nav-text">创建maven web项目（可忽略）</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#maven-web%E6%A8%A1%E6%9D%BF%E9%A1%B9%E7%9B%AE%E7%BB%93%E6%9E%84%E4%BB%8B%E7%BB%8D"><span class="nav-text">maven web模板项目结构介绍</span></a></li></ol></div>
+            <div class="post-toc animated"><ol class="nav"><li class="nav-item nav-level-1"><a class="nav-link" href="#%E4%B8%8B%E8%BD%BD"><span class="nav-text">下载</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#%E9%85%8D%E7%BD%AE"><span class="nav-text">配置</span></a><ol class="nav-child"><li class="nav-item nav-level-2"><a class="nav-link" href="#%E9%A6%96%E5%85%88%E6%9F%A5%E7%9C%8Bjava%E5%AE%89%E8%A3%85"><span class="nav-text">1.首先查看java安装</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#%E8%AE%BE%E7%BD%AEmaven%E7%8E%AF%E5%A2%83%E5%8F%98%E9%87%8F"><span class="nav-text">2.设置Maven环境变量</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#%E6%A3%80%E6%B5%8B%E6%98%AF%E5%90%A6%E9%85%8D%E7%BD%AE%E6%88%90%E5%8A%9F"><span class="nav-text">3.检测是否配置成功</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#maven%E9%95%9C%E5%83%8F"><span class="nav-text">4.maven镜像</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#idea%E4%B8%AD%E9%85%8D%E7%BD%AEmaven"><span class="nav-text">5.idea中配置maven</span></a></li></ol></li><li class="nav-item nav-level-1"><a class="nav-link" href="#%E5%88%9B%E5%BB%BAmaven-web%E9%A1%B9%E7%9B%AE%E5%8F%AF%E5%BF%BD%E7%95%A5"><span class="nav-text">创建maven web项目（可忽略）</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#maven-web%E6%A8%A1%E6%9D%BF%E9%A1%B9%E7%9B%AE%E7%BB%93%E6%9E%84%E4%BB%8B%E7%BB%8D"><span class="nav-text">maven web模板项目结构介绍</span></a></li></ol></div>
         </section>
         <!--/noindex-->
 
@@ -379,70 +379,95 @@
     
     <div class="post-body" itemprop="articleBody">
         <p>　　maven的仓库镜像配置的本地仓库配置<a id="more"></a></p>
-<h1 id="下载"><a href="#下载" class="headerlink" title="下载"></a>下载</h1><p>maven下载地址：<a target="_blank" rel="noopener" href="http://maven.apache.org/download.cgi">http://maven.apache.org/download.cgi</a></p>
-<p><img src="https://www.runoob.com/wp-content/uploads/2018/09/750D721E-0624-4C16-AD4B-9EA5D7F6289A.png" alt="img"></p>
-<h1 id="配置"><a href="#配置" class="headerlink" title="配置"></a>配置</h1><h2 id="1-首先查看java安装"><a href="#1-首先查看java安装" class="headerlink" title="1.首先查看java安装"></a>1.首先查看java安装</h2><p>打开dos命令窗口输入java -version，如果没有配置，见<a href="/post/a1cef01a.html" title="java环境变量配置">java环境变量配置</a></p>
-<p><img src="https://s3.ax1x.com/2020/11/19/DKtiY6.jpg" alt="DKtiY6.jpg"></p>
-<h2 id="2-设置Maven环境变量"><a href="#2-设置Maven环境变量" class="headerlink" title="2.设置Maven环境变量"></a>2.设置Maven环境变量</h2><p>右键 “计算机”，选择 “属性”，之后点击 “高级系统设置”，点击”环境变量”，来设置环境变量，有以下系统变量需要配置：</p>
+<h1 id="下载">下载</h1>
+<p>maven下载地址：http://maven.apache.org/download.cgi</p>
+<figure>
+<img src="https://www.runoob.com/wp-content/uploads/2018/09/750D721E-0624-4C16-AD4B-9EA5D7F6289A.png" alt="img" /><figcaption aria-hidden="true">img</figcaption>
+</figure>
+<h1 id="配置">配置</h1>
+<h2 id="首先查看java安装">1.首先查看java安装</h2>
+<p>打开dos命令窗口输入java -version，如果没有配置，见<a href="/post/a1cef01a.html" title="java环境变量配置">java环境变量配置</a></p>
+<figure>
+<img src="https://s3.ax1x.com/2020/11/19/DKtiY6.jpg" alt="DKtiY6.jpg" /><figcaption aria-hidden="true">DKtiY6.jpg</figcaption>
+</figure>
+<h2 id="设置maven环境变量">2.设置Maven环境变量</h2>
+<p>右键 "计算机"，选择 "属性"，之后点击 "高级系统设置"，点击"环境变量"，来设置环境变量，有以下系统变量需要配置：</p>
 <p>1.新建系统变量 <strong>MAVEN_HOME</strong>，变量值：maven安装路径</p>
 <p>以下是我的安装路径</p>
-<p><img src="https://s3.ax1x.com/2020/11/19/DK8GZt.jpg" alt="DK8GZt.jpg"></p>
-<p>2.编辑系统变量 <strong>Path</strong>，添加变量值：;%MAVEN_HOME%\bin</p>
-<p><img src="https://s3.ax1x.com/2020/11/19/DK83qI.jpg" alt="DK83qI.jpg"></p>
-<h2 id="3-检测是否配置成功"><a href="#3-检测是否配置成功" class="headerlink" title="3.检测是否配置成功"></a>3.检测是否配置成功</h2><p>在控制台输入如下命令，如果能看到 Maven 相关版本信息，则说明 Maven 已经安装成功：</p>
+<figure>
+<img src="https://s3.ax1x.com/2020/11/19/DK8GZt.jpg" alt="DK8GZt.jpg" /><figcaption aria-hidden="true">DK8GZt.jpg</figcaption>
+</figure>
+<p>2.编辑系统变量 <strong>Path</strong>，添加变量值：;%MAVEN_HOME%</p>
+<figure>
+<img src="https://s3.ax1x.com/2020/11/19/DK83qI.jpg" alt="DK83qI.jpg" /><figcaption aria-hidden="true">DK83qI.jpg</figcaption>
+</figure>
+<h2 id="检测是否配置成功">3.检测是否配置成功</h2>
+<p>在控制台输入如下命令，如果能看到 Maven 相关版本信息，则说明 Maven 已经安装成功：</p>
 <p>mvn -v</p>
-<p><img src="https://s3.ax1x.com/2020/11/19/DK8JdP.jpg" alt="DK8JdP.jpg"></p>
-<h2 id="4-maven镜像"><a href="#4-maven镜像" class="headerlink" title="4.maven镜像"></a>4.maven镜像</h2><p>找到maven文件下的conf文件夹，打开用记事本setting.xml</p>
+<figure>
+<img src="https://s3.ax1x.com/2020/11/19/DK8JdP.jpg" alt="DK8JdP.jpg" /><figcaption aria-hidden="true">DK8JdP.jpg</figcaption>
+</figure>
+<h2 id="maven镜像">4.maven镜像</h2>
+<p>找到maven文件下的conf文件夹，打开用记事本setting.xml</p>
 <p>找到</p>
 <figure class="highlight xml"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line"><span class="tag">&lt;<span class="name">settings</span> <span class="attr">xmlns</span>=<span class="string">&quot;http://maven.apache.org/SETTINGS/1.0.0&quot;</span></span></span><br><span class="line"><span class="tag">          <span class="attr">xmlns:xsi</span>=<span class="string">&quot;http://www.w3.org/2001/XMLSchema-instance&quot;</span></span></span><br><span class="line"><span class="tag">          <span class="attr">xsi:schemaLocation</span>=<span class="string">&quot;http://maven.apache.org/SETTINGS/1.0.0 http://maven.apache.org/xsd/settings-1.0.0.xsd&quot;</span>&gt;</span></span><br></pre></td></tr></table></figure>
-
 <p>在下面添加</p>
 <figure class="highlight xml"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line"><span class="tag">&lt;<span class="name">localRepository</span>&gt;</span>自己建的仓库路径<span class="tag">&lt;/<span class="name">localRepository</span>&gt;</span></span><br></pre></td></tr></table></figure>
-
-<p><font color="FF0000">D:\JavaTools\Maven\Mavenrespository是我的路径</font></p>
-<p><img src="https://s3.ax1x.com/2020/12/03/D71VEQ.jpg" alt="D71VEQ.jpg"></p>
+<p><font color="FF0000">D:</font></p>
+<figure>
+<img src="https://s3.ax1x.com/2020/12/03/D71VEQ.jpg" alt="D71VEQ.jpg" /><figcaption aria-hidden="true">D71VEQ.jpg</figcaption>
+</figure>
 <p>由于maven搜索下载全球的global仓库是在外国搭建，不稳定，所以更换镜像，使maven的加载速度提高。</p>
 <figure class="highlight xml"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line"><span class="tag">&lt;<span class="name">mirror</span>&gt;</span></span><br><span class="line">    <span class="tag">&lt;<span class="name">id</span>&gt;</span>alimaven<span class="tag">&lt;/<span class="name">id</span>&gt;</span></span><br><span class="line">    <span class="tag">&lt;<span class="name">name</span>&gt;</span>aliyun maven<span class="tag">&lt;/<span class="name">name</span>&gt;</span></span><br><span class="line">    <span class="tag">&lt;<span class="name">url</span>&gt;</span>http://maven.aliyun.com/nexus/content/groups/public/<span class="tag">&lt;/<span class="name">url</span>&gt;</span></span><br><span class="line">    <span class="tag">&lt;<span class="name">mirrorOf</span>&gt;</span>central<span class="tag">&lt;/<span class="name">mirrorOf</span>&gt;</span></span><br><span class="line"><span class="tag">&lt;/<span class="name">mirror</span>&gt;</span></span><br></pre></td></tr></table></figure>
-
 <p>找到下图所示的位置，将以上代码插入在红色方框中间</p>
-<p><img src="https://s3.ax1x.com/2020/11/20/DMGTsJ.jpg" alt="DMGTsJ.jpg"></p>
-<h2 id="5-idea中配置maven"><a href="#5-idea中配置maven" class="headerlink" title="5.idea中配置maven"></a>5.idea中配置maven</h2><p>打开file-Setting</p>
-<img src="https://s3.ax1x.com/2020/11/24/DtCY4g.jpg" alt="DtCY4g.jpg" style="zoom: 67%;" />
-
-<h1 id="创建maven-web项目（可忽略）"><a href="#创建maven-web项目（可忽略）" class="headerlink" title="创建maven web项目（可忽略）"></a>创建maven web项目（可忽略）</h1><p>打开File-New-Project，<font color="ff0000">注意有两个webapp选项不要选错</font></p>
+<figure>
+<img src="https://s3.ax1x.com/2020/11/20/DMGTsJ.jpg" alt="DMGTsJ.jpg" /><figcaption aria-hidden="true">DMGTsJ.jpg</figcaption>
+</figure>
+<h2 id="idea中配置maven">5.idea中配置maven</h2>
+<p>打开file-Setting</p>
+<p><img src="https://s3.ax1x.com/2020/11/24/DtCY4g.jpg" alt="DtCY4g.jpg" style="zoom: 67%;" /></p>
+<h1 id="创建maven-web项目可忽略">创建maven web项目（可忽略）</h1>
+<p>打开File-New-Project，<font color="ff0000">注意有两个webapp选项不要选错</font></p>
 <p>点击NEXT</p>
-<img src="https://s3.ax1x.com/2020/11/24/DtCJUS.jpg" alt="DtCJUS.jpg" style="zoom:67%;" />
-
+<p><img src="https://s3.ax1x.com/2020/11/24/DtCJUS.jpg" alt="DtCJUS.jpg" style="zoom:67%;" /></p>
 <p>点击NEXT，GroupId一般填写域名（com），ArtifactId一般填写姓名简拼</p>
-<p><img src="https://s3.ax1x.com/2020/11/24/DtCMjI.jpg" alt="DtCMjI.jpg"></p>
+<figure>
+<img src="https://s3.ax1x.com/2020/11/24/DtCMjI.jpg" alt="DtCMjI.jpg" /><figcaption aria-hidden="true">DtCMjI.jpg</figcaption>
+</figure>
 <p>添加的配置为archetypeCatalog=internal</p>
 <p>点击NEXT</p>
-<img src="https://s3.ax1x.com/2020/11/24/DtCGE8.jpg" alt="DtCGE8.jpg" style="zoom:67%;" />
-
+<p><img src="https://s3.ax1x.com/2020/11/24/DtCGE8.jpg" alt="DtCGE8.jpg" style="zoom:67%;" /></p>
 <p>点击NEXT</p>
-<img src="https://s3.ax1x.com/2020/11/24/DtClut.jpg" alt="DtClut.jpg" style="zoom:67%;" />
-
+<p><img src="https://s3.ax1x.com/2020/11/24/DtClut.jpg" alt="DtClut.jpg" style="zoom:67%;" /></p>
 <p>点击Finish后项目开始创建在右下角查看进度</p>
-<p><img src="https://s3.ax1x.com/2020/11/24/DtC3Hf.jpg" alt="DtC3Hf.jpg"></p>
-<h1 id="maven-web模板项目结构介绍"><a href="#maven-web模板项目结构介绍" class="headerlink" title="maven web模板项目结构介绍"></a>maven web模板项目结构介绍</h1><p><img src="https://s3.ax1x.com/2020/11/24/DtC1DP.jpg" alt="DtC1DP.jpg"></p>
-<p><img src="https://s3.ax1x.com/2020/11/24/DtC0uq.jpg" alt="DtC0uq.jpg"></p>
-<p><img src="https://s3.ax1x.com/2020/11/24/DtCdvn.jpg" alt="DtCdvn.jpg"></p>
+<figure>
+<img src="https://s3.ax1x.com/2020/11/24/DtC3Hf.jpg" alt="DtC3Hf.jpg" /><figcaption aria-hidden="true">DtC3Hf.jpg</figcaption>
+</figure>
+<h1 id="maven-web模板项目结构介绍">maven web模板项目结构介绍</h1>
+<figure>
+<img src="https://s3.ax1x.com/2020/11/24/DtC1DP.jpg" alt="DtC1DP.jpg" /><figcaption aria-hidden="true">DtC1DP.jpg</figcaption>
+</figure>
+<figure>
+<img src="https://s3.ax1x.com/2020/11/24/DtC0uq.jpg" alt="DtC0uq.jpg" /><figcaption aria-hidden="true">DtC0uq.jpg</figcaption>
+</figure>
+<figure>
+<img src="https://s3.ax1x.com/2020/11/24/DtCdvn.jpg" alt="DtCdvn.jpg" /><figcaption aria-hidden="true">DtCdvn.jpg</figcaption>
+</figure>
 <p>同样在main下新建test测试文件夹，再在此文件下下新建java测试源码文件夹和resource测试资源文件加夹。</p>
-<p><img src="https://s3.ax1x.com/2020/11/24/DtCNCQ.jpg" alt="DtCNCQ.jpg"></p>
+<figure>
+<img src="https://s3.ax1x.com/2020/11/24/DtCNCQ.jpg" alt="DtCNCQ.jpg" /><figcaption aria-hidden="true">DtCNCQ.jpg</figcaption>
+</figure>
 <p>也可以右键项目-选择Open Module Settings打开项目配置页面更改</p>
-<img src="https://s3.ax1x.com/2020/11/24/DtCU3j.jpg" alt="DtCU3j.jpg" style="zoom:67%;" />
-
+<p><img src="https://s3.ax1x.com/2020/11/24/DtCU3j.jpg" alt="DtCU3j.jpg" style="zoom:67%;" /></p>
 <p>配置依赖jar包</p>
-<img src="https://s3.ax1x.com/2020/11/24/DtCags.jpg" alt="DtCags.jpg" style="zoom:67%;" />
-
+<p><img src="https://s3.ax1x.com/2020/11/24/DtCags.jpg" alt="DtCags.jpg" style="zoom:67%;" /></p>
 <p>以后需要什么jar包就可以直接导入依赖，如果不知道版本，在<a target="_blank" rel="noopener" href="https://mvnrepository.com/">点击这里</a>搜索需要的Jar包，以下是导入步骤</p>
-<img src="https://s3.ax1x.com/2020/12/13/reQNQg.jpg" alt="reQNQg.jpg" style="zoom:67%;" />
-
-<img src="https://s3.ax1x.com/2020/12/13/reQtSS.jpg" alt="reQtSS.jpg" style="zoom:67%;" />
-
-<img src="https://s3.ax1x.com/2020/12/13/reQJW8.jpg" alt="reQJW8.jpg" style="zoom:67%;" />
-
-<p><img src="https://s3.ax1x.com/2020/12/13/reQUyQ.jpg" alt="reQUyQ.jpg"></p>
+<p><img src="https://s3.ax1x.com/2020/12/13/reQNQg.jpg" alt="reQNQg.jpg" style="zoom:67%;" /></p>
+<p><img src="https://s3.ax1x.com/2020/12/13/reQtSS.jpg" alt="reQtSS.jpg" style="zoom:67%;" /></p>
+<p><img src="https://s3.ax1x.com/2020/12/13/reQJW8.jpg" alt="reQJW8.jpg" style="zoom:67%;" /></p>
+<figure>
+<img src="https://s3.ax1x.com/2020/12/13/reQUyQ.jpg" alt="reQUyQ.jpg" /><figcaption aria-hidden="true">reQUyQ.jpg</figcaption>
+</figure>
 
     </div>
 

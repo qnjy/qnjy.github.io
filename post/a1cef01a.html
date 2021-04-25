@@ -218,7 +218,7 @@
       <div class="sidebar-panel-container">
         <!--noindex-->
         <section class="post-toc-wrap sidebar-panel">
-            <div class="post-toc animated"><ol class="nav"><li class="nav-item nav-level-1"><a class="nav-link" href="#1-%E4%B8%8B%E8%BD%BD%E5%AE%89%E8%A3%85jdk"><span class="nav-text">1.下载安装jdk</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#2-%E9%85%8D%E7%BD%AE%E7%8E%AF%E5%A2%83%E5%8F%98%E9%87%8F"><span class="nav-text">2.配置环境变量</span></a></li></ol></div>
+            <div class="post-toc animated"><ol class="nav"><li class="nav-item nav-level-1"><a class="nav-link" href="#%E4%B8%8B%E8%BD%BD%E5%AE%89%E8%A3%85jdk"><span class="nav-text">1.下载安装jdk</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#%E9%85%8D%E7%BD%AE%E7%8E%AF%E5%A2%83%E5%8F%98%E9%87%8F"><span class="nav-text">2.配置环境变量</span></a></li></ol></div>
         </section>
         <!--/noindex-->
 
@@ -363,24 +363,39 @@
     
     <div class="post-body" itemprop="articleBody">
         <p>　　网上有很多java的配置，但是总结在这里，以后就不用再去搜索了<a id="more"></a></p>
-<h1 id="1-下载安装jdk"><a href="#1-下载安装jdk" class="headerlink" title="1.下载安装jdk"></a>1.下载安装jdk</h1><p><a target="_blank" rel="noopener" href="https://www.oracle.com/java/technologies/javase-downloads.html">https://www.oracle.com/java/technologies/javase-downloads.html</a></p>
-<h1 id="2-配置环境变量"><a href="#2-配置环境变量" class="headerlink" title="2.配置环境变量"></a>2.配置环境变量</h1><p>1.在电脑桌面 右键点击 “此电脑”的“属性”选项<!--more--></p>
-<p><img src="https://s3.ax1x.com/2020/11/15/DityHH.jpg" alt="DityHH.jpg"></p>
+<h1 id="下载安装jdk">1.下载安装jdk</h1>
+<p>https://www.oracle.com/java/technologies/javase-downloads.html</p>
+<h1 id="配置环境变量">2.配置环境变量</h1>
+<p>1.在电脑桌面 右键点击 “此电脑”的“属性”选项<!--more--></p>
+<figure>
+<img src="https://s3.ax1x.com/2020/11/15/DityHH.jpg" alt="DityHH.jpg" /><figcaption aria-hidden="true">DityHH.jpg</figcaption>
+</figure>
 <p>2.选择“高级系统设置”</p>
-<img src="https://s3.ax1x.com/2020/11/15/DitruD.jpg" alt="DitruD.jpg" style="zoom:67%;" />
-
+<p><img src="https://s3.ax1x.com/2020/11/15/DitruD.jpg" alt="DitruD.jpg" style="zoom:67%;" /></p>
 <p>3.点击下面的“环境变量”</p>
-<p><img src="https://s3.ax1x.com/2020/11/15/DitBjO.jpg" alt="DitBjO.jpg"></p>
+<figure>
+<img src="https://s3.ax1x.com/2020/11/15/DitBjO.jpg" alt="DitBjO.jpg" /><figcaption aria-hidden="true">DitBjO.jpg</figcaption>
+</figure>
 <p>4.点击“系统变量”下面的”新建“选项</p>
-<p><img src="https://s3.ax1x.com/2020/11/15/Dit24I.jpg" alt="Dit24I.jpg"></p>
+<figure>
+<img src="https://s3.ax1x.com/2020/11/15/Dit24I.jpg" alt="Dit24I.jpg" /><figcaption aria-hidden="true">Dit24I.jpg</figcaption>
+</figure>
 <p>5.在”变量名“处填上”Java_Home“，在“变量值”文本框输入JDK的安装路径</p>
-<p><img src="https://s3.ax1x.com/2020/11/15/DitgUA.jpg" alt="DitgUA.jpg"></p>
-<p>6.在上一级“系统变量”中查看PATH变量，在“变量值”文本框的起始位置添加“%JAVA_HOME%\bin;%JAVA_HOME%\jre\bin;”</p>
-<p><img src="https://s3.ax1x.com/2020/11/15/DitWCt.jpg" alt="DitWCt.jpg"></p>
-<p>7.在上一级“系统变量”中查看CLASSPATH 变量，若无则新建变量CLASSPATH，在“变量值”文本框添加“.;%JAVA_HOME%\lib\dt.jar;%JAVA_HOME%\lib\tools.jar;”</p>
-<p><img src="https://s3.ax1x.com/2020/11/15/DitcEd.jpg" alt="DitcEd.jpg"></p>
+<figure>
+<img src="https://s3.ax1x.com/2020/11/15/DitgUA.jpg" alt="DitgUA.jpg" /><figcaption aria-hidden="true">DitgUA.jpg</figcaption>
+</figure>
+<p>6.在上一级“系统变量”中查看PATH变量，在“变量值”文本框的起始位置添加“%JAVA_HOME%;%JAVA_HOME%;”</p>
+<figure>
+<img src="https://s3.ax1x.com/2020/11/15/DitWCt.jpg" alt="DitWCt.jpg" /><figcaption aria-hidden="true">DitWCt.jpg</figcaption>
+</figure>
+<p>7.在上一级“系统变量”中查看CLASSPATH 变量，若无则新建变量CLASSPATH，在“变量值”文本框添加“.;%JAVA_HOME%.jar;%JAVA_HOME%.jar;”</p>
+<figure>
+<img src="https://s3.ax1x.com/2020/11/15/DitcEd.jpg" alt="DitcEd.jpg" /><figcaption aria-hidden="true">DitcEd.jpg</figcaption>
+</figure>
 <p>8.最后再dos命令窗口中输入javac</p>
-<p><img src="https://s3.ax1x.com/2020/11/15/DitsDe.jpg" alt="DitsDe.jpg"></p>
+<figure>
+<img src="https://s3.ax1x.com/2020/11/15/DitsDe.jpg" alt="DitsDe.jpg" /><figcaption aria-hidden="true">DitsDe.jpg</figcaption>
+</figure>
 
     </div>
 
