@@ -4,7 +4,7 @@
   <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=2">
 <meta name="theme-color" content="#222">
-<meta name="generator" content="Hexo 5.2.0">
+<meta name="generator" content="Hexo 5.4.0">
 
 
   <link rel="apple-touch-icon" sizes="180x180" href="/images/apple-touch-icon-next.png">
@@ -211,7 +211,7 @@
       <div class="sidebar-panel-container">
         <!--noindex-->
         <section class="post-toc-wrap sidebar-panel">
-            <div class="post-toc animated"><ol class="nav"><li class="nav-item nav-level-1"><a class="nav-link" href="#%E4%BB%80%E4%B9%88%E6%98%AFcsrf"><span class="nav-text">1.什么是CSRF</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#csrf%E5%8F%AF%E4%BB%A5%E5%81%9A%E4%BA%9B%E4%BB%80%E4%B9%88"><span class="nav-text">2.CSRF可以做些什么</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#csrf%E5%8E%9F%E7%90%86"><span class="nav-text">3.CSRF原理</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#csrf%E6%94%BB%E5%87%BB%E7%B1%BB%E5%9E%8B"><span class="nav-text">4.CSRF攻击类型</span></a><ol class="nav-child"><li class="nav-item nav-level-2"><a class="nav-link" href="#get%E7%B1%BB%E5%9E%8B%E7%9A%84csrf"><span class="nav-text">4.1 GET类型的CSRF</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#post%E7%B1%BB%E5%9E%8B%E7%9A%84csrf"><span class="nav-text">4.2 POST类型的CSRF</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#%E9%93%BE%E6%8E%A5%E7%B1%BB%E5%9E%8B%E7%9A%84csrf"><span class="nav-text">4.3 链接类型的CSRF</span></a></li></ol></li><li class="nav-item nav-level-1"><a class="nav-link" href="#csrf%E7%9A%84%E7%89%B9%E7%82%B9"><span class="nav-text">5.CSRF的特点</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#%E9%98%B2%E6%8A%A4%E6%8E%AA%E6%96%BD"><span class="nav-text">6.防护措施</span></a><ol class="nav-child"><li class="nav-item nav-level-2"><a class="nav-link" href="#%E9%AA%8C%E8%AF%81http-referer%E5%AD%97%E6%AE%B5"><span class="nav-text">6.1 验证HTTP Referer字段</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#%E4%BD%BF%E7%94%A8tokenanti-csrf-token"><span class="nav-text">6.2 使用token（Anti CSRF Token）</span></a></li></ol></li></ol></div>
+            <div class="post-toc animated"><ol class="nav"><li class="nav-item nav-level-1"><a class="nav-link" href="#1-%E4%BB%80%E4%B9%88%E6%98%AFCSRF"><span class="nav-text">1.什么是CSRF</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#2-CSRF%E5%8F%AF%E4%BB%A5%E5%81%9A%E4%BA%9B%E4%BB%80%E4%B9%88"><span class="nav-text">2.CSRF可以做些什么</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#3-CSRF%E5%8E%9F%E7%90%86"><span class="nav-text">3.CSRF原理</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#4-CSRF%E6%94%BB%E5%87%BB%E7%B1%BB%E5%9E%8B"><span class="nav-text">4.CSRF攻击类型</span></a><ol class="nav-child"><li class="nav-item nav-level-2"><a class="nav-link" href="#4-1-GET%E7%B1%BB%E5%9E%8B%E7%9A%84CSRF"><span class="nav-text">4.1 GET类型的CSRF</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#4-2-POST%E7%B1%BB%E5%9E%8B%E7%9A%84CSRF"><span class="nav-text">4.2 POST类型的CSRF</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#4-3-%E9%93%BE%E6%8E%A5%E7%B1%BB%E5%9E%8B%E7%9A%84CSRF"><span class="nav-text">4.3 链接类型的CSRF</span></a></li></ol></li><li class="nav-item nav-level-1"><a class="nav-link" href="#5-CSRF%E7%9A%84%E7%89%B9%E7%82%B9"><span class="nav-text">5.CSRF的特点</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#6-%E9%98%B2%E6%8A%A4%E6%8E%AA%E6%96%BD"><span class="nav-text">6.防护措施</span></a><ol class="nav-child"><li class="nav-item nav-level-2"><a class="nav-link" href="#6-1-%E9%AA%8C%E8%AF%81HTTP-Referer%E5%AD%97%E6%AE%B5"><span class="nav-text">6.1 验证HTTP Referer字段</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#6-2-%E4%BD%BF%E7%94%A8token%EF%BC%88Anti-CSRF-Token%EF%BC%89"><span class="nav-text">6.2 使用token（Anti CSRF Token）</span></a></li></ol></li></ol></div>
         </section>
         <!--/noindex-->
 
@@ -355,55 +355,40 @@
     
     
     <div class="post-body" itemprop="articleBody">
-        <p>　　学习了这部分之后，我感觉之前qq空间链接的那种盗号方式，应该就是这个原理<a id="more"></a></p>
-<h1 id="什么是csrf">1.什么是CSRF</h1>
-<p>　　跨站请求伪造（Cross-site request forgery，CSRF），也被称为one click attack/session riding，通常缩写是CSRF/XSRF。</p>
-<h1 id="csrf可以做些什么">2.CSRF可以做些什么</h1>
-<p>　　可以简单理解为：<font color="ff0000">攻击者盗用了你的身份，以你的名义发送恶意请求</font>，它利用网站对用户网页浏览器的信任。如：转移资金、修改电子邮件地址、密码。</p>
-<h1 id="csrf原理">3.CSRF原理</h1>
-<p>　　<font color="ff0000">受害者 Bob 在银行有一笔存款，通过对银行的网站发送请求 http://bank.example/withdraw?account=bob&amp;amount=1000000&amp;for=bob2 可以使 Bob 把 1000000 的存款转到 bob2 的账号下。通常情况下，该请求发送到网站后，服务器会先验证该请求是否来自一个合法的 session，并且该 session 的用户 Bob 已经成功登陆。</font></p>
-<p>　　<font color="ff0000">黑客 Mallory 自己在该银行也有账户，他知道上文中的 URL 可以把钱进行转帐操作。Mallory 可以自己发送一个请求给银行：http://bank.example/withdraw?account=bob&amp;amount=1000000&amp;for=Mallory。但是这个请求来自 Mallory 而非 Bob，他不能通过安全认证，因此该请求不会起作用。</font></p>
-<p>　　<font color="ff0000">这时，Mallory 想到使用 CSRF 的攻击方式，他先自己做一个网站，在网站中放入如下代码： src=”http://bank.example/withdraw?account=bob&amp;amount=1000000&amp;for=Mallory ”，并且通过广告等诱使 Bob 来访问他的网站。当 Bob 访问该网站时，上述 url 就会从 Bob 的浏览器发向银行，而这个请求会附带 Bob 浏览器中的 cookie 一起发向银行服务器。大多数情况下，该请求会失败，因为他要求 Bob 的认证信息。但是，如果 Bob 当时恰巧刚访问他的银行后不久，他的浏览器与银行网站之间的 session 尚未过期，浏览器的 cookie 之中含有 Bob 的认证信息。这时，悲剧发生了，这个 url 请求就会得到响应，钱将从 Bob 的账号转移到 Mallory 的账号，而 Bob 当时毫不知情。等以后 Bob 发现账户钱少了，即使他去银行查询日志，他也只能发现确实有一个来自于他本人的合法请求转移了资金，没有任何被攻击的痕迹。而 Mallory 则可以拿到钱后逍遥法外。 </font></p>
-<figure>
-<img src="https://s3.ax1x.com/2021/01/11/s1xb59.png" alt="s1xb59.png" /><figcaption aria-hidden="true">s1xb59.png</figcaption>
-</figure>
+        <p>　　学习了这部分之后，我感觉之前qq空间链接的那种盗号方式，应该就是这个原理<span id="more"></span></p>
+<h1 id="1-什么是CSRF"><a href="#1-什么是CSRF" class="headerlink" title="1.什么是CSRF"></a>1.什么是CSRF</h1><p>　　跨站请求伪造（Cross-site request forgery，CSRF），也被称为one click attack/session riding，通常缩写是CSRF/XSRF。</p>
+<h1 id="2-CSRF可以做些什么"><a href="#2-CSRF可以做些什么" class="headerlink" title="2.CSRF可以做些什么"></a>2.CSRF可以做些什么</h1><p>　　可以简单理解为：<font color="ff0000">攻击者盗用了你的身份，以你的名义发送恶意请求</font>，它利用网站对用户网页浏览器的信任。如：转移资金、修改电子邮件地址、密码。    </p>
+<h1 id="3-CSRF原理"><a href="#3-CSRF原理" class="headerlink" title="3.CSRF原理"></a>3.CSRF原理</h1><p>　　<font color="ff0000">受害者 Bob 在银行有一笔存款，通过对银行的网站发送请求 <a target="_blank" rel="noopener" href="http://bank.example/withdraw?account=bob&amp;amount=1000000&amp;for=bob2">http://bank.example/withdraw?account=bob&amp;amount=1000000&amp;for=bob2</a> 可以使 Bob 把 1000000 的存款转到 bob2 的账号下。通常情况下，该请求发送到网站后，服务器会先验证该请求是否来自一个合法的 session，并且该 session 的用户 Bob 已经成功登陆。</font></p>
+<p>　　<font color="ff0000">黑客 Mallory 自己在该银行也有账户，他知道上文中的 URL 可以把钱进行转帐操作。Mallory 可以自己发送一个请求给银行：<a target="_blank" rel="noopener" href="http://bank.example/withdraw?account=bob&amp;amount=1000000&amp;for=Mallory。但是这个请求来自">http://bank.example/withdraw?account=bob&amp;amount=1000000&amp;for=Mallory。但是这个请求来自</a> Mallory 而非 Bob，他不能通过安全认证，因此该请求不会起作用。</font></p>
+<p>　　<font color="ff0000">这时，Mallory 想到使用 CSRF 的攻击方式，他先自己做一个网站，在网站中放入如下代码： src=”<a target="_blank" rel="noopener" href="http://bank.example/withdraw?account=bob&amp;amount=1000000&amp;for=Mallory">http://bank.example/withdraw?account=bob&amp;amount=1000000&amp;for=Mallory</a> ”，并且通过广告等诱使 Bob 来访问他的网站。当 Bob 访问该网站时，上述 url 就会从 Bob 的浏览器发向银行，而这个请求会附带 Bob 浏览器中的 cookie 一起发向银行服务器。大多数情况下，该请求会失败，因为他要求 Bob 的认证信息。但是，如果 Bob 当时恰巧刚访问他的银行后不久，他的浏览器与银行网站之间的 session 尚未过期，浏览器的 cookie 之中含有 Bob 的认证信息。这时，悲剧发生了，这个 url 请求就会得到响应，钱将从 Bob 的账号转移到 Mallory 的账号，而 Bob 当时毫不知情。等以后 Bob 发现账户钱少了，即使他去银行查询日志，他也只能发现确实有一个来自于他本人的合法请求转移了资金，没有任何被攻击的痕迹。而 Mallory 则可以拿到钱后逍遥法外。 </font></p>
+<p><img src="https://s3.ax1x.com/2021/01/11/s1xb59.png" alt="s1xb59.png"></p>
 <figure class="highlight angelscript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><span class="line"><span class="number">1.</span>Bob打开浏览器，访问受信任银行网站，输入用户名和密码请求登录网站；</span><br><span class="line"><span class="number">2.</span>在Bob信息通过验证后，银行网站产生Cookie信息并返回给浏览器，此时Bob登录网站成功，可以正常发送请求到网站；</span><br><span class="line"><span class="number">3.</span>Bob未退出银行网站之前，在同一浏览器中，打开一个TAB页访问其他网站B</span><br><span class="line"><span class="number">4.</span>这时候网站B 已被黑客注入诱导信息，加入是一张图片,图片地址指向</span><br><span class="line">   src=”http:<span class="comment">//bank.example/withdraw?account=bob&amp;amount=1000000&amp;for=hacker</span></span><br><span class="line">  点击之后转账给黑客这个账户</span><br><span class="line"><span class="number">5.</span>浏览器在接收到这些攻击性代码请求后，根据网站B的请求，在Bob不知情的情况下携带Cookie信息，根据用户的Cookie信息以Bob的权限处理该请求，导致来自黑客请求恶意代码被执行。 </span><br></pre></td></tr></table></figure>
-<h1 id="csrf攻击类型">4.CSRF攻击类型</h1>
-<h2 id="get类型的csrf">4.1 GET类型的CSRF</h2>
-<p>GET类型的CSRF利用非常简单，只需要HTTP请求，一般这样利用：</p>
+<h1 id="4-CSRF攻击类型"><a href="#4-CSRF攻击类型" class="headerlink" title="4.CSRF攻击类型"></a>4.CSRF攻击类型</h1><h2 id="4-1-GET类型的CSRF"><a href="#4-1-GET类型的CSRF" class="headerlink" title="4.1 GET类型的CSRF"></a>4.1 GET类型的CSRF</h2><p>GET类型的CSRF利用非常简单，只需要HTTP请求，一般这样利用：</p>
 <figure class="highlight awk"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">![](https:<span class="regexp">//</span>awps-assets.meituan.net<span class="regexp">/mit-x/</span>blog-images-bundle-<span class="number">2018</span>b<span class="regexp">/ff0cdbee.example/</span>withdraw?amount=<span class="number">10000</span>&amp;<span class="keyword">for</span>=hacker)</span><br></pre></td></tr></table></figure>
 <p>在受害者访问含有这个img的页面后，浏览器会自动向<code>http://bank.example/withdraw?account=xiaoming&amp;amount=10000&amp;for=hacker</code>发出一次HTTP请求。bank.example就会收到包含受害者登录信息的一次跨域请求。</p>
-<h2 id="post类型的csrf">4.2 POST类型的CSRF</h2>
-<p>这种类型的CSRF利用起来通常使用的是一个自动提交的表单，如：</p>
+<h2 id="4-2-POST类型的CSRF"><a href="#4-2-POST类型的CSRF" class="headerlink" title="4.2 POST类型的CSRF"></a>4.2 POST类型的CSRF</h2><p>这种类型的CSRF利用起来通常使用的是一个自动提交的表单，如：</p>
 <figure class="highlight"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><span class="line"> &lt;form action=<span class="string">&quot;http://bank.example/withdraw&quot;</span> method=POST&gt;</span><br><span class="line">    &lt;input type=<span class="string">&quot;hidden&quot;</span> name=<span class="string">&quot;account&quot;</span> value=<span class="string">&quot;xiaoming&quot;</span> /&gt;</span><br><span class="line">    &lt;input type=<span class="string">&quot;hidden&quot;</span> name=<span class="string">&quot;amount&quot;</span> value=<span class="string">&quot;10000&quot;</span> /&gt;</span><br><span class="line">    &lt;input type=<span class="string">&quot;hidden&quot;</span> name=<span class="string">&quot;for&quot;</span> value=<span class="string">&quot;hacker&quot;</span> /&gt;</span><br><span class="line">&lt;/form&gt;</span><br><span class="line">&lt;!--自动提交表单--&gt;</span><br><span class="line">&lt;script&gt; document.forms[0].submit(); &lt;/script&gt; </span><br></pre></td></tr></table></figure>
 <p>访问该页面后，表单会自动提交，相当于模拟用户完成了一次POST操作。POST类型的攻击通常比GET要求更加严格一点，但扔并不复杂。任何个人网站、博客，被黑客上传页面的往回走哪都有可能是发起攻击的来源。</p>
-<h2 id="链接类型的csrf">4.3 链接类型的CSRF</h2>
-<p>这种需要用户点击链接才会触发。这种类型通常是杂论坛中发布的图片中嵌入恶意链接，或者以广告的形式诱导用户中招，例如：</p>
+<h2 id="4-3-链接类型的CSRF"><a href="#4-3-链接类型的CSRF" class="headerlink" title="4.3 链接类型的CSRF"></a>4.3 链接类型的CSRF</h2><p>这种需要用户点击链接才会触发。这种类型通常是杂论坛中发布的图片中嵌入恶意链接，或者以广告的形式诱导用户中招，例如：</p>
 <figure class="highlight php"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">&lt;a href=<span class="string">&quot;http://test.com/csrf/withdraw.php?amount=1000&amp;for=hacker&quot;</span> taget=<span class="string">&quot;_blank&quot;</span>&gt;</span><br><span class="line">  重磅消息！！</span><br><span class="line">  &lt;a/&gt;</span><br></pre></td></tr></table></figure>
 <p>由于之前用户登陆的信任的网站A，并且保存登录状态，只要用户主动访问上面的这个PHP页面，就表示攻击成功。</p>
-<h1 id="csrf的特点">5.CSRF的特点</h1>
-<ul>
+<h1 id="5-CSRF的特点"><a href="#5-CSRF的特点" class="headerlink" title="5.CSRF的特点"></a>5.CSRF的特点</h1><ul>
 <li>攻击一般发起在第三方网站，而不是被攻击的网站。</li>
 <li>攻击利用受害者在被攻击网站的登陆凭证，冒充受害者提交操作。</li>
 <li>整个过程攻击者并不能获取到受害者的登陆凭证，仅仅是冒用。</li>
 </ul>
-<h1 id="防护措施">6.防护措施</h1>
-<h2 id="验证http-referer字段">6.1 验证HTTP Referer字段</h2>
-<p>HTTP头中有一个Referer的字段，它记录了该HTTP请求的来源网址</p>
-<figure>
-<img src="https://s3.ax1x.com/2021/01/11/s1xHUJ.png" alt="s1xHUJ.png" /><figcaption aria-hidden="true">s1xHUJ.png</figcaption>
-</figure>
+<h1 id="6-防护措施"><a href="#6-防护措施" class="headerlink" title="6.防护措施"></a>6.防护措施</h1><h2 id="6-1-验证HTTP-Referer字段"><a href="#6-1-验证HTTP-Referer字段" class="headerlink" title="6.1 验证HTTP Referer字段"></a>6.1 验证HTTP Referer字段</h2><p>HTTP头中有一个Referer的字段，它记录了该HTTP请求的来源网址</p>
+<p><img src="https://s3.ax1x.com/2021/01/11/s1xHUJ.png" alt="s1xHUJ.png"></p>
 <p>　　也就是说，服务器会验证客户端的请求来源，如果是本网站请求的就响应，否则不响应。</p>
 <p>　　正如上文所提到的，Bob必须登录银行网站，通过页面上的按钮触发转账事件。当用户提交请求时，该转账请求的Referer值就会是转账按钮所在页面的URL。黑客只能在自己网站构造请求，当用户通过攻击者的网站发送请求到银行时，该请求的Referer是指向黑客的网站。所以不能响应。</p>
 <p>但是这种方式仍然<font color="ff000">存在安全隐患</font></p>
 <figure class="highlight angelscript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line"><span class="number">1.</span>对于某些浏览器，比如IE6或FF2，目前已经有一些方法可以篡改Referer值</span><br><span class="line"><span class="number">2.</span>用户自己可以这只浏览器使其请求时不再提供Referer</span><br></pre></td></tr></table></figure>
-<h2 id="使用tokenanti-csrf-token">6.2 使用token（Anti CSRF Token）</h2>
-<p>可以理解为防伪</p>
+<h2 id="6-2-使用token（Anti-CSRF-Token）"><a href="#6-2-使用token（Anti-CSRF-Token）" class="headerlink" title="6.2 使用token（Anti CSRF Token）"></a>6.2 使用token（Anti CSRF Token）</h2><p>可以理解为防伪</p>
 <p>例子：</p>
 <p>1.用户访问某个表单页面。</p>
 <p>2.服务端生成一个Token，放在用户的Session中，或者浏览器的Cookie中。</p>
 <p>3.在页面表单附带上Token参数。</p>
-<p>4.用户提交请求后， 服务端验证表单中的Token是否与用户Session（或Cookies）中的 Token一致，一致为合法请求，不是则非法请求。</p>
+<p>4.用户提交请求后， 服务端验证表单中的Token是否与用户Session（或Cookies）中的      Token一致，一致为合法请求，不是则非法请求。</p>
 <p>　　这个Token的值必须是随机的。由于Token的存在，攻击者无法再构造一个带有合法Token的请求实施CSRF攻击。另外使用Token时应注意Token的保密性，尽量把敏感操作由GET改为<code>POST</code>，以form或AJAX形式提交，避免Token泄露。</p>
 
     </div>

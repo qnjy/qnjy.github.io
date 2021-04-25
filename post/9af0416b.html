@@ -4,7 +4,7 @@
   <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=2">
 <meta name="theme-color" content="#222">
-<meta name="generator" content="Hexo 5.2.0">
+<meta name="generator" content="Hexo 5.4.0">
 
 
   <link rel="apple-touch-icon" sizes="180x180" href="/images/apple-touch-icon-next.png">
@@ -24,12 +24,12 @@
     var CONFIG = {"hostname":"qnjy.github.io","root":"/","images":"/images","scheme":"Gemini","version":"8.0.2","exturl":false,"sidebar":{"position":"left","display":"post","padding":18,"offset":12},"copycode":true,"bookmark":{"enable":true,"color":"#222","save":"auto"},"fancybox":false,"mediumzoom":false,"lazyload":false,"pangu":false,"comments":{"style":"tabs","active":null,"storage":true,"lazyload":false,"nav":null},"motion":{"enable":true,"async":false,"transition":{"post_block":"fadeIn","post_header":"fadeInDown","post_body":"fadeInDown","coll_header":"fadeInLeft","sidebar":"fadeInUp"}},"prism":false,"i18n":{"placeholder":"搜索...","empty":"没有找到任何搜索结果：${query}","hits_time":"找到 ${hits} 个搜索结果（用时 ${time} 毫秒）","hits":"找到 ${hits} 个搜索结果"},"path":"/search.xml","localsearch":{"enable":true,"trigger":"auto","top_n_per_article":1,"unescape":false,"preload":false}};
   </script>
 
-  <meta name="description" content="1 orm思想 　　就是相当于操作实体类就是操作数据库表，需要先建立两个映射关系（实体类和表、实体类中的属性和表中字段），实现了orm思想的框架：mybatis、hibernate">
+  <meta name="description" content="1 orm思想　　就是相当于操作实体类就是操作数据库表，需要先建立两个映射关系（实体类和表、实体类中的属性和表中字段），实现了orm思想的框架：mybatis、hibernate">
 <meta property="og:type" content="article">
 <meta property="og:title" content="JPA框架学习">
 <meta property="og:url" content="https://qnjy.github.io/post/9af0416b.html">
 <meta property="og:site_name" content="qnjy&#39;s blog">
-<meta property="og:description" content="1 orm思想 　　就是相当于操作实体类就是操作数据库表，需要先建立两个映射关系（实体类和表、实体类中的属性和表中字段），实现了orm思想的框架：mybatis、hibernate">
+<meta property="og:description" content="1 orm思想　　就是相当于操作实体类就是操作数据库表，需要先建立两个映射关系（实体类和表、实体类中的属性和表中字段），实现了orm思想的框架：mybatis、hibernate">
 <meta property="og:locale" content="zh_CN">
 <meta property="article:published_time" content="2021-03-08T12:47:18.000Z">
 <meta property="article:modified_time" content="2021-03-29T00:26:09.667Z">
@@ -207,7 +207,7 @@
       <div class="sidebar-panel-container">
         <!--noindex-->
         <section class="post-toc-wrap sidebar-panel">
-            <div class="post-toc animated"><ol class="nav"><li class="nav-item nav-level-1"><a class="nav-link" href="#orm%E6%80%9D%E6%83%B3"><span class="nav-text">1 orm思想</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#hibernate%E6%A1%86%E6%9E%B6%E4%BB%8B%E7%BB%8D"><span class="nav-text">2 Hibernate框架介绍</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#jpa%E8%A7%84%E8%8C%83"><span class="nav-text">3 JPA规范</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#%E4%BB%A3%E7%A0%81%E5%AE%9E%E6%88%98"><span class="nav-text">4 代码实战</span></a><ol class="nav-child"><li class="nav-item nav-level-2"><a class="nav-link" href="#maven%E4%BE%9D%E8%B5%96"><span class="nav-text">4.1 maven依赖</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#xml%E9%85%8D%E7%BD%AE"><span class="nav-text">4.2 XML配置</span></a></li></ol></li><li class="nav-item nav-level-1"><a class="nav-link" href="#%E4%BA%94-jpa%E6%B3%A8%E8%A7%A3"><span class="nav-text">五 JPA注解</span></a></li></ol></div>
+            <div class="post-toc animated"><ol class="nav"><li class="nav-item nav-level-1"><a class="nav-link" href="#1-orm%E6%80%9D%E6%83%B3"><span class="nav-text">1 orm思想</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#2-Hibernate%E6%A1%86%E6%9E%B6%E4%BB%8B%E7%BB%8D"><span class="nav-text">2 Hibernate框架介绍</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#3-JPA%E8%A7%84%E8%8C%83"><span class="nav-text">3 JPA规范</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#4-%E4%BB%A3%E7%A0%81%E5%AE%9E%E6%88%98"><span class="nav-text">4 代码实战</span></a><ol class="nav-child"><li class="nav-item nav-level-2"><a class="nav-link" href="#4-1-maven%E4%BE%9D%E8%B5%96"><span class="nav-text">4.1 maven依赖</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#4-2-XML%E9%85%8D%E7%BD%AE"><span class="nav-text">4.2 XML配置</span></a></li></ol></li><li class="nav-item nav-level-1"><a class="nav-link" href="#%E4%BA%94-JPA%E6%B3%A8%E8%A7%A3"><span class="nav-text">五 JPA注解</span></a></li></ol></div>
         </section>
         <!--/noindex-->
 
@@ -342,68 +342,58 @@
     
     
     <div class="post-body" itemprop="articleBody">
-        <h1 id="orm思想">1 orm思想</h1>
-<p>　　就是相当于操作实体类就是操作数据库表，需要先建立两个映射关系（实体类和表、实体类中的属性和表中字段），实现了orm思想的框架：mybatis、hibernate<a id="more"></a></p>
-<h1 id="hibernate框架介绍">2 Hibernate框架介绍</h1>
-<p>　　Hibernate是一个开放源代码的对象关系映射框架，它对JDBC进行了非常轻量级的对象封装，他将POJO与数据库表建立映射关系，是一个全自动的ORM框架</p>
-<h1 id="jpa规范">3 JPA规范</h1>
-<p>　　内部是由接口和抽象类组成</p>
-<h1 id="代码实战">4 代码实战</h1>
-<h2 id="maven依赖">4.1 maven依赖</h2>
-<figure class="highlight xml"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line"><span class="tag">&lt;<span class="name">dependency</span>&gt;</span></span><br><span class="line">    <span class="tag">&lt;<span class="name">groupId</span>&gt;</span>org.springframework.boot<span class="tag">&lt;/<span class="name">groupId</span>&gt;</span></span><br><span class="line">    <span class="tag">&lt;<span class="name">artifactId</span>&gt;</span>spring-boot-starter-data-jpa<span class="tag">&lt;/<span class="name">artifactId</span>&gt;</span></span><br><span class="line"><span class="tag">&lt;/<span class="name">dependency</span>&gt;</span></span><br></pre></td></tr></table></figure>
-<h2 id="xml配置">4.2 XML配置</h2>
-<figure class="highlight xml"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta">&lt;?xml version=&quot;1.0&quot; encoding=&quot;UTF-8&quot;?&gt;</span></span><br><span class="line"><span class="tag">&lt;<span class="name">persistence</span> <span class="attr">xmlns</span>=<span class="string">&quot;http://java.sun.com/xml/ns/persistence&quot;</span> <span class="attr">version</span>=<span class="string">&quot;2.0&quot;</span>&gt;</span></span><br><span class="line"></span><br><span class="line">    <span class="comment">&lt;!--需要配置persistence-unit节点</span></span><br><span class="line"><span class="comment">        持久化单元</span></span><br><span class="line"><span class="comment">            name：持久化单元名称</span></span><br><span class="line"><span class="comment">            transaction-type：事务管理方式--&gt;</span></span><br><span class="line">    <span class="tag">&lt;<span class="name">persistence-unit</span> <span class="attr">name</span>=<span class="string">&quot;myJpa&quot;</span> <span class="attr">transaction-type</span>=<span class="string">&quot;RESOURCE_LOCAL&quot;</span>&gt;</span></span><br><span class="line"></span><br><span class="line">        <span class="comment">&lt;!--JPA的实现方式--&gt;</span></span><br><span class="line">        <span class="tag">&lt;<span class="name">provider</span>&gt;</span>org.hibernate.jpa.HibernatePersistenceProvider<span class="tag">&lt;/<span class="name">provider</span>&gt;</span></span><br><span class="line"></span><br><span class="line">        <span class="comment">&lt;!--可选配置：配置JPA实现方式的配置信息--&gt;</span></span><br><span class="line">        <span class="tag">&lt;<span class="name">properties</span>&gt;</span></span><br><span class="line">            <span class="comment">&lt;!--数据库信息</span></span><br><span class="line"><span class="comment">                    1.用户名       javax.persistence.jdbc.user</span></span><br><span class="line"><span class="comment">                    2.密码         javax.persistence.jdbc.password</span></span><br><span class="line"><span class="comment">                    3.驱动         javax.persistence.jdbc.driver</span></span><br><span class="line"><span class="comment">                    4.数据库地址   javax.persistence.jdbc.url --&gt;</span></span><br><span class="line">            <span class="tag">&lt;<span class="name">property</span> <span class="attr">name</span>=<span class="string">&quot;javax.persistence.jdbc.user&quot;</span> <span class="attr">value</span>=<span class="string">&quot;root&quot;</span>/&gt;</span></span><br><span class="line">            <span class="tag">&lt;<span class="name">property</span> <span class="attr">name</span>=<span class="string">&quot;javax.persistence.jdbc.password&quot;</span> <span class="attr">value</span>=<span class="string">&quot;root&quot;</span>/&gt;</span></span><br><span class="line">            <span class="tag">&lt;<span class="name">property</span> <span class="attr">name</span>=<span class="string">&quot;javax.persistence.jdbc.driver&quot;</span> <span class="attr">value</span>=<span class="string">&quot;com.mysql.cj.jdbc.Driver&quot;</span>/&gt;</span></span><br><span class="line">            <span class="tag">&lt;<span class="name">property</span> <span class="attr">name</span>=<span class="string">&quot;javax.persistence.jdbc.url&quot;</span> <span class="attr">value</span>=<span class="string">&quot;jdbc:mysql:///jpa&quot;</span>/&gt;</span></span><br><span class="line"></span><br><span class="line">            <span class="comment">&lt;!--配置JPA实现方（hibernate）的配置信息</span></span><br><span class="line"><span class="comment">                    显示sql   false|true</span></span><br><span class="line"><span class="comment">                    自动创建数据库表    hibernate.hbm2ddl.auto</span></span><br><span class="line"><span class="comment">                        create      此程序运行时创建数据库表（如果有表，删除表在创建）</span></span><br><span class="line"><span class="comment">                        update      程序运行时创建表（有表就不会创建）</span></span><br><span class="line"><span class="comment">                        none        不创建表--&gt;</span></span><br><span class="line">            <span class="tag">&lt;<span class="name">property</span> <span class="attr">name</span>=<span class="string">&quot;hibernate.show_sql&quot;</span> <span class="attr">value</span>=<span class="string">&quot;true&quot;</span>/&gt;</span></span><br><span class="line">            <span class="tag">&lt;<span class="name">property</span> <span class="attr">name</span>=<span class="string">&quot;hibernate.hbm2ddl.auto&quot;</span> <span class="attr">value</span>=<span class="string">&quot;create&quot;</span>/&gt;</span></span><br><span class="line"></span><br><span class="line">        <span class="tag">&lt;/<span class="name">properties</span>&gt;</span></span><br><span class="line"></span><br><span class="line">    <span class="tag">&lt;/<span class="name">persistence-unit</span>&gt;</span></span><br><span class="line"></span><br><span class="line"><span class="tag">&lt;/<span class="name">persistence</span>&gt;</span></span><br></pre></td></tr></table></figure>
-<h1 id="五-jpa注解">五 JPA注解</h1>
+        <h1 id="1-orm思想"><a href="#1-orm思想" class="headerlink" title="1 orm思想"></a>1 orm思想</h1><p>　　就是相当于操作实体类就是操作数据库表，需要先建立两个映射关系（实体类和表、实体类中的属性和表中字段），实现了orm思想的框架：mybatis、hibernate<span id="more"></span></p>
+<h1 id="2-Hibernate框架介绍"><a href="#2-Hibernate框架介绍" class="headerlink" title="2 Hibernate框架介绍"></a>2 Hibernate框架介绍</h1><p>　　Hibernate是一个开放源代码的对象关系映射框架，它对JDBC进行了非常轻量级的对象封装，他将POJO与数据库表建立映射关系，是一个全自动的ORM框架</p>
+<h1 id="3-JPA规范"><a href="#3-JPA规范" class="headerlink" title="3 JPA规范"></a>3 JPA规范</h1><p>　　内部是由接口和抽象类组成</p>
+<h1 id="4-代码实战"><a href="#4-代码实战" class="headerlink" title="4 代码实战"></a>4 代码实战</h1><h2 id="4-1-maven依赖"><a href="#4-1-maven依赖" class="headerlink" title="4.1 maven依赖"></a>4.1 maven依赖</h2><figure class="highlight xml"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line"><span class="tag">&lt;<span class="name">dependency</span>&gt;</span></span><br><span class="line">    <span class="tag">&lt;<span class="name">groupId</span>&gt;</span>org.springframework.boot<span class="tag">&lt;/<span class="name">groupId</span>&gt;</span></span><br><span class="line">    <span class="tag">&lt;<span class="name">artifactId</span>&gt;</span>spring-boot-starter-data-jpa<span class="tag">&lt;/<span class="name">artifactId</span>&gt;</span></span><br><span class="line"><span class="tag">&lt;/<span class="name">dependency</span>&gt;</span></span><br></pre></td></tr></table></figure>
+<h2 id="4-2-XML配置"><a href="#4-2-XML配置" class="headerlink" title="4.2 XML配置"></a>4.2 XML配置</h2><figure class="highlight xml"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta">&lt;?xml version=&quot;1.0&quot; encoding=&quot;UTF-8&quot;?&gt;</span></span><br><span class="line"><span class="tag">&lt;<span class="name">persistence</span> <span class="attr">xmlns</span>=<span class="string">&quot;http://java.sun.com/xml/ns/persistence&quot;</span> <span class="attr">version</span>=<span class="string">&quot;2.0&quot;</span>&gt;</span></span><br><span class="line"></span><br><span class="line">    <span class="comment">&lt;!--需要配置persistence-unit节点</span></span><br><span class="line"><span class="comment">        持久化单元</span></span><br><span class="line"><span class="comment">            name：持久化单元名称</span></span><br><span class="line"><span class="comment">            transaction-type：事务管理方式--&gt;</span></span><br><span class="line">    <span class="tag">&lt;<span class="name">persistence-unit</span> <span class="attr">name</span>=<span class="string">&quot;myJpa&quot;</span> <span class="attr">transaction-type</span>=<span class="string">&quot;RESOURCE_LOCAL&quot;</span>&gt;</span></span><br><span class="line"></span><br><span class="line">        <span class="comment">&lt;!--JPA的实现方式--&gt;</span></span><br><span class="line">        <span class="tag">&lt;<span class="name">provider</span>&gt;</span>org.hibernate.jpa.HibernatePersistenceProvider<span class="tag">&lt;/<span class="name">provider</span>&gt;</span></span><br><span class="line"></span><br><span class="line">        <span class="comment">&lt;!--可选配置：配置JPA实现方式的配置信息--&gt;</span></span><br><span class="line">        <span class="tag">&lt;<span class="name">properties</span>&gt;</span></span><br><span class="line">            <span class="comment">&lt;!--数据库信息</span></span><br><span class="line"><span class="comment">                    1.用户名       javax.persistence.jdbc.user</span></span><br><span class="line"><span class="comment">                    2.密码         javax.persistence.jdbc.password</span></span><br><span class="line"><span class="comment">                    3.驱动         javax.persistence.jdbc.driver</span></span><br><span class="line"><span class="comment">                    4.数据库地址   javax.persistence.jdbc.url --&gt;</span></span><br><span class="line">            <span class="tag">&lt;<span class="name">property</span> <span class="attr">name</span>=<span class="string">&quot;javax.persistence.jdbc.user&quot;</span> <span class="attr">value</span>=<span class="string">&quot;root&quot;</span>/&gt;</span></span><br><span class="line">            <span class="tag">&lt;<span class="name">property</span> <span class="attr">name</span>=<span class="string">&quot;javax.persistence.jdbc.password&quot;</span> <span class="attr">value</span>=<span class="string">&quot;root&quot;</span>/&gt;</span></span><br><span class="line">            <span class="tag">&lt;<span class="name">property</span> <span class="attr">name</span>=<span class="string">&quot;javax.persistence.jdbc.driver&quot;</span> <span class="attr">value</span>=<span class="string">&quot;com.mysql.cj.jdbc.Driver&quot;</span>/&gt;</span></span><br><span class="line">            <span class="tag">&lt;<span class="name">property</span> <span class="attr">name</span>=<span class="string">&quot;javax.persistence.jdbc.url&quot;</span> <span class="attr">value</span>=<span class="string">&quot;jdbc:mysql:///jpa&quot;</span>/&gt;</span></span><br><span class="line"></span><br><span class="line">            <span class="comment">&lt;!--配置JPA实现方（hibernate）的配置信息</span></span><br><span class="line"><span class="comment">                    显示sql   false|true</span></span><br><span class="line"><span class="comment">                    自动创建数据库表    hibernate.hbm2ddl.auto</span></span><br><span class="line"><span class="comment">                        create      此程序运行时创建数据库表（如果有表，删除表在创建）</span></span><br><span class="line"><span class="comment">                        update      程序运行时创建表（有表就不会创建）</span></span><br><span class="line"><span class="comment">                        none        不创建表--&gt;</span></span><br><span class="line">            <span class="tag">&lt;<span class="name">property</span> <span class="attr">name</span>=<span class="string">&quot;hibernate.show_sql&quot;</span> <span class="attr">value</span>=<span class="string">&quot;true&quot;</span>/&gt;</span></span><br><span class="line">            <span class="tag">&lt;<span class="name">property</span> <span class="attr">name</span>=<span class="string">&quot;hibernate.hbm2ddl.auto&quot;</span> <span class="attr">value</span>=<span class="string">&quot;create&quot;</span>/&gt;</span></span><br><span class="line"></span><br><span class="line">        <span class="tag">&lt;/<span class="name">properties</span>&gt;</span></span><br><span class="line"></span><br><span class="line">    <span class="tag">&lt;/<span class="name">persistence-unit</span>&gt;</span></span><br><span class="line"></span><br><span class="line"><span class="tag">&lt;/<span class="name">persistence</span>&gt;</span></span><br></pre></td></tr></table></figure>
+<h1 id="五-JPA注解"><a href="#五-JPA注解" class="headerlink" title="五 JPA注解"></a>五 JPA注解</h1><div class="table-container">
 <table>
-<colgroup>
-<col style="width: 20%" />
-<col style="width: 80%" />
-</colgroup>
 <thead>
-<tr class="header">
+<tr>
 <th>注解</th>
 <th>解释</th>
 </tr>
 </thead>
 <tbody>
-<tr class="odd">
-<td><span class="citation" data-cites="Entity">@Entity</span></td>
+<tr>
+<td>@Entity</td>
 <td>声明类为实体或表</td>
 </tr>
-<tr class="even">
-<td><span class="citation" data-cites="Table">@Table</span></td>
+<tr>
+<td>@Table</td>
 <td>声明表名</td>
 </tr>
-<tr class="odd">
-<td><span class="citation" data-cites="Basic">@Basic</span></td>
+<tr>
+<td>@Basic</td>
 <td>指定非约束明确的各个字段</td>
 </tr>
-<tr class="even">
-<td><span class="citation" data-cites="Embedded">@Embedded</span></td>
+<tr>
+<td>@Embedded</td>
 <td></td>
 </tr>
-<tr class="odd">
-<td><span class="citation" data-cites="GeneratedValue">@GeneratedValue</span></td>
+<tr>
+<td>@GeneratedValue</td>
 <td>配置主键生成策略（IDENTITY自增，SEQUENCE序列，TABLE通过数据库表的形式完成自增，AUTO自动选择）</td>
 </tr>
-<tr class="even">
-<td><span class="citation" data-cites="Column">@Column</span></td>
+<tr>
+<td>@Column</td>
 <td>配置属性和字段的映射关系</td>
 </tr>
-<tr class="odd">
+<tr>
 <td></td>
 <td></td>
 </tr>
-<tr class="even">
+<tr>
 <td></td>
 <td></td>
 </tr>
-<tr class="odd">
-<td></td>
+<tr>
 <td></td>
 </tr>
 </tbody>
 </table>
+</div>
 
     </div>
 

@@ -4,7 +4,7 @@
   <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=2">
 <meta name="theme-color" content="#222">
-<meta name="generator" content="Hexo 5.2.0">
+<meta name="generator" content="Hexo 5.4.0">
 
 
   <link rel="apple-touch-icon" sizes="180x180" href="/images/apple-touch-icon-next.png">
@@ -24,12 +24,12 @@
     var CONFIG = {"hostname":"qnjy.github.io","root":"/","images":"/images","scheme":"Gemini","version":"8.0.2","exturl":false,"sidebar":{"position":"left","display":"post","padding":18,"offset":12},"copycode":true,"bookmark":{"enable":true,"color":"#222","save":"auto"},"fancybox":false,"mediumzoom":false,"lazyload":false,"pangu":false,"comments":{"style":"tabs","active":null,"storage":true,"lazyload":false,"nav":null},"motion":{"enable":true,"async":false,"transition":{"post_block":"fadeIn","post_header":"fadeInDown","post_body":"fadeInDown","coll_header":"fadeInLeft","sidebar":"fadeInUp"}},"prism":false,"i18n":{"placeholder":"搜索...","empty":"没有找到任何搜索结果：${query}","hits_time":"找到 ${hits} 个搜索结果（用时 ${time} 毫秒）","hits":"找到 ${hits} 个搜索结果"},"path":"/search.xml","localsearch":{"enable":true,"trigger":"auto","top_n_per_article":1,"unescape":false,"preload":false}};
   </script>
 
-  <meta name="description" content="第一章 1.1 三层架构          架构层 作用 对应的包 对应的处理框架     界面层 和用户打交道的，接受用户的请求参数，显示处理结果（jsp，html，servlet） controller包（servlet） springmvc   业务逻辑层 接受了界面层传递的数据，计算逻辑，调用数据库，获取数据 service包（XXXS">
+  <meta name="description" content="第一章1.1 三层架构    架构层 作用 对应的包 对应的处理框架     界面层 和用户打交道的，接受用户的请求参数，显示处理结果（jsp，html，servlet） controller包（servlet） springmvc   业务逻辑层 接受了界面层传递的数据，计算逻辑，调用数据库，获取数据 service包（XXXService类） spring   数据访问层 访问数据库，执行对数">
 <meta property="og:type" content="article">
 <meta property="og:title" content="MyBatis框架">
 <meta property="og:url" content="https://qnjy.github.io/post/669b9acc.html">
 <meta property="og:site_name" content="qnjy&#39;s blog">
-<meta property="og:description" content="第一章 1.1 三层架构          架构层 作用 对应的包 对应的处理框架     界面层 和用户打交道的，接受用户的请求参数，显示处理结果（jsp，html，servlet） controller包（servlet） springmvc   业务逻辑层 接受了界面层传递的数据，计算逻辑，调用数据库，获取数据 service包（XXXS">
+<meta property="og:description" content="第一章1.1 三层架构    架构层 作用 对应的包 对应的处理框架     界面层 和用户打交道的，接受用户的请求参数，显示处理结果（jsp，html，servlet） controller包（servlet） springmvc   业务逻辑层 接受了界面层传递的数据，计算逻辑，调用数据库，获取数据 service包（XXXService类） spring   数据访问层 访问数据库，执行对数">
 <meta property="og:locale" content="zh_CN">
 <meta property="article:published_time" content="2021-03-04T09:09:59.000Z">
 <meta property="article:modified_time" content="2021-04-19T14:27:38.433Z">
@@ -207,7 +207,7 @@
       <div class="sidebar-panel-container">
         <!--noindex-->
         <section class="post-toc-wrap sidebar-panel">
-            <div class="post-toc animated"><ol class="nav"><li class="nav-item nav-level-1"><a class="nav-link" href="#%E7%AC%AC%E4%B8%80%E7%AB%A0"><span class="nav-text">第一章</span></a><ol class="nav-child"><li class="nav-item nav-level-2"><a class="nav-link" href="#%E4%B8%89%E5%B1%82%E6%9E%B6%E6%9E%84"><span class="nav-text">1.1 三层架构</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#jdbc%E7%BC%96%E7%A8%8B"><span class="nav-text">1.2 JDBC编程</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#jdbc%E7%BC%96%E7%A8%8B%E7%9A%84%E5%9B%9E%E9%A1%BE"><span class="nav-text">1.2.1 JDBC编程的回顾</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#%E4%BD%BF%E7%94%A8jdbc%E7%9A%84%E7%BC%BA%E9%99%B7"><span class="nav-text">1.2.2 使用JDBC的缺陷</span></a></li></ol></li></ol></li></ol></div>
+            <div class="post-toc animated"><ol class="nav"><li class="nav-item nav-level-1"><a class="nav-link" href="#%E7%AC%AC%E4%B8%80%E7%AB%A0"><span class="nav-text">第一章</span></a><ol class="nav-child"><li class="nav-item nav-level-2"><a class="nav-link" href="#1-1-%E4%B8%89%E5%B1%82%E6%9E%B6%E6%9E%84"><span class="nav-text">1.1 三层架构</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#1-2-2-%E4%BD%BF%E7%94%A8JDBC%E7%9A%84%E7%BC%BA%E9%99%B7"><span class="nav-text">1.2.2 使用JDBC的缺陷</span></a></li></ol></li></ol></li></ol></div>
         </section>
         <!--/noindex-->
 
@@ -342,51 +342,46 @@
     
     
     <div class="post-body" itemprop="articleBody">
-        <h1 id="第一章">第一章</h1>
-<h2 id="三层架构">1.1 三层架构</h2>
+        <h1 id="第一章"><a href="#第一章" class="headerlink" title="第一章"></a>第一章</h1><h2 id="1-1-三层架构"><a href="#1-1-三层架构" class="headerlink" title="1.1 三层架构"></a>1.1 三层架构</h2><div class="table-container">
 <table>
-<colgroup>
-<col style="width: 9%" />
-<col style="width: 55%" />
-<col style="width: 22%" />
-<col style="width: 12%" />
-</colgroup>
 <thead>
-<tr class="header">
+<tr>
 <th>架构层</th>
-<th style="text-align: left;">作用</th>
+<th style="text-align:left">作用</th>
 <th>对应的包</th>
 <th>对应的处理框架</th>
 </tr>
 </thead>
 <tbody>
-<tr class="odd">
+<tr>
 <td>界面层</td>
-<td style="text-align: left;">和用户打交道的，接受用户的请求参数，显示处理结果（jsp，html，servlet）</td>
+<td style="text-align:left">和用户打交道的，接受用户的请求参数，显示处理结果（jsp，html，servlet）</td>
 <td>controller包（servlet）</td>
 <td>springmvc</td>
 </tr>
-<tr class="even">
+<tr>
 <td>业务逻辑层</td>
-<td style="text-align: left;">接受了界面层传递的数据，计算逻辑，调用数据库，获取数据</td>
+<td style="text-align:left">接受了界面层传递的数据，计算逻辑，调用数据库，获取数据</td>
 <td>service包（XXXService类）</td>
 <td>spring</td>
 </tr>
-<tr class="odd">
+<tr>
 <td>数据访问层</td>
-<td style="text-align: left;">访问数据库，执行对数据的查询，修改，删除等的等等</td>
+<td style="text-align:left">访问数据库，执行对数据的查询，修改，删除等的等等</td>
 <td>dao包（XXXDao）</td>
 <td>mybatis</td>
 </tr>
 </tbody>
 </table>
-<a id="more"></a>
-<p>三层中类的交互：用户使用界面层--&gt;业务逻辑层--&gt;数据访问层（持久层）--&gt;数据库（mysql）</p>
-<h2 id="jdbc编程">1.2 JDBC编程</h2>
-<h3 id="jdbc编程的回顾">1.2.1 JDBC编程的回顾</h3>
+</div>
+<span id="more"></span>三层中类的交互：用户使用界面层-->业务逻辑层-->数据访问层（持久层）-->数据库（mysql）
+
+## 1.2 JDBC编程
+
+### 1.2.1 JDBC编程的回顾
+
 <figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br><span class="line">44</span><br><span class="line">45</span><br><span class="line">46</span><br><span class="line">47</span><br></pre></td><td class="code"><pre><span class="line"><span class="function"><span class="keyword">public</span> <span class="keyword">void</span> <span class="title">fidStudent</span><span class="params">()</span></span>&#123;</span><br><span class="line">    Connection conn = <span class="keyword">null</span>;</span><br><span class="line">    Statement stmt = <span class="keyword">null</span>;</span><br><span class="line">    ResultSet rs = <span class="keyword">null</span>;</span><br><span class="line">    <span class="keyword">try</span>&#123;</span><br><span class="line">        <span class="comment">//注册mysql驱动</span></span><br><span class="line">        Class.forName(<span class="string">&quot;com.mysql.jdbc.Driver&quot;</span>);</span><br><span class="line">        <span class="comment">//连接数据库的基本信息url，username，password</span></span><br><span class="line">        String url = <span class="string">&quot;jdbc:mysql://localhost:3306/springdb&quot;</span>;</span><br><span class="line">        String username = <span class="string">&quot;root&quot;</span>;</span><br><span class="line">        String password = <span class="string">&quot;root&quot;</span>;</span><br><span class="line">        <span class="comment">//创建连接对象</span></span><br><span class="line">        conn = DriverManager.getConnection(url,username,password);</span><br><span class="line">        <span class="comment">//保存查询结果</span></span><br><span class="line">        List&lt;Student&gt; stuList = <span class="keyword">new</span> ArrayList&lt;&gt;();</span><br><span class="line">        <span class="comment">//创建Statement，用来执行sql语句</span></span><br><span class="line">        stmt = conn.createStatement();</span><br><span class="line">        <span class="comment">//执行查询，创建记录集</span></span><br><span class="line">        rs = stmt.executeQuery(<span class="string">&quot;select * from student&quot;</span>);</span><br><span class="line">        <span class="keyword">while</span>(rs.next())&#123;</span><br><span class="line">            Student stu = <span class="keyword">new</span> Student();</span><br><span class="line">            stu.setId(rs.getInt(<span class="string">&quot;id&quot;</span>));</span><br><span class="line">            stu.setName(rs.getString(<span class="string">&quot;name&quot;</span>));</span><br><span class="line">            <span class="comment">//从数据库取出数据转为Student对象，封装到List集合</span></span><br><span class="line">            stuList.add(stu);</span><br><span class="line">        &#125;</span><br><span class="line">    &#125;<span class="keyword">catch</span>(Exception e)&#123;</span><br><span class="line">        e.printStackTrace();</span><br><span class="line">    &#125;<span class="keyword">finally</span>&#123;</span><br><span class="line">        <span class="keyword">try</span>&#123;</span><br><span class="line">            <span class="comment">//关闭资源</span></span><br><span class="line">            <span class="keyword">if</span>(rs != <span class="keyword">null</span>)&#123;</span><br><span class="line">                rs.close();</span><br><span class="line">            &#125;</span><br><span class="line"></span><br><span class="line">            <span class="keyword">if</span>(stmt != <span class="keyword">null</span>)&#123;</span><br><span class="line">                stmt.close();</span><br><span class="line">            &#125;</span><br><span class="line"></span><br><span class="line">            <span class="keyword">if</span>(conn != <span class="keyword">null</span>)&#123;</span><br><span class="line">                conn.close();</span><br><span class="line">            &#125;</span><br><span class="line">        &#125;<span class="keyword">catch</span>(Exception e)&#123;</span><br><span class="line">            e.printStackTrace();</span><br><span class="line">        &#125;</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
-<h3 id="使用jdbc的缺陷">1.2.2 使用JDBC的缺陷</h3>
-<p>1.代码比较多，开发效率低</p>
+<h3 id="1-2-2-使用JDBC的缺陷"><a href="#1-2-2-使用JDBC的缺陷" class="headerlink" title="1.2.2 使用JDBC的缺陷"></a>1.2.2 使用JDBC的缺陷</h3><p>1.代码比较多，开发效率低</p>
 <p>2.需要关注Connection，Statement，ResultSet对象的创建和销毁</p>
 <p>3.对ResultSet查询的结果，需要自己封装为List</p>
 <p>4.代码重复高</p>

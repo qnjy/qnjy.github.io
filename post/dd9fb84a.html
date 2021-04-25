@@ -4,7 +4,7 @@
   <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=2">
 <meta name="theme-color" content="#222">
-<meta name="generator" content="Hexo 5.2.0">
+<meta name="generator" content="Hexo 5.4.0">
 
 
   <link rel="apple-touch-icon" sizes="180x180" href="/images/apple-touch-icon-next.png">
@@ -230,7 +230,7 @@
       <div class="sidebar-panel-container">
         <!--noindex-->
         <section class="post-toc-wrap sidebar-panel">
-            <div class="post-toc animated"><ol class="nav"><li class="nav-item nav-level-1"><a class="nav-link" href="#%E5%87%86%E5%A4%87"><span class="nav-text">1.准备</span></a><ol class="nav-child"><li class="nav-item nav-level-2"><a class="nav-link" href="#%E6%9B%B4%E6%94%B9%E5%90%84%E4%B8%BB%E6%9C%BA%E5%90%8D%E5%AD%97"><span class="nav-text">(1)更改各主机名字</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#%E5%BC%80%E5%90%AF%E4%B8%BB%E6%9C%BA%E7%9A%84dhcp%E6%A8%A1%E5%BC%8F%E8%87%AA%E5%8A%A8%E8%8E%B7%E5%8F%96ip%E5%9C%B0%E5%9D%80"><span class="nav-text">(2)开启主机的DHCP模式，自动获取ip地址</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#%E9%85%8D%E7%BD%AEhosts"><span class="nav-text">(3)配置hosts</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#%E5%9C%A8master%E8%8A%82%E7%82%B9%E4%B8%AD"><span class="nav-text">(4)在master节点中：</span></a></li></ol></li><li class="nav-item nav-level-1"><a class="nav-link" href="#jdk%E7%8E%AF%E5%A2%83%E5%AE%89%E8%A3%85"><span class="nav-text">2.JDK环境安装</span></a><ol class="nav-child"><li class="nav-item nav-level-2"><a class="nav-link" href="#%E6%96%B0%E5%BB%BA%E7%9B%AE%E5%BD%95%E6%94%BE%E8%87%B3jdk"><span class="nav-text">(1)新建目录放至JDK</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#%E8%A7%A3%E5%8E%8Bjdk"><span class="nav-text">(2)解压JDK</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#%E9%85%8D%E7%BD%AEjdk%E7%8E%AF%E5%A2%83%E5%8F%98%E9%87%8F"><span class="nav-text">(3)配置JDK环境变量</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#jdk%E6%8B%B7%E8%B4%9D%E5%88%B0%E5%85%B6%E4%BB%96%E8%8A%82%E7%82%B9"><span class="nav-text">(4)JDK拷贝到其他节点</span></a></li></ol></li><li class="nav-item nav-level-1"><a class="nav-link" href="#hadoop%E5%AE%89%E8%A3%85"><span class="nav-text">3.Hadoop安装</span></a><ol class="nav-child"><li class="nav-item nav-level-2"><a class="nav-link" href="#%E5%AE%89%E8%A3%85"><span class="nav-text">(1)安装</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#%E5%B0%86hadoop%E6%96%87%E4%BB%B6%E6%8B%B7%E8%B4%9D%E5%88%B0%E5%85%B6%E4%BB%96%E8%8A%82%E7%82%B9"><span class="nav-text">(2)将hadoop文件拷贝到其他节点</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#%E4%BF%AE%E6%94%B9%E9%85%8D%E7%BD%AE%E6%96%87%E4%BB%B6"><span class="nav-text">(3)修改配置文件</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#%E9%85%8D%E7%BD%AEhadoop%E7%8E%AF%E5%A2%83"><span class="nav-text">(4)配置hadoop环境</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#%E6%A3%80%E6%9F%A5hadoop%E6%90%AD%E5%BB%BA%E6%83%85%E5%86%B5"><span class="nav-text">(5)检查hadoop搭建情况</span></a></li></ol></li><li class="nav-item nav-level-1"><a class="nav-link" href="#hadoop%E8%BF%90%E8%A1%8C%E5%AE%9E%E4%BE%8B"><span class="nav-text">4.Hadoop运行实例</span></a></li></ol></div>
+            <div class="post-toc animated"><ol class="nav"><li class="nav-item nav-level-1"><a class="nav-link" href="#1-%E5%87%86%E5%A4%87"><span class="nav-text">1.准备</span></a><ol class="nav-child"><li class="nav-item nav-level-2"><a class="nav-link" href="#1-%E6%9B%B4%E6%94%B9%E5%90%84%E4%B8%BB%E6%9C%BA%E5%90%8D%E5%AD%97"><span class="nav-text">(1)更改各主机名字</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#2-%E5%BC%80%E5%90%AF%E4%B8%BB%E6%9C%BA%E7%9A%84DHCP%E6%A8%A1%E5%BC%8F%EF%BC%8C%E8%87%AA%E5%8A%A8%E8%8E%B7%E5%8F%96ip%E5%9C%B0%E5%9D%80"><span class="nav-text">(2)开启主机的DHCP模式，自动获取ip地址</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#3-%E9%85%8D%E7%BD%AEhosts"><span class="nav-text">(3)配置hosts</span></a></li></ol></li><li class="nav-item nav-level-1"><a class="nav-link" href="#master"><span class="nav-text">master</span></a><ol class="nav-child"><li class="nav-item nav-level-2"><a class="nav-link" href="#4-%E5%9C%A8master%E8%8A%82%E7%82%B9%E4%B8%AD%EF%BC%9A"><span class="nav-text">(4)在master节点中：</span></a></li></ol></li><li class="nav-item nav-level-1"><a class="nav-link" href="#2-JDK%E7%8E%AF%E5%A2%83%E5%AE%89%E8%A3%85"><span class="nav-text">2.JDK环境安装</span></a><ol class="nav-child"><li class="nav-item nav-level-2"><a class="nav-link" href="#1-%E6%96%B0%E5%BB%BA%E7%9B%AE%E5%BD%95%E6%94%BE%E8%87%B3JDK"><span class="nav-text">(1)新建目录放至JDK</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#2-%E8%A7%A3%E5%8E%8BJDK"><span class="nav-text">(2)解压JDK</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#3-%E9%85%8D%E7%BD%AEJDK%E7%8E%AF%E5%A2%83%E5%8F%98%E9%87%8F"><span class="nav-text">(3)配置JDK环境变量</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#4-JDK%E6%8B%B7%E8%B4%9D%E5%88%B0%E5%85%B6%E4%BB%96%E8%8A%82%E7%82%B9"><span class="nav-text">(4)JDK拷贝到其他节点</span></a></li></ol></li><li class="nav-item nav-level-1"><a class="nav-link" href="#3-Hadoop%E5%AE%89%E8%A3%85"><span class="nav-text">3.Hadoop安装</span></a><ol class="nav-child"><li class="nav-item nav-level-2"><a class="nav-link" href="#1-%E5%AE%89%E8%A3%85"><span class="nav-text">(1)安装</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#2-%E5%B0%86hadoop%E6%96%87%E4%BB%B6%E6%8B%B7%E8%B4%9D%E5%88%B0%E5%85%B6%E4%BB%96%E8%8A%82%E7%82%B9"><span class="nav-text">(2)将hadoop文件拷贝到其他节点</span></a></li></ol></li><li class="nav-item nav-level-1"><a class="nav-link" href="#master-1"><span class="nav-text">master</span></a><ol class="nav-child"><li class="nav-item nav-level-2"><a class="nav-link" href="#3-%E4%BF%AE%E6%94%B9%E9%85%8D%E7%BD%AE%E6%96%87%E4%BB%B6"><span class="nav-text">(3)修改配置文件</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#4-%E9%85%8D%E7%BD%AEhadoop%E7%8E%AF%E5%A2%83"><span class="nav-text">(4)配置hadoop环境</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#5-%E6%A3%80%E6%9F%A5hadoop%E6%90%AD%E5%BB%BA%E6%83%85%E5%86%B5"><span class="nav-text">(5)检查hadoop搭建情况</span></a></li></ol></li><li class="nav-item nav-level-1"><a class="nav-link" href="#4-Hadoop%E8%BF%90%E8%A1%8C%E5%AE%9E%E4%BE%8B"><span class="nav-text">4.Hadoop运行实例</span></a></li></ol></div>
         </section>
         <!--/noindex-->
 
@@ -374,119 +374,106 @@
     
     
     <div class="post-body" itemprop="articleBody">
-        <p>　　这个配置方法并不是很完善，，另外了些新的搭建方法，详情请见<a href="/post/4496e9f0.html" title="Hadoop集群环境搭建2">Hadoop集群环境搭建2</a><a id="more"></a></font></p>
-<h1 id="准备">1.准备</h1>
-<p>　　4台linux虚拟机（master、node1、node2、node3）安装过程不再赘述，提醒：在安装时候选择带GNOME桌面更加方便，也可以单独配置一台之后，克隆虚拟机，如果使用虚拟机克隆的方法搭建，参考一下文章</p>
-<p>https://blog.csdn.net/qq_44373783/article/details/103960578</p>
-<p>https://www.cnblogs.com/pcxie/p/7747317.html</p>
-<p>https://www.cnblogs.com/laov/p/3421479.html</p>
-<p>用到虚拟机克隆：https://blog.csdn.net/huanbia/article/details/51658439</p>
-<h2 id="更改各主机名字">(1)更改各主机名字</h2>
-<p>　　为了能够更方便的识别主机，将四台虚拟机的名字分别修改为master、node1、node2、node3</p>
+        <p>　　这个配置方法并不是很完善，，另外了些新的搭建方法，详情请见<a href="/post/4496e9f0.html" title="Hadoop集群环境搭建2">Hadoop集群环境搭建2</a><span id="more"></span>&lt;/font&gt;</p>
+<h1 id="1-准备"><a href="#1-准备" class="headerlink" title="1.准备"></a>1.准备</h1><p>　　4台linux虚拟机（master、node1、node2、node3）安装过程不再赘述，提醒：在安装时候选择带GNOME桌面更加方便，也可以单独配置一台之后，克隆虚拟机，如果使用虚拟机克隆的方法搭建，参考一下文章</p>
+<p><a target="_blank" rel="noopener" href="https://blog.csdn.net/qq_44373783/article/details/103960578">https://blog.csdn.net/qq_44373783/article/details/103960578</a></p>
+<p><a target="_blank" rel="noopener" href="https://www.cnblogs.com/pcxie/p/7747317.html">https://www.cnblogs.com/pcxie/p/7747317.html</a></p>
+<p><a target="_blank" rel="noopener" href="https://www.cnblogs.com/laov/p/3421479.html">https://www.cnblogs.com/laov/p/3421479.html</a></p>
+<p>用到虚拟机克隆：<a target="_blank" rel="noopener" href="https://blog.csdn.net/huanbia/article/details/51658439">https://blog.csdn.net/huanbia/article/details/51658439</a></p>
+<h2 id="1-更改各主机名字"><a href="#1-更改各主机名字" class="headerlink" title="(1)更改各主机名字"></a>(1)更改各主机名字</h2><p>　　为了能够更方便的识别主机，将四台虚拟机的名字分别修改为master、node1、node2、node3</p>
 <p>注意切换到root账户下</p>
 <figure class="highlight jboss-cli"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">cd</span> <span class="string">/etc</span> <span class="string">//</span>进入配置目录</span><br><span class="line"></span><br><span class="line">vi hostname  <span class="string">//</span>编程hostname配置文件</span><br></pre></td></tr></table></figure>
-<p><a target="_blank" rel="noopener" href="https://imgchr.com/i/DWSWuR"><img src="https://s3.ax1x.com/2020/11/30/DWSWuR.jpg" alt="DWSWuR.jpg" /></a></p>
-<p><a target="_blank" rel="noopener" href="https://imgchr.com/i/DWSfD1"><img src="https://s3.ax1x.com/2020/11/30/DWSfD1.jpg" alt="DWSfD1.jpg" /></a></p>
+<p><a target="_blank" rel="noopener" href="https://imgchr.com/i/DWSWuR"><img src="https://s3.ax1x.com/2020/11/30/DWSWuR.jpg" alt="DWSWuR.jpg"></a></p>
+<p><a target="_blank" rel="noopener" href="https://imgchr.com/i/DWSfD1"><img src="https://s3.ax1x.com/2020/11/30/DWSfD1.jpg" alt="DWSfD1.jpg"></a></p>
 <p>点击Esc，在:wq保存退出</p>
 <p>另外三个虚拟机同样操作</p>
-<h2 id="开启主机的dhcp模式自动获取ip地址">(2)开启主机的DHCP模式，自动获取ip地址</h2>
-<figure class="highlight awk"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">cd <span class="regexp">/etc/y</span>sconfig/network-scripts</span><br><span class="line">vi ifcfg-ens33</span><br></pre></td></tr></table></figure>
-<p><a target="_blank" rel="noopener" href="https://imgchr.com/i/DWS5E6"><img src="https://s3.ax1x.com/2020/11/30/DWS5E6.jpg" alt="DWS5E6.jpg" /></a></p>
-<p><a target="_blank" rel="noopener" href="https://imgchr.com/i/DWSxVP"><img src="https://s3.ax1x.com/2020/11/30/DWSxVP.jpg" alt="DWSxVP.jpg" /></a></p>
+<h2 id="2-开启主机的DHCP模式，自动获取ip地址"><a href="#2-开启主机的DHCP模式，自动获取ip地址" class="headerlink" title="(2)开启主机的DHCP模式，自动获取ip地址"></a>(2)开启主机的DHCP模式，自动获取ip地址</h2><figure class="highlight awk"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">cd <span class="regexp">/etc/y</span>sconfig/network-scripts</span><br><span class="line">vi ifcfg-ens33</span><br></pre></td></tr></table></figure>
+<p><a target="_blank" rel="noopener" href="https://imgchr.com/i/DWS5E6"><img src="https://s3.ax1x.com/2020/11/30/DWS5E6.jpg" alt="DWS5E6.jpg"></a></p>
+<p><a target="_blank" rel="noopener" href="https://imgchr.com/i/DWSxVP"><img src="https://s3.ax1x.com/2020/11/30/DWSxVP.jpg" alt="DWSxVP.jpg"></a></p>
 <p>重启网卡</p>
 <figure class="highlight routeros"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">service<span class="built_in"> network </span>restart</span><br></pre></td></tr></table></figure>
 <p>在四台虚拟机中分别进行以上操作</p>
 <p>之后输入ip addr，记下四个虚拟机的ip地址</p>
-<p><a target="_blank" rel="noopener" href="https://imgchr.com/i/DWSjbt"><img src="https://s3.ax1x.com/2020/11/30/DWSjbt.jpg" alt="DWSjbt.jpg" /></a></p>
+<p><a target="_blank" rel="noopener" href="https://imgchr.com/i/DWSjbt"><img src="https://s3.ax1x.com/2020/11/30/DWSjbt.jpg" alt="DWSjbt.jpg"></a></p>
+<div class="table-container">
 <table>
 <thead>
-<tr class="header">
+<tr>
 <th>主机名</th>
 <th>ip地址</th>
 </tr>
 </thead>
 <tbody>
-<tr class="odd">
+<tr>
 <td>master</td>
 <td>192.168.136.131</td>
 </tr>
-<tr class="even">
+<tr>
 <td>node1</td>
 <td>192.168.136.130</td>
 </tr>
-<tr class="odd">
+<tr>
 <td>node2</td>
 <td>192.168.136.129</td>
 </tr>
-<tr class="even">
+<tr>
 <td>node3</td>
 <td>192.168.136.132</td>
 </tr>
 </tbody>
 </table>
-<h2 id="配置hosts">(3)配置hosts</h2>
-<p>#master</p>
-<p>配置hosts主要是为了让机器能够相互识别</p>
+</div>
+<h2 id="3-配置hosts"><a href="#3-配置hosts" class="headerlink" title="(3)配置hosts"></a>(3)配置hosts</h2><h1 id="master"><a href="#master" class="headerlink" title="master"></a>master</h1><p>配置hosts主要是为了让机器能够相互识别</p>
 <p><em>注：hosts文件是域名分析文件，在hosts文件内配置了ip地址和主机名的对应关系，配置之后，通过主机名，电脑就可以定位到相应的ip地址</em></p>
 <figure class="highlight awk"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">vi <span class="regexp">/etc/</span>hosts</span><br></pre></td></tr></table></figure>
 <p>在hosts文件中输入一下内容：</p>
-<p><a target="_blank" rel="noopener" href="https://imgchr.com/i/DWSXDI"><img src="https://s3.ax1x.com/2020/11/30/DWSXDI.jpg" alt="DWSXDI.jpg" /></a></p>
-<h2 id="在master节点中">(4)在master节点中：</h2>
-<figure class="highlight ebnf"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line"><span class="attribute">ssh-keygen</span></span><br></pre></td></tr></table></figure>
+<p><a target="_blank" rel="noopener" href="https://imgchr.com/i/DWSXDI"><img src="https://s3.ax1x.com/2020/11/30/DWSXDI.jpg" alt="DWSXDI.jpg"></a></p>
+<h2 id="4-在master节点中："><a href="#4-在master节点中：" class="headerlink" title="(4)在master节点中："></a>(4)在master节点中：</h2><figure class="highlight ebnf"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line"><span class="attribute">ssh-keygen</span></span><br></pre></td></tr></table></figure>
 <p>ssh一路回车</p>
-<p><a target="_blank" rel="noopener" href="https://imgchr.com/i/DWSOKA"><img src="https://s3.ax1x.com/2020/11/30/DWSOKA.jpg" alt="DWSOKA.jpg" /></a></p>
+<p><a target="_blank" rel="noopener" href="https://imgchr.com/i/DWSOKA"><img src="https://s3.ax1x.com/2020/11/30/DWSOKA.jpg" alt="DWSOKA.jpg"></a></p>
 <p>使用如下命令将公钥复制到node1、node2和node3节点中：</p>
 <figure class="highlight applescript"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">ssh-<span class="keyword">copy</span>-<span class="built_in">id</span> root@node1</span><br></pre></td></tr></table></figure>
-<p><a target="_blank" rel="noopener" href="https://imgchr.com/i/DWSqvd"><img src="https://s3.ax1x.com/2020/11/30/DWSqvd.jpg" alt="DWSqvd.jpg" /></a></p>
+<p><a target="_blank" rel="noopener" href="https://imgchr.com/i/DWSqvd"><img src="https://s3.ax1x.com/2020/11/30/DWSqvd.jpg" alt="DWSqvd.jpg"></a></p>
 <p>再分别执行</p>
 <figure class="highlight applescript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">ssh-<span class="keyword">copy</span>-<span class="built_in">id</span> root@localhost</span><br><span class="line">ssh-<span class="keyword">copy</span>-<span class="built_in">id</span> root@node2</span><br><span class="line">ssh-<span class="keyword">copy</span>-<span class="built_in">id</span> root@node3</span><br></pre></td></tr></table></figure>
 <p>输入ssh node1实验是否能免密登陆</p>
 <p><em>注意：ssh免密设置后会在如下目录生成四个文件</em></p>
-<p><a target="_blank" rel="noopener" href="https://imgchr.com/i/DWSH8e"><img src="https://s3.ax1x.com/2020/11/30/DWSH8e.jpg" alt="DWSH8e.jpg" /></a></p>
-<h1 id="jdk环境安装">2.JDK环境安装</h1>
-<h2 id="新建目录放至jdk">(1)新建目录放至JDK</h2>
-<p>在master中新建目录/opt/bigdata/java</p>
+<p><a target="_blank" rel="noopener" href="https://imgchr.com/i/DWSH8e"><img src="https://s3.ax1x.com/2020/11/30/DWSH8e.jpg" alt="DWSH8e.jpg"></a></p>
+<h1 id="2-JDK环境安装"><a href="#2-JDK环境安装" class="headerlink" title="2.JDK环境安装"></a>2.JDK环境安装</h1><h2 id="1-新建目录放至JDK"><a href="#1-新建目录放至JDK" class="headerlink" title="(1)新建目录放至JDK"></a>(1)新建目录放至JDK</h2><p>在master中新建目录/opt/bigdata/java</p>
 <figure class="highlight awk"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">mkdir <span class="regexp">/opt/</span>bigdata/java</span><br></pre></td></tr></table></figure>
 <p>此目录下存放hadoop大数据所需要的环境包</p>
 <p>将下载好的JDK包上传至master主机中</p>
-<p><a target="_blank" rel="noopener" href="https://imgchr.com/i/DWSbgH"><img src="https://s3.ax1x.com/2020/11/30/DWSbgH.jpg" alt="DWSbgH.jpg" /></a></p>
-<h2 id="解压jdk">(2)解压JDK</h2>
-<figure class="highlight apache"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line"><span class="attribute">tar</span> -zxvf jdk-<span class="number">8</span>u<span class="number">131</span>-linux-x<span class="number">64</span>.tar.gz</span><br></pre></td></tr></table></figure>
-<p><a target="_blank" rel="noopener" href="https://imgchr.com/i/DWSo4O"><img src="https://s3.ax1x.com/2020/11/30/DWSo4O.jpg" alt="DWSo4O.jpg" /></a></p>
-<h2 id="配置jdk环境变量">(3)配置JDK环境变量</h2>
-<figure class="highlight awk"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">vi <span class="regexp">/etc/</span>profile</span><br></pre></td></tr></table></figure>
+<p><a target="_blank" rel="noopener" href="https://imgchr.com/i/DWSbgH"><img src="https://s3.ax1x.com/2020/11/30/DWSbgH.jpg" alt="DWSbgH.jpg"></a></p>
+<h2 id="2-解压JDK"><a href="#2-解压JDK" class="headerlink" title="(2)解压JDK"></a>(2)解压JDK</h2><figure class="highlight apache"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line"><span class="attribute">tar</span> -zxvf jdk-<span class="number">8</span>u<span class="number">131</span>-linux-x<span class="number">64</span>.tar.gz</span><br></pre></td></tr></table></figure>
+<p><a target="_blank" rel="noopener" href="https://imgchr.com/i/DWSo4O"><img src="https://s3.ax1x.com/2020/11/30/DWSo4O.jpg" alt="DWSo4O.jpg"></a></p>
+<h2 id="3-配置JDK环境变量"><a href="#3-配置JDK环境变量" class="headerlink" title="(3)配置JDK环境变量"></a>(3)配置JDK环境变量</h2><figure class="highlight awk"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">vi <span class="regexp">/etc/</span>profile</span><br></pre></td></tr></table></figure>
 <p>根据自己的路径在末尾添加以下内容</p>
 <figure class="highlight crystal"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">export JAVA_HOME=<span class="regexp">/opt/bigdata</span><span class="regexp">/java/jdk</span>1.<span class="number">8.0_131</span></span><br><span class="line">export CLASSPATH=.:$JAVA_HOME/<span class="class"><span class="keyword">lib</span>/<span class="title">dt</span>.<span class="title">jar</span>:$<span class="title">JAVA_HOME</span>/<span class="title">lib</span>/<span class="title">tools</span>.<span class="title">jar</span></span></span><br></pre></td></tr></table></figure>
-<p><a target="_blank" rel="noopener" href="https://imgchr.com/i/DfpjjH"><img src="https://s3.ax1x.com/2020/12/01/DfpjjH.jpg" alt="DfpjjH.jpg" /></a></p>
+<p><a target="_blank" rel="noopener" href="https://imgchr.com/i/DfpjjH"><img src="https://s3.ax1x.com/2020/12/01/DfpjjH.jpg" alt="DfpjjH.jpg"></a></p>
 <figure class="highlight routeros"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">source /etc/profile</span><br><span class="line">java -version #检验是否配置成功</span><br></pre></td></tr></table></figure>
-<p><a target="_blank" rel="noopener" href="https://imgchr.com/i/DfpghT"><img src="https://s3.ax1x.com/2020/12/01/DfpghT.jpg" alt="DfpghT.jpg" /></a></p>
-<h2 id="jdk拷贝到其他节点">(4)JDK拷贝到其他节点</h2>
-<p>在node1节点新建目录/opt/bigdata/java</p>
+<p><a target="_blank" rel="noopener" href="https://imgchr.com/i/DfpghT"><img src="https://s3.ax1x.com/2020/12/01/DfpghT.jpg" alt="DfpghT.jpg"></a></p>
+<h2 id="4-JDK拷贝到其他节点"><a href="#4-JDK拷贝到其他节点" class="headerlink" title="(4)JDK拷贝到其他节点"></a>(4)JDK拷贝到其他节点</h2><p>在node1节点新建目录/opt/bigdata/java</p>
 <figure class="highlight awk"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">mkdir <span class="regexp">/opt/</span>bigdata/java</span><br></pre></td></tr></table></figure>
 <p>然后在master节点下</p>
 <figure class="highlight elixir"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">scp -r /opt/bigdata/java/jdk1.<span class="number">8.0_131</span> root<span class="variable">@node1</span><span class="symbol">:/opt/bigdata/java</span></span><br></pre></td></tr></table></figure>
 <p>配置环境变量</p>
-<p><font color="ff0000">在其他节点进行类似操作</font></p>
-<h1 id="hadoop安装">3.Hadoop安装</h1>
-<h2 id="安装">(1)安装</h2>
-<figure class="highlight css"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line"><span class="selector-tag">tar</span> <span class="selector-tag">-zxvf</span> <span class="selector-tag">hadoop</span><span class="selector-class">.tar</span><span class="selector-class">.gz</span></span><br></pre></td></tr></table></figure>
-<h2 id="将hadoop文件拷贝到其他节点">(2)将hadoop文件拷贝到其他节点</h2>
-<p>#master</p>
-<figure class="highlight awk"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">scp -r <span class="regexp">/opt/</span>bigdata<span class="regexp">/hadoop-3.1.3/</span>etc<span class="regexp">/hadoop root@node1:/</span>opt<span class="regexp">/bigdata/</span>hadoop-<span class="number">3.1</span>.<span class="number">3</span><span class="regexp">/etc/</span>hadoop</span><br></pre></td></tr></table></figure>
+<font color="ff0000">在其他节点进行类似操作</font>
+
+<h1 id="3-Hadoop安装"><a href="#3-Hadoop安装" class="headerlink" title="3.Hadoop安装"></a>3.Hadoop安装</h1><h2 id="1-安装"><a href="#1-安装" class="headerlink" title="(1)安装"></a>(1)安装</h2><figure class="highlight css"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line"><span class="selector-tag">tar</span> <span class="selector-tag">-zxvf</span> <span class="selector-tag">hadoop</span><span class="selector-class">.tar</span><span class="selector-class">.gz</span></span><br></pre></td></tr></table></figure>
+<h2 id="2-将hadoop文件拷贝到其他节点"><a href="#2-将hadoop文件拷贝到其他节点" class="headerlink" title="(2)将hadoop文件拷贝到其他节点"></a>(2)将hadoop文件拷贝到其他节点</h2><h1 id="master-1"><a href="#master-1" class="headerlink" title="master"></a>master</h1><figure class="highlight awk"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">scp -r <span class="regexp">/opt/</span>bigdata<span class="regexp">/hadoop-3.1.3/</span>etc<span class="regexp">/hadoop root@node1:/</span>opt<span class="regexp">/bigdata/</span>hadoop-<span class="number">3.1</span>.<span class="number">3</span><span class="regexp">/etc/</span>hadoop</span><br></pre></td></tr></table></figure>
 <figure class="highlight elixir"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">scp -r /opt/bigdata/hadoop<span class="number">-3.1</span>.<span class="number">3</span> root<span class="variable">@node2</span><span class="symbol">:/opt/bigdata</span></span><br></pre></td></tr></table></figure>
 <figure class="highlight elixir"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">scp -r /opt/bigdata/hadoop<span class="number">-3.1</span>.<span class="number">3</span> root<span class="variable">@node3</span><span class="symbol">:/opt/bigdata</span></span><br></pre></td></tr></table></figure>
 <p>然后在node1、node2、node3中配置环境变量</p>
-<h2 id="修改配置文件">(3)修改配置文件</h2>
-<p>使用以下命令，进入目录</p>
+<h2 id="3-修改配置文件"><a href="#3-修改配置文件" class="headerlink" title="(3)修改配置文件"></a>(3)修改配置文件</h2><p>使用以下命令，进入目录</p>
 <figure class="highlight awk"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">cd <span class="regexp">/opt/</span>bigdata<span class="regexp">/hadoop-3.1.3/</span>etc/hadoop</span><br></pre></td></tr></table></figure>
-<p>我们需要 core-site.xml、hadoop-env.sh、hdfs-site.xml、mapred-site.xml进行配置</p>
+<p>我们需要  core-site.xml、hadoop-env.sh、hdfs-site.xml、mapred-site.xml进行配置</p>
 <p>1.配置hadoop-env.sh</p>
 <figure class="highlight vim"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">vi</span> hadoop-env.<span class="keyword">sh</span></span><br></pre></td></tr></table></figure>
 <p>查找JAVA_HOME配置的位置</p>
 <figure class="highlight elixir"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line"><span class="symbol">:/export</span> JAVA_HOME</span><br></pre></td></tr></table></figure>
 <p>输入JAVA_HOME的绝对路径</p>
 <p>export JAVA_HOME=/opt/bigdata/jdk1.8.0_131（把前面的#注释去掉）</p>
-<p><a target="_blank" rel="noopener" href="https://imgchr.com/i/Df9D2D"><img src="https://s3.ax1x.com/2020/12/01/Df9D2D.jpg" alt="Df9D2D.jpg" /></a></p>
+<p><a target="_blank" rel="noopener" href="https://imgchr.com/i/Df9D2D"><img src="https://s3.ax1x.com/2020/12/01/Df9D2D.jpg" alt="Df9D2D.jpg"></a></p>
 <p>2.配置core-site.xml</p>
 <p>3.配置hdfs-site.xml</p>
 <p>4.配置mapred-site.xml</p>
@@ -495,15 +482,13 @@
 <p>7.复制配置文件</p>
 <p>把master节点的配置复制到其他node节点</p>
 <figure class="highlight awk"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">scp <span class="regexp">/opt/</span>bigdata<span class="regexp">/hadoop-3.1.3/</span>etc<span class="regexp">/hadoop/</span>* node1:<span class="regexp">/opt/</span>bigdata<span class="regexp">/hadoop-3.1.3/</span>etc/hadoop</span><br><span class="line">scp <span class="regexp">/opt/</span>bigdata<span class="regexp">/hadoop-3.1.3/</span>etc<span class="regexp">/hadoop/</span>* node2:<span class="regexp">/opt/</span>bigdata<span class="regexp">/hadoop-3.1.3/</span>etc/hadoop</span><br><span class="line">scp <span class="regexp">/opt/</span>bigdata<span class="regexp">/hadoop-3.1.3/</span>etc<span class="regexp">/hadoop/</span>* node3:<span class="regexp">/opt/</span>bigdata<span class="regexp">/hadoop-3.1.3/</span>etc/hadoop</span><br></pre></td></tr></table></figure>
-<h2 id="配置hadoop环境">(4)配置hadoop环境</h2>
-<figure class="highlight awk"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">vi <span class="regexp">/etc/</span>profile</span><br></pre></td></tr></table></figure>
+<h2 id="4-配置hadoop环境"><a href="#4-配置hadoop环境" class="headerlink" title="(4)配置hadoop环境"></a>(4)配置hadoop环境</h2><figure class="highlight awk"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">vi <span class="regexp">/etc/</span>profile</span><br></pre></td></tr></table></figure>
 <p>在文件末尾添加</p>
 <figure class="highlight routeros"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br></pre></td><td class="code"><pre><span class="line"> </span><br><span class="line"><span class="builtin-name">export</span> <span class="attribute">HADOOP_HOME</span>=/opt/bigdata/hadoop-3.1.3</span><br><span class="line"> </span><br><span class="line"><span class="builtin-name">export</span> <span class="attribute">HADOOP_LOG_DIR</span>=/opt/bigdata/hadoop-3.1.3/logs</span><br><span class="line"> </span><br><span class="line"><span class="builtin-name">export</span> <span class="attribute">YARN_LOG_DIR</span>=<span class="variable">$HADOOP_LOG_DIR</span></span><br><span class="line"></span><br><span class="line"><span class="builtin-name">export</span> <span class="attribute">PATH</span>=.:$HADOOP_HOME/sbin:$HADOOP_HOME/bin:$JAVA_HOME/bin:$PATH</span><br></pre></td></tr></table></figure>
 <p>执行</p>
 <figure class="highlight routeros"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">source /etc/profile</span><br><span class="line">hadoop version</span><br></pre></td></tr></table></figure>
-<p>[<img src="https://s3.ax1x.com/2020/11/30/DWSIUK.jpg" alt="DWSIUK.jpg" />](</p>
-<h2 id="检查hadoop搭建情况">(5)检查hadoop搭建情况</h2>
-<p>1.关闭防火墙（四台虚拟机）</p>
+<p>[<img src="https://s3.ax1x.com/2020/11/30/DWSIUK.jpg" alt="DWSIUK.jpg">](</p>
+<h2 id="5-检查hadoop搭建情况"><a href="#5-检查hadoop搭建情况" class="headerlink" title="(5)检查hadoop搭建情况"></a>(5)检查hadoop搭建情况</h2><p>1.关闭防火墙（四台虚拟机）</p>
 <p>按顺序执行以下命令</p>
 <p>使用命令：systemctl status firewalld.service 查看防火墙状态</p>
 <p>使用命令：systemctl stop firewalld.service 关闭防火墙</p>
@@ -518,7 +503,7 @@
 <p>需要进入hadoop安装目录下的sbin文件夹</p>
 <p>1.对于start-dfs.sh和stop-dfs.sh文件，添加下列参数：</p>
 <figure class="highlight ini"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line"><span class="attr">HDFS_DATANODE_USER</span>=root  </span><br><span class="line"><span class="attr">HDFS_DATANODE_SECURE_USER</span>=hdfs  </span><br><span class="line"><span class="attr">HDFS_NAMENODE_USER</span>=root  </span><br><span class="line"><span class="attr">HDFS_SECONDARYNAMENODE_USER</span>=root </span><br></pre></td></tr></table></figure>
-<p><a target="_blank" rel="noopener" href="https://imgchr.com/i/Df9uEq"><img src="https://s3.ax1x.com/2020/12/01/Df9uEq.jpg" alt="Df9uEq.jpg" /></a></p>
+<p><a target="_blank" rel="noopener" href="https://imgchr.com/i/Df9uEq"><img src="https://s3.ax1x.com/2020/12/01/Df9uEq.jpg" alt="Df9uEq.jpg"></a></p>
 <p>2、对于start-yarn.sh和stop-yarn.sh文件，添加下列参数：</p>
 <figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta">#!/usr/bin/env bash</span></span><br><span class="line">YARN_RESOURCEMANAGER_USER=root</span><br><span class="line">HADOOP_SECURE_DN_USER=yarn</span><br><span class="line">YARN_NODEMANAGER_USER=root</span><br></pre></td></tr></table></figure>
 <p>重新启动即可</p>
@@ -526,48 +511,43 @@
 <p>启动之后，在每台虚拟机输入以下命令</p>
 <figure class="highlight ebnf"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line"><span class="attribute">jps</span></span><br></pre></td></tr></table></figure>
 <p>master</p>
-<p><a target="_blank" rel="noopener" href="https://imgchr.com/i/Df9KU0"><img src="https://s3.ax1x.com/2020/12/01/Df9KU0.jpg" alt="Df9KU0.jpg" /></a></p>
+<p><a target="_blank" rel="noopener" href="https://imgchr.com/i/Df9KU0"><img src="https://s3.ax1x.com/2020/12/01/Df9KU0.jpg" alt="Df9KU0.jpg"></a></p>
 <p>node1</p>
-<p><a target="_blank" rel="noopener" href="https://imgchr.com/i/Df9EvQ"><img src="https://s3.ax1x.com/2020/12/01/Df9EvQ.jpg" alt="Df9EvQ.jpg" /></a></p>
+<p><a target="_blank" rel="noopener" href="https://imgchr.com/i/Df9EvQ"><img src="https://s3.ax1x.com/2020/12/01/Df9EvQ.jpg" alt="Df9EvQ.jpg"></a></p>
 <p>node2</p>
-<p><a target="_blank" rel="noopener" href="https://imgchr.com/i/Df9Zuj"><img src="https://s3.ax1x.com/2020/12/01/Df9Zuj.jpg" alt="Df9Zuj.jpg" /></a></p>
+<p><a target="_blank" rel="noopener" href="https://imgchr.com/i/Df9Zuj"><img src="https://s3.ax1x.com/2020/12/01/Df9Zuj.jpg" alt="Df9Zuj.jpg"></a></p>
 <p>node3</p>
-<p><a target="_blank" rel="noopener" href="https://imgchr.com/i/DfPYA1"><img src="https://s3.ax1x.com/2020/12/01/DfPYA1.jpg" alt="DfPYA1.jpg" /></a></p>
+<p><a target="_blank" rel="noopener" href="https://imgchr.com/i/DfPYA1"><img src="https://s3.ax1x.com/2020/12/01/DfPYA1.jpg" alt="DfPYA1.jpg"></a></p>
 <p>5.进入管理页面</p>
 <p>在浏览器地址栏中输入以下命令</p>
+<div class="table-container">
 <table>
 <thead>
-<tr class="header">
+<tr>
 <th>界面</th>
 <th>地址</th>
 </tr>
 </thead>
 <tbody>
-<tr class="odd">
+<tr>
 <td>管理页面</td>
-<td>http://localhost:8088</td>
+<td><a target="_blank" rel="noopener" href="http://localhost:8088">http://localhost:8088</a></td>
 </tr>
-<tr class="even">
+<tr>
 <td>NameNode界面</td>
-<td>http://localhost:9870</td>
+<td><a target="_blank" rel="noopener" href="http://localhost:9870">http://localhost:9870</a></td>
 </tr>
 </tbody>
 </table>
-<p><a target="_blank" rel="noopener" href="https://imgchr.com/i/D4PDHJ"><img src="https://s3.ax1x.com/2020/12/01/D4PDHJ.jpg" alt="D4PDHJ.jpg" /></a></p>
-<p><a target="_blank" rel="noopener" href="https://imgchr.com/i/D4PsE9"><img src="https://s3.ax1x.com/2020/12/01/D4PsE9.jpg" alt="D4PsE9.jpg" /></a></p>
-<h1 id="hadoop运行实例">4.Hadoop运行实例</h1>
-<p>进入hadoop-3.1.3目录</p>
-<ol type="1">
-<li>创建Input文件夹</li>
-</ol>
+</div>
+<p><a target="_blank" rel="noopener" href="https://imgchr.com/i/D4PDHJ"><img src="https://s3.ax1x.com/2020/12/01/D4PDHJ.jpg" alt="D4PDHJ.jpg"></a></p>
+<p><a target="_blank" rel="noopener" href="https://imgchr.com/i/D4PsE9"><img src="https://s3.ax1x.com/2020/12/01/D4PsE9.jpg" alt="D4PsE9.jpg"></a></p>
+<h1 id="4-Hadoop运行实例"><a href="#4-Hadoop运行实例" class="headerlink" title="4.Hadoop运行实例"></a>4.Hadoop运行实例</h1><p>进入hadoop-3.1.3目录</p>
+<p>(1) 创建Input文件夹</p>
 <figure class="highlight stata"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line"># hdfs dfs -<span class="keyword">mkdir</span> /<span class="keyword">Input</span></span><br></pre></td></tr></table></figure>
-<ol start="2" type="1">
-<li>将test.txt文件上传到hdfs的/Input目录下</li>
-</ol>
+<p>(2) 将test.txt文件上传到hdfs的/Input目录下</p>
 <figure class="highlight gradle"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line"># hdfs dfs -put LICENSE.txt <span class="regexp">/Input/</span>test.txt</span><br></pre></td></tr></table></figure>
-<ol start="3" type="1">
-<li>运行hadoop安装包中自带的wordcount程序</li>
-</ol>
+<p>(3) 运行hadoop安装包中自带的wordcount程序</p>
 <figure class="highlight gradle"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line"># hadoop jar share<span class="regexp">/hadoop/m</span>apreduce<span class="regexp">/hadoop-mapreduce-examples-3.1.3.jar wordcount /I</span>nput<span class="regexp">/test.txt /</span>Output/</span><br></pre></td></tr></table></figure>
 
     </div>

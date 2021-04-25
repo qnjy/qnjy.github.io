@@ -4,7 +4,7 @@
   <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=2">
 <meta name="theme-color" content="#222">
-<meta name="generator" content="Hexo 5.2.0">
+<meta name="generator" content="Hexo 5.4.0">
 
 
   <link rel="apple-touch-icon" sizes="180x180" href="/images/apple-touch-icon-next.png">
@@ -354,22 +354,23 @@
     
     
     <div class="post-body" itemprop="articleBody">
-        <p>　　今天在使用IDEA开发maven项目的时候遇到不加载EL表达式的问题<a id="more"></a> <img src="https://s3.ax1x.com/2020/12/15/rMuP41.png" alt="rMuP41.png" />]</p>
+        <p>　　今天在使用IDEA开发maven项目的时候遇到不加载EL表达式的问题<span id="more"></span><br><img src="https://s3.ax1x.com/2020/12/15/rMuP41.png" alt="rMuP41.png">]</p>
 <p>结果却显示为</p>
-<p><img src="https://s3.ax1x.com/2020/12/15/rMuF9x.png" alt="rMuF9x.png" />]</p>
-<p><font color="ff0000">解决办法</font></p>
+<p><img src="https://s3.ax1x.com/2020/12/15/rMuF9x.png" alt="rMuF9x.png">]</p>
+<font color="ff0000">解决办法</font>
+
 <p>在jsp开头添加</p>
 <figure class="highlight erb"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line"><span class="xml"><span class="tag">&lt;<span class="name">%</span></span></span><span class="ruby">@page isELIgnored=<span class="string">&quot;false&quot;</span></span><span class="xml"><span class="tag">%&gt;</span></span></span><br></pre></td></tr></table></figure>
 <p>isELIgnored是指是否忽略EL表达式</p>
 <p>之所以形成这种问题，是因为JSP2.0以上isELIgnored默认是true</p>
-<p>isELIgnored 属性JSP 2.0 新引入的属性，在只支持 JSP 1.2 及早期版本的服务器中，使用这项属性是不合法的。这个属性的默认值依赖于 Web 应用所使用的 web.xml 的版本。如果 web.xml 指定 servlet 2.3（对应JSP 1.2）或更早版本，默认值为 true（但变更默认值依旧是合法的，JSP 2.0 兼容的服务器中都允许使用这项属性，不管 web.xml 的版本如何）</p>
+<p>isELIgnored 属性JSP 2.0 新引入的属性，在只支持 JSP 1.2  及早期版本的服务器中，使用这项属性是不合法的。这个属性的默认值依赖于 Web 应用所使用的 web.xml 的版本。如果 web.xml 指定  servlet 2.3（对应JSP 1.2）或更早版本，默认值为 true（但变更默认值依旧是合法的，JSP 2.0  兼容的服务器中都允许使用这项属性，不管 web.xml 的版本如何）</p>
 <p>查看Servlet版本</p>
 <p>打开web.xml文件就可以看到</p>
 <figure class="highlight xml"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta">&lt;!DOCTYPE <span class="meta-keyword">web-app</span> <span class="meta-keyword">PUBLIC</span></span></span><br><span class="line"><span class="meta"> <span class="meta-string">&quot;-//Sun Microsystems, Inc.//DTD Web Application 2.3//EN&quot;</span></span></span><br><span class="line"><span class="meta"> <span class="meta-string">&quot;http://java.sun.com/dtd/web-app_2_3.dtd&quot;</span> &gt;</span></span><br></pre></td></tr></table></figure>
 <p>按住Ctrl点击链接，到78行左右就可以看到一段注释</p>
 <figure class="highlight jsp"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br></pre></td><td class="code"><pre><span class="line">&lt;!--</span><br><span class="line">This is the XML DTD <span class="keyword">for</span> the Servlet <span class="number">2.3</span> deployment descriptor.</span><br><span class="line">All Servlet <span class="number">2.3</span> deployment descriptors must include a DOCTYPE</span><br><span class="line">of the following form:</span><br><span class="line"> &lt;!DOCTYPE web-app PUBLIC</span><br><span class="line">  <span class="string">&quot;-//Sun Microsystems, Inc.//DTD Web Application 2.3//EN&quot;</span></span><br><span class="line">  <span class="string">&quot;http://java.sun.com/dtd/web-app_2_3.dtd&quot;</span>&gt;</span><br><span class="line">--&gt;</span><br></pre></td></tr></table></figure>
 <p>翻译一下就是</p>
-<p>“这是Servlet 2.3部署描述符的XML DTD。所有的Servlet 2.3部署描述符必须包含于下面的DOCTYPE” 很明显这就是Servlet 2.3版本</p>
+<p>“这是Servlet 2.3部署描述符的XML DTD。所有的Servlet 2.3部署描述符必须包含于下面的DOCTYPE”<br> 很明显这就是Servlet 2.3版本</p>
 <p>所以</p>
 <p>isELIgnored的属性默认为true</p>
 
