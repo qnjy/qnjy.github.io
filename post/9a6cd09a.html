@@ -24,35 +24,28 @@
     var CONFIG = {"hostname":"qnjy.github.io","root":"/","images":"/images","scheme":"Gemini","version":"8.0.2","exturl":false,"sidebar":{"position":"left","display":"post","padding":18,"offset":12},"copycode":true,"bookmark":{"enable":true,"color":"#222","save":"auto"},"fancybox":false,"mediumzoom":false,"lazyload":false,"pangu":false,"comments":{"style":"tabs","active":null,"storage":true,"lazyload":false,"nav":null},"motion":{"enable":true,"async":false,"transition":{"post_block":"fadeIn","post_header":"fadeInDown","post_body":"fadeInDown","coll_header":"fadeInLeft","sidebar":"fadeInUp"}},"prism":false,"i18n":{"placeholder":"搜索...","empty":"没有找到任何搜索结果：${query}","hits_time":"找到 ${hits} 个搜索结果（用时 ${time} 毫秒）","hits":"找到 ${hits} 个搜索结果"},"path":"/search.xml","localsearch":{"enable":true,"trigger":"auto","top_n_per_article":1,"unescape":false,"preload":false}};
   </script>
 
-  <meta name="description" content="这个是创建普通javaweb项目的步骤，建议使用maven创建，导包不用这么麻烦Maven环境变量配置">
+  <meta name="description" content="1 依赖（Dependence） 【依赖关系】：是一种使用的关系，即一个类的实现需要另一个类来协助； 【代码表现】：局部变量、方法的参数或者对静态方法的调用； 【箭头和指向】：带箭头的虚线，指向被使用者；   2 关联（Association） 【关联关系】：是一种拥有的关系，它使一个类知道另一个类的属性和方法；如：老师与学生，丈夫与妻子关联可以是双向的，也可以是单向的。双向的关联可以有两个箭头或">
 <meta property="og:type" content="article">
-<meta property="og:title" content="IDEA新建Web项目">
-<meta property="og:url" content="https://qnjy.github.io/post/f1926f41.html">
+<meta property="og:title" content="UML类图的关系">
+<meta property="og:url" content="https://qnjy.github.io/post/9a6cd09a.html">
 <meta property="og:site_name" content="qnjy&#39;s blog">
-<meta property="og:description" content="这个是创建普通javaweb项目的步骤，建议使用maven创建，导包不用这么麻烦Maven环境变量配置">
+<meta property="og:description" content="1 依赖（Dependence） 【依赖关系】：是一种使用的关系，即一个类的实现需要另一个类来协助； 【代码表现】：局部变量、方法的参数或者对静态方法的调用； 【箭头和指向】：带箭头的虚线，指向被使用者；   2 关联（Association） 【关联关系】：是一种拥有的关系，它使一个类知道另一个类的属性和方法；如：老师与学生，丈夫与妻子关联可以是双向的，也可以是单向的。双向的关联可以有两个箭头或">
 <meta property="og:locale" content="zh_CN">
-<meta property="og:image" content="https://s3.ax1x.com/2020/12/13/reKhjJ.md.jpg">
-<meta property="og:image" content="https://s3.ax1x.com/2020/12/13/reKW3F.jpg">
-<meta property="og:image" content="https://s3.ax1x.com/2020/12/13/reKghT.jpg">
-<meta property="og:image" content="https://s3.ax1x.com/2020/12/13/reKfc4.jpg">
-<meta property="og:image" content="https://s3.ax1x.com/2020/12/13/reK5u9.jpg">
-<meta property="og:image" content="https://s3.ax1x.com/2020/12/13/reKIBR.jpg">
-<meta property="og:image" content="https://s3.ax1x.com/2020/12/13/reKoH1.jpg">
-<meta property="og:image" content="https://s3.ax1x.com/2020/12/13/reK7Ax.jpg">
-<meta property="og:image" content="https://s3.ax1x.com/2020/12/13/reKHN6.jpg">
-<meta property="og:image" content="https://s3.ax1x.com/2020/12/13/reKb4K.jpg">
-<meta property="og:image" content="https://s3.ax1x.com/2020/12/13/reKL9O.jpg">
-<meta property="og:image" content="https://s3.ax1x.com/2020/12/13/reKXge.jpg">
-<meta property="og:image" content="https://s3.ax1x.com/2020/12/13/reKO3D.jpg">
-<meta property="article:published_time" content="2020-12-11T01:56:22.000Z">
-<meta property="article:modified_time" content="2021-03-16T00:57:14.675Z">
+<meta property="og:image" content="https://cdn.jsdelivr.net/gh/qnjy/images/data/1619491177-image-20210427103937640.png">
+<meta property="og:image" content="https://cdn.jsdelivr.net/gh/qnjy/images/data/1619491290-image-20210427104130714.png">
+<meta property="og:image" content="https://cdn.jsdelivr.net/gh/qnjy/images/data/1619491405-image-20210427104325334.png">
+<meta property="og:image" content="https://cdn.jsdelivr.net/gh/qnjy/images/data/1619491464-image-20210427104424681.png">
+<meta property="og:image" content="https://cdn.jsdelivr.net/gh/qnjy/images/data/1619491491-image-20210427104451457.png">
+<meta property="og:image" content="https://cdn.jsdelivr.net/gh/qnjy/images/data/1619491521-image-20210427104521600.png">
+<meta property="article:published_time" content="2021-04-27T02:36:43.000Z">
+<meta property="article:modified_time" content="2021-04-27T02:48:02.911Z">
 <meta property="article:author" content="qnjy">
-<meta property="article:tag" content="创建项目">
+<meta property="article:tag" content="UML">
 <meta name="twitter:card" content="summary">
-<meta name="twitter:image" content="https://s3.ax1x.com/2020/12/13/reKhjJ.md.jpg">
+<meta name="twitter:image" content="https://cdn.jsdelivr.net/gh/qnjy/images/data/1619491177-image-20210427103937640.png">
 
 
-<link rel="canonical" href="https://qnjy.github.io/post/f1926f41.html">
+<link rel="canonical" href="https://qnjy.github.io/post/9a6cd09a.html">
 
 
 <script class="page-configurations">
@@ -65,7 +58,7 @@
   };
 </script>
 
-  <title>IDEA新建Web项目 | qnjy's blog</title>
+  <title>UML类图的关系 | qnjy's blog</title>
   
 
 
@@ -222,7 +215,7 @@
       <div class="sidebar-panel-container">
         <!--noindex-->
         <section class="post-toc-wrap sidebar-panel">
-            <div class="post-toc animated"><ol class="nav"><li class="nav-item nav-level-1"><a class="nav-link" href="#1-%E5%88%9B%E5%BB%BAweb-project"><span class="nav-text">1.创建web project</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#2-%E6%8E%A5%E4%B8%8B%E6%9D%A5%E9%9C%80%E8%A6%81%E9%85%8D%E7%BD%AE%E6%96%87%E4%BB%B6%E5%A4%B9%E8%B7%AF%E5%BE%84"><span class="nav-text">2.接下来需要配置文件夹路径</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#3-%E9%85%8D%E7%BD%AETomcat%E5%AE%B9%E5%99%A8"><span class="nav-text">3.配置Tomcat容器</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#4-Web%E9%A1%B9%E7%9B%AE%E7%BB%93%E6%9E%84"><span class="nav-text">4.Web项目结构</span></a></li></ol></div>
+            <div class="post-toc animated"><ol class="nav"><li class="nav-item nav-level-1"><a class="nav-link" href="#1-%E4%BE%9D%E8%B5%96%EF%BC%88Dependence%EF%BC%89"><span class="nav-text">1 依赖（Dependence）</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#2-%E5%85%B3%E8%81%94%EF%BC%88Association%EF%BC%89"><span class="nav-text">2 关联（Association）</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#3-%E8%81%9A%E5%90%88%EF%BC%88Aggregation%EF%BC%89"><span class="nav-text">3 聚合（Aggregation）</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#4-%E7%BB%84%E5%90%88%EF%BC%88Composition%EF%BC%89"><span class="nav-text">4 组合（Composition）</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#5-%E6%B3%9B%E5%8C%96%EF%BC%88Generalization%EF%BC%89"><span class="nav-text">5 泛化（Generalization）</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#6-%E5%AE%9E%E7%8E%B0%EF%BC%88Realization%EF%BC%89"><span class="nav-text">6 实现（Realization）</span></a></li></ol></div>
         </section>
         <!--/noindex-->
 
@@ -306,7 +299,7 @@
   
 
   <article itemscope itemtype="http://schema.org/Article" class="post-content" lang="zh-CN">
-    <link itemprop="mainEntityOfPage" href="https://qnjy.github.io/post/f1926f41.html">
+    <link itemprop="mainEntityOfPage" href="https://qnjy.github.io/post/9a6cd09a.html">
 
     <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
       <meta itemprop="image" content="/images/xigua.jpg">
@@ -319,7 +312,7 @@
     </span>
       <header class="post-header">
         <h1 class="post-title" itemprop="name headline">
-          IDEA新建Web项目
+          UML类图的关系
         </h1>
 
         <div class="post-meta-container">
@@ -329,16 +322,10 @@
         <i class="far fa-calendar"></i>
       </span>
       <span class="post-meta-item-text">发表于</span>
+      
 
-      <time title="创建时间：2020-12-11 09:56:22" itemprop="dateCreated datePublished" datetime="2020-12-11T09:56:22+08:00">2020-12-11</time>
+      <time title="创建时间：2021-04-27 10:36:43 / 修改时间：10:48:02" itemprop="dateCreated datePublished" datetime="2021-04-27T10:36:43+08:00">2021-04-27</time>
     </span>
-      <span class="post-meta-item">
-        <span class="post-meta-item-icon">
-          <i class="far fa-calendar-check"></i>
-        </span>
-        <span class="post-meta-item-text">更新于</span>
-        <time title="修改时间：2021-03-16 08:57:14" itemprop="dateModified" datetime="2021-03-16T08:57:14+08:00">2021-03-16</time>
-      </span>
 
   
     <span class="post-meta-item" title="阅读次数" id="busuanzi_container_page_pv" style="display: none;">
@@ -357,39 +344,57 @@
     
     
     <div class="post-body" itemprop="articleBody">
-        <p>　　这个是创建普通javaweb项目的步骤，建议使用maven创建，导包不用这么麻烦<a href="/post/4bd31b3a.html" title="Maven环境变量配置">Maven环境变量配置</a><span id="more"></span></p>
-<h1 id="1-创建web-project"><a href="#1-创建web-project" class="headerlink" title="1.创建web project"></a>1.创建web project</h1><p>File-&gt;new Project</p>
-<p><img src="https://s3.ax1x.com/2020/12/13/reKhjJ.md.jpg" alt="reKhjJ.md.jpg" style="zoom:50%;" /></p>
-<p><img src="https://s3.ax1x.com/2020/12/13/reKW3F.jpg" alt="reKW3F.jpg" style="zoom:50%;" /></p>
-<p>之后，在web/WEB-INF文件夹下面创建两个文件夹：classes和lib</p>
-<p>lib存放第三方jar包，classes存放编译后输出的class文件</p>
-<p>创建好的目录如下</p>
-<p><img src="https://s3.ax1x.com/2020/12/13/reKghT.jpg" alt="reKghT.jpg"></p>
-<h1 id="2-接下来需要配置文件夹路径"><a href="#2-接下来需要配置文件夹路径" class="headerlink" title="2.接下来需要配置文件夹路径"></a>2.接下来需要配置文件夹路径</h1><p>File-&gt;Project Structure-&gt;选择Module：</p>
-<p>在Paths界面修改，把路径修改为刚刚创建的classes文件夹，最后点击Apply</p>
-<p><img src="https://s3.ax1x.com/2020/12/13/reKfc4.jpg" alt="reKfc4.jpg" style="zoom:50%;" /></p>
-<p>再点击Dependencies-&gt;将Module SDK选择为自己的JDK-&gt;点击右边+号-&gt;选择Jars or Directories</p>
-<p><img src="https://s3.ax1x.com/2020/12/13/reK5u9.jpg" alt="reK5u9.jpg" style="zoom:50%;" /></p>
-<p>—————————&gt;</p>
-<p><img src="https://s3.ax1x.com/2020/12/13/reKIBR.jpg" alt="reKIBR.jpg" style="zoom:50%;" /></p>
-<p>—————————&gt;</p>
-<p><img src="https://s3.ax1x.com/2020/12/13/reKoH1.jpg" alt="reKoH1.jpg"></p>
-<p>然后就OK了</p>
-<h1 id="3-配置Tomcat容器"><a href="#3-配置Tomcat容器" class="headerlink" title="3.配置Tomcat容器"></a>3.配置Tomcat容器</h1><p>(1) 打开菜单Run-&gt;选择Edit Configuration，也可以点击上方的Edit Configuration</p>
-<p><img src="https://s3.ax1x.com/2020/12/13/reK7Ax.jpg" alt="reK7Ax.jpg" style="zoom:50%;" /></p>
-<p>(2) 点击+号-&gt;Tomcat Server-&gt;Local</p>
-<p><img src="https://s3.ax1x.com/2020/12/13/reKHN6.jpg" alt="reKHN6.jpg" style="zoom:50%;" /></p>
-<p>(3) 在”Name“处创建Tomcat名字，点击”Application server“后面的”Configure“，选择本地安装的Tomcat路径-&gt;OK</p>
-<p><img src="https://s3.ax1x.com/2020/12/13/reKb4K.jpg" alt="reKb4K.jpg" style="zoom:50%;" /></p>
-<p>(4) 至此，Tomcat部署完成</p>
-<p>下一步在Tomcat中部署并运行项目</p>
-<p>Run -&gt; Edit Configurations，进入”Run/Debug Configurations”窗口 -&gt; 选择刚刚建立的Tomcat容器 -&gt; 选择Deployment -&gt; 点击右边的“+”号 -&gt; 选择Artifact—&gt;选择web项目—&gt;Application contex填一个名字—&gt;ok.</p>
-<p><img src="https://s3.ax1x.com/2020/12/13/reKL9O.jpg" alt="reKL9O.jpg" style="zoom:50%;" /></p>
-<p>(5) 编辑Index.jsp文件</p>
-<p><img src="https://s3.ax1x.com/2020/12/13/reKXge.jpg" alt="reKXge.jpg" style="zoom:50%;" /></p>
-<p>(6) 访问Tomcat项目</p>
-<p><img src="https://s3.ax1x.com/2020/12/13/reKO3D.jpg" alt="reKO3D.jpg" style="zoom:50%;" /></p>
-<h1 id="4-Web项目结构"><a href="#4-Web项目结构" class="headerlink" title="4.Web项目结构"></a>4.Web项目结构</h1>
+        <h1 id="1-依赖（Dependence）"><a href="#1-依赖（Dependence）" class="headerlink" title="1 依赖（Dependence）"></a>1 依赖（Dependence）</h1><ul>
+<li>【依赖关系】：是一种使用的关系，即一个类的实现需要另一个类来协助；</li>
+<li>【代码表现】：局部变量、方法的参数或者对静态方法的调用；</li>
+<li>【箭头和指向】：带箭头的虚线，指向被使用者；</li>
+</ul>
+<p><img src="https://cdn.jsdelivr.net/gh/qnjy/images/data/1619491177-image-20210427103937640.png" alt="image-20210427103937640"></p>
+<h1 id="2-关联（Association）"><a href="#2-关联（Association）" class="headerlink" title="2 关联（Association）"></a>2 关联（Association）</h1><ul>
+<li>【关联关系】：是一种拥有的关系，它使一个类知道另一个类的属性和方法；如：老师与学生，丈夫与妻子关联可以是双向的，也可以是单向的。双向的关联可以有两个箭头或者没有箭头，单向的关联有一个箭头；</li>
+<li>【代码体现】：成员变量；</li>
+<li>【箭头及指向】：带普通箭头的实心线，指向被拥有者；</li>
+</ul>
+<p><img src="https://cdn.jsdelivr.net/gh/qnjy/images/data/1619491290-image-20210427104130714.png" alt="image-20210427104130714"></p>
+<h1 id="3-聚合（Aggregation）"><a href="#3-聚合（Aggregation）" class="headerlink" title="3 聚合（Aggregation）"></a>3 聚合（Aggregation）</h1><ul>
+<li><p>【聚合关系】：是整体与部分的关系，且部分可以离开整体而单独存在。如车和轮胎是整体和部分的关系，轮胎离开车仍然可以存在；</p>
+</li>
+<li><ul>
+<li>聚合关系是关联关系的一种，体现了一种“弱拥有”的概念。也就是说，对象A拥有对象B，但B并不是A的组成部分；</li>
+<li>如果A由B聚合而成，则A包含B的全局对象，但B对象可以不在A对象创建时创建；</li>
+<li>关联和聚合在语法上无法区分，必须考察具体的逻辑关系；</li>
+</ul>
+</li>
+<li><p>【代码体现】：成员变量</p>
+</li>
+<li><p>【箭头及指向】：带空心菱形的实心线，菱形指向整体</p>
+</li>
+</ul>
+<p><img src="https://cdn.jsdelivr.net/gh/qnjy/images/data/1619491405-image-20210427104325334.png" alt="image-20210427104325334"></p>
+<h1 id="4-组合（Composition）"><a href="#4-组合（Composition）" class="headerlink" title="4 组合（Composition）"></a>4 组合（Composition）</h1><ul>
+<li><p>【组合关系】：是整体与部分的关系，但部分不能离开整体而单独存在。强调了比聚合关系更加强的整体/部分的关联，例如人和四肢。</p>
+</li>
+<li><ul>
+<li>和聚合关系所不同的是:在组合关系中，虽然局部不一定随着整体的销毁而销毁，但整体要么负责保持局部的存活状态，要么负责将其销毁。也就是说，组合关系中，局部的存活期一定是小于，最多是等于整体的存活期的。</li>
+</ul>
+</li>
+<li><p>【代码体现】：成员变量（一定是在构造函数中实现的）</p>
+</li>
+<li><p>【箭头及指向】：带实心菱形的实线，菱形指向整体</p>
+</li>
+</ul>
+<p><img src="https://cdn.jsdelivr.net/gh/qnjy/images/data/1619491464-image-20210427104424681.png" alt="image-20210427104424681"></p>
+<h1 id="5-泛化（Generalization）"><a href="#5-泛化（Generalization）" class="headerlink" title="5 泛化（Generalization）"></a>5 泛化（Generalization）</h1><ul>
+<li>【泛化关系】：表示为is-a的关系，是对象间耦合度最大的一种关系，它指定了子类如何特化父类的所有特征和行为。例如：老虎是动物的一种，即有老虎的特性也有动物的共性；</li>
+<li>【箭头指向】：带三角箭头的实线，箭头指向父类；</li>
+</ul>
+<p><img src="https://cdn.jsdelivr.net/gh/qnjy/images/data/1619491491-image-20210427104451457.png" alt="image-20210427104451457"></p>
+<h1 id="6-实现（Realization）"><a href="#6-实现（Realization）" class="headerlink" title="6 实现（Realization）"></a>6 实现（Realization）</h1><ul>
+<li>【实现关系】：是一种类与接口的关系，表示类是接口所有特征和行为的实现.</li>
+<li>【箭头指向】：带三角箭头的虚线，箭头指向接口</li>
+</ul>
+<p><img src="https://cdn.jsdelivr.net/gh/qnjy/images/data/1619491521-image-20210427104521600.png" alt="image-20210427104521600"></p>
+
     </div>
 
     
@@ -416,21 +421,18 @@
 </div>
 
           <div class="post-tags">
-              <a href="/tags/%E5%88%9B%E5%BB%BA%E9%A1%B9%E7%9B%AE/" rel="tag"><i class="fa fa-tag"></i> 创建项目</a>
+              <a href="/tags/UML/" rel="tag"><i class="fa fa-tag"></i> UML</a>
           </div>
 
         
 
           <div class="post-nav">
             <div class="post-nav-item">
-                <a href="/post/4e17031c.html" rel="prev" title="Servlet实现增删改查">
-                  <i class="fa fa-chevron-left"></i> Servlet实现增删改查
+                <a href="/post/a2535634.html" rel="prev" title="提交代码到GitHub">
+                  <i class="fa fa-chevron-left"></i> 提交代码到GitHub
                 </a>
             </div>
             <div class="post-nav-item">
-                <a href="/post/38966ea9.html" rel="next" title="mysql常用操作">
-                  mysql常用操作 <i class="fa fa-chevron-right"></i>
-                </a>
             </div>
           </div>
     </footer>

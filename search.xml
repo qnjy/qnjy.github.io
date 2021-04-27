@@ -4634,4 +4634,62 @@ RTag=\begin{cases}
 
 <h2 id="6-2-图的类型定义"><a href="#6-2-图的类型定义" class="headerlink" title="6.2 图的类型定义"></a>6.2 图的类型定义</h2><h2 id="6-3-图的存储结构"><a href="#6-3-图的存储结构" class="headerlink" title="6.3 图的存储结构"></a>6.3 图的存储结构</h2><h3 id="6-3-1-邻接矩阵"><a href="#6-3-1-邻接矩阵" class="headerlink" title="6.3.1 邻接矩阵"></a>6.3.1 邻接矩阵</h3><h3 id="6-3-2-邻接表"><a href="#6-3-2-邻接表" class="headerlink" title="6.3.2 邻接表"></a>6.3.2 邻接表</h3><h3 id="6-3-3-十字链表"><a href="#6-3-3-十字链表" class="headerlink" title="6.3.3 十字链表"></a>6.3.3 十字链表</h3><h3 id="6-3-4-邻接多重表"><a href="#6-3-4-邻接多重表" class="headerlink" title="6.3.4 邻接多重表"></a>6.3.4 邻接多重表</h3><h2 id="6-4-图的遍历"><a href="#6-4-图的遍历" class="headerlink" title="6.4 图的遍历"></a>6.4 图的遍历</h2><h3 id="6-4-1-深度优先搜索"><a href="#6-4-1-深度优先搜索" class="headerlink" title="6.4.1 深度优先搜索"></a>6.4.1 深度优先搜索</h3><h3 id="6-4-2-广度优先搜索"><a href="#6-4-2-广度优先搜索" class="headerlink" title="6.4.2 广度优先搜索"></a>6.4.2 广度优先搜索</h3><h2 id="6-6-图的应用"><a href="#6-6-图的应用" class="headerlink" title="6.6 图的应用"></a>6.6 图的应用</h2>]]></content>
   </entry>
+  <entry>
+    <title>UML类图的关系</title>
+    <url>/post/9a6cd09a.html</url>
+    <content><![CDATA[<h1 id="1-依赖（Dependence）"><a href="#1-依赖（Dependence）" class="headerlink" title="1 依赖（Dependence）"></a>1 依赖（Dependence）</h1><ul>
+<li>【依赖关系】：是一种使用的关系，即一个类的实现需要另一个类来协助；</li>
+<li>【代码表现】：局部变量、方法的参数或者对静态方法的调用；</li>
+<li>【箭头和指向】：带箭头的虚线，指向被使用者；</li>
+</ul>
+<p><img src="https://cdn.jsdelivr.net/gh/qnjy/images/data/1619491177-image-20210427103937640.png" alt="image-20210427103937640"></p>
+<h1 id="2-关联（Association）"><a href="#2-关联（Association）" class="headerlink" title="2 关联（Association）"></a>2 关联（Association）</h1><ul>
+<li>【关联关系】：是一种拥有的关系，它使一个类知道另一个类的属性和方法；如：老师与学生，丈夫与妻子关联可以是双向的，也可以是单向的。双向的关联可以有两个箭头或者没有箭头，单向的关联有一个箭头；</li>
+<li>【代码体现】：成员变量；</li>
+<li>【箭头及指向】：带普通箭头的实心线，指向被拥有者；</li>
+</ul>
+<p><img src="https://cdn.jsdelivr.net/gh/qnjy/images/data/1619491290-image-20210427104130714.png" alt="image-20210427104130714"></p>
+<h1 id="3-聚合（Aggregation）"><a href="#3-聚合（Aggregation）" class="headerlink" title="3 聚合（Aggregation）"></a>3 聚合（Aggregation）</h1><ul>
+<li><p>【聚合关系】：是整体与部分的关系，且部分可以离开整体而单独存在。如车和轮胎是整体和部分的关系，轮胎离开车仍然可以存在；</p>
+</li>
+<li><ul>
+<li>聚合关系是关联关系的一种，体现了一种“弱拥有”的概念。也就是说，对象A拥有对象B，但B并不是A的组成部分；</li>
+<li>如果A由B聚合而成，则A包含B的全局对象，但B对象可以不在A对象创建时创建；</li>
+<li>关联和聚合在语法上无法区分，必须考察具体的逻辑关系；</li>
+</ul>
+</li>
+<li><p>【代码体现】：成员变量</p>
+</li>
+<li><p>【箭头及指向】：带空心菱形的实心线，菱形指向整体</p>
+</li>
+</ul>
+<p><img src="https://cdn.jsdelivr.net/gh/qnjy/images/data/1619491405-image-20210427104325334.png" alt="image-20210427104325334"></p>
+<h1 id="4-组合（Composition）"><a href="#4-组合（Composition）" class="headerlink" title="4 组合（Composition）"></a>4 组合（Composition）</h1><ul>
+<li><p>【组合关系】：是整体与部分的关系，但部分不能离开整体而单独存在。强调了比聚合关系更加强的整体/部分的关联，例如人和四肢。</p>
+</li>
+<li><ul>
+<li>和聚合关系所不同的是:在组合关系中，虽然局部不一定随着整体的销毁而销毁，但整体要么负责保持局部的存活状态，要么负责将其销毁。也就是说，组合关系中，局部的存活期一定是小于，最多是等于整体的存活期的。</li>
+</ul>
+</li>
+<li><p>【代码体现】：成员变量（一定是在构造函数中实现的）</p>
+</li>
+<li><p>【箭头及指向】：带实心菱形的实线，菱形指向整体</p>
+</li>
+</ul>
+<p><img src="https://cdn.jsdelivr.net/gh/qnjy/images/data/1619491464-image-20210427104424681.png" alt="image-20210427104424681"></p>
+<h1 id="5-泛化（Generalization）"><a href="#5-泛化（Generalization）" class="headerlink" title="5 泛化（Generalization）"></a>5 泛化（Generalization）</h1><ul>
+<li>【泛化关系】：表示为is-a的关系，是对象间耦合度最大的一种关系，它指定了子类如何特化父类的所有特征和行为。例如：老虎是动物的一种，即有老虎的特性也有动物的共性；</li>
+<li>【箭头指向】：带三角箭头的实线，箭头指向父类；</li>
+</ul>
+<p><img src="https://cdn.jsdelivr.net/gh/qnjy/images/data/1619491491-image-20210427104451457.png" alt="image-20210427104451457"></p>
+<h1 id="6-实现（Realization）"><a href="#6-实现（Realization）" class="headerlink" title="6 实现（Realization）"></a>6 实现（Realization）</h1><ul>
+<li>【实现关系】：是一种类与接口的关系，表示类是接口所有特征和行为的实现.</li>
+<li>【箭头指向】：带三角箭头的虚线，箭头指向接口</li>
+</ul>
+<p><img src="https://cdn.jsdelivr.net/gh/qnjy/images/data/1619491521-image-20210427104521600.png" alt="image-20210427104521600"></p>
+]]></content>
+      <tags>
+        <tag>UML</tag>
+      </tags>
+  </entry>
 </search>
