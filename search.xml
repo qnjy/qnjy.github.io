@@ -4761,9 +4761,9 @@ W_{ij}　　<v_i,v_j>或(v_i,V_j){\in}V_R\\
     <title>ElasticSearch</title>
     <url>/post/d48132d3.html</url>
     <content><![CDATA[<h1 id="Docker环境下安装ElasticSearch"><a href="#Docker环境下安装ElasticSearch" class="headerlink" title="Docker环境下安装ElasticSearch"></a>Docker环境下安装ElasticSearch<span id="more"></span></h1><h2 id="1-容器创建"><a href="#1-容器创建" class="headerlink" title="1 容器创建"></a>1 容器创建</h2><p>1、下载镜像</p>
-<figure class="highlight ebnf"><table><tr><td class="code"><pre><span class="line"><span class="attribute">docker pull elasticsearch</span></span><br></pre></td></tr></table></figure>
+<figure class="highlight apache"><table><tr><td class="code"><pre><span class="line"><span class="attribute">docker</span> pull elasticsearch:<span class="number">5</span>.<span class="number">6</span>.<span class="number">8</span></span><br></pre></td></tr></table></figure>
 <p>2、创建容器</p>
-<figure class="highlight angelscript"><table><tr><td class="code"><pre><span class="line">docker run ‐di ‐‐name=myes ‐p <span class="number">9200</span>:<span class="number">9200</span> ‐p <span class="number">9300</span>:<span class="number">9300</span></span><br><span class="line">elasticsearch</span><br></pre></td></tr></table></figure>
+<figure class="highlight apache"><table><tr><td class="code"><pre><span class="line"><span class="attribute">docker</span> run ‐di ‐‐name=myes ‐p <span class="number">9200</span>:<span class="number">9200</span> ‐p <span class="number">9300</span>:<span class="number">9300</span></span><br><span class="line"><span class="attribute">elasticsearch</span>:<span class="number">5</span>.<span class="number">6</span>.<span class="number">8</span></span><br></pre></td></tr></table></figure>
 <p>3、浏览器输入地址：</p>
 <p>192.168.200.133:9200，即可看到以下信息</p>
 <figure class="highlight json"><table><tr><td class="code"><pre><span class="line">&#123;</span><br><span class="line">    <span class="attr">&quot;name&quot;</span>: <span class="string">&quot;Q6z1-G-&quot;</span>,</span><br><span class="line">    <span class="attr">&quot;cluster_name&quot;</span>: <span class="string">&quot;elasticsearch&quot;</span>,</span><br><span class="line">    <span class="attr">&quot;cluster_uuid&quot;</span>: <span class="string">&quot;kSGG2E7QQCm3SXyHLpQy1g&quot;</span>,</span><br><span class="line">    <span class="attr">&quot;version&quot;</span>: &#123;</span><br><span class="line">        <span class="attr">&quot;number&quot;</span>: <span class="string">&quot;5.6.12&quot;</span>,</span><br><span class="line">        <span class="attr">&quot;build_hash&quot;</span>: <span class="string">&quot;cfe3d9f&quot;</span>,</span><br><span class="line">        <span class="attr">&quot;build_date&quot;</span>: <span class="string">&quot;2018-09-10T20:12:43.732Z&quot;</span>,</span><br><span class="line">        <span class="attr">&quot;build_snapshot&quot;</span>: <span class="literal">false</span>,</span><br><span class="line">        <span class="attr">&quot;lucene_version&quot;</span>: <span class="string">&quot;6.6.1&quot;</span></span><br><span class="line">    &#125;,</span><br><span class="line">    <span class="attr">&quot;tagline&quot;</span>: <span class="string">&quot;You Know, for Search&quot;</span></span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
@@ -4783,7 +4783,7 @@ W_{ij}　　<v_i,v_j>或(v_i,V_j){\in}V_R\\
 <p>8、停止和删除原来创建的容器</p>
 <figure class="highlight properties"><table><tr><td class="code"><pre><span class="line"><span class="attr">docker</span> <span class="string">stop myes</span></span><br><span class="line"><span class="attr">docker</span> <span class="string">rm myes</span></span><br></pre></td></tr></table></figure>
 <p>9、重新执行创建容器命令</p>
-<figure class="highlight awk"><table><tr><td class="code"><pre><span class="line">docker run -di --name=myes -p <span class="number">9200</span>:<span class="number">9200</span> -p <span class="number">9300</span>:<span class="number">9300</span> -v <span class="regexp">/usr/</span>share<span class="regexp">/elasticsearch.yml:/u</span>sr<span class="regexp">/share/</span>elasticsearch<span class="regexp">/config/</span>elasticsearch</span><br><span class="line">.yml elasticsearch</span><br></pre></td></tr></table></figure>
+<figure class="highlight awk"><table><tr><td class="code"><pre><span class="line">docker run -di --name=myes -p <span class="number">9200</span>:<span class="number">9200</span> -p <span class="number">9300</span>:<span class="number">9300</span> -v <span class="regexp">/usr/</span>share<span class="regexp">/elasticsearch.yml:/u</span>sr<span class="regexp">/share/</span>elasticsearch<span class="regexp">/config/</span>elasticsearch</span><br><span class="line">.yml elasticsearch:<span class="number">5.6</span>.<span class="number">8</span></span><br></pre></td></tr></table></figure>
 <p>10、修改/usr/share/elasticsearch.yml将<code>transport.host:0.0.0.0</code>前的#去掉后保存退出。其作用是允许任何IP地址访问elasticsearch。开发测试阶段可以这么做，生产环境下指定具体的IP。</p>
 <p>11、重新启动</p>
 <figure class="highlight ebnf"><table><tr><td class="code"><pre><span class="line"><span class="attribute">docker restart myes</span></span><br></pre></td></tr></table></figure>
@@ -4800,11 +4800,24 @@ W_{ij}　　<v_i,v_j>或(v_i,V_j){\in}V_R\\
 <p>执行下面命令，修改内核参数马上生效：</p>
 <figure class="highlight ebnf"><table><tr><td class="code"><pre><span class="line"><span class="attribute">sysctl -p</span></span><br></pre></td></tr></table></figure>
 <p>之后重启虚拟机和容器</p>
-<p>13、跨域配置</p>
+<h2 id="2-IK分词器安装"><a href="#2-IK分词器安装" class="headerlink" title="2 IK分词器安装"></a>2 IK分词器安装</h2><p>1、首先确定ES版本，然后到github上下载对应版本的IK分词器，<a href="https://github.com/medcl/elasticsearch-analysis-ik">https://github.com/medcl/elasticsearch-analysis-ik</a></p>
+<p><img src="https://cdn.jsdelivr.net/gh/qnjy/images/data/1620632235-image-20210510153715459.png" alt="image-20210510153715459"></p>
+<p>2、通过docker命令将zip包复制到ES容器指定位置</p>
+<figure class="highlight elixir"><table><tr><td class="code"><pre><span class="line">docker cp /tmp/elasticsearch-analysis-ik<span class="number">-7.8</span>.0.zip &#123;容器名&#125;<span class="symbol">:/usr/share/elasticsearch/plugins</span></span><br></pre></td></tr></table></figure>
+<p>3、进入docker容器对其进行解压操作，<font color="ff000">注意解压完将zip包删除，</font></p>
+<figure class="highlight apache"><table><tr><td class="code"><pre><span class="line"><span class="comment"># 进入容器</span></span><br><span class="line"><span class="attribute">docker</span> exec -it myes /bin/bash</span><br><span class="line"><span class="comment"># 将文件压缩包移动到plugins中</span></span><br><span class="line"><span class="attribute">mv</span> elasticsearch-analysis-ik-<span class="number">7</span>.<span class="number">8</span>.<span class="number">0</span>.zip /usr/share/elasticsearch/plugins</span><br><span class="line"><span class="comment"># 解压</span></span><br><span class="line"><span class="attribute">unzip</span> elasticsearch-analysis-ik-<span class="number">7</span>.<span class="number">8</span>.<span class="number">0</span>.zip</span><br><span class="line"><span class="comment"># 删除压缩包</span></span><br><span class="line"><span class="attribute">rm</span> -rf elasticsearch-analysis-ik-<span class="number">7</span>.<span class="number">8</span>.<span class="number">0</span>.zip</span><br></pre></td></tr></table></figure>
+<p>4、重启docker容器</p>
+<figure class="highlight ebnf"><table><tr><td class="code"><pre><span class="line"><span class="attribute">docker restart myes</span></span><br></pre></td></tr></table></figure>
+<h2 id="3-HEAD插件"><a href="#3-HEAD插件" class="headerlink" title="3 HEAD插件"></a>3 HEAD插件</h2><p>1、跨域配置</p>
 <p>修改/usr/share/elasticsearch.yml，增加以下三条命令：</p>
 <figure class="highlight stylus"><table><tr><td class="code"><pre><span class="line">http<span class="selector-class">.cors</span><span class="selector-class">.enabled</span>: true</span><br><span class="line">http<span class="selector-class">.cors</span><span class="selector-class">.allow-origin</span>: <span class="string">&quot;*&quot;</span></span><br></pre></td></tr></table></figure>
 <p>其中：<br><strong>http.cors.enabled: true：</strong>此步为允许elasticsearch跨域访问，默认是false。<br><strong>http.cors.allow-origin: “*”：</strong>表示跨域访问允许的域名地址（*表示任意）。</p>
-<h2 id="2-IK分词器"><a href="#2-IK分词器" class="headerlink" title="2 IK分词器"></a>2 IK分词器</h2><h2 id="3-HEAD插件"><a href="#3-HEAD插件" class="headerlink" title="3 HEAD插件"></a>3 HEAD插件</h2>]]></content>
+<p>2、重新启动elasticseach容器</p>
+<p>3、下载head镜像（此步省略）</p>
+<figure class="highlight angelscript"><table><tr><td class="code"><pre><span class="line">docker pull mobz/elasticsearch‐head:<span class="number">5</span></span><br></pre></td></tr></table></figure>
+<p>4、创建head容器</p>
+<figure class="highlight routeros"><table><tr><td class="code"><pre><span class="line">docker <span class="builtin-name">run</span> ‐di ‐‐<span class="attribute">name</span>=myhead ‐p 9100:9100 容器ID</span><br></pre></td></tr></table></figure>
+]]></content>
   </entry>
   <entry>
     <title>RabbitMQ消息中间件</title>
