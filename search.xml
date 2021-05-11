@@ -4912,7 +4912,7 @@ W_{ij}　　<v_i,v_j>或(v_i,V_j){\in}V_R\\
     <title>软件工程-数据库设计步骤</title>
     <url>/post/4e818cde.html</url>
     <content><![CDATA[<h1 id="总体设计步骤"><a href="#总体设计步骤" class="headerlink" title="总体设计步骤"></a>总体设计步骤</h1><p><img src="https://cdn.jsdelivr.net/gh/qnjy/images/data/1620267471-image-20210506101750936.png" alt="image-20210506101750936"></p>
-<h1 id="1、需求分析"><a href="#1、需求分析" class="headerlink" title="1、需求分析"></a>1、需求分析</h1><p>　　数据库设计的起点，目标：了解与分析用户的信息及应用处理的要求，并将结果按一定格式整理而形成需求分析报告，该分析报告是后续概念设计，逻辑设计，物理设计，数据库建立与维护的依据</p>
+<h1 id="1、需求分析"><a href="#1、需求分析" class="headerlink" title="1、需求分析"></a>1、需求分析</h1><p>　　数据库设计的起点，目标：了解与分析用户的信息及应用处理的要求，并将结果按一定格式整理而形成需求分析报告，该分析报告是后续概念设计，逻辑设计，物理设计，数据库建立与维护的依据<span id="more"></span></p>
 <p>步骤：</p>
 <ul>
 <li>确定数据库范围<ul>
