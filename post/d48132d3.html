@@ -34,7 +34,7 @@
 <meta property="og:image" content="https://cdn.jsdelivr.net/gh/qnjy/images/data/1620734297-image-20210511195817096.png">
 <meta property="og:image" content="https://cdn.jsdelivr.net/gh/qnjy/images/data/1620632235-image-20210510153715459.png">
 <meta property="article:published_time" content="2021-05-10T02:26:04.000Z">
-<meta property="article:modified_time" content="2021-05-11T12:00:41.021Z">
+<meta property="article:modified_time" content="2021-05-11T12:10:01.199Z">
 <meta property="article:author" content="qnjy">
 <meta name="twitter:card" content="summary">
 <meta name="twitter:image" content="https://cdn.jsdelivr.net/gh/qnjy/images/data/1620734297-image-20210511195817096.png">
@@ -325,7 +325,7 @@
           <i class="far fa-calendar-check"></i>
         </span>
         <span class="post-meta-item-text">更新于</span>
-        <time title="修改时间：2021-05-11 20:00:41" itemprop="dateModified" datetime="2021-05-11T20:00:41+08:00">2021-05-11</time>
+        <time title="修改时间：2021-05-11 20:10:01" itemprop="dateModified" datetime="2021-05-11T20:10:01+08:00">2021-05-11</time>
       </span>
 
   
@@ -345,49 +345,49 @@
     
     
     <div class="post-body" itemprop="articleBody">
-        <h1 id="1-ElasticSearch简介"><a href="#1-ElasticSearch简介" class="headerlink" title="1 ElasticSearch简介"></a>1 ElasticSearch简介</h1><h2 id="1-1-什么是ElasticSearch"><a href="#1-1-什么是ElasticSearch" class="headerlink" title="1.1 什么是ElasticSearch"></a>1.1 什么是ElasticSearch</h2><p>　　The Elastic Stack, 包括 Elasticsearch、Kibana、Beats 和<br>Logstash（也称为 ELK Stack）。 能够安全可靠地获取任何来源、<br>任何格式的数据，然后实时地对数据进行搜索、分析和可视 化。<br>Elaticsearch，简称为 ES，ES 是一个开源的高扩展的分布式全文搜<br>索引擎，是整个 Elastic Stack 技术栈的核心。它可以近乎实时的存<br>储、检索数据；本身扩展性很好，可以扩展到上 百台服务器，处理<br>PB 级别的数据。<br>　　ElasticSearch是一个基于Lucene的、RESTful风格的搜索<br>和数据分析引擎。是当前流行的企业级搜索引擎。<span id="more"></span></p>
-<h2 id="1-2-Elasticsearch特点"><a href="#1-2-Elasticsearch特点" class="headerlink" title="1.2  Elasticsearch特点"></a>1.2  Elasticsearch特点</h2><p>（1）可以作为一个大型分布式集群（数百台服务器）技术，处<br>理PB级数据，服务大公司；也可以运行在单机上</p>
-<p>（2）将全文检索、数据分析以及分布式技术，合并在了一起，<br>才形成了独一无二的ES；</p>
+        <h1 id="1-ElasticSearch简介"><a href="#1-ElasticSearch简介" class="headerlink" title="1 ElasticSearch简介"></a>1 ElasticSearch简介</h1><h2 id="1-1-什么是ElasticSearch"><a href="#1-1-什么是ElasticSearch" class="headerlink" title="1.1 什么是ElasticSearch"></a>1.1 什么是ElasticSearch</h2><p>　　The Elastic Stack, 包括 Elasticsearch、Kibana、Beats 和Logstash（也称为 ELK Stack）。 能够安全可靠地获取任何来源、任何格式的数据，然后实时地对数据进行搜索、分析和可视 化。Elaticsearch，简称为 ES，ES 是一个开源的高扩展的分布式全文搜索引擎，是整个 Elastic Stack 技术栈的核心。它可以近乎实时的存储、检索数据；本身扩展性很好，可以扩展到上 百台服务器，处理PB 级别的数据。<br>　　ElasticSearch是一个基于Lucene的、RESTful风格的搜索和数据分析引擎。是当前流行的企业级搜索引擎。<span id="more"></span></p>
+<h2 id="1-2-Elasticsearch特点"><a href="#1-2-Elasticsearch特点" class="headerlink" title="1.2  Elasticsearch特点"></a>1.2  Elasticsearch特点</h2><p>（1）可以作为一个大型分布式集群（数百台服务器）技术，处理PB级数据，服务大公司；也可以运行在单机上</p>
+<p>（2）将全文检索、数据分析以及分布式技术，合并在了一起，才形成了独一无二的ES；</p>
 <p>（3）开箱即用的，部署简单</p>
-<p>（4）全文检索，同义词处理，相关度排名，复杂数据分析，海<br>量数据的近实时处理</p>
+<p>（4）全文检索，同义词处理，相关度排名，复杂数据分析，海量数据的近实时处理</p>
 <h2 id="1-3-Elasticsearch应用案例"><a href="#1-3-Elasticsearch应用案例" class="headerlink" title="1.3 Elasticsearch应用案例"></a>1.3 Elasticsearch应用案例</h2><ul>
-<li>GitHub：2013年初，GitHub将solr缓存改为es，以便用户<br>搜索20TB的数据</li>
+<li>GitHub：2013年初，GitHub将solr缓存改为es，以便用户搜索20TB的数据</li>
 <li>维基百科：启动以es为基础的核心搜索架构SoundCloud</li>
-<li>百度：以es作为数据分析引擎，20多个业务线采集服务器<br>上的各类数据以及用户自定义数据，通过对各种数据进行多<br>维分析，辅助定位异常。其单集群最大100台机器，200个<br>es节点，每天导入超过30TB的数据</li>
-<li>新浪、阿里、携程、苏宁等各大公司的站内搜索、数据分析<br>中使用</li>
+<li>百度：以es作为数据分析引擎，20多个业务线采集服务器上的各类数据以及用户自定义数据，通过对各种数据进行多维分析，辅助定位异常。其单集群最大100台机器，200个es节点，每天导入超过30TB的数据</li>
+<li>新浪、阿里、携程、苏宁等各大公司的站内搜索、数据分析中使用</li>
 </ul>
-<h2 id="1-4-Elasticsearch体系结构"><a href="#1-4-Elasticsearch体系结构" class="headerlink" title="1.4 Elasticsearch体系结构"></a>1.4 Elasticsearch体系结构</h2><p>　　Elasticsearch 是面向文档型数据库，一条数据在这里就是<br>一个文档。 我们将 Elasticsearch 里存储文档数据和关系型数据库<br>MySQL 存储数据的概念进行一个类比</p>
+<h2 id="1-4-Elasticsearch体系结构"><a href="#1-4-Elasticsearch体系结构" class="headerlink" title="1.4 Elasticsearch体系结构"></a>1.4 Elasticsearch体系结构</h2><p>　　Elasticsearch 是面向文档型数据库，一条数据在这里就是一个文档。 我们将 Elasticsearch 里存储文档数据和关系型数据库MySQL 存储数据的概念进行一个类比</p>
 <p><img src="https://cdn.jsdelivr.net/gh/qnjy/images/data/1620734297-image-20210511195817096.png" alt="image-20210511195817096"></p>
 <h1 id="2-安装Elasticsearch"><a href="#2-安装Elasticsearch" class="headerlink" title="2 安装Elasticsearch"></a>2 安装Elasticsearch</h1><h2 id="2-1-Windows下安装"><a href="#2-1-Windows下安装" class="headerlink" title="2.1 Windows下安装"></a>2.1 Windows下安装</h2><p>　　参考</p>
-<h2 id="2-2-Docker环境下安装ElasticSearch"><a href="#2-2-Docker环境下安装ElasticSearch" class="headerlink" title="2.2 Docker环境下安装ElasticSearch"></a>2.2 Docker环境下安装ElasticSearch</h2><h3 id="2-2-1-容器创建"><a href="#2-2-1-容器创建" class="headerlink" title="2.2.1 容器创建"></a>2.2.1 容器创建</h3><p>1、下载镜像</p>
+<h2 id="2-2-Docker环境下安装ElasticSearch"><a href="#2-2-Docker环境下安装ElasticSearch" class="headerlink" title="2.2 Docker环境下安装ElasticSearch"></a>2.2 Docker环境下安装ElasticSearch</h2><h3 id="2-2-1-容器创建"><a href="#2-2-1-容器创建" class="headerlink" title="2.2.1 容器创建"></a>2.2.1 容器创建</h3><p><strong>1、下载镜像</strong></p>
 <figure class="highlight apache"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line"><span class="attribute">docker</span> pull elasticsearch:<span class="number">5</span>.<span class="number">6</span>.<span class="number">8</span></span><br></pre></td></tr></table></figure>
-<p>2、创建容器</p>
+<p><strong>2、创建容器</strong></p>
 <figure class="highlight apache"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line"><span class="attribute">docker</span> run ‐di ‐‐name=myes ‐p <span class="number">9200</span>:<span class="number">9200</span> ‐p <span class="number">9300</span>:<span class="number">9300</span></span><br><span class="line"><span class="attribute">elasticsearch</span>:<span class="number">5</span>.<span class="number">6</span>.<span class="number">8</span></span><br></pre></td></tr></table></figure>
-<p>3、浏览器输入地址：</p>
+<p><strong>3、浏览器输入地址：</strong></p>
 <p>192.168.200.133:9200，即可看到以下信息</p>
 <figure class="highlight json"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br></pre></td><td class="code"><pre><span class="line">&#123;</span><br><span class="line">    <span class="attr">&quot;name&quot;</span>: <span class="string">&quot;Q6z1-G-&quot;</span>,</span><br><span class="line">    <span class="attr">&quot;cluster_name&quot;</span>: <span class="string">&quot;elasticsearch&quot;</span>,</span><br><span class="line">    <span class="attr">&quot;cluster_uuid&quot;</span>: <span class="string">&quot;kSGG2E7QQCm3SXyHLpQy1g&quot;</span>,</span><br><span class="line">    <span class="attr">&quot;version&quot;</span>: &#123;</span><br><span class="line">        <span class="attr">&quot;number&quot;</span>: <span class="string">&quot;5.6.12&quot;</span>,</span><br><span class="line">        <span class="attr">&quot;build_hash&quot;</span>: <span class="string">&quot;cfe3d9f&quot;</span>,</span><br><span class="line">        <span class="attr">&quot;build_date&quot;</span>: <span class="string">&quot;2018-09-10T20:12:43.732Z&quot;</span>,</span><br><span class="line">        <span class="attr">&quot;build_snapshot&quot;</span>: <span class="literal">false</span>,</span><br><span class="line">        <span class="attr">&quot;lucene_version&quot;</span>: <span class="string">&quot;6.6.1&quot;</span></span><br><span class="line">    &#125;,</span><br><span class="line">    <span class="attr">&quot;tagline&quot;</span>: <span class="string">&quot;You Know, for Search&quot;</span></span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
-<p>4、我们修改demo的application.yml</p>
+<p><strong>4、我们修改demo的application.yml</strong></p>
 <figure class="highlight yml"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line"><span class="attr">spring:</span></span><br><span class="line">  <span class="attr">data:</span></span><br><span class="line">   <span class="attr">elasticsearch:</span></span><br><span class="line">      <span class="string">cluster‐nodes:</span> <span class="number">192.168</span><span class="number">.200</span><span class="number">.133</span><span class="string">:9300</span></span><br></pre></td></tr></table></figure>
-<p>5、运行测试程序，发现会如下报错：</p>
+<p><strong>5、运行测试程序，发现会如下报错：</strong></p>
 <figure class="highlight stylus"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br></pre></td><td class="code"><pre><span class="line">NoNodeAvailableException[None of the configured nodes are available:</span><br><span class="line">[&#123;#transport#‐<span class="number">1</span>&#125;&#123;exvgJLR‐RlCNMJy‐hzKtnA&#125;&#123;<span class="number">192.168</span>.<span class="number">184.135</span>&#125;</span><br><span class="line">&#123;<span class="number">192.168</span>.<span class="number">184.135</span>:<span class="number">9300</span>&#125;]</span><br><span class="line">]</span><br><span class="line">at</span><br><span class="line">org<span class="selector-class">.elasticsearch</span><span class="selector-class">.client</span><span class="selector-class">.transport</span><span class="selector-class">.TransportClientNodesService</span>.ensureNodes</span><br><span class="line"><span class="function"><span class="title">AreAvailable</span><span class="params">(TransportClientNodesService.java:<span class="number">347</span>)</span></span></span><br><span class="line">at</span><br><span class="line">org<span class="selector-class">.elasticsearch</span><span class="selector-class">.client</span><span class="selector-class">.transport</span><span class="selector-class">.TransportClientNodesService</span>.execute(Tra</span><br><span class="line">nsportClientNodesService<span class="selector-class">.java</span>:<span class="number">245</span>)</span><br><span class="line">at</span><br><span class="line">org<span class="selector-class">.elasticsearch</span><span class="selector-class">.client</span><span class="selector-class">.transport</span><span class="selector-class">.TransportProxyClient</span>.execute(TransportP</span><br><span class="line">roxyClient<span class="selector-class">.java</span>:<span class="number">59</span>)</span><br></pre></td></tr></table></figure>
 <p>这是因为es从5版本之后默认不开启远程连接，需要修改配置文件</p>
-<p>6、我们进入容器</p>
+<p><strong>6、我们进入容器</strong></p>
 <figure class="highlight awk"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">docker exec -it myes <span class="regexp">/bin/</span>bash</span><br></pre></td></tr></table></figure>
 <p>此时，我们看到elasticsearch所在的目录为/usr/share/elasticsearch，进入config看到了配置文件</p>
 <p>elasticsearch.yml</p>
 <p>我们通过vi命令编辑此文件，尴尬的是容器没有vi命令，怎么办？我们需要以文件挂载的方式创建容器才行，这样我们就可以通过修改宿主机中的某个文件来实现对容器内配置文件的修改</p>
-<p>7、拷贝配置文件到宿主机</p>
+<p><strong>7、拷贝配置文件到宿主机</strong></p>
 <p>首先退出容器，然后执行命令</p>
 <figure class="highlight awk"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">docker cp</span><br><span class="line">myes:<span class="regexp">/usr/</span>share<span class="regexp">/elasticsearch/</span>config<span class="regexp">/elasticsearch.yml /u</span>sr<span class="regexp">/share/</span>elasticsearch.yml</span><br></pre></td></tr></table></figure>
-<p>8、停止和删除原来创建的容器</p>
+<p><strong>8、停止和删除原来创建的容器</strong></p>
 <figure class="highlight properties"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line"><span class="attr">docker</span> <span class="string">stop myes</span></span><br><span class="line"><span class="attr">docker</span> <span class="string">rm myes</span></span><br></pre></td></tr></table></figure>
-<p>9、重新执行创建容器命令</p>
+<p><strong>9、重新执行创建容器命令</strong></p>
 <figure class="highlight awk"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">docker run -di --name=myes -p <span class="number">9200</span>:<span class="number">9200</span> -p <span class="number">9300</span>:<span class="number">9300</span> -v <span class="regexp">/usr/</span>share<span class="regexp">/elasticsearch.yml:/u</span>sr<span class="regexp">/share/</span>elasticsearch<span class="regexp">/config/</span>elasticsearch</span><br><span class="line">.yml elasticsearch:<span class="number">5.6</span>.<span class="number">8</span></span><br></pre></td></tr></table></figure>
-<p>10、修改/usr/share/elasticsearch.yml将<code>transport.host:0.0.0.0</code>前的#去掉后保存退出。其作用是允许任何IP地址访问elasticsearch。开发测试阶段可以这么做，生产环境下指定具体的IP。</p>
+<p><strong>10、修改</strong>/usr/share/elasticsearch.yml将<code>transport.host:0.0.0.0</code>前的#去掉后保存退出。其作用是允许任何IP地址访问elasticsearch。开发测试阶段可以这么做，生产环境下指定具体的IP。</p>
 <p>11、重新启动</p>
 <figure class="highlight ebnf"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line"><span class="attribute">docker restart myes</span></span><br></pre></td></tr></table></figure>
-<p>重启之后发现重启失败？这与我们刚才修改的配置有关，因为elasticsearch在启动的时候会进行一些检查，比如最多打开的文件的个数以及虚拟内存区域数量等，如果放开了此配置，以为这需要打开更多的文件以及虚拟内存，所以我们需要调优。</p>
-<p>12、系统调优</p>
+<p>　　重启之后发现重启失败？这与我们刚才修改的配置有关，因为elasticsearch在启动的时候会进行一些检查，比如最多打开的文件的个数以及虚拟内存区域数量等，如果放开了此配置，以为这需要打开更多的文件以及虚拟内存，所以我们需要调优。</p>
+<p><strong>12、系统调优</strong></p>
 <p>我们一共需要修改两处</p>
 <p>修改/etc/security/limits.conf，追加内容</p>
 <figure class="highlight angelscript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">* soft nofile <span class="number">65536</span></span><br><span class="line">* hard nofile <span class="number">65536</span></span><br></pre></td></tr></table></figure>
@@ -399,22 +399,22 @@
 <p>执行下面命令，修改内核参数马上生效：</p>
 <figure class="highlight ebnf"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line"><span class="attribute">sysctl -p</span></span><br></pre></td></tr></table></figure>
 <p>之后重启虚拟机和容器</p>
-<h3 id="2-2-2-IK分词器安装"><a href="#2-2-2-IK分词器安装" class="headerlink" title="2.2.2 IK分词器安装"></a>2.2.2 IK分词器安装</h3><p>1、首先确定ES版本，然后到github上下载对应版本的IK分词器，<a target="_blank" rel="noopener" href="https://github.com/medcl/elasticsearch-analysis-ik">https://github.com/medcl/elasticsearch-analysis-ik</a></p>
+<h3 id="2-2-2-IK分词器安装"><a href="#2-2-2-IK分词器安装" class="headerlink" title="2.2.2 IK分词器安装"></a>2.2.2 IK分词器安装</h3><p><strong>1、首先确定ES版本，</strong>然后到github上下载对应版本的IK分词器，<a target="_blank" rel="noopener" href="https://github.com/medcl/elasticsearch-analysis-ik">https://github.com/medcl/elasticsearch-analysis-ik</a></p>
 <p><img src="https://cdn.jsdelivr.net/gh/qnjy/images/data/1620632235-image-20210510153715459.png" alt="image-20210510153715459"></p>
-<p>2、通过docker命令将zip包复制到ES容器指定位置</p>
+<p><strong>2、通过docker命令将zip包复制到ES容器指定位置</strong></p>
 <figure class="highlight elixir"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">docker cp /tmp/elasticsearch-analysis-ik<span class="number">-7.8</span>.0.zip &#123;容器名&#125;<span class="symbol">:/usr/share/elasticsearch/plugins</span></span><br></pre></td></tr></table></figure>
-<p>3、进入docker容器对其进行解压操作，<font color="ff000">注意解压完将zip包删除，</font></p>
+<p><strong>3、进入docker容器对其进行解压操作，<font color="ff000">注意解压完将zip包删除，ik文件夹下没有子目录</font></strong></p>
 <figure class="highlight apache"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment"># 进入容器</span></span><br><span class="line"><span class="attribute">docker</span> exec -it myes /bin/bash</span><br><span class="line"><span class="comment"># 将文件压缩包移动到plugins中</span></span><br><span class="line"><span class="attribute">mv</span> elasticsearch-analysis-ik-<span class="number">7</span>.<span class="number">8</span>.<span class="number">0</span>.zip /usr/share/elasticsearch/plugins</span><br><span class="line"><span class="comment"># 解压</span></span><br><span class="line"><span class="attribute">unzip</span> elasticsearch-analysis-ik-<span class="number">7</span>.<span class="number">8</span>.<span class="number">0</span>.zip</span><br><span class="line"><span class="comment"># 删除压缩包</span></span><br><span class="line"><span class="attribute">rm</span> -rf elasticsearch-analysis-ik-<span class="number">7</span>.<span class="number">8</span>.<span class="number">0</span>.zip</span><br></pre></td></tr></table></figure>
-<p>4、重启docker容器</p>
+<p><strong>4、重启docker容器</strong></p>
 <figure class="highlight ebnf"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line"><span class="attribute">docker restart myes</span></span><br></pre></td></tr></table></figure>
-<h3 id="2-2-3-HEAD插件"><a href="#2-2-3-HEAD插件" class="headerlink" title="2.2.3 HEAD插件"></a>2.2.3 HEAD插件</h3><p>1、跨域配置</p>
+<h3 id="2-2-3-HEAD插件"><a href="#2-2-3-HEAD插件" class="headerlink" title="2.2.3 HEAD插件"></a>2.2.3 HEAD插件</h3><p><strong>1、跨域配置</strong></p>
 <p>修改/usr/share/elasticsearch.yml，增加以下三条命令：</p>
 <figure class="highlight stylus"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">http<span class="selector-class">.cors</span><span class="selector-class">.enabled</span>: true</span><br><span class="line">http<span class="selector-class">.cors</span><span class="selector-class">.allow-origin</span>: <span class="string">&quot;*&quot;</span></span><br></pre></td></tr></table></figure>
 <p>其中：<br><strong>http.cors.enabled: true：</strong>此步为允许elasticsearch跨域访问，默认是false。<br><strong>http.cors.allow-origin: “*”：</strong>表示跨域访问允许的域名地址（*表示任意）。</p>
-<p>2、重新启动elasticseach容器</p>
-<p>3、下载head镜像（此步省略）</p>
+<p><strong>2、重新启动elasticseach容器</strong></p>
+<p><strong>3、下载head镜像（此步省略）</strong></p>
 <figure class="highlight angelscript"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">docker pull mobz/elasticsearch‐head:<span class="number">5</span></span><br></pre></td></tr></table></figure>
-<p>4、创建head容器</p>
+<p><strong>4、创建head容器</strong></p>
 <figure class="highlight routeros"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">docker <span class="builtin-name">run</span> ‐di ‐‐<span class="attribute">name</span>=myhead ‐p 9100:9100 容器ID</span><br></pre></td></tr></table></figure>
 
     </div>
