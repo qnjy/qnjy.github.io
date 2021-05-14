@@ -4877,7 +4877,7 @@ W_{ij}　　<v_i,v_j>或(v_i,V_j){\in}V_R\\
 </blockquote>
 <p>1、创建一个索引</p>
 <figure class="highlight awk"><table><tr><td class="code"><pre><span class="line">PUT <span class="regexp">/索引名/</span>类型名/文档id</span><br><span class="line">&#123;请求体&#125;</span><br></pre></td></tr></table></figure>
-<p><img src="https://cdn.jsdelivr.net/gh/qnjy/images/data/1620998793-image-20210514212633515.png" alt="image-20210514212633515"></p>
+<p><img src="https://cdn.jsdelivr.net/gh/qnjy/images/data/1620998793-image-20210514212633515.png" alt="image-20210514212633515" style="zoom:67%;" /></p>
 <p>2、name这个字段需要指定类型</p>
 <ul>
 <li><p>字符串类型</p>
@@ -4898,9 +4898,9 @@ W_{ij}　　<v_i,v_j>或(v_i,V_j){\in}V_R\\
 </ul>
 <p><img src="https://cdn.jsdelivr.net/gh/qnjy/images/data/1620998810-image-20210514212650261.png" alt="image-20210514212650261"></p>
 <p>3、指定字段类型</p>
-<p><img src="https://cdn.jsdelivr.net/gh/qnjy/images/data/1621000029-image-20210514214709549.png" alt="image-20210514214709549"></p>
+<p><img src="https://cdn.jsdelivr.net/gh/qnjy/images/data/1621000029-image-20210514214709549.png" alt="image-20210514214709549" style="zoom: 67%;" /></p>
 <p>4、获取具体信息</p>
-<p><img src="https://cdn.jsdelivr.net/gh/qnjy/images/data/1621000092-image-20210514214812283.png" alt="image-20210514214812283"></p>
+<p><img src="https://cdn.jsdelivr.net/gh/qnjy/images/data/1621000092-image-20210514214812283.png" alt="image-20210514214812283" style="zoom:67%;" /></p>
 ]]></content>
   </entry>
   <entry>
