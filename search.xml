@@ -4298,29 +4298,34 @@ O(1)<O(\log_2n)<O(n)<O(nlog_2n)<O(n^2)<O(n^3)<O(2^n)<O(n!)<O(n^n)</script><p><a 
 <h2 id="3-3-链栈及基本操作"><a href="#3-3-链栈及基本操作" class="headerlink" title="3.3 链栈及基本操作"></a>3.3 链栈及基本操作</h2><p>把栈顶放在单链表的表头，用链表来存储栈的数据结构称为链栈。</p>
 <p><img src="https://user-gold-cdn.xitu.io/2018/7/20/164b52876589ba10?imageView2/0/w/1280/h/960/format/webp/ignore-error/1" alt="123" style="zoom:80%;" /></p>
 <p>链栈节点定义如下：</p>
-<figure class="highlight c++"><table><tr><td class="code"><pre><span class="line"><span class="keyword">typedef</span> <span class="class"><span class="keyword">struct</span> <span class="title">LNode</span>&#123;</span></span><br><span class="line">    <span class="keyword">int</span> data;</span><br><span class="line">    <span class="class"><span class="keyword">struct</span> <span class="title">LNode</span> *<span class="title">next</span>;</span></span><br><span class="line">&#125;LNode;</span><br></pre></td></tr></table></figure>
+<figure class="highlight c"><table><tr><td class="code"><pre><span class="line"><span class="keyword">typedef</span> <span class="class"><span class="keyword">struct</span> <span class="title">StackNode</span>&#123;</span></span><br><span class="line">    ElemType data;</span><br><span class="line">    <span class="class"><span class="keyword">struct</span> <span class="title">StackNode</span> *<span class="title">next</span>;</span></span><br><span class="line">&#125;StackNode,*LinkStack;</span><br></pre></td></tr></table></figure>
 <h3 id="3-3-1-链栈的操作"><a href="#3-3-1-链栈的操作" class="headerlink" title="3.3.1 链栈的操作"></a>3.3.1 链栈的操作</h3><p>链栈也有四个元素，包括两个状态和两个操作</p>
 <p>状态：</p>
-<p>1）栈空：<code>lst-&gt;next == NULL</code>，即栈没有后继节点时，栈为空</p>
+<p>1）栈空：<code>StakNode-&gt;next == NULL</code>，即栈没有后继节点时，栈为空</p>
 <p>2）栈满：如果存储空间无限大，没有这种情况。</p>
 <p>操作：</p>
 <p>进栈是头插法建立链表的插入方法，出栈就是单链表的删除操作</p>
-<p><img src="https://user-gold-cdn.xitu.io/2018/7/20/164b528765a415aa?imageView2/0/w/1280/h/960/format/webp/ignore-error/1" alt="00" style="zoom:67%;" /></p>
-<p>链栈的插入操作</p>
-<p><img src="https://user-gold-cdn.xitu.io/2018/7/20/164b52876668edc8?imageView2/0/w/1280/h/960/format/webp/ignore-error/1" alt="66" style="zoom:67%;" /></p>
-<p>链栈的删除操作</p>
+<p><img src="https://cdn.jsdelivr.net/gh/qnjy/images/data/1620868011-image-20210513090651272.png" alt="image-20210513090651272" style="zoom: 80%;" /></p>
+<p>以上是链栈的插入操作</p>
+<p><img src="https://cdn.jsdelivr.net/gh/qnjy/images/data/1620868285-image-20210513091125197.png" alt="image-20210513091125197" style="zoom: 80%;" /></p>
+<p>以上是链栈的删除操作</p>
 <ul>
 <li>链栈初始化</li>
 </ul>
-<figure class="highlight c"><table><tr><td class="code"><pre><span class="line"><span class="function"><span class="keyword">void</span> <span class="title">initStack</span><span class="params">(LNode *&amp;lst)</span></span>&#123;</span><br><span class="line">    lst = (LNode)*<span class="built_in">malloc</span>(<span class="keyword">sizeof</span>(LNode)); <span class="comment">//制造一个头结点</span></span><br><span class="line">    lst-&gt;next = <span class="literal">NULL</span>;					 <span class="comment">//初始头结点指向NULL</span></span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<figure class="highlight c"><table><tr><td class="code"><pre><span class="line"><span class="function">Status <span class="title">InitStack</span><span class="params">(LinkStack &amp;S)</span></span>&#123;</span><br><span class="line">    <span class="comment">//构造一个空栈S，栈顶指针置空</span></span><br><span class="line">    S=<span class="literal">NULL</span>;</span><br><span class="line">    <span class="keyword">return</span> OK;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
 <ul>
 <li>进栈</li>
 </ul>
-<figure class="highlight c"><table><tr><td class="code"><pre><span class="line"><span class="function"><span class="keyword">void</span> <span class="title">push</span><span class="params">(LNode *lst, <span class="keyword">int</span> x)</span></span>&#123;</span><br><span class="line">    LNode *p;</span><br><span class="line">    p = (LNode)*<span class="built_in">malloc</span>(<span class="keyword">sizeof</span>(LNode));</span><br><span class="line">    p-&gt;next = <span class="literal">NULL</span>;</span><br><span class="line">    </span><br><span class="line">    <span class="comment">//进栈，相当于链表的头插法</span></span><br><span class="line">    p-&gt;data = x;			<span class="comment">//将x赋值给p结点的值域</span></span><br><span class="line">    p-&gt;next = lst-&gt;next;	<span class="comment">//p指针指向原lst指向的结点</span></span><br><span class="line">    lst-&gt;next = p;			<span class="comment">//lst指向结点p</span></span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<figure class="highlight c"><table><tr><td class="code"><pre><span class="line"><span class="function">Status <span class="title">Push</span><span class="params">(LinkStack &amp;S,SElemType e)</span></span>&#123;</span><br><span class="line">    <span class="comment">//栈顶插入元素e</span></span><br><span class="line">    p=<span class="keyword">new</span> StackNode;    <span class="comment">//创建新节点</span></span><br><span class="line">    p-&gt;data=e;          <span class="comment">//将新节点数据域置为e</span></span><br><span class="line">    p-&gt;next=S;          <span class="comment">//将新结点与头结点建立逻辑关系</span></span><br><span class="line">    S=p;                <span class="comment">//更新头结点的指向</span></span><br><span class="line">    <span class="keyword">return</span> OK;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
 <ul>
 <li>出栈</li>
 </ul>
-<figure class="highlight c"><table><tr><td class="code"><pre><span class="line"><span class="function"><span class="keyword">int</span> <span class="title">pop</span><span class="params">(LNode *lst, <span class="keyword">int</span> x)</span></span>&#123;</span><br><span class="line">    LNode *p;</span><br><span class="line">    <span class="keyword">if</span>(lst-&gt;next == <span class="literal">NULL</span>)</span><br><span class="line">        <span class="keyword">return</span> <span class="number">0</span>;</span><br><span class="line">    <span class="comment">//出栈，相当于链表的删除</span></span><br><span class="line">    p = lst-&gt;next;</span><br><span class="line">    x = p-&gt;data;</span><br><span class="line">    lst-&gt;next = p-&gt;next;</span><br><span class="line">    <span class="built_in">free</span>(p);</span><br><span class="line">    <span class="keyword">return</span> <span class="number">1</span>;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<figure class="highlight c"><table><tr><td class="code"><pre><span class="line"><span class="function">Status <span class="title">Pop</span><span class="params">(LinkStack &amp;S,SElemType &amp;e)</span></span>&#123;</span><br><span class="line">    <span class="comment">//删除S的栈顶元素，用e返回值</span></span><br><span class="line">    <span class="keyword">if</span>(S==<span class="literal">NULL</span>) </span><br><span class="line">        <span class="keyword">return</span> ERROR;     <span class="comment">//栈空</span></span><br><span class="line">    e=S-&gt;data;            <span class="comment">//将栈顶元素赋给e</span></span><br><span class="line">    p=S;                  <span class="comment">//用p临时保存栈顶元素空间，以备释放</span></span><br><span class="line">    S=S-&gt;next;            <span class="comment">//修改栈顶指针</span></span><br><span class="line">    <span class="keyword">delete</span> p;             <span class="comment">//释放原栈顶元素的空间</span></span><br><span class="line">    <span class="keyword">return</span> OK;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<ul>
+<li>取栈顶元素</li>
+</ul>
+<figure class="highlight c"><table><tr><td class="code"><pre><span class="line"><span class="function">SElemType <span class="title">GetTop</span><span class="params">(LinkStack S)</span></span>&#123;</span><br><span class="line">    <span class="keyword">if</span>(S!=<span class="literal">NULL</span>)</span><br><span class="line">        <span class="keyword">return</span> S-&gt;data;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<figure class="highlight c"><table><tr><td class="code"><pre><span class="line"><span class="meta">#<span class="meta-keyword">include</span><span class="meta-string">&lt;stdio.h&gt;</span></span></span><br><span class="line"><span class="meta">#<span class="meta-keyword">include</span><span class="meta-string">&lt;stdlib.h&gt;</span></span></span><br><span class="line"></span><br><span class="line"><span class="keyword">typedef</span> <span class="class"><span class="keyword">struct</span> <span class="title">LinkedStackNode</span>&#123;</span></span><br><span class="line">    <span class="keyword">int</span> data;</span><br><span class="line">    LinkedStackNode *next;</span><br><span class="line">&#125;LinkedStackNode,*LinkedStack;</span><br><span class="line"></span><br><span class="line"><span class="comment">//初始化栈</span></span><br><span class="line"><span class="function"><span class="keyword">int</span> <span class="title">InitLinkedStack</span><span class="params">(LinkedStack &amp;L)</span></span>&#123;</span><br><span class="line">    L=(LinkedStackNode*)<span class="built_in">malloc</span>(<span class="keyword">sizeof</span>(LinkedStackNode));</span><br><span class="line">    L-&gt;next=<span class="literal">NULL</span>;</span><br><span class="line">    <span class="keyword">return</span> <span class="number">1</span>;</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="comment">//销毁栈</span></span><br><span class="line"><span class="function"><span class="keyword">int</span> <span class="title">DestroyList</span><span class="params">(LinkedStack &amp;L)</span></span>&#123;</span><br><span class="line">    LinkedStack temp;</span><br><span class="line">    <span class="keyword">while</span>(L)&#123;</span><br><span class="line">        temp=L-&gt;next;</span><br><span class="line">        <span class="built_in">free</span>(temp);</span><br><span class="line">        L=temp;</span><br><span class="line">    &#125;</span><br><span class="line">    <span class="keyword">return</span> <span class="number">1</span>;</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="comment">//判断栈空</span></span><br><span class="line"><span class="function"><span class="keyword">int</span> <span class="title">LinkedStackEmpty</span><span class="params">(LinkedStack L)</span></span>&#123;</span><br><span class="line">    <span class="keyword">if</span>(!L-&gt;next)&#123;</span><br><span class="line">        <span class="built_in">printf</span>(<span class="string">&quot;LinkedStack is Empty\n&quot;</span>);</span><br><span class="line">        <span class="keyword">return</span> <span class="number">1</span>;</span><br><span class="line">    &#125;</span><br><span class="line">    <span class="keyword">else</span>&#123;</span><br><span class="line">        <span class="built_in">printf</span>(<span class="string">&quot;LinkedStack isn&#x27;t Empty\n&quot;</span>);</span><br><span class="line">        <span class="keyword">return</span> <span class="number">0</span>;</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="comment">//入栈</span></span><br><span class="line"><span class="function"><span class="keyword">int</span> <span class="title">Push</span><span class="params">(LinkedStack &amp;L,<span class="keyword">int</span> e)</span></span>&#123;</span><br><span class="line">    LinkedStack temp;</span><br><span class="line">    temp=(LinkedStackNode*)<span class="built_in">malloc</span>(<span class="keyword">sizeof</span>(LinkedStackNode));<span class="comment">//创建临时结点</span></span><br><span class="line">    temp-&gt;data=e;<span class="comment">//将e赋值给temp的数据域</span></span><br><span class="line">    temp-&gt;next=L-&gt;next;<span class="comment">//temp结点指向下一结点</span></span><br><span class="line">    L-&gt;next=temp;<span class="comment">//更改L结点的指向temp结点</span></span><br><span class="line">    <span class="keyword">return</span> <span class="number">1</span>;</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="comment">//出栈</span></span><br><span class="line"><span class="function"><span class="keyword">int</span> <span class="title">Pop</span><span class="params">(LinkedStack &amp;L,<span class="keyword">int</span> &amp;e)</span></span>&#123;</span><br><span class="line">    LinkedStack temp;</span><br><span class="line">    temp=L-&gt;next;</span><br><span class="line">    e=temp-&gt;data;</span><br><span class="line">    L-&gt;next=temp-&gt;next;</span><br><span class="line">    <span class="built_in">free</span>(temp);</span><br><span class="line">    <span class="keyword">return</span> <span class="number">1</span>;</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="comment">//获取栈顶元素</span></span><br><span class="line"><span class="function"><span class="keyword">int</span> <span class="title">GetElem</span><span class="params">(LinkedStack L,<span class="keyword">int</span> &amp;e)</span></span>&#123;</span><br><span class="line">    <span class="keyword">return</span> e=L-&gt;next-&gt;data;</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="function"><span class="keyword">int</span> <span class="title">main</span><span class="params">()</span> </span>&#123;              <span class="comment">//记几个测试代码，可随意修改</span></span><br><span class="line">    <span class="keyword">int</span> n,i,e;</span><br><span class="line">    LinkedStackNode *top;</span><br><span class="line">    InitLinkedStack(top);</span><br><span class="line">    LinkedStackEmpty(top);</span><br><span class="line">    <span class="built_in">scanf</span>(<span class="string">&quot;%d&quot;</span>,&amp;n);</span><br><span class="line">    <span class="keyword">for</span>(i=<span class="number">1</span>;i&lt;=n;i++)&#123;</span><br><span class="line">        Push(top, i);</span><br><span class="line">    &#125;</span><br><span class="line">    Pop(top,e);</span><br><span class="line">    <span class="built_in">printf</span>(<span class="string">&quot;%d\n&quot;</span>,e);</span><br><span class="line">    GetElem(top, e);</span><br><span class="line">    <span class="built_in">printf</span>(<span class="string">&quot;%d\n&quot;</span>,e);</span><br><span class="line">    DestroyList(top);</span><br><span class="line">    <span class="keyword">return</span> <span class="number">0</span>;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
 <h2 id="3-4-什么是队列"><a href="#3-4-什么是队列" class="headerlink" title="3.4 什么是队列"></a>3.4 什么是队列</h2><p>　　与栈不同的是，队列的两端都“开口”，要求数据只能从一端进，从另一端出。</p>
 <p><img src="http://c.biancheng.net/uploads/allimg/190426/1I33AU8-0.gif" alt="1234"></p>
 <figure class="highlight plain"><table><tr><td class="code"><pre><span class="line">通常，称进数据的一端叫做“队尾”，出数据的一端叫做“队头”，添加数据叫做入队，出队列叫做出队</span><br></pre></td></tr></table></figure>
@@ -4766,36 +4771,27 @@ W_{ij}　　<v_i,v_j>或(v_i,V_j){\in}V_R\\
 </ul>
 <h2 id="1-4-Elasticsearch体系结构"><a href="#1-4-Elasticsearch体系结构" class="headerlink" title="1.4 Elasticsearch体系结构"></a>1.4 Elasticsearch体系结构</h2><p>　　Elasticsearch 是面向文档型数据库，一条数据在这里就是一个文档。 我们将 Elasticsearch 里存储文档数据和关系型数据库MySQL 存储数据的概念进行一个类比</p>
 <p><img src="https://cdn.jsdelivr.net/gh/qnjy/images/data/1620734297-image-20210511195817096.png" alt="image-20210511195817096"></p>
-<h1 id="2-安装Elasticsearch"><a href="#2-安装Elasticsearch" class="headerlink" title="2 安装Elasticsearch"></a>2 安装Elasticsearch</h1><h2 id="2-1-Windows下安装"><a href="#2-1-Windows下安装" class="headerlink" title="2.1 Windows下安装"></a>2.1 Windows下安装</h2><p>　　参考</p>
-<h2 id="2-2-Docker环境下安装ElasticSearch"><a href="#2-2-Docker环境下安装ElasticSearch" class="headerlink" title="2.2 Docker环境下安装ElasticSearch"></a>2.2 Docker环境下安装ElasticSearch</h2><h3 id="2-2-1-容器创建"><a href="#2-2-1-容器创建" class="headerlink" title="2.2.1 容器创建"></a>2.2.1 容器创建</h3><p><strong>1、下载镜像</strong></p>
+<h1 id="2-安装Elasticsearch"><a href="#2-安装Elasticsearch" class="headerlink" title="2 安装Elasticsearch"></a>2 安装Elasticsearch</h1><h1 id="docker下无法使用vi命令解决方法"><a href="#docker下无法使用vi命令解决方法" class="headerlink" title="docker下无法使用vi命令解决方法"></a>docker下无法使用vi命令解决方法</h1><h2 id="2-1-Windows下安装"><a href="#2-1-Windows下安装" class="headerlink" title="2.1 Windows下安装"></a>2.1 Windows下安装</h2><p>　　参考</p>
+<h2 id="2-2-Docker环境下安装ElasticSearch"><a href="#2-2-Docker环境下安装ElasticSearch" class="headerlink" title="2.2 Docker环境下安装ElasticSearch"></a>2.2 Docker环境下安装ElasticSearch</h2><h3 id="docker下无法使用vi命令解决方法-1"><a href="#docker下无法使用vi命令解决方法-1" class="headerlink" title="docker下无法使用vi命令解决方法"></a>docker下无法使用vi命令解决方法</h3><p>　　我们会碰到修改容器配置文件的，但是在容器下vi命令不可用，所以进入每个容器后安装vim命令就可以修改配置文件，进入容器内部，执行以下命令 </p>
+<figure class="highlight routeros"><table><tr><td class="code"><pre><span class="line">apt-<span class="builtin-name">get</span> update</span><br><span class="line">apt-<span class="builtin-name">get</span> install vim</span><br></pre></td></tr></table></figure>
+<h3 id="2-2-1-es容器创建"><a href="#2-2-1-es容器创建" class="headerlink" title="2.2.1 es容器创建"></a>2.2.1 es容器创建</h3><p><strong>1、下载镜像</strong></p>
 <figure class="highlight apache"><table><tr><td class="code"><pre><span class="line"><span class="attribute">docker</span> pull elasticsearch:<span class="number">5</span>.<span class="number">6</span>.<span class="number">8</span></span><br></pre></td></tr></table></figure>
 <p><strong>2、创建容器</strong></p>
 <figure class="highlight apache"><table><tr><td class="code"><pre><span class="line"><span class="attribute">docker</span> run ‐di ‐‐name=myes ‐p <span class="number">9200</span>:<span class="number">9200</span> ‐p <span class="number">9300</span>:<span class="number">9300</span></span><br><span class="line"><span class="attribute">elasticsearch</span>:<span class="number">5</span>.<span class="number">6</span>.<span class="number">8</span></span><br></pre></td></tr></table></figure>
 <p><strong>3、浏览器输入地址：</strong></p>
 <p>192.168.200.133:9200，即可看到以下信息</p>
 <figure class="highlight json"><table><tr><td class="code"><pre><span class="line">&#123;</span><br><span class="line">    <span class="attr">&quot;name&quot;</span>: <span class="string">&quot;Q6z1-G-&quot;</span>,</span><br><span class="line">    <span class="attr">&quot;cluster_name&quot;</span>: <span class="string">&quot;elasticsearch&quot;</span>,</span><br><span class="line">    <span class="attr">&quot;cluster_uuid&quot;</span>: <span class="string">&quot;kSGG2E7QQCm3SXyHLpQy1g&quot;</span>,</span><br><span class="line">    <span class="attr">&quot;version&quot;</span>: &#123;</span><br><span class="line">        <span class="attr">&quot;number&quot;</span>: <span class="string">&quot;5.6.12&quot;</span>,</span><br><span class="line">        <span class="attr">&quot;build_hash&quot;</span>: <span class="string">&quot;cfe3d9f&quot;</span>,</span><br><span class="line">        <span class="attr">&quot;build_date&quot;</span>: <span class="string">&quot;2018-09-10T20:12:43.732Z&quot;</span>,</span><br><span class="line">        <span class="attr">&quot;build_snapshot&quot;</span>: <span class="literal">false</span>,</span><br><span class="line">        <span class="attr">&quot;lucene_version&quot;</span>: <span class="string">&quot;6.6.1&quot;</span></span><br><span class="line">    &#125;,</span><br><span class="line">    <span class="attr">&quot;tagline&quot;</span>: <span class="string">&quot;You Know, for Search&quot;</span></span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
-<p><strong>4、我们修改demo的application.yml</strong></p>
-<figure class="highlight yml"><table><tr><td class="code"><pre><span class="line"><span class="attr">spring:</span></span><br><span class="line">  <span class="attr">data:</span></span><br><span class="line">   <span class="attr">elasticsearch:</span></span><br><span class="line">      <span class="string">cluster‐nodes:</span> <span class="number">192.168</span><span class="number">.200</span><span class="number">.133</span><span class="string">:9300</span></span><br></pre></td></tr></table></figure>
-<p><strong>5、运行测试程序，发现会如下报错：</strong></p>
-<figure class="highlight stylus"><table><tr><td class="code"><pre><span class="line">NoNodeAvailableException[None of the configured nodes are available:</span><br><span class="line">[&#123;#transport#‐<span class="number">1</span>&#125;&#123;exvgJLR‐RlCNMJy‐hzKtnA&#125;&#123;<span class="number">192.168</span>.<span class="number">184.135</span>&#125;</span><br><span class="line">&#123;<span class="number">192.168</span>.<span class="number">184.135</span>:<span class="number">9300</span>&#125;]</span><br><span class="line">]</span><br><span class="line">at</span><br><span class="line">org<span class="selector-class">.elasticsearch</span><span class="selector-class">.client</span><span class="selector-class">.transport</span><span class="selector-class">.TransportClientNodesService</span>.ensureNodes</span><br><span class="line"><span class="function"><span class="title">AreAvailable</span><span class="params">(TransportClientNodesService.java:<span class="number">347</span>)</span></span></span><br><span class="line">at</span><br><span class="line">org<span class="selector-class">.elasticsearch</span><span class="selector-class">.client</span><span class="selector-class">.transport</span><span class="selector-class">.TransportClientNodesService</span>.execute(Tra</span><br><span class="line">nsportClientNodesService<span class="selector-class">.java</span>:<span class="number">245</span>)</span><br><span class="line">at</span><br><span class="line">org<span class="selector-class">.elasticsearch</span><span class="selector-class">.client</span><span class="selector-class">.transport</span><span class="selector-class">.TransportProxyClient</span>.execute(TransportP</span><br><span class="line">roxyClient<span class="selector-class">.java</span>:<span class="number">59</span>)</span><br></pre></td></tr></table></figure>
-<p>这是因为es从5版本之后默认不开启远程连接，需要修改配置文件</p>
-<p><strong>6、我们进入容器</strong></p>
+<p><strong>4、我们进入容器</strong></p>
 <figure class="highlight awk"><table><tr><td class="code"><pre><span class="line">docker exec -it myes <span class="regexp">/bin/</span>bash</span><br></pre></td></tr></table></figure>
 <p>此时，我们看到elasticsearch所在的目录为/usr/share/elasticsearch，进入config看到了配置文件</p>
 <p>elasticsearch.yml</p>
-<p>我们通过vi命令编辑此文件，尴尬的是容器没有vi命令，怎么办？我们需要以文件挂载的方式创建容器才行，这样我们就可以通过修改宿主机中的某个文件来实现对容器内配置文件的修改</p>
-<p><strong>7、拷贝配置文件到宿主机</strong></p>
-<p>首先退出容器，然后执行命令</p>
-<figure class="highlight awk"><table><tr><td class="code"><pre><span class="line">docker cp</span><br><span class="line">myes:<span class="regexp">/usr/</span>share<span class="regexp">/elasticsearch/</span>config<span class="regexp">/elasticsearch.yml /u</span>sr<span class="regexp">/share/</span>elasticsearch.yml</span><br></pre></td></tr></table></figure>
-<p><strong>8、停止和删除原来创建的容器</strong></p>
-<figure class="highlight properties"><table><tr><td class="code"><pre><span class="line"><span class="attr">docker</span> <span class="string">stop myes</span></span><br><span class="line"><span class="attr">docker</span> <span class="string">rm myes</span></span><br></pre></td></tr></table></figure>
-<p><strong>9、重新执行创建容器命令</strong></p>
-<figure class="highlight awk"><table><tr><td class="code"><pre><span class="line">docker run -di --name=myes -p <span class="number">9200</span>:<span class="number">9200</span> -p <span class="number">9300</span>:<span class="number">9300</span> -v <span class="regexp">/usr/</span>share<span class="regexp">/elasticsearch.yml:/u</span>sr<span class="regexp">/share/</span>elasticsearch<span class="regexp">/config/</span>elasticsearch</span><br><span class="line">.yml elasticsearch:<span class="number">5.6</span>.<span class="number">8</span></span><br></pre></td></tr></table></figure>
-<p><strong>10、修改</strong>/usr/share/elasticsearch.yml将<code>transport.host:0.0.0.0</code>前的#去掉后保存退出。其作用是允许任何IP地址访问elasticsearch。开发测试阶段可以这么做，生产环境下指定具体的IP。</p>
-<p>11、重新启动</p>
+<p>如果已经安装过了vim命令，直接执行以下命令</p>
+<figure class="highlight arduino"><table><tr><td class="code"><pre><span class="line">vim <span class="built_in">config</span>/elasticsearch.yml</span><br></pre></td></tr></table></figure>
+<p>将<code>transport.host:0.0.0.0</code>前的#去掉，其作用是允许任何IP地址访问elasticsearch。开发测试阶段可以这么做，生产环境下指定具体的IP；并加上<code>network.host: 192.168.200.133</code>。（注意，是自己虚拟机的地址）</p>
+<p><strong>5、重新启动</strong></p>
 <figure class="highlight ebnf"><table><tr><td class="code"><pre><span class="line"><span class="attribute">docker restart myes</span></span><br></pre></td></tr></table></figure>
 <p>　　重启之后发现重启失败？这与我们刚才修改的配置有关，因为elasticsearch在启动的时候会进行一些检查，比如最多打开的文件的个数以及虚拟内存区域数量等，如果放开了此配置，以为这需要打开更多的文件以及虚拟内存，所以我们需要调优。</p>
-<p><strong>12、系统调优</strong></p>
+<p><strong>6、系统调优</strong></p>
 <p>我们一共需要修改两处</p>
 <p>修改/etc/security/limits.conf，追加内容</p>
 <figure class="highlight angelscript"><table><tr><td class="code"><pre><span class="line">* soft nofile <span class="number">65536</span></span><br><span class="line">* hard nofile <span class="number">65536</span></span><br></pre></td></tr></table></figure>
@@ -4816,7 +4812,7 @@ W_{ij}　　<v_i,v_j>或(v_i,V_j){\in}V_R\\
 <p><strong>4、重启docker容器</strong></p>
 <figure class="highlight ebnf"><table><tr><td class="code"><pre><span class="line"><span class="attribute">docker restart myes</span></span><br></pre></td></tr></table></figure>
 <h3 id="2-2-3-HEAD插件"><a href="#2-2-3-HEAD插件" class="headerlink" title="2.2.3 HEAD插件"></a>2.2.3 HEAD插件</h3><p><strong>1、跨域配置</strong></p>
-<p>修改/usr/share/elasticsearch.yml，增加以下三条命令：</p>
+<p>使用vim命令编辑config/elasticsearch.yml，增加以下命令：</p>
 <figure class="highlight stylus"><table><tr><td class="code"><pre><span class="line">http<span class="selector-class">.cors</span><span class="selector-class">.enabled</span>: true</span><br><span class="line">http<span class="selector-class">.cors</span><span class="selector-class">.allow-origin</span>: <span class="string">&quot;*&quot;</span></span><br></pre></td></tr></table></figure>
 <p>其中：<br><strong>http.cors.enabled: true：</strong>此步为允许elasticsearch跨域访问，默认是false。<br><strong>http.cors.allow-origin: “*”：</strong>表示跨域访问允许的域名地址（*表示任意）。</p>
 <p><strong>2、重新启动elasticseach容器</strong></p>
@@ -4824,6 +4820,87 @@ W_{ij}　　<v_i,v_j>或(v_i,V_j){\in}V_R\\
 <figure class="highlight angelscript"><table><tr><td class="code"><pre><span class="line">docker pull mobz/elasticsearch‐head:<span class="number">5</span></span><br></pre></td></tr></table></figure>
 <p><strong>4、创建head容器</strong></p>
 <figure class="highlight routeros"><table><tr><td class="code"><pre><span class="line">docker <span class="builtin-name">run</span> ‐di ‐‐<span class="attribute">name</span>=myhead ‐p 9100:9100 容器ID</span><br></pre></td></tr></table></figure>
+<h3 id="2-2-4-Kibana安装"><a href="#2-2-4-Kibana安装" class="headerlink" title="2.2.4 Kibana安装"></a>2.2.4 Kibana安装</h3><font color="ff000">kibana版本和es版本要一致</font>
+
+<p><strong>1、下载镜像</strong></p>
+<figure class="highlight apache"><table><tr><td class="code"><pre><span class="line"><span class="attribute">docker</span> pull kibana:<span class="number">5</span>.<span class="number">6</span>.<span class="number">8</span></span><br></pre></td></tr></table></figure>
+<p><strong>2、创建容器</strong></p>
+<p>首先要使用<code>docker inspect es</code>查看docker给es容器分配的地址</p>
+<p><img src="https://cdn.jsdelivr.net/gh/qnjy/images/data/1620997268-image-20210514210108285.png" alt="image-20210514210108285" style="zoom: 67%;" /></p>
+<p>之后创建kibana容器</p>
+<figure class="highlight apache"><table><tr><td class="code"><pre><span class="line"><span class="attribute">docker</span> run -d --name kibana  -e ELASTICSEARCH_URL=http://<span class="number">172.17.0.2:9200</span> -p <span class="number">5601</span>:<span class="number">5601</span> kibana:<span class="number">5</span>.<span class="number">6</span>.<span class="number">8</span></span><br></pre></td></tr></table></figure>
+<h2 id="2-3-RestFul风格"><a href="#2-3-RestFul风格" class="headerlink" title="2.3 RestFul风格"></a>2.3 RestFul风格</h2><div class="table-container">
+<table>
+<thead>
+<tr>
+<th>method</th>
+<th>url地址</th>
+<th>描述</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>PUT</td>
+<td>localhost:9200/索引名称/类型名称/文档id</td>
+<td>创建文档〔指定文档id )</td>
+</tr>
+<tr>
+<td>POST</td>
+<td>localhost:9200/索引名称/类型名称</td>
+<td>创建文档〔随机文档id )</td>
+</tr>
+<tr>
+<td>POST</td>
+<td>localhost:9200/索引名称/类型名称/文档id/_update</td>
+<td>修改文档</td>
+</tr>
+<tr>
+<td>DELETE</td>
+<td>localhost:9200/索引名称/类型名称/文档id</td>
+<td>删除文档</td>
+</tr>
+<tr>
+<td>GET</td>
+<td>localhost:9200/索引名称/类型名称/文档id</td>
+<td>查询文档通过文档id</td>
+</tr>
+<tr>
+<td>POST</td>
+<td>localhost:9200/索引名称/类型名称/_search</td>
+<td>查询所有数据</td>
+</tr>
+</tbody>
+</table>
+</div>
+<blockquote>
+<p>基础测试</p>
+</blockquote>
+<p>1、创建一个索引</p>
+<figure class="highlight awk"><table><tr><td class="code"><pre><span class="line">PUT <span class="regexp">/索引名/</span>类型名/文档id</span><br><span class="line">&#123;请求体&#125;</span><br></pre></td></tr></table></figure>
+<p><img src="https://cdn.jsdelivr.net/gh/qnjy/images/data/1620998793-image-20210514212633515.png" alt="image-20210514212633515"></p>
+<p>2、name这个字段需要指定类型</p>
+<ul>
+<li><p>字符串类型</p>
+<p>text、keyword</p>
+</li>
+<li><p>数值类型</p>
+<p>long、integer、short、byte、double、float、half float、scaled float</p>
+</li>
+<li><p>日期类型</p>
+<p>date</p>
+</li>
+<li><p>布尔值类型</p>
+<p>boolean</p>
+</li>
+<li><p>二进制类型</p>
+<p>binary</p>
+</li>
+</ul>
+<p><img src="https://cdn.jsdelivr.net/gh/qnjy/images/data/1620998810-image-20210514212650261.png" alt="image-20210514212650261"></p>
+<p>3、指定字段类型</p>
+<p><img src="https://cdn.jsdelivr.net/gh/qnjy/images/data/1621000029-image-20210514214709549.png" alt="image-20210514214709549"></p>
+<p>4、获取具体信息</p>
+<p><img src="https://cdn.jsdelivr.net/gh/qnjy/images/data/1621000092-image-20210514214812283.png" alt="image-20210514214812283"></p>
 ]]></content>
   </entry>
   <entry>
