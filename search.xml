@@ -956,9 +956,12 @@
     <content><![CDATA[<p>　　每次新建完虚拟机之后忘记快照，都得重新安装虚拟机并且配置网络，把配置过程记录在这里。<span id="more"></span></p>
 <p><strong>1.VMware选择NAT模式</strong></p>
 <p><strong>2.在虚拟机中操作</strong></p>
+<p>需要点击虚拟机的“虚拟网络编辑器”</p>
+<p><img src="https://cdn.jsdelivr.net/gh/qnjy/images/data/1621571249-image-20210521122728538.png" alt="image-20210521122728538" style="zoom:67%;" /><img src="https://cdn.jsdelivr.net/gh/qnjy/images/data/1621571363-image-20210521122922933.png" alt="image-20210521122922933"></p>
+<p><img src="https://cdn.jsdelivr.net/gh/qnjy/images/data/1621571363-image-20210521122922933.png" alt="image-20210521122922933"></p>
 <p><code>vi /etc/sysconfig/network-scripts/ifcfg-ens33</code></p>
 <p>根据IP修改为以下内容</p>
-<figure class="highlight shell"><table><tr><td class="code"><pre><span class="line">TYPE=Ethernet #网络类型</span><br><span class="line">BOOTPROTO=none #IP获取方式，有dhcp自动获取和静态IP（none/static）</span><br><span class="line">NAME=ens33 #网络名称</span><br><span class="line">UUID=d1755a41-8026-42f1-871d-9cd78fa2aa3c </span><br><span class="line">DEVICE=ens33 #驱动名称</span><br><span class="line">ONBOOT=yes #设置开机启动</span><br><span class="line">IPADDR=192.168.137.3 #设置静态IP地址</span><br><span class="line">NETMASK=255.255.255.0 #子网掩码</span><br><span class="line">GATEWAY=192.168.137.254 #网关</span><br><span class="line">DNS1=114.114.114.114 #DNS</span><br><span class="line">DNS2=202.96.134.133</span><br></pre></td></tr></table></figure>
+<figure class="highlight shell"><table><tr><td class="code"><pre><span class="line">TYPE=Ethernet #网络类型</span><br><span class="line"><span class="meta">#</span><span class="bash">将这个更改为none</span></span><br><span class="line">BOOTPROTO=none #IP获取方式，有dhcp自动获取和静态IP（none/static）</span><br><span class="line">NAME=ens33 #网络名称</span><br><span class="line">UUID=d1755a41-8026-42f1-871d-9cd78fa2aa3c </span><br><span class="line">DEVICE=ens33 #驱动名称</span><br><span class="line"><span class="meta">#</span><span class="bash">更改为yes</span></span><br><span class="line">ONBOOT=yes #设置开机启动</span><br><span class="line"><span class="meta">#</span><span class="bash">添加以下内容</span></span><br><span class="line">IPADDR=192.168.137.3 #设置静态IP地址</span><br><span class="line">NETMASK=255.255.255.0 #子网掩码</span><br><span class="line">GATEWAY=192.168.137.254 #网关</span><br><span class="line">DNS1=114.114.114.114 #DNS</span><br><span class="line">DNS2=202.96.134.133</span><br></pre></td></tr></table></figure>
 <p>保存退出后重启网络服务</p>
 <p><code>systemctl restart network.service</code></p>
 ]]></content>
@@ -1499,9 +1502,7 @@
 <h1 id="4-组合（Composition）"><a href="#4-组合（Composition）" class="headerlink" title="4 组合（Composition）"></a>4 组合（Composition）</h1><ul>
 <li><p>【组合关系】：是整体与部分的关系，但部分不能离开整体而单独存在。强调了比聚合关系更加强的整体/部分的关联，例如人和四肢。</p>
 </li>
-<li><ul>
-<li>和聚合关系所不同的是:在组合关系中，虽然局部不一定随着整体的销毁而销毁，但整体要么负责保持局部的存活状态，要么负责将其销毁。也就是说，组合关系中，局部的存活期一定是小于，最多是等于整体的存活期的。</li>
-</ul>
+<li><p>和聚合关系所不同的是:在组合关系中，虽然局部不一定随着整体的销毁而销毁，但整体要么负责保持局部的存活状态，要么负责将其销毁。也就是说，组合关系中，局部的存活期一定是小于，最多是等于整体的存活期的。</p>
 </li>
 <li><p>【代码体现】：成员变量（一定是在构造函数中实现的）</p>
 </li>
@@ -4753,7 +4754,74 @@ W_{ij}　　<v_i,v_j>或(v_i,V_j){\in}V_R\\
 <li><p>邻接多重表</p>
 </li>
 </ul>
-<h2 id="6-3-图的遍历"><a href="#6-3-图的遍历" class="headerlink" title="6.3 图的遍历"></a>6.3 图的遍历</h2><h3 id="6-3-1-深度优先搜索"><a href="#6-3-1-深度优先搜索" class="headerlink" title="6.3.1 深度优先搜索"></a>6.3.1 深度优先搜索</h3><h3 id="6-3-2-广度优先搜索"><a href="#6-3-2-广度优先搜索" class="headerlink" title="6.3.2 广度优先搜索"></a>6.3.2 广度优先搜索</h3><h2 id="6-4-图的应用"><a href="#6-4-图的应用" class="headerlink" title="6.4 图的应用"></a>6.4 图的应用</h2>]]></content>
+<h2 id="6-3-图的遍历"><a href="#6-3-图的遍历" class="headerlink" title="6.3 图的遍历"></a>6.3 图的遍历</h2><h3 id="6-3-1-深度优先搜索"><a href="#6-3-1-深度优先搜索" class="headerlink" title="6.3.1 深度优先搜索"></a>6.3.1 深度优先搜索</h3><h3 id="6-3-2-广度优先搜索"><a href="#6-3-2-广度优先搜索" class="headerlink" title="6.3.2 广度优先搜索"></a>6.3.2 广度优先搜索</h3><h2 id="6-4-图的应用"><a href="#6-4-图的应用" class="headerlink" title="6.4 图的应用"></a>6.4 图的应用</h2><h1 id="第七章-查找"><a href="#第七章-查找" class="headerlink" title="第七章 查找"></a>第七章 查找</h1><h2 id="7-1-查找的基本概念"><a href="#7-1-查找的基本概念" class="headerlink" title="7.1 查找的基本概念"></a>7.1 查找的基本概念</h2><ul>
+<li><p>查找表:</p>
+<p>　由同一类型的数据元素（或记录）构成的集合</p>
+</li>
+<li><p>静态查找表：</p>
+<p>　查找的同时对查找表不做修改操作（如插入和删除）</p>
+</li>
+<li><p>动态查找表：</p>
+<p>　查找的同时对查找表具有修改操作</p>
+</li>
+<li><p>关键字</p>
+<p>　记录中某个数据项的值，可用来识别一个记录</p>
+</li>
+<li><p>主关键字：</p>
+<p>　唯一标识数据元素的值</p>
+</li>
+<li><p>次关键字：<br>　可以标识若干个数据元素</p>
+</li>
+<li><p>平均查找长度（关键字的平均比较次数）</p>
+</li>
+</ul>
+<script type="math/tex; mode=display">
+ASL=\sum_{i=1}^{n}p_ic_i</script><p>n：记录的个数</p>
+<p>$p_i$：查找第i个记录的概率（通常认为$p_i$=1/n）</p>
+<p>$c_i$：找到第i个记录所需的比较次数</p>
+<h2 id="7-2-线性表的查找"><a href="#7-2-线性表的查找" class="headerlink" title="7.2 线性表的查找"></a>7.2 线性表的查找</h2><h3 id="7-2-1-顺序查找"><a href="#7-2-1-顺序查找" class="headerlink" title="7.2.1 顺序查找"></a>7.2.1 顺序查找</h3><p>顺序查找适用于顺序结构，也适用于链式结构</p>
+<p>数据元素类型的定义如下</p>
+<figure class="highlight c"><table><tr><td class="code"><pre><span class="line"><span class="keyword">typedef</span> <span class="class"><span class="keyword">struct</span>&#123;</span></span><br><span class="line">    KeyType key;</span><br><span class="line">    InfoType otherindo;</span><br><span class="line">&#125;ElemType;</span><br></pre></td></tr></table></figure>
+<p>顺序表的定义如下</p>
+<figure class="highlight c"><table><tr><td class="code"><pre><span class="line"><span class="keyword">typedef</span> <span class="class"><span class="keyword">struct</span>&#123;</span></span><br><span class="line">    ElemType *R;<span class="comment">//表示基地址</span></span><br><span class="line">    <span class="keyword">int</span> length;<span class="comment">//表示长度</span></span><br><span class="line">&#125;SSTable</span><br></pre></td></tr></table></figure>
+<p>算法步骤：</p>
+<figure class="highlight c"><table><tr><td class="code"><pre><span class="line"><span class="function"><span class="keyword">int</span> <span class="title">Search_Seq</span><span class="params">(SSTable ST,KeyType key)</span></span></span><br><span class="line"><span class="function"></span>&#123;</span><br><span class="line">    ST.R[<span class="number">0</span>].key=key;</span><br><span class="line">    <span class="keyword">for</span>(i=ST.length;ST.R[i].key!=key;--i)</span><br><span class="line">        <span class="keyword">return</span> i;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<p>算法的时间复杂度是O(n)</p>
+<p>平均查找长度：$ASL=\frac{1}{n}\sum_{i=1}^{n}i=\frac{n+1}{2}$</p>
+<h3 id="7-2-2-折半查找"><a href="#7-2-2-折半查找" class="headerlink" title="7.2.2 折半查找"></a>7.2.2 折半查找</h3><p>只适用于顺序结构</p>
+<p>算法步骤：</p>
+<blockquote>
+<p>①置查找区间初值，low为1，high为表长</p>
+<p>②当low小于等于high时，循环执行以下操作</p>
+<ul>
+<li>mid取值为low和high的中间值</li>
+<li>将给定值key与中间位置记录的关键字进行比较，若相等则查找成功，返回中间位置mid；</li>
+<li>若不想等则利用中间位置记录将表对分成前、后两个子表。如果key比中间位置记录的关键字小，则high取为mid-1，否则low取为mid+1。</li>
+</ul>
+<p>③循环结束，说明查找区间为空，则查找失败，返回0。</p>
+</blockquote>
+<figure class="highlight c"><table><tr><td class="code"><pre><span class="line"><span class="function"><span class="keyword">int</span> <span class="title">Search_Bin</span><span class="params">(SSTable ST,KeyType key)</span></span>&#123;</span><br><span class="line">    low=<span class="number">1</span>;high=ST.length;</span><br><span class="line">    <span class="keyword">while</span>(low&lt;=high)&#123;</span><br><span class="line">        mid=(low+high)/<span class="number">2</span>;</span><br><span class="line">        <span class="keyword">if</span>(key==ST.R[mid].key) </span><br><span class="line">            <span class="keyword">return</span> mid;</span><br><span class="line">        <span class="keyword">else</span> <span class="keyword">if</span></span><br><span class="line">            (key&lt;ST.R[mid].key) high = mid<span class="number">-1</span>;</span><br><span class="line">        <span class="keyword">else</span> </span><br><span class="line">            low = mid+<span class="number">1</span>;</span><br><span class="line">    &#125;</span><br><span class="line">    <span class="keyword">return</span> <span class="number">0</span>;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<p>时间复杂度是$O(log_2n)$</p>
+<p>平均查找长度：$ASL=\sum<em>{i=1}^{n}P_iC_i=\frac{1}{n}\sum</em>{j=1}^{h}j·2^{j-1}=\frac{n+1}{n}log_2(n+1)-1$</p>
+<p>当n较大时近似为：$ASL=log_2(n+1)-1$</p>
+<h3 id="7-2-3-分块查找"><a href="#7-2-3-分块查找" class="headerlink" title="7.2.3 分块查找"></a>7.2.3 分块查找</h3><h2 id="7-3-树表的查找"><a href="#7-3-树表的查找" class="headerlink" title="7.3 树表的查找"></a>7.3 树表的查找</h2><h3 id="7-3-1-二叉排序树"><a href="#7-3-1-二叉排序树" class="headerlink" title="7.3.1 二叉排序树"></a>7.3.1 二叉排序树</h3><p>二叉排序树或是空树，或是满足如下性质的二叉树：</p>
+<p> (1)若其左子树非空，则左子树上所有结点的值均小于根结点的值；</p>
+<p> (2)若其右子树非空，则右子树上所有结点的值均大于等于根结点的值；</p>
+<p> (3)其左右子树本身又各是一棵二叉排序树</p>
+<p>结点的数据域的类型定义</p>
+<figure class="highlight c"><table><tr><td class="code"><pre><span class="line"><span class="keyword">typedef</span> Struct&#123;</span><br><span class="line">    KeyType key;</span><br><span class="line">    IndoType otherindo;</span><br><span class="line">&#125;ElemType;</span><br><span class="line"><span class="keyword">typedef</span> <span class="class"><span class="keyword">struct</span> <span class="title">BSTNode</span>&#123;</span></span><br><span class="line">    ElemType data;</span><br><span class="line">    <span class="class"><span class="keyword">struct</span> <span class="title">BSTNode</span> *<span class="title">lchild</span>,*<span class="title">rchild</span>;</span></span><br><span class="line">&#125;BSTNode,*BSTree;</span><br></pre></td></tr></table></figure>
+<p>算法7.4 二叉排序树的递归查找</p>
+<blockquote>
+<p>①若二叉排序树为空，则查找失败，返回空指针。</p>
+<p>②若二叉排序树非空，将给定值key与根结点的关键字T-&gt;data.key进行比较：</p>
+<ul>
+<li>若key等于T-&gt;data.key，则查找成功，返回根节点地址</li>
+<li>若key小于T-&gt;data.key，则递归查找左子树</li>
+<li>若key大于T-&gt;data.key，则递归查找右子树</li>
+</ul>
+</blockquote>
+<figure class="highlight c"><table><tr><td class="code"><pre><span class="line"><span class="function">BSTree <span class="title">SearchBST</span><span class="params">(BSTree T,KeyType key)</span></span>&#123;</span><br><span class="line">    <span class="keyword">if</span>((!T) || key==T-&gt;data.key)</span><br><span class="line">        <span class="keyword">return</span> T;</span><br><span class="line">    <span class="keyword">else</span> <span class="keyword">if</span>(key&lt;T-&gt;data.key)</span><br><span class="line">        <span class="keyword">return</span> SearchBST(T-&gt;lchild,key);</span><br><span class="line">    <span class="keyword">else</span></span><br><span class="line">        <span class="keyword">return</span> SearchBST(T-&gt;rchild,key);</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+]]></content>
   </entry>
   <entry>
     <title>ElasticSearch</title>
@@ -4927,6 +4995,7 @@ W_{ij}　　<v_i,v_j>或(v_i,V_j){\in}V_R\\
 <p><img src="https://cdn.jsdelivr.net/gh/qnjy/images/data/1621048672-image-20210515111751957.png" alt="image-20210515111751957" style="zoom:67%;" /></p>
 <p>输出结果太多，不想要那么多！</p>
 <p><img src="https://cdn.jsdelivr.net/gh/qnjy/images/data/1621048726-image-20210515111846452.png" alt="image-20210515111846452" style="zoom:67%;" /></p>
+<h1 id="3-集成SpringBoot"><a href="#3-集成SpringBoot" class="headerlink" title="3 集成SpringBoot"></a>3 集成SpringBoot</h1><p>学会查看文档<a href="https://www.elastic.co/guide/en/elasticsearch/client/index.html">https://www.elastic.co/guide/en/elasticsearch/client/index.html</a></p>
 ]]></content>
   </entry>
   <entry>
