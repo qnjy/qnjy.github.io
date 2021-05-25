@@ -3769,18 +3769,53 @@
 <p>最大的公开仓库是<a href="https://hub.docker.com">DockerHub</a>，存放了数量庞大的镜像给用户下载；</p>
 <p>当用户创建了自己的镜像后就可以使用push命令将它上传到公有或者私有仓库，这样下次在另外一台机器上使用这个镜像的时候，只需要从仓库上pull下来就可以。</p>
 <h3 id="3-5-2-仓库的日常操作"><a href="#3-5-2-仓库的日常操作" class="headerlink" title="3.5.2 仓库的日常操作"></a>3.5.2 仓库的日常操作</h3><p>用户通过<code>docker search</code>命令查找官方仓库中的镜像</p>
-<h1 id="第四章-Docker使用示例"><a href="#第四章-Docker使用示例" class="headerlink" title="第四章 Docker使用示例"></a>第四章 Docker使用示例</h1><h2 id="4-1-Docker安装MySQL"><a href="#4-1-Docker安装MySQL" class="headerlink" title="4.1 Docker安装MySQL"></a>4.1 Docker安装MySQL</h2><h1 id="下载MySQL镜像："><a href="#下载MySQL镜像：" class="headerlink" title="下载MySQL镜像："></a>下载MySQL镜像：</h1><figure class="highlight shell"><table><tr><td class="code"><pre><span class="line">docker pull mysql</span><br><span class="line">docker run -p 3306:3306 -e MYSQL_DATABASE=workdb -e MYSQL_ROOT_PASSWORD=root -d mysql</span><br></pre></td></tr></table></figure>
+<h1 id="第四章-Docker使用示例"><a href="#第四章-Docker使用示例" class="headerlink" title="第四章 Docker使用示例"></a>第四章 Docker使用示例</h1><h2 id="4-1-Docker安装MySQL"><a href="#4-1-Docker安装MySQL" class="headerlink" title="4.1 Docker安装MySQL"></a>4.1 Docker安装MySQL</h2><p>1.下载MySQL镜像：</p>
+<figure class="highlight shell"><table><tr><td class="code"><pre><span class="line">docker pull mysql</span><br><span class="line">docker run -p 3306:3306 -e MYSQL_DATABASE=workdb -e MYSQL_ROOT_PASSWORD=root -d mysql</span><br></pre></td></tr></table></figure>
 <p>其中-e是指定环境变量</p>
-<h1 id="进入容器"><a href="#进入容器" class="headerlink" title="进入容器"></a>进入容器</h1><figure class="highlight shell"><table><tr><td class="code"><pre><span class="line">docker exec -it d19117e55e68 bash</span><br></pre></td></tr></table></figure>
-<h1 id="登陆MySQL"><a href="#登陆MySQL" class="headerlink" title="登陆MySQL"></a>登陆MySQL</h1><figure class="highlight shell"><table><tr><td class="code"><pre><span class="line">mysql -uroot -p</span><br></pre></td></tr></table></figure>
-<h1 id="修改密码"><a href="#修改密码" class="headerlink" title="修改密码"></a>修改密码</h1><figure class="highlight shell"><table><tr><td class="code"><pre><span class="line">alter user &#x27;root&#x27;@&#x27;localhost&#x27; identified by &#x27;123456&#x27;</span><br></pre></td></tr></table></figure>
-<h1 id="授权远程登录访问："><a href="#授权远程登录访问：" class="headerlink" title="授权远程登录访问："></a>授权远程登录访问：</h1><figure class="highlight shell"><table><tr><td class="code"><pre><span class="line">create user &#x27;wkcto&#x27;@&#x27;%&#x27; identified with mysql_native_password by &#x27;root&#x27;;</span><br><span class="line"></span><br><span class="line">grant all privileges on *.* to &#x27;wkcto&#x27;@&#x27;%&#x27;;</span><br></pre></td></tr></table></figure>
-<h2 id="4-2-Docker安装Nginx"><a href="#4-2-Docker安装Nginx" class="headerlink" title="4.2 Docker安装Nginx"></a>4.2 Docker安装Nginx</h2><h1 id="下载Nginx镜像："><a href="#下载Nginx镜像：" class="headerlink" title="下载Nginx镜像："></a>下载Nginx镜像：</h1><figure class="highlight shell"><table><tr><td class="code"><pre><span class="line">docker pull nginx</span><br><span class="line"></span><br><span class="line">docker run -p 80:80 -d nginx</span><br></pre></td></tr></table></figure>
-<h1 id="进入容器："><a href="#进入容器：" class="headerlink" title="进入容器："></a>进入容器：</h1><figure class="highlight shell"><table><tr><td class="code"><pre><span class="line">docker exec -it 687e44a10f08 bash</span><br></pre></td></tr></table></figure>
-<h1 id="浏览器访问Nginx："><a href="#浏览器访问Nginx：" class="headerlink" title="浏览器访问Nginx："></a>浏览器访问Nginx：</h1><figure class="highlight shell"><table><tr><td class="code"><pre><span class="line">http://192.168.200.133:80</span><br></pre></td></tr></table></figure>
-<h1 id="Ngnix部署静态网站："><a href="#Ngnix部署静态网站：" class="headerlink" title="Ngnix部署静态网站："></a>Ngnix部署静态网站：</h1><figure class="highlight shell"><table><tr><td class="code"><pre><span class="line"><span class="meta">#</span><span class="bash">将虚拟机下的文件传到容器下</span></span><br><span class="line">docker cp /root/test.html 687e44a10f08:/usr/share/nginx/html</span><br></pre></td></tr></table></figure>
-<h2 id="4-3-Docker安装Zookeeper"><a href="#4-3-Docker安装Zookeeper" class="headerlink" title="4.3 Docker安装Zookeeper"></a>4.3 Docker安装Zookeeper</h2><h1 id="下载Zookeeper镜像："><a href="#下载Zookeeper镜像：" class="headerlink" title="下载Zookeeper镜像："></a>下载Zookeeper镜像：</h1><figure class="highlight shell"><table><tr><td class="code"><pre><span class="line">docker pull zookeeper</span><br><span class="line"></span><br><span class="line">docker run  -p 2181:2181 -d zookeeper</span><br></pre></td></tr></table></figure>
-<h1 id="进入容器：-1"><a href="#进入容器：-1" class="headerlink" title="进入容器："></a>进入容器：</h1><figure class="highlight shell"><table><tr><td class="code"><pre><span class="line">docker exec -it 3e8bf7392b4e base</span><br></pre></td></tr></table></figure>
+<p>2.进入容器</p>
+<figure class="highlight shell"><table><tr><td class="code"><pre><span class="line">docker exec -it d19117e55e68 bash</span><br></pre></td></tr></table></figure>
+<p>3.登陆MySQL</p>
+<figure class="highlight shell"><table><tr><td class="code"><pre><span class="line">mysql -uroot -p</span><br></pre></td></tr></table></figure>
+<p>如果需要修改密码等操作</p>
+<p>修改密码</p>
+<figure class="highlight shell"><table><tr><td class="code"><pre><span class="line">alter user &#x27;root&#x27;@&#x27;localhost&#x27; identified by &#x27;123456&#x27;</span><br></pre></td></tr></table></figure>
+<p>授权远程登录访问：</p>
+<figure class="highlight shell"><table><tr><td class="code"><pre><span class="line">create user &#x27;wkcto&#x27;@&#x27;%&#x27; identified with mysql_native_password by &#x27;root&#x27;;</span><br><span class="line"></span><br><span class="line">grant all privileges on *.* to &#x27;wkcto&#x27;@&#x27;%&#x27;;</span><br></pre></td></tr></table></figure>
+<h2 id="4-2-Docker安装Nginx"><a href="#4-2-Docker安装Nginx" class="headerlink" title="4.2 Docker安装Nginx"></a>4.2 Docker安装Nginx</h2><p>1.下载Nginx镜像：</p>
+<figure class="highlight shell"><table><tr><td class="code"><pre><span class="line">docker pull nginx</span><br><span class="line"></span><br><span class="line">docker run -p 80:80 -d nginx</span><br></pre></td></tr></table></figure>
+<p>2.进入容器：</p>
+<figure class="highlight bash"><table><tr><td class="code"><pre><span class="line">docker <span class="built_in">exec</span> -it 687e44a10f08 bash</span><br></pre></td></tr></table></figure>
+<p>3.浏览器访问Nginx：</p>
+<figure class="highlight bash"><table><tr><td class="code"><pre><span class="line">http://192.168.200.133:80</span><br></pre></td></tr></table></figure>
+<p>4.Ngnix部署静态网站：</p>
+<figure class="highlight bash"><table><tr><td class="code"><pre><span class="line"><span class="comment">#将虚拟机下的文件传到容器下</span></span><br><span class="line">docker cp /root/test.html 687e44a10f08:/usr/share/nginx/html</span><br></pre></td></tr></table></figure>
+<h2 id="4-3-Docker安装Zookeeper"><a href="#4-3-Docker安装Zookeeper" class="headerlink" title="4.3 Docker安装Zookeeper"></a>4.3 Docker安装Zookeeper</h2><p>1.下载Zookeeper镜像：</p>
+<figure class="highlight bash"><table><tr><td class="code"><pre><span class="line">docker pull zookeeper</span><br><span class="line"></span><br><span class="line">docker run  -p 2181:2181 -d zookeeper</span><br></pre></td></tr></table></figure>
+<p>2.进入容器：</p>
+<figure class="highlight bash"><table><tr><td class="code"><pre><span class="line">docker <span class="built_in">exec</span> -it 3e8bf7392b4e base</span><br></pre></td></tr></table></figure>
+<h2 id="4-4-Docker下安装Redis"><a href="#4-4-Docker下安装Redis" class="headerlink" title="4.4 Docker下安装Redis"></a>4.4 Docker下安装Redis</h2><p>1.下载redis镜像</p>
+<figure class="highlight bash"><table><tr><td class="code"><pre><span class="line">docker pull redis</span><br></pre></td></tr></table></figure>
+<p>2.redis.conf文件</p>
+<p>创建本机的挂载目录</p>
+<figure class="highlight bash"><table><tr><td class="code"><pre><span class="line">mkdir -p /usr/docker/redis/data</span><br></pre></td></tr></table></figure>
+<p>到官网下载redis.conf文件并把它放在<code>/usr/docker/redis</code>下</p>
+<p>然后修改redis.conf</p>
+<ul>
+<li>bind 127.0.0.1 # 注释掉这部分，否则只能本地访问</li>
+<li>protected-mode no # 不开启保护模式，否则只能本地访问</li>
+<li>appendonly yes # 使redis持久化</li>
+</ul>
+<p>3.启动容器</p>
+<figure class="highlight bash"><table><tr><td class="code"><pre><span class="line">docker run -di -p 6379:6379 --name tenqsuare_redis -v /usr/docker/redis/redis.conf:/etc/redis/redis.conf  -v /usr/docker/redis/data:/data  redis</span><br></pre></td></tr></table></figure>
+<blockquote>
+<p>-p 6379:6379：端口映射</p>
+<p> —name tenqsuare_redis ： 命名为tensquare_redis</p>
+<p>-v /usr/docker/redis/redis.conf:/etc/redis/redis.conf  ：将docker容器中的redis.conf挂载到刚才修改的redis.conf</p>
+<p>-v /usr/docker/redis/data:/data ：将docker容器中的data挂载到本地</p>
+<p>-d：后台启动</p>
+</blockquote>
+<p>4.启动连接Redis</p>
+<p><img src="https://cdn.jsdelivr.net/gh/qnjy/images/data/1621927427-image-20210525152347616.png" alt="image-20210525152347616" style="zoom: 50%;" /></p>
 <h1 id="第五章-Docker自定义镜像"><a href="#第五章-Docker自定义镜像" class="headerlink" title="第五章 Docker自定义镜像"></a>第五章 Docker自定义镜像</h1><h2 id="5-1-认识Dockerfile文件"><a href="#5-1-认识Dockerfile文件" class="headerlink" title="5.1 认识Dockerfile文件"></a>5.1 认识Dockerfile文件</h2><p>Dockerfile是用于构建Dockerj镜像，Dockerfile文件是由一行行命令语句组成，基于这些命令就可以构建一个镜像。</p>
 <figure class="highlight dockerfile"><table><tr><td class="code"><pre><span class="line"><span class="keyword">from</span> XXX/jdk:<span class="number">8</span></span><br><span class="line"><span class="keyword">maintainer</span> docker_user</span><br><span class="line"><span class="keyword">env</span> java_home /usr/local/java</span><br><span class="line"><span class="keyword">add</span><span class="bash"> apache-tomcat-8.0.32.tar.gz /usr/<span class="built_in">local</span>/</span></span><br><span class="line"><span class="keyword">run</span><span class="bash"> mv apache-tomcat-8.0.32 tomcat8</span></span><br><span class="line"><span class="keyword">expose</span> <span class="number">8080</span></span><br><span class="line"><span class="keyword">run</span><span class="bash"> chmod u+x /usr/<span class="built_in">local</span>/tomcat8/bin/*.sh</span></span><br><span class="line"><span class="keyword">cmd</span><span class="bash"> /usr/<span class="built_in">local</span>/tomcat8/bin/catalina.sh start</span></span><br></pre></td></tr></table></figure>
 <h2 id="5-2-Dockerfile的基本结构"><a href="#5-2-Dockerfile的基本结构" class="headerlink" title="5.2 Dockerfile的基本结构"></a>5.2 Dockerfile的基本结构</h2><p>一般的，Dockerfile分为四个部分</p>
@@ -3812,8 +3847,7 @@
 <p>构建镜像：<code>docker build -t qnjy-redis</code></p>
 <p>运行镜像：<code>docker run -d -p 6379:6379 390583cf0531</code></p>
 <h2 id="5-5-镜像发布到仓库"><a href="#5-5-镜像发布到仓库" class="headerlink" title="5.5 镜像发布到仓库"></a>5.5 镜像发布到仓库</h2><h3 id="5-5-1-阿里云容器镜像仓库"><a href="#5-5-1-阿里云容器镜像仓库" class="headerlink" title="5.5.1 阿里云容器镜像仓库"></a>5.5.1 阿里云容器镜像仓库</h3><p>网址：<a href="https://dev.aliyun.com">https://dev.aliyun.com</a></p>
-<h3 id="5-5-2-发布镜像到阿里云仓库"><a href="#5-5-2-发布镜像到阿里云仓库" class="headerlink" title="5.5.2 发布镜像到阿里云仓库"></a>5.5.2 发布镜像到阿里云仓库</h3><p>docker run -p 6379:6379 —name myredis -v /usr/local/docker/redis.conf:/etc/redis/redis.conf -v /usr/local/docker/data:/data -d redis redis-server /etc/redis/redis.conf —appendonly yes</p>
-]]></content>
+<h3 id="5-5-2-发布镜像到阿里云仓库"><a href="#5-5-2-发布镜像到阿里云仓库" class="headerlink" title="5.5.2 发布镜像到阿里云仓库"></a>5.5.2 发布镜像到阿里云仓库</h3>]]></content>
       <tags>
         <tag>docker</tag>
       </tags>
@@ -4178,7 +4212,9 @@
 <p>配置文件添加配置：</p>
 <figure class="highlight yml"><table><tr><td class="code"><pre><span class="line"><span class="attr">redis:</span></span><br><span class="line">  <span class="attr">host:</span> <span class="number">192.168</span><span class="number">.200</span><span class="number">.128</span></span><br></pre></td></tr></table></figure>
 <p>修改Controller方法：</p>
-<figure class="highlight java"><table><tr><td class="code"><pre><span class="line"><span class="meta">@Autowired</span></span><br><span class="line"><span class="keyword">private</span> RedisTemplate redisTemplate;</span><br><span class="line"></span><br><span class="line"><span class="comment">//评论点赞</span></span><br><span class="line"><span class="meta">@RequestMapping(value = &quot;thumbup/&#123;id&#125;&quot;, method = RequestMethod.PUT)</span></span><br><span class="line"><span class="function"><span class="keyword">public</span> Result <span class="title">thumbup</span><span class="params">(<span class="meta">@PathVariable</span> String id)</span> </span>&#123;</span><br><span class="line">    <span class="comment">//模拟获取到了用户id</span></span><br><span class="line">    String userid = <span class="string">&quot;123&quot;</span>;</span><br><span class="line"></span><br><span class="line">    <span class="comment">//在redis中查询用户是否已经点赞</span></span><br><span class="line">    Object result = redisTemplate.opsForValue().get(<span class="string">&quot;thumbup_&quot;</span> + userid + <span class="string">&quot;_&quot;</span> + id);</span><br><span class="line"></span><br><span class="line">    <span class="comment">//如果点赞不能重复点赞</span></span><br><span class="line">    <span class="keyword">if</span> (result != <span class="keyword">null</span>) &#123;</span><br><span class="line">        <span class="keyword">return</span> <span class="keyword">new</span> Result(<span class="keyword">false</span>, StatusCode.REMOTEERROR, <span class="string">&quot;不能重复点赞&quot;</span>);</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">    <span class="comment">//如果没有点赞，可以进行点赞操作</span></span><br><span class="line">    commentService.thumbup(id);</span><br><span class="line"></span><br><span class="line">    <span class="comment">//保存点赞记录</span></span><br><span class="line">    redisTemplate.opsForValue().set(<span class="string">&quot;thumbup_&quot;</span> + userid + <span class="string">&quot;_&quot;</span> + id, <span class="number">1</span>);</span><br><span class="line"></span><br><span class="line">    <span class="keyword">return</span> <span class="keyword">new</span> Result(<span class="keyword">true</span>, StatusCode.OK, <span class="string">&quot;点赞成功&quot;</span>);</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>]]></content>
+<figure class="highlight java"><table><tr><td class="code"><pre><span class="line"><span class="meta">@Autowired</span></span><br><span class="line"><span class="keyword">private</span> RedisTemplate redisTemplate;</span><br><span class="line"></span><br><span class="line"><span class="comment">//评论点赞</span></span><br><span class="line"><span class="meta">@RequestMapping(value = &quot;thumbup/&#123;id&#125;&quot;, method = RequestMethod.PUT)</span></span><br><span class="line"><span class="function"><span class="keyword">public</span> Result <span class="title">thumbup</span><span class="params">(<span class="meta">@PathVariable</span> String id)</span> </span>&#123;</span><br><span class="line">    <span class="comment">//模拟获取到了用户id</span></span><br><span class="line">    String userid = <span class="string">&quot;123&quot;</span>;</span><br><span class="line"></span><br><span class="line">    <span class="comment">//在redis中查询用户是否已经点赞</span></span><br><span class="line">    Object result = redisTemplate.opsForValue().get(<span class="string">&quot;thumbup_&quot;</span> + userid + <span class="string">&quot;_&quot;</span> + id);</span><br><span class="line"></span><br><span class="line">    <span class="comment">//如果点赞不能重复点赞</span></span><br><span class="line">    <span class="keyword">if</span> (result != <span class="keyword">null</span>) &#123;</span><br><span class="line">        <span class="keyword">return</span> <span class="keyword">new</span> Result(<span class="keyword">false</span>, StatusCode.REMOTEERROR, <span class="string">&quot;不能重复点赞&quot;</span>);</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">    <span class="comment">//如果没有点赞，可以进行点赞操作</span></span><br><span class="line">    commentService.thumbup(id);</span><br><span class="line"></span><br><span class="line">    <span class="comment">//保存点赞记录</span></span><br><span class="line">    redisTemplate.opsForValue().set(<span class="string">&quot;thumbup_&quot;</span> + userid + <span class="string">&quot;_&quot;</span> + id, <span class="number">1</span>);</span><br><span class="line"></span><br><span class="line">    <span class="keyword">return</span> <span class="keyword">new</span> Result(<span class="keyword">true</span>, StatusCode.OK, <span class="string">&quot;点赞成功&quot;</span>);</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<p>这时候我使用了云服务器，并且把之前的数据库全部改到改到服务器上了，连接redis的时候出现了一些小问题。</p>
+]]></content>
       <categories>
         <category>SpringBoot项目</category>
       </categories>
