@@ -25,18 +25,31 @@
     var CONFIG = {"hostname":"qnjy.github.io","root":"/","images":"/images","scheme":"Gemini","version":"8.0.2","exturl":false,"sidebar":{"position":"left","display":"post","padding":18,"offset":12},"copycode":true,"bookmark":{"enable":true,"color":"#222","save":"auto"},"fancybox":true,"mediumzoom":false,"lazyload":false,"pangu":false,"comments":{"style":"tabs","active":null,"storage":true,"lazyload":false,"nav":null},"motion":{"enable":true,"async":false,"transition":{"post_block":"fadeIn","post_header":"fadeInDown","post_body":"fadeInDown","coll_header":"fadeInLeft","sidebar":"fadeInUp"}},"prism":false,"i18n":{"placeholder":"搜索...","empty":"没有找到任何搜索结果：${query}","hits_time":"找到 ${hits} 个搜索结果（用时 ${time} 毫秒）","hits":"找到 ${hits} 个搜索结果"},"path":"/search.xml","localsearch":{"enable":true,"trigger":"auto","top_n_per_article":1,"unescape":false,"preload":false}};
   </script>
 
-  <meta name="description" content="宁静以致远">
-<meta property="og:type" content="website">
-<meta property="og:title" content="qnjy&#39;s blog">
-<meta property="og:url" content="https://qnjy.github.io/archives/2020/12/index.html">
+  <meta name="description" content="github+PicGo图床配置简单教程">
+<meta property="og:type" content="article">
+<meta property="og:title" content="Github+PicGo图床搭建">
+<meta property="og:url" content="https://qnjy.github.io/post/febc4fee.html">
 <meta property="og:site_name" content="qnjy&#39;s blog">
-<meta property="og:description" content="宁静以致远">
+<meta property="og:description" content="github+PicGo图床配置简单教程">
 <meta property="og:locale" content="zh_CN">
+<meta property="og:image" content="https://cdn.jsdelivr.net/gh/qnjy/images/data/20210526-image-20210526175629464.png">
+<meta property="og:image" content="https://cdn.jsdelivr.net/gh/qnjy/images/data/20210526-image-20210526175747194.png">
+<meta property="og:image" content="https://cdn.jsdelivr.net/gh/qnjy/images/data/20210526-image-20210526175756052.png">
+<meta property="og:image" content="https://cdn.jsdelivr.net/gh/qnjy/images/data/20210526-image-20210526175911572.png">
+<meta property="og:image" content="https://cdn.jsdelivr.net/gh/qnjy/images/data/20210526-image-20210526175949415.png">
+<meta property="og:image" content="https://cdn.jsdelivr.net/gh/qnjy/images/data/20210526-image-20210526180007585.png">
+<meta property="og:image" content="https://cdn.jsdelivr.net/gh/qnjy/images/data/20210526-image-20210526180023130.png">
+<meta property="og:image" content="https://cdn.jsdelivr.net/gh/qnjy/images/data/20210526-image-20210526180142878.png">
+<meta property="og:image" content="https://cdn.jsdelivr.net/gh/qnjy/images/data/20210526-image-20210526180509507.png">
+<meta property="og:image" content="https://cdn.jsdelivr.net/gh/qnjy/images/data/20210526-image-20210526180402751.png">
+<meta property="article:published_time" content="2021-05-26T09:35:48.000Z">
+<meta property="article:modified_time" content="2021-05-26T10:05:11.694Z">
 <meta property="article:author" content="qnjy">
 <meta name="twitter:card" content="summary">
+<meta name="twitter:image" content="https://cdn.jsdelivr.net/gh/qnjy/images/data/20210526-image-20210526175629464.png">
 
 
-<link rel="canonical" href="https://qnjy.github.io/archives/2020/12/">
+<link rel="canonical" href="https://qnjy.github.io/post/febc4fee.html">
 
 
 <script class="page-configurations">
@@ -44,12 +57,12 @@
   CONFIG.page = {
     sidebar: "",
     isHome : false,
-    isPost : false,
+    isPost : true,
     lang   : 'zh-CN'
   };
 </script>
 
-  <title>归档 | qnjy's blog</title>
+  <title>Github+PicGo图床搭建 | qnjy's blog</title>
   
 
 
@@ -193,7 +206,7 @@
 
   <aside class="sidebar">
 
-    <div class="sidebar-inner sidebar-overview-active">
+    <div class="sidebar-inner sidebar-nav-active sidebar-toc-active">
       <ul class="sidebar-nav">
         <li class="sidebar-nav-toc">
           文章目录
@@ -206,6 +219,7 @@
       <div class="sidebar-panel-container">
         <!--noindex-->
         <section class="post-toc-wrap sidebar-panel">
+            <div class="post-toc animated"><ol class="nav"><li class="nav-item nav-level-1"><a class="nav-link" href="#1-Github%E6%96%B0%E5%BB%BA%E4%BB%93%E5%BA%93"><span class="nav-text">1.Github新建仓库</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#2-PicGo%E9%85%8D%E7%BD%AE"><span class="nav-text">2.PicGo配置</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#3-Typora%E9%85%8D%E7%BD%AE"><span class="nav-text">3.Typora配置</span></a></li></ol></div>
         </section>
         <!--/noindex-->
 
@@ -276,174 +290,151 @@
 </noscript>
 
 
-    <div class="main-inner archive posts-collapse">
+    <div class="main-inner post posts-expand">
       
 
       
 
   
-  
-  
-  <div class="post-block">
-    <div class="post-content">
-      <div class="collection-title">
-        
-        <span class="collection-header">不错! 目前共计 56 篇日志。 继续努力。</span>
-      </div>
 
+
+<div class="post-block">
+  
+  
+
+  <article itemscope itemtype="http://schema.org/Article" class="post-content" lang="zh-CN">
+    <link itemprop="mainEntityOfPage" href="https://qnjy.github.io/post/febc4fee.html">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="image" content="/images/xigua.jpg">
+      <meta itemprop="name" content="qnjy">
+      <meta itemprop="description" content="宁静以致远">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="qnjy's blog">
+    </span>
+      <header class="post-header">
+        <h1 class="post-title" itemprop="name headline">
+          Github+PicGo图床搭建
+        </h1>
+
+        <div class="post-meta-container">
+          <div class="post-meta">
+    <span class="post-meta-item">
+      <span class="post-meta-item-icon">
+        <i class="far fa-calendar"></i>
+      </span>
+      <span class="post-meta-item-text">发表于</span>
       
-    <div class="collection-year">
-      <span class="collection-header">2020</span>
+
+      <time title="创建时间：2021-05-26 17:35:48 / 修改时间：18:05:11" itemprop="dateCreated datePublished" datetime="2021-05-26T17:35:48+08:00">2021-05-26</time>
+    </span>
+
+  
+    <span class="post-meta-item" title="阅读次数" id="busuanzi_container_page_pv" style="display: none;">
+      <span class="post-meta-item-icon">
+        <i class="far fa-eye"></i>
+      </span>
+      <span class="post-meta-item-text">阅读次数：</span>
+      <span id="busuanzi_value_page_pv"></span>
+    </span>
+</div>
+
+        </div>
+      </header>
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+        <p>　　github+PicGo图床配置简单教程<span id="more"></span></p>
+<h1 id="1-Github新建仓库"><a href="#1-Github新建仓库" class="headerlink" title="1.Github新建仓库"></a>1.Github新建仓库</h1><p>点击new repository新建仓库</p>
+<p><img src="https://cdn.jsdelivr.net/gh/qnjy/images/data/20210526-image-20210526175629464.png" alt="image-20210526175629464"></p>
+<p>仓库名可以随便取，我这里取得是cdn，Initialize this repository with a README 可点可不点，我这里没点</p>
+<p>然后点击 create repository即可</p>
+<p><img src="https://cdn.jsdelivr.net/gh/qnjy/images/data/20210526-image-20210526175747194.png" alt="image-20210526175747194"></p>
+<p><img src="https://cdn.jsdelivr.net/gh/qnjy/images/data/20210526-image-20210526175756052.png" alt="image-20210526175756052"></p>
+<p>找到页面最下面的<code>Developer settings</code>，点击进入；</p>
+<p><img src="https://cdn.jsdelivr.net/gh/qnjy/images/data/20210526-image-20210526175911572.png" alt="image-20210526175911572"></p>
+<p>创建token；</p>
+<p><img src="https://cdn.jsdelivr.net/gh/qnjy/images/data/20210526-image-20210526175949415.png" alt="image-20210526175949415"></p>
+<p>填 description（也是随心填），勾选复选框 repo ，接着到页面底部 <code>Generate token</code> 就完成了；</p>
+<p><img src="https://cdn.jsdelivr.net/gh/qnjy/images/data/20210526-image-20210526180007585.png" alt="image-20210526180007585"></p>
+<p>然后复制生成一串字符 token，这个 token 只出现一次，所以要保存一下（我一般记在微信收藏）。</p>
+<p><img src="https://cdn.jsdelivr.net/gh/qnjy/images/data/20210526-image-20210526180023130.png" alt="image-20210526180023130"></p>
+<h1 id="2-PicGo配置"><a href="#2-PicGo配置" class="headerlink" title="2.PicGo配置"></a>2.PicGo配置</h1><p><img src="https://cdn.jsdelivr.net/gh/qnjy/images/data/20210526-image-20210526180142878.png" alt="image-20210526180142878"></p>
+<p>仓库名 即你的仓库名</p>
+<p>分支名 默认 master</p>
+<p>Token 就是刚刚复制的那一串字符</p>
+<p>存储路径 这个可以填也可以不填，填了的话图片就上传到 git 中 data 这个文件夹</p>
+<p>域名 <a target="_blank" rel="noopener" href="https://raw.githubusercontent.com/qnjy/images/main这个要改一下">https://raw.githubusercontent.com/qnjy/images/main这个要改一下</a> 格式 <a target="_blank" rel="noopener" href="https://raw.githubusercontent.com/[username]/[仓库名]/main">https://raw.githubusercontent.com/[username]/[仓库名]/main</a></p>
+<p><strong>cdn加速访问</strong></p>
+<blockquote>
+<p>将上面的域名改为：<br>原 <a target="_blank" rel="noopener" href="https://raw.githubusercontent.com/qnjy/images/main">https://raw.githubusercontent.com/qnjy/images/main</a><br>现 <a target="_blank" rel="noopener" href="https://cdn.jsdelivr.net/gh/qnjy/images@main">https://cdn.jsdelivr.net/gh/qnjy/images@main</a></p>
+</blockquote>
+<p><strong>安装插件rename-file</strong></p>
+<p>可以自定义图片的名称的名称，保存图片的路径 等，方便自己查找</p>
+<p>命名规则：</p>
+<p>{y} 年，4位</p>
+<p>{m} 月，2位</p>
+<p>{d} 日期，2位</p>
+<p>{h} 小时，2位</p>
+<p>{i} 分钟，2位</p>
+<p>{s} 秒，2位</p>
+<p>{ms} 毫秒，3位(v1.0.4)</p>
+<p>{timestamp} 时间戳(秒)，10位(v1.0.4)</p>
+<p>{hash}，文件的md5值，32位</p>
+<p>{origin}，文件原名（会去掉后缀）</p>
+<p>{rand:}, 随机数，表示个数，默认为6个，示例：{rand：32}、{rand}</p>
+<p>{localFolder:}, 表示层级 ，默认为1，示例：{localFolder:6}、{localFolder}</p>
+<p>我的使用的是 时间戳+原名</p>
+<p><img src="https://cdn.jsdelivr.net/gh/qnjy/images/data/20210526-image-20210526180509507.png" alt="image-20210526180509507"></p>
+<h1 id="3-Typora配置"><a href="#3-Typora配置" class="headerlink" title="3.Typora配置"></a>3.Typora配置</h1><p><img src="https://cdn.jsdelivr.net/gh/qnjy/images/data/20210526-image-20210526180402751.png" alt="image-20210526180402751"></p>
+
     </div>
 
-  <article itemscope itemtype="http://schema.org/Article">
-    <header class="post-header">
-      <div class="post-meta-container">
-        <time itemprop="dateCreated"
-              datetime="2020-12-21T08:11:47+08:00"
-              content="2020-12-21">
-          12-21
-        </time>
+    
+    
+    
+
+    <footer class="post-footer">
+          <div class="reward-container">
+  <div>Buy me a coffee</div>
+  <button onclick="document.querySelector('.post-reward').classList.toggle('active');">
+    赞赏
+  </button>
+  <div class="post-reward">
+      <div>
+        <img src="/images/wechatpay.jpg" alt="qnjy 微信">
+        <span>微信</span>
+      </div>
+      <div>
+        <img src="/images/alipay.jpg" alt="qnjy 支付宝">
+        <span>支付宝</span>
       </div>
 
-      <div class="post-title">
-          <a class="post-title-link" href="/post/cedff539.html" itemprop="url">
-            <span itemprop="name">房租管理系统</span>
-          </a>
-      </div>
-
-      
-    </header>
-  </article>
-
-  <article itemscope itemtype="http://schema.org/Article">
-    <header class="post-header">
-      <div class="post-meta-container">
-        <time itemprop="dateCreated"
-              datetime="2020-12-16T08:57:43+08:00"
-              content="2020-12-16">
-          12-16
-        </time>
-      </div>
-
-      <div class="post-title">
-          <a class="post-title-link" href="/post/a0cc1c5.html" itemprop="url">
-            <span itemprop="name">根据标记文件中的TLD或attribute指令</span>
-          </a>
-      </div>
-
-      
-    </header>
-  </article>
-
-  <article itemscope itemtype="http://schema.org/Article">
-    <header class="post-header">
-      <div class="post-meta-container">
-        <time itemprop="dateCreated"
-              datetime="2020-12-15T16:37:13+08:00"
-              content="2020-12-15">
-          12-15
-        </time>
-      </div>
-
-      <div class="post-title">
-          <a class="post-title-link" href="/post/7fbc5666.html" itemprop="url">
-            <span itemprop="name">IDEA使用$符号失效问题</span>
-          </a>
-      </div>
-
-      
-    </header>
-  </article>
-
-  <article itemscope itemtype="http://schema.org/Article">
-    <header class="post-header">
-      <div class="post-meta-container">
-        <time itemprop="dateCreated"
-              datetime="2020-12-13T15:15:19+08:00"
-              content="2020-12-13">
-          12-13
-        </time>
-      </div>
-
-      <div class="post-title">
-          <a class="post-title-link" href="/post/cb9bdb06.html" itemprop="url">
-            <span itemprop="name">Java集合继承结构</span>
-          </a>
-      </div>
-
-      
-    </header>
-  </article>
-
-  <article itemscope itemtype="http://schema.org/Article">
-    <header class="post-header">
-      <div class="post-meta-container">
-        <time itemprop="dateCreated"
-              datetime="2020-12-13T10:24:39+08:00"
-              content="2020-12-13">
-          12-13
-        </time>
-      </div>
-
-      <div class="post-title">
-          <a class="post-title-link" href="/post/38966ea9.html" itemprop="url">
-            <span itemprop="name">mysql常用操作</span>
-          </a>
-      </div>
-
-      
-    </header>
-  </article>
-
-  <article itemscope itemtype="http://schema.org/Article">
-    <header class="post-header">
-      <div class="post-meta-container">
-        <time itemprop="dateCreated"
-              datetime="2020-12-11T09:56:22+08:00"
-              content="2020-12-11">
-          12-11
-        </time>
-      </div>
-
-      <div class="post-title">
-          <a class="post-title-link" href="/post/f1926f41.html" itemprop="url">
-            <span itemprop="name">IDEA新建Web项目</span>
-          </a>
-      </div>
-
-      
-    </header>
-  </article>
-
-  <article itemscope itemtype="http://schema.org/Article">
-    <header class="post-header">
-      <div class="post-meta-container">
-        <time itemprop="dateCreated"
-              datetime="2020-12-11T09:16:48+08:00"
-              content="2020-12-11">
-          12-11
-        </time>
-      </div>
-
-      <div class="post-title">
-          <a class="post-title-link" href="/post/4e17031c.html" itemprop="url">
-            <span itemprop="name">Servlet实现增删改查</span>
-          </a>
-      </div>
-
-      
-    </header>
-  </article>
-
-
-    </div>
   </div>
-  
-  
-  
+</div>
 
-  
+
+        
+
+          <div class="post-nav">
+            <div class="post-nav-item">
+                <a href="/post/7ec0d56d.html" rel="prev" title="十次方项目-day03">
+                  <i class="fa fa-chevron-left"></i> 十次方项目-day03
+                </a>
+            </div>
+            <div class="post-nav-item">
+            </div>
+          </div>
+    </footer>
+  </article>
+</div>
+
+
+
 
 
 
