@@ -314,7 +314,7 @@
       <span class="post-meta-item-text">发表于</span>
       
 
-      <time title="创建时间：2021-05-26 17:35:48 / 修改时间：18:05:11" itemprop="dateCreated datePublished" datetime="2021-05-26T17:35:48+08:00">2021-05-26</time>
+      <time title="创建时间：2021-05-26 17:35:48 / 修改时间：18:05:32" itemprop="dateCreated datePublished" datetime="2021-05-26T17:35:48+08:00">2021-05-26</time>
     </span>
 
   
@@ -385,10 +385,16 @@
         <i class="far fa-calendar"></i>
       </span>
       <span class="post-meta-item-text">发表于</span>
-      
 
-      <time title="创建时间：2021-05-25 16:24:57 / 修改时间：19:18:47" itemprop="dateCreated datePublished" datetime="2021-05-25T16:24:57+08:00">2021-05-25</time>
+      <time title="创建时间：2021-05-25 16:24:57" itemprop="dateCreated datePublished" datetime="2021-05-25T16:24:57+08:00">2021-05-25</time>
     </span>
+      <span class="post-meta-item">
+        <span class="post-meta-item-icon">
+          <i class="far fa-calendar-check"></i>
+        </span>
+        <span class="post-meta-item-text">更新于</span>
+        <time title="修改时间：2021-05-31 17:02:36" itemprop="dateModified" datetime="2021-05-31T17:02:36+08:00">2021-05-31</time>
+      </span>
 
   
 </div>
@@ -432,7 +438,7 @@
 <tbody>
 <tr>
 <td>短连接</td>
-<td style="text-align:left">我跟你发信息，必须等到你回复我或者等了一会等不下去了，就结束通讯了</td>
+<td style="text-align:left">我跟你发信息，必须等到你回复我或者等了一会等不下去了（连接超时），就结束通讯了</td>
 </tr>
 <tr>
 <td>长连接</td>
@@ -458,7 +464,7 @@
 </li>
 </ul>
 <h2 id="3-2-websocket常用事件方法"><a href="#3-2-websocket常用事件方法" class="headerlink" title="3.2 websocket常用事件方法"></a>3.2 websocket常用事件方法</h2><p>以下 API 用于创建 WebSocket 对象。</p>
-<figure class="highlight js"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">var</span> Socket = <span class="keyword">new</span> WebSocket(url, [protocol] );</span><br></pre></td></tr></table></figure>
+<figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">var</span> Socket = <span class="keyword">new</span> WebSocket(url, [protocol] );</span><br></pre></td></tr></table></figure>
 <p><strong>WebSocket 事件</strong></p>
 <p>以下是 WebSocket 对象的相关事件。假定我们使用了以上代码创建了 Socket 对象：</p>
 <div class="table-container">
@@ -534,6 +540,12 @@
 <li>支持富媒体消息，实时音视频和各种自定义的扩展消息</li>
 </ul>
 <h3 id="4-3-1-注册账号"><a href="#4-3-1-注册账号" class="headerlink" title="4.3.1 注册账号"></a>4.3.1 注册账号</h3><p>网址：<a target="_blank" rel="noopener" href="https://console.easemob.com/user/register">https://console.easemob.com/user/register</a></p>
+<h3 id="4-3-2-创建应用"><a href="#4-3-2-创建应用" class="headerlink" title="4.3.2 创建应用"></a>4.3.2 创建应用</h3><p>1.登陆环信im云，按照下图操作</p>
+<p>2.进入刚才的应用，获取appkey，orgname，client id，client secret等字段</p>
+<p><img src="https://cdn.jsdelivr.net/gh/qnjy/images/data/20210531-image-20210531170133483.png" alt="image-20210531170133483"></p>
+<h3 id="4-3-3-接口测试-获取token"><a href="#4-3-3-接口测试-获取token" class="headerlink" title="4.3.3 接口测试-获取token"></a>4.3.3 接口测试-获取token</h3><p>1.使用环信提供的swagger接口调试页面测试接口</p>
+<p>​    页面网址：<a target="_blank" rel="noopener" href="http://api-docs.easemob.com/#/获取token">http://api-docs.easemob.com/#/%E8%8E%B7%E5%8F%96token</a></p>
+<p>2.使用postman测试接口</p>
 <h3 id="4-3-4-im系统架构"><a href="#4-3-4-im系统架构" class="headerlink" title="4.3.4 im系统架构"></a>4.3.4 im系统架构</h3><p><img src="https://cdn.jsdelivr.net/gh/qnjy/images/data/1621932020-image-20210525164020081.png" alt="image-20210525164020081" style="zoom: 80%;" /></p>
 <h2 id="4-4-十次方即时通讯功能"><a href="#4-4-十次方即时通讯功能" class="headerlink" title="4.4 十次方即时通讯功能"></a>4.4 十次方即时通讯功能</h2><h3 id="4-4-1-用户微服务实现"><a href="#4-4-1-用户微服务实现" class="headerlink" title="4.4.1 用户微服务实现"></a>4.4.1 用户微服务实现</h3><p>1） 创建tensquare_user子模块</p>
 <p>创建Maven工程</p>
@@ -553,7 +565,7 @@
 <figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta">@Service</span></span><br><span class="line"><span class="keyword">public</span> <span class="class"><span class="keyword">class</span> <span class="title">UserService</span> </span>&#123;</span><br><span class="line"></span><br><span class="line">    <span class="meta">@Autowired</span></span><br><span class="line">    <span class="keyword">private</span> UserDao userDao;</span><br><span class="line"></span><br><span class="line">    <span class="function"><span class="keyword">public</span> User <span class="title">login</span><span class="params">(User user)</span> </span>&#123;</span><br><span class="line">        <span class="keyword">return</span> userDao.selectOne(user);</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
 <p>9） 编写controller</p>
 <figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta">@RestController</span></span><br><span class="line"><span class="meta">@RequestMapping(&quot;user&quot;)</span></span><br><span class="line"><span class="meta">@CrossOrigin</span></span><br><span class="line"><span class="keyword">public</span> <span class="class"><span class="keyword">class</span> <span class="title">UserController</span> </span>&#123;</span><br><span class="line"></span><br><span class="line">    <span class="meta">@Autowired</span></span><br><span class="line">    <span class="keyword">private</span> UserService userService;</span><br><span class="line"></span><br><span class="line">    <span class="meta">@RequestMapping(value = &quot;login&quot;, method = RequestMethod.POST)</span></span><br><span class="line">    <span class="function"><span class="keyword">public</span> Result <span class="title">login</span><span class="params">(<span class="meta">@RequestBody</span> User user)</span> </span>&#123;</span><br><span class="line">        User result = userService.login(user);</span><br><span class="line"></span><br><span class="line">        <span class="keyword">if</span> (result != <span class="keyword">null</span>) &#123;</span><br><span class="line">            <span class="keyword">return</span> <span class="keyword">new</span> Result(<span class="keyword">true</span>, StatusCode.OK, <span class="string">&quot;登录成功&quot;</span>, result);</span><br><span class="line">        &#125;</span><br><span class="line"></span><br><span class="line">        <span class="keyword">return</span> <span class="keyword">new</span> Result(<span class="keyword">false</span>, StatusCode.OK, <span class="string">&quot;登录失败&quot;</span>);</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
-<h3 id="4-2-即时通讯前端准备"><a href="#4-2-即时通讯前端准备" class="headerlink" title=".4.2 即时通讯前端准备"></a>.4.2 即时通讯前端准备</h3><p>访问环信IM开发文档—&gt; Web客户端 —&gt; SDK集成介绍 —》Web IM 集成介绍</p>
+<h3 id="4-4-2-即时通讯前端准备"><a href="#4-4-2-即时通讯前端准备" class="headerlink" title="4.4.2 即时通讯前端准备"></a>4.4.2 即时通讯前端准备</h3><p>访问环信IM开发文档—&gt; Web客户端 —&gt; SDK集成介绍 —》Web IM 集成介绍</p>
 <p>或者直接访问<a target="_blank" rel="noopener" href="http://docs-im.easemob.com/im/web/intro/integration">http://docs-im.easemob.com/im/web/intro/integration</a></p>
 <p>1.按照文档，使用git下载集成案例：</p>
 <figure class="highlight awk"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">$ git clone https:<span class="regexp">//gi</span>thub.com<span class="regexp">/easemob/</span>webim.git</span><br></pre></td></tr></table></figure>
@@ -1096,7 +1108,7 @@
           <i class="far fa-calendar-check"></i>
         </span>
         <span class="post-meta-item-text">更新于</span>
-        <time title="修改时间：2021-05-26 17:54:07" itemprop="dateModified" datetime="2021-05-26T17:54:07+08:00">2021-05-26</time>
+        <time title="修改时间：2021-06-02 23:07:29" itemprop="dateModified" datetime="2021-06-02T23:07:29+08:00">2021-06-02</time>
       </span>
 
   
