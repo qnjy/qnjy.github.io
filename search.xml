@@ -5223,7 +5223,7 @@ W_{ij}　　<v_i,v_j>或(v_i,V_j){\in}V_R\\
 <p>③返回前一个访问过的且仍有未被访问的邻接点的顶点，找出该顶点的下一个未被访问的邻接点，访问该顶点。</p>
 <p>④重复步骤②和③，直至图中所有顶点都被访问过，搜索结束。</p>
 </blockquote>
-<p><img src="https://cdn.jsdelivr.net/gh/qnjy/images/data/20210602-image-20210602230209346.png" alt="image-20210602230209346"></p>
+<p><img src="https://cdn.jsdelivr.net/gh/qnjy/images/data/20210602-image-20210602230209346.png" alt="image-20210602230209346" style="zoom: 33%;" /></p>
 <p>访问顺序是：$v_1-&gt;v_2-&gt;v_4-&gt;v_8-&gt;v_5-&gt;v_3-&gt;v_6-&gt;v_7$</p>
 <h3 id="6-3-2-广度优先搜索"><a href="#6-3-2-广度优先搜索" class="headerlink" title="6.3.2 广度优先搜索"></a>6.3.2 广度优先搜索</h3><p>广度优先搜索遍历过程如下：</p>
 <blockquote>
@@ -5232,7 +5232,7 @@ W_{ij}　　<v_i,v_j>或(v_i,V_j){\in}V_R\\
 <p>③分别从这些邻接点出发依次访问它们的邻接点，并使“先被访问的顶点的邻接点”先于“后被访问的顶点的邻接点”被访问。重复步骤③，直至图中所有已被访问的顶点的邻接点都被访问到。</p>
 </blockquote>
 <p>图6.17访问顺序：$v_1-&gt;v_2-&gt;v_3-&gt;v_4-&gt;v_5-&gt;v_6-&gt;v_7-&gt;v_8$</p>
-<p><img src="https://cdn.jsdelivr.net/gh/qnjy/images/data/20210602-image-20210602230310978.png" alt="image-20210602230310978"></p>
+<p><img src="https://cdn.jsdelivr.net/gh/qnjy/images/data/20210602-image-20210602230310978.png" alt="image-20210602230310978" style="zoom:67%;" /></p>
 <h2 id="6-4-图的应用"><a href="#6-4-图的应用" class="headerlink" title="6.4 图的应用"></a>6.4 图的应用</h2><h1 id="第七章-查找"><a href="#第七章-查找" class="headerlink" title="第七章 查找"></a>第七章 查找</h1><h2 id="7-1-查找的基本概念"><a href="#7-1-查找的基本概念" class="headerlink" title="7.1 查找的基本概念"></a>7.1 查找的基本概念</h2><ul>
 <li><p>查找表:</p>
 <p>　由同一类型的数据元素（或记录）构成的集合</p>
