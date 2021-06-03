@@ -5063,7 +5063,7 @@ RTag=\begin{cases}
 <p><img src="https://cdn.jsdelivr.net/gh/qnjy/images/data/1618446122-image-20210415082202662.png" alt="image-20210415082202662" style="zoom:67%;" /></p>
 <p>结构定义：</p>
 <figure class="highlight c"><table><tr><td class="code"><pre><span class="line"><span class="keyword">typedef</span> <span class="keyword">char</span> ElemType;</span><br><span class="line"></span><br><span class="line"><span class="keyword">typedef</span> <span class="class"><span class="keyword">struct</span> <span class="title">CSNode</span> &#123;</span></span><br><span class="line">    ElemType data;</span><br><span class="line">    <span class="class"><span class="keyword">struct</span> <span class="title">CSNode</span> *<span class="title">firstchild</span>, *<span class="title">nextsibling</span>;</span></span><br><span class="line">&#125; CSNode ，*CSTree;</span><br></pre></td></tr></table></figure>
-<h3 id="5-4-2-森林与二叉树的转换"><a href="#5-4-2-森林与二叉树的转换" class="headerlink" title="5.4.2 森林与二叉树的转换"></a>5.4.2 森林与二叉树的转换</h3><p><strong>1.树—-&gt;二叉树</strong></p>
+<h3 id="5-4-2-森林和二叉树的转换"><a href="#5-4-2-森林和二叉树的转换" class="headerlink" title="5.4.2 森林和二叉树的转换"></a>5.4.2 森林和二叉树的转换</h3><p><strong>1.树—-&gt;二叉树</strong></p>
 <blockquote>
 <p>方法（树的孩子兄弟表示法）：</p>
 <p>①加线：树中所有相邻兄弟间加一连线；<br>②抹线：对树中的每个结点，只保留其与第一个孩子间的连线，删去它与其他孩子间连线；<br>③旋转：以树根为轴心，将整棵树顺时针旋转45度，使之结构层次分明。 </p>
@@ -5082,10 +5082,16 @@ RTag=\begin{cases}
 <p>方法：</p>
 <p>①将森林中每棵树转换成相应的二叉树；<br>②第一棵二叉树不动，从第二棵二叉树开始，依次把后一棵二叉树的根结点作为前一棵二叉树根结点的右孩子，当所有二叉树连起来后，此时，所得二叉树即是森林转换得到的。</p>
 <p>示例：</p>
-<p><img src="https://cdn.jsdelivr.net/gh/qnjy/images/data/1618448379-image-20210415085939539.png" alt="image-20210415085939539" style="zoom:67%;" /></p>
-<p><strong>3.二叉树—-&gt;森林/树</strong></p>
-<p>①若某结点是其双亲的左孩子则把该结点的右孩子，右孩子的右孩子…都与该结点的双亲结点用线连起来；<br>②删除原二叉树中所有的双亲结点与右孩子结点间的连线；<br>③整理上两步所得的树/森林，使之结构层次分明。</p>
-<p><img src="https://cdn.jsdelivr.net/gh/qnjy/images/data/1618448401-image-20210415090001909.png" alt="image-20210415090001909" style="zoom:67%;" /></p>
+<p><img src="https://cdn.jsdelivr.net/gh/qnjy/images/data/20210603-image-20210603095305745.png" alt="image-20210603095305745" style="zoom:67%;" /></p>
+<p><strong>3.二叉树—-&gt;树</strong></p>
+<p>①若某结点的左孩子结点存在，将左孩子结点的右孩子结点、右孩子结点的右孩子结点……都作为该结点的孩子结点，将该结点与这些右孩子结点用线连接起来；</p>
+<p>②删除原二叉树中所有结点与其右孩子结点的连线；</p>
+<p>③整理（1）和（2）两步得到的树，使之结构层次分明。</p>
+<p><img src="https://cdn.jsdelivr.net/gh/qnjy/images/data/20210603-image-20210603093907428.png" alt="image-20210603093907428" style="zoom:67%;" /></p>
+<p><strong>4.二叉树—-&gt;森林</strong></p>
+<p>①先把每个结点与右孩子结点的连线删除，得到分离的二叉树；</p>
+<p>②把分离后的每棵二叉树转换为树；</p>
+<p>③整理第（2）步得到的树，使之规范，这样得到森林。</p>
 <p>特点：根没有右孩子，则转换成的是树，否则转换成的是森林。</p>
 <h3 id="5-4-3-森林和树的遍历"><a href="#5-4-3-森林和树的遍历" class="headerlink" title="5.4.3 森林和树的遍历"></a>5.4.3 森林和树的遍历</h3><p><strong>1.树的遍历</strong></p>
 <ul>
