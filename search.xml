@@ -5478,6 +5478,7 @@ ASL=\sum_{i=1}^{n}p_ic_i</script><p>n：记录的个数</p>
     <title>十次方项目-day03</title>
     <url>/post/7ec0d56d.html</url>
     <content><![CDATA[<h1 id="第3章-即时通讯和接口加密"><a href="#第3章-即时通讯和接口加密" class="headerlink" title="第3章 - 即时通讯和接口加密"></a>第3章 - 即时通讯和接口加密</h1><h1 id="1-即时通讯的业务场景和需求"><a href="#1-即时通讯的业务场景和需求" class="headerlink" title="1 即时通讯的业务场景和需求"></a>1 即时通讯的业务场景和需求</h1><p>即时通信（Instant Messaging，简称IM）是一个允许两人或多人使用网络实时的传递文字消息、文件、语音与视频交流。 即时通讯技术应用于需要<strong>实时</strong>收发消息的业务场景。</p>
+<span id="more"></span>
 <p>现在各种各样的即时通讯软件也层出不穷：</p>
 <ul>
 <li>客服系统</li>
