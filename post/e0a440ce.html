@@ -1,0 +1,594 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+  <meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=2">
+<meta name="theme-color" content="#222">
+<meta name="generator" content="Hexo 5.4.0">
+
+
+  <link rel="apple-touch-icon" sizes="180x180" href="/images/apple-touch-icon-next.png">
+  <link rel="icon" type="image/png" sizes="32x32" href="/images/favicon-32x32-next.png">
+  <link rel="icon" type="image/png" sizes="16x16" href="/images/favicon-16x16-next.png">
+  <link rel="mask-icon" href="/images/logo.svg" color="#222">
+
+<link rel="stylesheet" href="/css/main.css">
+
+
+
+<link rel="stylesheet" href="//cdn.jsdelivr.net/npm/@fortawesome/fontawesome-free@5.15.1/css/all.min.css">
+  <link rel="stylesheet" href="//cdn.jsdelivr.net/npm/animate.css@3.1.1/animate.min.css">
+  <link rel="stylesheet" href="//cdn.jsdelivr.net/npm/@fancyapps/fancybox@3.5.7/dist/jquery.fancybox.min.css">
+
+<script class="hexo-configurations">
+    var NexT = window.NexT || {};
+    var CONFIG = {"hostname":"qnjy.github.io","root":"/","images":"/images","scheme":"Gemini","version":"8.0.2","exturl":false,"sidebar":{"position":"left","display":"post","padding":18,"offset":12},"copycode":true,"bookmark":{"enable":true,"color":"#222","save":"auto"},"fancybox":true,"mediumzoom":false,"lazyload":false,"pangu":false,"comments":{"style":"tabs","active":null,"storage":true,"lazyload":false,"nav":null},"motion":{"enable":true,"async":false,"transition":{"post_block":"fadeIn","post_header":"fadeInDown","post_body":"fadeInDown","coll_header":"fadeInLeft","sidebar":"fadeInUp"}},"prism":false,"i18n":{"placeholder":"搜索...","empty":"没有找到任何搜索结果：${query}","hits_time":"找到 ${hits} 个搜索结果（用时 ${time} 毫秒）","hits":"找到 ${hits} 个搜索结果"},"path":"/search.xml","localsearch":{"enable":true,"trigger":"auto","top_n_per_article":1,"unescape":false,"preload":false}};
+  </script>
+
+  <meta name="description" content="第四章 - 消息通知系统1 消息通知的业务场景消息通知微服务的定位是“平台内”的“消息”功能，分为全员消息，订阅类消息，点对点消息。例如系统通知，私信，类消息">
+<meta property="og:type" content="article">
+<meta property="og:title" content="十次方项目-day04">
+<meta property="og:url" content="https://qnjy.github.io/post/e0a440ce.html">
+<meta property="og:site_name" content="qnjy&#39;s blog">
+<meta property="og:description" content="第四章 - 消息通知系统1 消息通知的业务场景消息通知微服务的定位是“平台内”的“消息”功能，分为全员消息，订阅类消息，点对点消息。例如系统通知，私信，类消息">
+<meta property="og:locale" content="zh_CN">
+<meta property="og:image" content="https://gitee.com/q1jy/images/raw/master/img/20210610-1563417873173.png">
+<meta property="article:published_time" content="2021-06-10T13:58:51.000Z">
+<meta property="article:modified_time" content="2021-06-10T14:44:07.904Z">
+<meta property="article:author" content="qnjy">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:image" content="https://gitee.com/q1jy/images/raw/master/img/20210610-1563417873173.png">
+
+
+<link rel="canonical" href="https://qnjy.github.io/post/e0a440ce.html">
+
+
+<script class="page-configurations">
+  // https://hexo.io/docs/variables.html
+  CONFIG.page = {
+    sidebar: "",
+    isHome : false,
+    isPost : true,
+    lang   : 'zh-CN'
+  };
+</script>
+
+  <title>十次方项目-day04 | qnjy's blog</title>
+  
+
+
+
+
+
+
+  <noscript>
+  <style>
+  body { margin-top: 2rem; }
+
+  .use-motion .menu-item,
+  .use-motion .sidebar,
+  .use-motion .post-block,
+  .use-motion .pagination,
+  .use-motion .comments,
+  .use-motion .post-header,
+  .use-motion .post-body,
+  .use-motion .collection-header {
+    visibility: visible;
+  }
+
+  .use-motion .header,
+  .use-motion .site-brand-container .toggle,
+  .use-motion .footer { opacity: initial; }
+
+  .use-motion .site-title,
+  .use-motion .site-subtitle,
+  .use-motion .custom-logo-image {
+    opacity: initial;
+    top: initial;
+  }
+
+  .use-motion .logo-line {
+    transform: scaleX(1);
+  }
+
+  .search-pop-overlay, .sidebar-nav { display: none; }
+  .sidebar-panel { display: block; }
+  </style>
+</noscript>
+
+</head>
+
+<body itemscope itemtype="http://schema.org/WebPage" class="use-motion">
+  <div class="headband"></div>
+
+  <main class="main">
+    <header class="header" itemscope itemtype="http://schema.org/WPHeader">
+      <div class="header-inner"><div class="site-brand-container">
+  <div class="site-nav-toggle">
+    <div class="toggle" aria-label="切换导航栏">
+        <span class="toggle-line"></span>
+        <span class="toggle-line"></span>
+        <span class="toggle-line"></span>
+    </div>
+  </div>
+
+  <div class="site-meta">
+
+    <a href="/" class="brand" rel="start">
+      <i class="logo-line"></i>
+      <h1 class="site-title">qnjy's blog</h1>
+      <i class="logo-line"></i>
+    </a>
+      <p class="site-subtitle" itemprop="description">方向不对，努力白费</p>
+  </div>
+
+  <div class="site-nav-right">
+    <div class="toggle popup-trigger">
+        <i class="fa fa-search fa-fw fa-lg"></i>
+    </div>
+  </div>
+</div>
+
+
+
+<nav class="site-nav">
+  <ul class="main-menu menu">
+        <li class="menu-item menu-item-home">
+
+    <a href="/" rel="section"><i class="fa fa-home fa-fw"></i>首页</a>
+
+  </li>
+        <li class="menu-item menu-item-tags">
+
+    <a href="/tags/" rel="section"><i class="fa fa-tags fa-fw"></i>标签</a>
+
+  </li>
+        <li class="menu-item menu-item-categories">
+
+    <a href="/categories/" rel="section"><i class="fa fa-th fa-fw"></i>分类</a>
+
+  </li>
+        <li class="menu-item menu-item-archives">
+
+    <a href="/archives/" rel="section"><i class="fa fa-archive fa-fw"></i>归档</a>
+
+  </li>
+      <li class="menu-item menu-item-search">
+        <a role="button" class="popup-trigger"><i class="fa fa-search fa-fw"></i>搜索
+        </a>
+      </li>
+  </ul>
+</nav>
+
+
+
+  <div class="search-pop-overlay">
+    <div class="popup search-popup">
+        <div class="search-header">
+  <span class="search-icon">
+    <i class="fa fa-search"></i>
+  </span>
+  <div class="search-input-container">
+    <input autocomplete="off" autocapitalize="off" maxlength="80"
+           placeholder="搜索..." spellcheck="false"
+           type="search" class="search-input">
+  </div>
+  <span class="popup-btn-close">
+    <i class="fa fa-times-circle"></i>
+  </span>
+</div>
+<div class="search-result-container no-result">
+  <div class="search-result-icon">
+    <i class="fa fa-spinner fa-pulse fa-5x"></i>
+  </div>
+</div>
+
+    </div>
+  </div>
+
+</div>
+        
+  
+  <div class="toggle sidebar-toggle">
+    <span class="toggle-line"></span>
+    <span class="toggle-line"></span>
+    <span class="toggle-line"></span>
+  </div>
+
+  <aside class="sidebar">
+
+    <div class="sidebar-inner sidebar-nav-active sidebar-toc-active">
+      <ul class="sidebar-nav">
+        <li class="sidebar-nav-toc">
+          文章目录
+        </li>
+        <li class="sidebar-nav-overview">
+          站点概览
+        </li>
+      </ul>
+
+      <div class="sidebar-panel-container">
+        <!--noindex-->
+        <section class="post-toc-wrap sidebar-panel">
+            <div class="post-toc animated"><ol class="nav"><li class="nav-item nav-level-1"><a class="nav-link" href="#%E7%AC%AC%E5%9B%9B%E7%AB%A0-%E6%B6%88%E6%81%AF%E9%80%9A%E7%9F%A5%E7%B3%BB%E7%BB%9F"><span class="nav-text">第四章 - 消息通知系统</span></a><ol class="nav-child"><li class="nav-item nav-level-2"><a class="nav-link" href="#1-%E6%B6%88%E6%81%AF%E9%80%9A%E7%9F%A5%E7%9A%84%E4%B8%9A%E5%8A%A1%E5%9C%BA%E6%99%AF"><span class="nav-text">1 消息通知的业务场景</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#2-%E6%B6%88%E6%81%AF%E9%80%9A%E7%9F%A5%E4%B8%8E%E5%8D%B3%E6%97%B6%E9%80%9A%E8%AE%AF%E7%9A%84%E5%8C%BA%E5%88%AB"><span class="nav-text">2 消息通知与即时通讯的区别</span></a></li></ol></li><li class="nav-item nav-level-1"><a class="nav-link" href="#3-%E6%90%AD%E5%BB%BA%E6%B6%88%E6%81%AF%E9%80%9A%E7%9F%A5%E5%BE%AE%E6%9C%8D%E5%8A%A1"><span class="nav-text">3 搭建消息通知微服务</span></a><ol class="nav-child"><li class="nav-item nav-level-2"><a class="nav-link" href="#3-1-%E4%B8%9A%E5%8A%A1%E5%88%86%E6%9E%90"><span class="nav-text">3.1 业务分析</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#3-2-%E8%A1%A8%E7%BB%93%E6%9E%84%E5%88%86%E6%9E%90"><span class="nav-text">3.2 表结构分析</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#3-3-%E6%90%AD%E5%BB%BA%E6%B6%88%E6%81%AF%E9%80%9A%E7%9F%A5%E5%BE%AE%E6%9C%8D%E5%8A%A1"><span class="nav-text">3.3 搭建消息通知微服务</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#3-4-%E5%AE%9E%E7%8E%B0%E5%9F%BA%E6%9C%AC%E5%A2%9E%E5%88%A0%E6%94%B9%E6%9F%A5%E5%8A%9F%E8%83%BD"><span class="nav-text">3.4 实现基本增删改查功能</span></a></li></ol></li><li class="nav-item nav-level-1"><a class="nav-link" href="#4-%E6%96%87%E7%AB%A0%E8%AE%A2%E9%98%85-%E5%AE%9E%E7%8E%B0%E7%BE%A4%E5%8F%91%E6%B6%88%E6%81%AF%E5%8A%9F%E8%83%BD"><span class="nav-text">4 文章订阅 - 实现群发消息功能</span></a><ol class="nav-child"><li class="nav-item nav-level-2"><a class="nav-link" href="#4-1-%E8%AE%A2%E9%98%85%E6%96%87%E7%AB%A0%E4%BD%9C%E8%80%85"><span class="nav-text">4.1 订阅文章作者</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#4-2-%E6%96%B0%E5%A2%9E%E6%96%87%E7%AB%A0%E7%BE%A4%E5%8F%91%E6%B6%88%E6%81%AF"><span class="nav-text">4.2 新增文章群发消息</span></a></li></ol></li><li class="nav-item nav-level-1"><a class="nav-link" href="#5-%E6%96%87%E7%AB%A0%E7%82%B9%E8%B5%9E-%E5%AE%9E%E7%8E%B0%E7%82%B9%E5%AF%B9%E7%82%B9%E6%B6%88%E6%81%AF%E5%8A%9F%E8%83%BD"><span class="nav-text">5 文章点赞 - 实现点对点消息功能</span></a><ol class="nav-child"><li class="nav-item nav-level-2"><a class="nav-link" href="#5-1-%E5%AE%9E%E7%8E%B0%E6%96%87%E7%AB%A0%E7%82%B9%E8%B5%9E"><span class="nav-text">5.1 实现文章点赞</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#5-2-%E5%AE%9E%E7%8E%B0%E7%82%B9%E8%B5%9E%E6%B6%88%E6%81%AF%E9%80%9A%E7%9F%A5"><span class="nav-text">5.2 实现点赞消息通知</span></a></li></ol></li><li class="nav-item nav-level-1"><a class="nav-link" href="#6-%E5%9F%BA%E4%BA%8Edb%E5%AE%9E%E7%8E%B0%E7%9A%84%E9%80%9A%E7%9F%A5%E7%B3%BB%E7%BB%9F%E5%AD%98%E5%9C%A8%E7%9A%84%E9%97%AE%E9%A2%98"><span class="nav-text">6 基于db实现的通知系统存在的问题</span></a><ol class="nav-child"><li class="nav-item nav-level-2"><a class="nav-link" href="#6-1-%E6%95%B0%E6%8D%AE%E5%BA%93%E8%AE%BF%E9%97%AE%E5%8E%8B%E5%8A%9B%E5%A4%A7"><span class="nav-text">6.1 数据库访问压力大</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#6-2-%E6%9C%8D%E5%8A%A1%E5%99%A8%E6%80%A7%E8%83%BD%E5%8E%8B%E5%8A%9B%E5%A4%A7"><span class="nav-text">6.2 服务器性能压力大</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#6-3-%E6%94%B9%E8%BF%9B%E7%9A%84%E6%96%B9%E6%B3%95"><span class="nav-text">6.3 改进的方法</span></a></li></ol></li></ol></div>
+        </section>
+        <!--/noindex-->
+
+        <section class="site-overview-wrap sidebar-panel">
+          <div class="site-author site-overview-item animated" itemprop="author" itemscope itemtype="http://schema.org/Person">
+    <img class="site-author-image" itemprop="image" alt="qnjy"
+      src="/images/xigua.jpg">
+  <p class="site-author-name" itemprop="name">qnjy</p>
+  <div class="site-description" itemprop="description">宁静以致远</div>
+</div>
+<div class="site-state-wrap site-overview-item animated">
+  <nav class="site-state">
+      <div class="site-state-item site-state-posts">
+          <a href="/archives/">
+        
+          <span class="site-state-item-count">57</span>
+          <span class="site-state-item-name">日志</span>
+        </a>
+      </div>
+      <div class="site-state-item site-state-categories">
+            <a href="/categories/">
+          
+        <span class="site-state-item-count">18</span>
+        <span class="site-state-item-name">分类</span></a>
+      </div>
+      <div class="site-state-item site-state-tags">
+            <a href="/tags/">
+          
+        <span class="site-state-item-count">30</span>
+        <span class="site-state-item-name">标签</span></a>
+      </div>
+  </nav>
+</div>
+  <div class="links-of-author site-overview-item animated">
+      <span class="links-of-author-item">
+        <a href="https://github.com/qnjy" title="GitHub → https:&#x2F;&#x2F;github.com&#x2F;qnjy" rel="noopener" target="_blank"><i class="fab fa-github fa-fw"></i>GitHub</a>
+      </span>
+      <span class="links-of-author-item">
+        <a href="mailto:877900490@qq.com" title="E-Mail → mailto:877900490@qq.com" rel="noopener" target="_blank"><i class="fa fa-envelope fa-fw"></i>E-Mail</a>
+      </span>
+  </div>
+  <div class="cc-license site-overview-item animated" itemprop="license">
+    <a href="https://creativecommons.org/licenses/by-nc-sa/4.0/zh-CN" class="cc-opacity" rel="noopener" target="_blank"><img src="/images/cc-by-nc-sa.svg" alt="Creative Commons"></a>
+  </div>
+
+
+
+        </section>
+      </div>
+
+    </div>
+  </aside>
+  <div class="sidebar-dimmer"></div>
+
+
+    </header>
+
+    
+  <div class="back-to-top">
+    <i class="fa fa-arrow-up"></i>
+    <span>0%</span>
+  </div>
+  <div class="reading-progress-bar"></div>
+  <a role="button" class="book-mark-link book-mark-link-fixed"></a>
+
+<noscript>
+  <div class="noscript-warning">Theme NexT works best with JavaScript enabled</div>
+</noscript>
+
+
+    <div class="main-inner post posts-expand">
+      
+
+      
+
+  
+
+
+<div class="post-block">
+  
+  
+
+  <article itemscope itemtype="http://schema.org/Article" class="post-content" lang="zh-CN">
+    <link itemprop="mainEntityOfPage" href="https://qnjy.github.io/post/e0a440ce.html">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="image" content="/images/xigua.jpg">
+      <meta itemprop="name" content="qnjy">
+      <meta itemprop="description" content="宁静以致远">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="qnjy's blog">
+    </span>
+      <header class="post-header">
+        <h1 class="post-title" itemprop="name headline">
+          十次方项目-day04
+        </h1>
+
+        <div class="post-meta-container">
+          <div class="post-meta">
+    <span class="post-meta-item">
+      <span class="post-meta-item-icon">
+        <i class="far fa-calendar"></i>
+      </span>
+      <span class="post-meta-item-text">发表于</span>
+      
+
+      <time title="创建时间：2021-06-10 21:58:51 / 修改时间：22:44:07" itemprop="dateCreated datePublished" datetime="2021-06-10T21:58:51+08:00">2021-06-10</time>
+    </span>
+
+  
+    <span class="post-meta-item" title="阅读次数" id="busuanzi_container_page_pv" style="display: none;">
+      <span class="post-meta-item-icon">
+        <i class="far fa-eye"></i>
+      </span>
+      <span class="post-meta-item-text">阅读次数：</span>
+      <span id="busuanzi_value_page_pv"></span>
+    </span>
+</div>
+
+        </div>
+      </header>
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+        <h1 id="第四章-消息通知系统"><a href="#第四章-消息通知系统" class="headerlink" title="第四章 - 消息通知系统"></a>第四章 - 消息通知系统</h1><h2 id="1-消息通知的业务场景"><a href="#1-消息通知的业务场景" class="headerlink" title="1 消息通知的业务场景"></a>1 消息通知的业务场景</h2><p>消息通知微服务的定位是“平台内”的“消息”功能，分为全员消息，订阅类消息，点对点消息。例如系统通知，私信，类消息<span id="more"></span></p>
+<ul>
+<li><p>全员消息</p>
+<p>系统通知，活动通知，管理员公告等全部用户都会收到的消息</p>
+</li>
+<li><p>订阅类消息</p>
+<p>关注某一类数据的用户，该类数据有更新时向用户发送的消息。例如关注某位大v的微博，公众号，订阅某位知名作家的专栏</p>
+</li>
+<li><p>点对点消息</p>
+<p>某位用户对另外一位用户进行操作后，系统向被操作的用户发送的消息。例如点赞，发红包。</p>
+</li>
+</ul>
+<h2 id="2-消息通知与即时通讯的区别"><a href="#2-消息通知与即时通讯的区别" class="headerlink" title="2 消息通知与即时通讯的区别"></a>2 消息通知与即时通讯的区别</h2><div class="table-container">
+<table>
+<thead>
+<tr>
+<th style="text-align:left"></th>
+<th>即时通信</th>
+<th>消息通知</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td style="text-align:left">传输的内容</td>
+<td>包括文字聊天、语音消息发送、文件传输、音视频播放等吗，内容极其丰富。</td>
+<td>以文字，超链接为主，辅以图片，不能再多了。</td>
+</tr>
+<tr>
+<td style="text-align:left">核心需求点</td>
+<td>要求连接稳定可靠。就像网络游戏，如果总是掉线，你还玩的下去吗？</td>
+<td>要求消息的高送达率，也就是说“这件事儿一定要想尽办法通知到对方”。对延时要求不高。</td>
+</tr>
+<tr>
+<td style="text-align:left">系统建设成本</td>
+<td>存储成本高（图片，视频等）。基于TCP协议，需建设或租用多线机房，基建成本高。</td>
+<td>一般只保存文本消息，存储成本低。可根据用户量自由调整服务器集群配置。</td>
+</tr>
+<tr>
+<td style="text-align:left">交互方式</td>
+<td>任何消息均可回复</td>
+<td>消息一般被设计为“仅通知，不需要回复”</td>
+</tr>
+<tr>
+<td style="text-align:left">技术实现</td>
+<td>XMPP，MQTT，Strophe等全双工长连接协议</td>
+<td>JMS，AMQP，http等等各种协议</td>
+</tr>
+</tbody>
+</table>
+</div>
+<h1 id="3-搭建消息通知微服务"><a href="#3-搭建消息通知微服务" class="headerlink" title="3 搭建消息通知微服务"></a>3 搭建消息通知微服务</h1><h2 id="3-1-业务分析"><a href="#3-1-业务分析" class="headerlink" title="3.1 业务分析"></a>3.1 业务分析</h2><p>用户可以对文章作者进行订阅，当被订阅的用户发布新的文章时，可以通过消息通知系统发送消息给订阅者。</p>
+<p>流程如下：</p>
+<p><img src="https://gitee.com/q1jy/images/raw/master/img/20210610-1563417873173.png" alt="1563359920194" style="zoom: 80%;" /></p>
+<h2 id="3-2-表结构分析"><a href="#3-2-表结构分析" class="headerlink" title="3.2 表结构分析"></a>3.2 表结构分析</h2><p>把资料中的sql脚本导入到数据库中，创建数据库和表。</p>
+<p>十次方消息通知微服务总共需要两张数据库表，tb_notice 和 tb_notice_fresh。</p>
+<ol>
+<li><p>消息通知表tb_notice</p>
+<p>保存用户的消息通知</p>
+<p>| 字段名     | 类型     | 字段说明                               |<br>| ————— | ———— | ——————————————————— |<br>| id         | int      | ID                                     |<br>| receiverId | varchar  | 接收消息用户的ID（userId）             |<br>| operatorId | varchar  | 进行操作用户的ID                       |<br>| action     | varchar  | 操作类型（评论，点赞等）               |<br>| targetType | varchar  | 被操作的对象，例如文章，评论等         |<br>| targetId   | varchar  | 被操作对象的id，例如文章的id，评论的id |<br>| createtime | datetime | 发表日期                               |<br>| type       | varchar  | 消息通知类型                           |<br>| state      | varchar  | 状态：0 未读；1 已读                   |</p>
+</li>
+<li><p>待推送消息表 tb_notice_fresh</p>
+<p>保存准备推送给用户的消息通知</p>
+<p>| 字段名   | 类型    | 字段说明 |<br>| ———— | ———- | ———— |<br>| userId   | varchar | 用户ID   |<br>| noticeId | varchar | 通知id   |</p>
+</li>
+</ol>
+<h2 id="3-3-搭建消息通知微服务"><a href="#3-3-搭建消息通知微服务" class="headerlink" title="3.3 搭建消息通知微服务"></a>3.3 搭建消息通知微服务</h2><ol>
+<li><p>在tensquare_parent父工程下创建tensquare_notice子模块</p>
+</li>
+<li><p>修改pom.xml文件，添加下面的配置</p>
+<figure class="highlight xml"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br><span class="line">44</span><br><span class="line">45</span><br></pre></td><td class="code"><pre><span class="line"><span class="tag">&lt;<span class="name">dependencies</span>&gt;</span></span><br><span class="line">    <span class="comment">&lt;!-- mybatis-plus begin --&gt;</span></span><br><span class="line">    <span class="tag">&lt;<span class="name">dependency</span>&gt;</span></span><br><span class="line">        <span class="tag">&lt;<span class="name">groupId</span>&gt;</span>com.baomidou<span class="tag">&lt;/<span class="name">groupId</span>&gt;</span></span><br><span class="line">        <span class="tag">&lt;<span class="name">artifactId</span>&gt;</span>mybatisplus-spring-boot-starter<span class="tag">&lt;/<span class="name">artifactId</span>&gt;</span></span><br><span class="line">        <span class="tag">&lt;<span class="name">version</span>&gt;</span>1.0.5<span class="tag">&lt;/<span class="name">version</span>&gt;</span></span><br><span class="line">    <span class="tag">&lt;/<span class="name">dependency</span>&gt;</span></span><br><span class="line">    <span class="tag">&lt;<span class="name">dependency</span>&gt;</span></span><br><span class="line">        <span class="tag">&lt;<span class="name">groupId</span>&gt;</span>com.baomidou<span class="tag">&lt;/<span class="name">groupId</span>&gt;</span></span><br><span class="line">        <span class="tag">&lt;<span class="name">artifactId</span>&gt;</span>mybatis-plus<span class="tag">&lt;/<span class="name">artifactId</span>&gt;</span></span><br><span class="line">        <span class="tag">&lt;<span class="name">version</span>&gt;</span>$&#123;mybatisplus.version&#125;<span class="tag">&lt;/<span class="name">version</span>&gt;</span></span><br><span class="line">    <span class="tag">&lt;/<span class="name">dependency</span>&gt;</span></span><br><span class="line">    <span class="comment">&lt;!-- mybatis-plus end --&gt;</span></span><br><span class="line"></span><br><span class="line">    <span class="tag">&lt;<span class="name">dependency</span>&gt;</span></span><br><span class="line">        <span class="tag">&lt;<span class="name">groupId</span>&gt;</span>com.alibaba<span class="tag">&lt;/<span class="name">groupId</span>&gt;</span></span><br><span class="line">        <span class="tag">&lt;<span class="name">artifactId</span>&gt;</span>druid-spring-boot-starter<span class="tag">&lt;/<span class="name">artifactId</span>&gt;</span></span><br><span class="line">        <span class="tag">&lt;<span class="name">version</span>&gt;</span>1.1.22<span class="tag">&lt;/<span class="name">version</span>&gt;</span></span><br><span class="line">    <span class="tag">&lt;/<span class="name">dependency</span>&gt;</span></span><br><span class="line">    <span class="tag">&lt;<span class="name">dependency</span>&gt;</span></span><br><span class="line">        <span class="tag">&lt;<span class="name">groupId</span>&gt;</span>mysql<span class="tag">&lt;/<span class="name">groupId</span>&gt;</span></span><br><span class="line">        <span class="tag">&lt;<span class="name">artifactId</span>&gt;</span>mysql-connector-java<span class="tag">&lt;/<span class="name">artifactId</span>&gt;</span></span><br><span class="line">        <span class="tag">&lt;<span class="name">version</span>&gt;</span>5.1.47<span class="tag">&lt;/<span class="name">version</span>&gt;</span></span><br><span class="line">    <span class="tag">&lt;/<span class="name">dependency</span>&gt;</span></span><br><span class="line">    <span class="tag">&lt;<span class="name">dependency</span>&gt;</span></span><br><span class="line">        <span class="tag">&lt;<span class="name">groupId</span>&gt;</span>com.tensquare<span class="tag">&lt;/<span class="name">groupId</span>&gt;</span></span><br><span class="line">        <span class="tag">&lt;<span class="name">artifactId</span>&gt;</span>tensquare_common<span class="tag">&lt;/<span class="name">artifactId</span>&gt;</span></span><br><span class="line">        <span class="tag">&lt;<span class="name">version</span>&gt;</span>1.0-SNAPSHOT<span class="tag">&lt;/<span class="name">version</span>&gt;</span></span><br><span class="line">    <span class="tag">&lt;/<span class="name">dependency</span>&gt;</span></span><br><span class="line">    <span class="tag">&lt;<span class="name">dependency</span>&gt;</span></span><br><span class="line">        <span class="tag">&lt;<span class="name">groupId</span>&gt;</span>org.springframework.boot<span class="tag">&lt;/<span class="name">groupId</span>&gt;</span></span><br><span class="line">        <span class="tag">&lt;<span class="name">artifactId</span>&gt;</span>spring-boot-starter-data-redis<span class="tag">&lt;/<span class="name">artifactId</span>&gt;</span></span><br><span class="line">        <span class="tag">&lt;<span class="name">version</span>&gt;</span>2.1.4.RELEASE<span class="tag">&lt;/<span class="name">version</span>&gt;</span></span><br><span class="line">    <span class="tag">&lt;/<span class="name">dependency</span>&gt;</span></span><br><span class="line">    <span class="tag">&lt;<span class="name">dependency</span>&gt;</span></span><br><span class="line">        <span class="tag">&lt;<span class="name">groupId</span>&gt;</span>org.springframework.cloud<span class="tag">&lt;/<span class="name">groupId</span>&gt;</span></span><br><span class="line">        <span class="tag">&lt;<span class="name">artifactId</span>&gt;</span>spring-cloud-starter-netflix-eureka-client<span class="tag">&lt;/<span class="name">artifactId</span>&gt;</span></span><br><span class="line">        <span class="tag">&lt;<span class="name">version</span>&gt;</span>2.1.2.RELEASE<span class="tag">&lt;/<span class="name">version</span>&gt;</span></span><br><span class="line">    <span class="tag">&lt;/<span class="name">dependency</span>&gt;</span></span><br><span class="line">    <span class="tag">&lt;<span class="name">dependency</span>&gt;</span></span><br><span class="line">        <span class="tag">&lt;<span class="name">groupId</span>&gt;</span>org.springframework.cloud<span class="tag">&lt;/<span class="name">groupId</span>&gt;</span></span><br><span class="line">        <span class="tag">&lt;<span class="name">artifactId</span>&gt;</span>spring-cloud-starter-openfeign<span class="tag">&lt;/<span class="name">artifactId</span>&gt;</span></span><br><span class="line">        <span class="tag">&lt;<span class="name">version</span>&gt;</span>2.1.2.RELEASE<span class="tag">&lt;/<span class="name">version</span>&gt;</span></span><br><span class="line">    <span class="tag">&lt;/<span class="name">dependency</span>&gt;</span></span><br><span class="line"><span class="tag">&lt;/<span class="name">dependencies</span>&gt;</span></span><br></pre></td></tr></table></figure>
+</li>
+</ol>
+<p>在resources文件夹下添加application.yml文件，并添加下面的配置</p>
+<figure class="highlight yml"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br></pre></td><td class="code"><pre><span class="line"><span class="attr">server:</span></span><br><span class="line">  <span class="attr">port:</span> <span class="number">9014</span></span><br><span class="line"><span class="attr">spring:</span></span><br><span class="line">  <span class="attr">application:</span></span><br><span class="line">    <span class="attr">name:</span> <span class="string">tensquare-notice</span></span><br><span class="line">  <span class="attr">datasource:</span></span><br><span class="line">    <span class="attr">driver-class-name:</span> <span class="string">com.mysql.jdbc.Driver</span></span><br><span class="line">    <span class="attr">url:</span> <span class="string">jdbc:mysql://8.140.127.197:3306/tensquare_notice?characterEncoding=utf-8</span></span><br><span class="line">    <span class="attr">username:</span> <span class="string">root</span></span><br><span class="line">    <span class="attr">password:</span> <span class="string">root</span></span><br><span class="line">  <span class="attr">redis:</span></span><br><span class="line">    <span class="attr">host:</span> <span class="number">192.168</span><span class="number">.200</span><span class="number">.128</span></span><br><span class="line"><span class="comment"># Mybatis-Plus 配置</span></span><br><span class="line"><span class="attr">mybatis-plus:</span></span><br><span class="line"><span class="comment">#  mapper-locations: classpath:/mapper/*Mapper.xml</span></span><br><span class="line">  <span class="comment">#实体扫描，多个package用逗号或者分号分隔</span></span><br><span class="line">  <span class="attr">typeAliasesPackage:</span> <span class="string">com.tensquare.notice.pojo</span></span><br><span class="line">  <span class="attr">global-config:</span></span><br><span class="line">    <span class="attr">id-type:</span> <span class="number">1</span>  <span class="comment">#0:数据库ID自增   1:用户输入id</span></span><br><span class="line">    <span class="attr">db-column-underline:</span> <span class="literal">false</span></span><br><span class="line">    <span class="attr">refresh-mapper:</span> <span class="literal">true</span></span><br><span class="line">    <span class="attr">configuration:</span></span><br><span class="line">      <span class="attr">map-underscore-to-camel-case:</span> <span class="literal">true</span></span><br><span class="line">      <span class="attr">cache-enabled:</span> <span class="literal">true</span> <span class="comment">#配置的缓存的全局开关</span></span><br><span class="line">      <span class="attr">lazyLoadingEnabled:</span> <span class="literal">true</span> <span class="comment">#延时加载的开关</span></span><br><span class="line">      <span class="attr">multipleResultSetsEnabled:</span> <span class="literal">true</span> <span class="comment">#开启延时加载，否则按需加载属性</span></span><br><span class="line">      <span class="attr">log-impl:</span> <span class="string">org.apache.ibatis.logging.stdout.StdOutImpl</span> <span class="comment">#打印sql语句,调试用</span></span><br><span class="line"><span class="attr">eureka:</span></span><br><span class="line">  <span class="attr">client:</span></span><br><span class="line">    <span class="attr">service-url:</span></span><br><span class="line">      <span class="attr">defaultZone:</span> <span class="string">http://127.0.0.1:6868/eureka/</span></span><br><span class="line">  <span class="attr">instance:</span></span><br><span class="line">    <span class="attr">prefer-ip-address:</span> <span class="literal">true</span></span><br></pre></td></tr></table></figure>
+<ol>
+<li><p>编写启动类</p>
+</li>
+<li><p>编写pojo</p>
+</li>
+<li><p>编写dao</p>
+</li>
+<li><p>com.tensquare.notice.config配置</p>
+</li>
+</ol>
+<h2 id="3-4-实现基本增删改查功能"><a href="#3-4-实现基本增删改查功能" class="headerlink" title="3.4 实现基本增删改查功能"></a>3.4 实现基本增删改查功能</h2><p>需要实现功能：</p>
+<ol>
+<li>根据id查询消息通知</li>
+<li>根据条件分页查询消息通知</li>
+<li>新增通知</li>
+<li>修改通知</li>
+<li>根据用户id查询该用户的待推送消息（新消息）</li>
+<li>删除待推送消息（新消息）</li>
+</ol>
+<h1 id="4-文章订阅-实现群发消息功能"><a href="#4-文章订阅-实现群发消息功能" class="headerlink" title="4 文章订阅 - 实现群发消息功能"></a>4 文章订阅 - 实现群发消息功能</h1><h2 id="4-1-订阅文章作者"><a href="#4-1-订阅文章作者" class="headerlink" title="4.1 订阅文章作者"></a>4.1 订阅文章作者</h2><h2 id="4-2-新增文章群发消息"><a href="#4-2-新增文章群发消息" class="headerlink" title="4.2 新增文章群发消息"></a>4.2 新增文章群发消息</h2><h1 id="5-文章点赞-实现点对点消息功能"><a href="#5-文章点赞-实现点对点消息功能" class="headerlink" title="5 文章点赞 - 实现点对点消息功能"></a>5 文章点赞 - 实现点对点消息功能</h1><h2 id="5-1-实现文章点赞"><a href="#5-1-实现文章点赞" class="headerlink" title="5.1 实现文章点赞"></a>5.1 实现文章点赞</h2><h2 id="5-2-实现点赞消息通知"><a href="#5-2-实现点赞消息通知" class="headerlink" title="5.2 实现点赞消息通知"></a>5.2 实现点赞消息通知</h2><h1 id="6-基于db实现的通知系统存在的问题"><a href="#6-基于db实现的通知系统存在的问题" class="headerlink" title="6 基于db实现的通知系统存在的问题"></a>6 基于db实现的通知系统存在的问题</h1><h2 id="6-1-数据库访问压力大"><a href="#6-1-数据库访问压力大" class="headerlink" title="6.1 数据库访问压力大"></a>6.1 数据库访问压力大</h2><h2 id="6-2-服务器性能压力大"><a href="#6-2-服务器性能压力大" class="headerlink" title="6.2 服务器性能压力大"></a>6.2 服务器性能压力大</h2><h2 id="6-3-改进的方法"><a href="#6-3-改进的方法" class="headerlink" title="6.3 改进的方法"></a>6.3 改进的方法</h2>
+    </div>
+
+    
+    
+    
+
+    <footer class="post-footer">
+          <div class="reward-container">
+  <div>Buy me a coffee</div>
+  <button onclick="document.querySelector('.post-reward').classList.toggle('active');">
+    赞赏
+  </button>
+  <div class="post-reward">
+      <div>
+        <img src="/images/wechatpay.jpg" alt="qnjy 微信">
+        <span>微信</span>
+      </div>
+      <div>
+        <img src="/images/alipay.jpg" alt="qnjy 支付宝">
+        <span>支付宝</span>
+      </div>
+
+  </div>
+</div>
+
+
+        
+
+          <div class="post-nav">
+            <div class="post-nav-item">
+                <a href="/post/febc4fee.html" rel="prev" title="Github+PicGo图床搭建">
+                  <i class="fa fa-chevron-left"></i> Github+PicGo图床搭建
+                </a>
+            </div>
+            <div class="post-nav-item">
+            </div>
+          </div>
+    </footer>
+  </article>
+</div>
+
+
+
+
+
+
+      
+
+<script>
+  window.addEventListener('tabs:register', () => {
+    let { activeClass } = CONFIG.comments;
+    if (CONFIG.comments.storage) {
+      activeClass = localStorage.getItem('comments_active') || activeClass;
+    }
+    if (activeClass) {
+      const activeTab = document.querySelector(`a[href="#comment-${activeClass}"]`);
+      if (activeTab) {
+        activeTab.click();
+      }
+    }
+  });
+  if (CONFIG.comments.storage) {
+    window.addEventListener('tabs:click', event => {
+      if (!event.target.matches('.tabs-comment .tab-content .tab-pane')) return;
+      const commentClass = event.target.classList[1];
+      localStorage.setItem('comments_active', commentClass);
+    });
+  }
+</script>
+
+    </div>
+  </main>
+
+  <footer class="footer">
+    <div class="footer-inner">
+      
+
+      
+
+<div class="copyright">
+  
+  &copy; 2020 – 
+  <span itemprop="copyrightYear">2021</span>
+  <span class="with-love">
+    <i class="fa fa-heart"></i>
+  </span>
+  <span class="author" itemprop="copyrightHolder">qnjy</span>
+</div>
+<div class="busuanzi-count">
+    <span class="post-meta-item" id="busuanzi_container_site_uv" style="display: none;">
+      <span class="post-meta-item-icon">
+        <i class="fa fa-user"></i>
+      </span>
+      <span class="site-uv" title="总访客量">
+        <span id="busuanzi_value_site_uv"></span>
+      </span>
+    </span>
+    <span class="post-meta-item" id="busuanzi_container_site_pv" style="display: none;">
+      <span class="post-meta-item-icon">
+        <i class="fa fa-eye"></i>
+      </span>
+      <span class="site-pv" title="总访问量">
+        <span id="busuanzi_value_site_pv"></span>
+      </span>
+    </span>
+</div>
+
+    </div>
+  </footer>
+
+  
+  <script src="//cdn.jsdelivr.net/npm/animejs@3.2.1/lib/anime.min.js"></script>
+  <script src="//cdn.jsdelivr.net/npm/jquery@3.5.1/dist/jquery.min.js"></script>
+  <script src="//cdn.jsdelivr.net/npm/@fancyapps/fancybox@3.5.7/dist/jquery.fancybox.min.js"></script>
+<script src="/js/utils.js"></script><script src="/js/motion.js"></script><script src="/js/next-boot.js"></script><script src="/js/bookmark.js"></script>
+
+  
+
+
+
+
+  <script src="/js/local-search.js"></script>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+  
+  <script async src="https://busuanzi.ibruce.info/busuanzi/2.3/busuanzi.pure.mini.js"></script>
+
+
+
+
+
+
+
+
+  
+
+  
+
+  
+
+
+
+
+
+</body>
+</html>
