@@ -6080,6 +6080,7 @@ ASL=\sum_{i=1}^{n}p_ic_i</script><p>n：记录的个数</p>
     <title>Docker下logstash同步mysql和elasticsearch</title>
     <url>/post/74932d71.html</url>
     <content><![CDATA[<h1 id="1-配置elasticsearch环境"><a href="#1-配置elasticsearch环境" class="headerlink" title="1 配置elasticsearch环境"></a>1 配置elasticsearch环境</h1><p>参考<a href="/post/d48132d3.html" title="ElasticSearch">ElasticSearch</a></p>
+<span id="more"></span>
 <h1 id="2-搭建logstash环境"><a href="#2-搭建logstash环境" class="headerlink" title="2 搭建logstash环境"></a>2 搭建logstash环境</h1><font color="ff000">elasticsearch和logstash版本要一致</font>
 
 <ol>
@@ -6108,7 +6109,8 @@ ASL=\sum_{i=1}^{n}p_ic_i</script><p>n：记录的个数</p>
   <entry>
     <title>十次方项目-day06</title>
     <url>/post/eaa21e2.html</url>
-    <content><![CDATA[<h1 id="1-配置tensquare-base微服务"><a href="#1-配置tensquare-base微服务" class="headerlink" title="1 配置tensquare_base微服务"></a>1 配置tensquare_base微服务</h1><p>在pom.xml文件中添加</p>
+    <content><![CDATA[<h1 id="1-配置tensquare-base微服务"><a href="#1-配置tensquare-base微服务" class="headerlink" title="1 配置tensquare_base微服务"></a>1 配置tensquare_base微服务</h1><span id="more"></span>
+<p>在pom.xml文件中添加</p>
 <figure class="highlight xml"><table><tr><td class="code"><pre><span class="line"><span class="tag">&lt;<span class="name">dependency</span>&gt;</span></span><br><span class="line">        <span class="tag">&lt;<span class="name">groupId</span>&gt;</span>com.tensquare<span class="tag">&lt;/<span class="name">groupId</span>&gt;</span></span><br><span class="line">        <span class="tag">&lt;<span class="name">artifactId</span>&gt;</span>tensquare_common<span class="tag">&lt;/<span class="name">artifactId</span>&gt;</span></span><br><span class="line">        <span class="tag">&lt;<span class="name">version</span>&gt;</span>1.0-SNAPSHOT<span class="tag">&lt;/<span class="name">version</span>&gt;</span></span><br><span class="line">    <span class="tag">&lt;/<span class="name">dependency</span>&gt;</span></span><br><span class="line"></span><br><span class="line">    <span class="tag">&lt;<span class="name">dependency</span>&gt;</span></span><br><span class="line">        <span class="tag">&lt;<span class="name">groupId</span>&gt;</span>mysql<span class="tag">&lt;/<span class="name">groupId</span>&gt;</span></span><br><span class="line">        <span class="tag">&lt;<span class="name">artifactId</span>&gt;</span>mysql-connector-java<span class="tag">&lt;/<span class="name">artifactId</span>&gt;</span></span><br><span class="line">        <span class="tag">&lt;<span class="name">version</span>&gt;</span>5.1.47<span class="tag">&lt;/<span class="name">version</span>&gt;</span></span><br><span class="line">    <span class="tag">&lt;/<span class="name">dependency</span>&gt;</span></span><br><span class="line">    <span class="tag">&lt;<span class="name">dependency</span>&gt;</span></span><br><span class="line">        <span class="tag">&lt;<span class="name">groupId</span>&gt;</span>org.springframework.boot<span class="tag">&lt;/<span class="name">groupId</span>&gt;</span></span><br><span class="line">        <span class="tag">&lt;<span class="name">artifactId</span>&gt;</span>spring-boot-starter-data-jpa<span class="tag">&lt;/<span class="name">artifactId</span>&gt;</span></span><br><span class="line">    <span class="tag">&lt;/<span class="name">dependency</span>&gt;</span></span><br><span class="line">    </span><br></pre></td></tr></table></figure>
 <p>编写启动类</p>
 <figure class="highlight java"><table><tr><td class="code"><pre><span class="line"><span class="meta">@SpringBootApplication</span></span><br><span class="line"><span class="keyword">public</span> <span class="class"><span class="keyword">class</span> <span class="title">BaseApplication</span> </span>&#123;</span><br><span class="line">    <span class="function"><span class="keyword">public</span> <span class="keyword">static</span> <span class="keyword">void</span> <span class="title">main</span><span class="params">(String[] args)</span> </span>&#123;</span><br><span class="line">        SpringApplication.run(BaseApplication.class);</span><br><span class="line">    &#125;</span><br><span class="line">    <span class="meta">@Bean</span></span><br><span class="line">    <span class="function"><span class="keyword">public</span> IdWorker <span class="title">idWorker</span><span class="params">()</span></span>&#123;</span><br><span class="line">        <span class="keyword">return</span> <span class="keyword">new</span> IdWorker(<span class="number">1</span>,<span class="number">1</span>);</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
@@ -6272,7 +6274,8 @@ ASL=\sum_{i=1}^{n}p_ic_i</script><p>n：记录的个数</p>
   <entry>
     <title>十次方项目-day05</title>
     <url>/post/97a37058.html</url>
-    <content><![CDATA[<h1 id="第5章-消息通知系统改进"><a href="#第5章-消息通知系统改进" class="headerlink" title="第5章 - 消息通知系统改进"></a>第5章 - 消息通知系统改进</h1><h1 id="1-获取新消息通知的两种模式"><a href="#1-获取新消息通知的两种模式" class="headerlink" title="1 获取新消息通知的两种模式"></a>1 获取新消息通知的两种模式</h1><p>用户获取新的消息通知有两种模式</p>
+    <content><![CDATA[<h1 id="第5章-消息通知系统改进"><a href="#第5章-消息通知系统改进" class="headerlink" title="第5章 - 消息通知系统改进"></a>第5章 - 消息通知系统改进</h1><span id="more"></span>
+<h1 id="1-获取新消息通知的两种模式"><a href="#1-获取新消息通知的两种模式" class="headerlink" title="1 获取新消息通知的两种模式"></a>1 获取新消息通知的两种模式</h1><p>用户获取新的消息通知有两种模式</p>
 <ul>
 <li>上线登录后向系统主动索取</li>
 <li>在线时系统向接收者主动推送新消息</li>
