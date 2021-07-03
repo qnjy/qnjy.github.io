@@ -33,8 +33,10 @@
 <meta property="og:description" content="第四章 - 消息通知系统1 消息通知的业务场景消息通知微服务的定位是“平台内”的“消息”功能，分为全员消息，订阅类消息，点对点消息。例如系统通知，私信，类消息">
 <meta property="og:locale" content="zh_CN">
 <meta property="og:image" content="https://gitee.com/q1jy/images/raw/master/img/20210610-1563417873173.png">
+<meta property="og:image" content="https://gitee.com/q1jy/images/raw/master/img/20210616-20210615-image-20210615120826980.png">
+<meta property="og:image" content="https://gitee.com/q1jy/images/raw/master/img/20210615-1563608341301.png">
 <meta property="article:published_time" content="2021-06-10T13:58:51.000Z">
-<meta property="article:modified_time" content="2021-06-12T02:18:38.745Z">
+<meta property="article:modified_time" content="2021-06-21T08:21:55.864Z">
 <meta property="article:author" content="qnjy">
 <meta name="twitter:card" content="summary">
 <meta name="twitter:image" content="https://gitee.com/q1jy/images/raw/master/img/20210610-1563417873173.png">
@@ -210,7 +212,7 @@
       <div class="sidebar-panel-container">
         <!--noindex-->
         <section class="post-toc-wrap sidebar-panel">
-            <div class="post-toc animated"><ol class="nav"><li class="nav-item nav-level-1"><a class="nav-link" href="#%E7%AC%AC%E5%9B%9B%E7%AB%A0-%E6%B6%88%E6%81%AF%E9%80%9A%E7%9F%A5%E7%B3%BB%E7%BB%9F"><span class="nav-text">第四章 - 消息通知系统</span></a><ol class="nav-child"><li class="nav-item nav-level-2"><a class="nav-link" href="#1-%E6%B6%88%E6%81%AF%E9%80%9A%E7%9F%A5%E7%9A%84%E4%B8%9A%E5%8A%A1%E5%9C%BA%E6%99%AF"><span class="nav-text">1 消息通知的业务场景</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#2-%E6%B6%88%E6%81%AF%E9%80%9A%E7%9F%A5%E4%B8%8E%E5%8D%B3%E6%97%B6%E9%80%9A%E8%AE%AF%E7%9A%84%E5%8C%BA%E5%88%AB"><span class="nav-text">2 消息通知与即时通讯的区别</span></a></li></ol></li><li class="nav-item nav-level-1"><a class="nav-link" href="#3-%E6%90%AD%E5%BB%BA%E6%B6%88%E6%81%AF%E9%80%9A%E7%9F%A5%E5%BE%AE%E6%9C%8D%E5%8A%A1"><span class="nav-text">3 搭建消息通知微服务</span></a><ol class="nav-child"><li class="nav-item nav-level-2"><a class="nav-link" href="#3-1-%E4%B8%9A%E5%8A%A1%E5%88%86%E6%9E%90"><span class="nav-text">3.1 业务分析</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#3-2-%E8%A1%A8%E7%BB%93%E6%9E%84%E5%88%86%E6%9E%90"><span class="nav-text">3.2 表结构分析</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#3-3-%E6%90%AD%E5%BB%BA%E6%B6%88%E6%81%AF%E9%80%9A%E7%9F%A5%E5%BE%AE%E6%9C%8D%E5%8A%A1"><span class="nav-text">3.3 搭建消息通知微服务</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#3-4-%E5%AE%9E%E7%8E%B0%E5%9F%BA%E6%9C%AC%E5%A2%9E%E5%88%A0%E6%94%B9%E6%9F%A5%E5%8A%9F%E8%83%BD"><span class="nav-text">3.4 实现基本增删改查功能</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#3-5-%E5%AE%8C%E5%96%84%E8%BF%94%E5%9B%9E%E7%9A%84%E6%B6%88%E6%81%AF%E5%86%85%E5%AE%B9"><span class="nav-text">3.5 完善返回的消息内容</span></a></li></ol></li><li class="nav-item nav-level-1"><a class="nav-link" href="#4-%E6%96%87%E7%AB%A0%E8%AE%A2%E9%98%85-%E5%AE%9E%E7%8E%B0%E7%BE%A4%E5%8F%91%E6%B6%88%E6%81%AF"><span class="nav-text">4 文章订阅 - 实现群发消息</span></a><ol class="nav-child"><li class="nav-item nav-level-2"><a class="nav-link" href="#4-1-%E8%AE%A2%E9%98%85%E6%96%87%E7%AB%A0%E4%BD%9C%E8%80%85"><span class="nav-text">4.1 订阅文章作者</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#4-2-%E6%96%B0%E5%A2%9E%E6%96%87%E7%AB%A0%E7%BE%A4%E5%8F%91%E6%B6%88%E6%81%AF"><span class="nav-text">4.2 新增文章群发消息</span></a></li></ol></li><li class="nav-item nav-level-1"><a class="nav-link" href="#5-%E6%96%87%E7%AB%A0%E7%82%B9%E8%B5%9E-%E5%AE%9E%E7%8E%B0%E7%82%B9%E5%AF%B9%E7%82%B9%E6%B6%88%E6%81%AF%E5%8A%9F%E8%83%BD"><span class="nav-text">5 文章点赞 - 实现点对点消息功能</span></a><ol class="nav-child"><li class="nav-item nav-level-2"><a class="nav-link" href="#5-1-%E5%AE%9E%E7%8E%B0%E6%96%87%E7%AB%A0%E7%82%B9%E8%B5%9E"><span class="nav-text">5.1 实现文章点赞</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#5-2-%E5%AE%9E%E7%8E%B0%E7%82%B9%E8%B5%9E%E6%B6%88%E6%81%AF%E9%80%9A%E7%9F%A5"><span class="nav-text">5.2 实现点赞消息通知</span></a></li></ol></li><li class="nav-item nav-level-1"><a class="nav-link" href="#6-%E5%9F%BA%E4%BA%8Edb%E5%AE%9E%E7%8E%B0%E7%9A%84%E9%80%9A%E7%9F%A5%E7%B3%BB%E7%BB%9F%E5%AD%98%E5%9C%A8%E7%9A%84%E9%97%AE%E9%A2%98"><span class="nav-text">6 基于db实现的通知系统存在的问题</span></a><ol class="nav-child"><li class="nav-item nav-level-2"><a class="nav-link" href="#6-1-%E6%95%B0%E6%8D%AE%E5%BA%93%E8%AE%BF%E9%97%AE%E5%8E%8B%E5%8A%9B%E5%A4%A7"><span class="nav-text">6.1 数据库访问压力大</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#6-2-%E6%9C%8D%E5%8A%A1%E5%99%A8%E6%80%A7%E8%83%BD%E5%8E%8B%E5%8A%9B%E5%A4%A7"><span class="nav-text">6.2 服务器性能压力大</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#6-3-%E6%94%B9%E8%BF%9B%E7%9A%84%E6%96%B9%E6%B3%95"><span class="nav-text">6.3 改进的方法</span></a></li></ol></li></ol></div>
+            <div class="post-toc animated"><ol class="nav"><li class="nav-item nav-level-1"><a class="nav-link" href="#%E7%AC%AC%E5%9B%9B%E7%AB%A0-%E6%B6%88%E6%81%AF%E9%80%9A%E7%9F%A5%E7%B3%BB%E7%BB%9F"><span class="nav-text">第四章 - 消息通知系统</span></a><ol class="nav-child"><li class="nav-item nav-level-2"><a class="nav-link" href="#1-%E6%B6%88%E6%81%AF%E9%80%9A%E7%9F%A5%E7%9A%84%E4%B8%9A%E5%8A%A1%E5%9C%BA%E6%99%AF"><span class="nav-text">1 消息通知的业务场景</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#2-%E6%B6%88%E6%81%AF%E9%80%9A%E7%9F%A5%E4%B8%8E%E5%8D%B3%E6%97%B6%E9%80%9A%E8%AE%AF%E7%9A%84%E5%8C%BA%E5%88%AB"><span class="nav-text">2 消息通知与即时通讯的区别</span></a></li></ol></li><li class="nav-item nav-level-1"><a class="nav-link" href="#3-%E6%90%AD%E5%BB%BA%E6%B6%88%E6%81%AF%E9%80%9A%E7%9F%A5%E5%BE%AE%E6%9C%8D%E5%8A%A1"><span class="nav-text">3 搭建消息通知微服务</span></a><ol class="nav-child"><li class="nav-item nav-level-2"><a class="nav-link" href="#3-1-%E4%B8%9A%E5%8A%A1%E5%88%86%E6%9E%90"><span class="nav-text">3.1 业务分析</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#3-2-%E8%A1%A8%E7%BB%93%E6%9E%84%E5%88%86%E6%9E%90"><span class="nav-text">3.2 表结构分析</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#3-3-%E6%90%AD%E5%BB%BA%E6%B6%88%E6%81%AF%E9%80%9A%E7%9F%A5%E5%BE%AE%E6%9C%8D%E5%8A%A1"><span class="nav-text">3.3 搭建消息通知微服务</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#3-4-%E5%AE%9E%E7%8E%B0%E5%9F%BA%E6%9C%AC%E5%A2%9E%E5%88%A0%E6%94%B9%E6%9F%A5%E5%8A%9F%E8%83%BD"><span class="nav-text">3.4 实现基本增删改查功能</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#3-5-%E5%AE%8C%E5%96%84%E8%BF%94%E5%9B%9E%E7%9A%84%E6%B6%88%E6%81%AF%E5%86%85%E5%AE%B9"><span class="nav-text">3.5 完善返回的消息内容</span></a></li></ol></li><li class="nav-item nav-level-1"><a class="nav-link" href="#4-%E6%96%87%E7%AB%A0%E8%AE%A2%E9%98%85-%E5%AE%9E%E7%8E%B0%E7%BE%A4%E5%8F%91%E6%B6%88%E6%81%AF"><span class="nav-text">4 文章订阅 - 实现群发消息</span></a><ol class="nav-child"><li class="nav-item nav-level-2"><a class="nav-link" href="#4-1-%E8%AE%A2%E9%98%85%E6%96%87%E7%AB%A0%E4%BD%9C%E8%80%85"><span class="nav-text">4.1 订阅文章作者</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#4-2-%E6%96%B0%E5%A2%9E%E6%96%87%E7%AB%A0%E7%BE%A4%E5%8F%91%E6%B6%88%E6%81%AF"><span class="nav-text">4.2 新增文章群发消息</span></a></li></ol></li><li class="nav-item nav-level-1"><a class="nav-link" href="#5-%E6%96%87%E7%AB%A0%E7%82%B9%E8%B5%9E-%E5%AE%9E%E7%8E%B0%E7%82%B9%E5%AF%B9%E7%82%B9%E6%B6%88%E6%81%AF%E5%8A%9F%E8%83%BD"><span class="nav-text">5 文章点赞 - 实现点对点消息功能</span></a><ol class="nav-child"><li class="nav-item nav-level-2"><a class="nav-link" href="#5-1-%E5%AE%9E%E7%8E%B0%E6%96%87%E7%AB%A0%E7%82%B9%E8%B5%9E"><span class="nav-text">5.1 实现文章点赞</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#5-2-%E5%AE%9E%E7%8E%B0%E7%82%B9%E8%B5%9E%E6%B6%88%E6%81%AF%E9%80%9A%E7%9F%A5"><span class="nav-text">5.2 实现点赞消息通知</span></a></li></ol></li><li class="nav-item nav-level-1"><a class="nav-link" href="#6-%E5%9F%BA%E4%BA%8Edb%E5%AE%9E%E7%8E%B0%E7%9A%84%E9%80%9A%E7%9F%A5%E7%B3%BB%E7%BB%9F%E5%AD%98%E5%9C%A8%E7%9A%84%E9%97%AE%E9%A2%98"><span class="nav-text">6 基于db实现的通知系统存在的问题</span></a><ol class="nav-child"><li class="nav-item nav-level-2"><a class="nav-link" href="#6-1-%E6%B6%88%E6%81%AF%E9%80%9A%E7%9F%A5%E7%B3%BB%E7%BB%9F%E7%9A%84%E6%9E%84%E6%88%90"><span class="nav-text">6.1 消息通知系统的构成</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#6-1-1-%E6%B6%88%E6%81%AF%E5%8F%91%E9%80%81%E8%80%85"><span class="nav-text">6.1.1 消息发送者</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#6-1-2-%E6%B6%88%E6%81%AF%E5%AD%98%E5%82%A8"><span class="nav-text">6.1.2 消息存储</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#6-1-3-%E6%B6%88%E6%81%AF%E6%8E%A5%E6%94%B6%E8%80%85"><span class="nav-text">6.1.3 消息接收者</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#6-1-4-%E6%96%B0%E6%B6%88%E6%81%AF%E6%8F%90%E9%86%92%E6%9C%BA%E5%88%B6"><span class="nav-text">6.1.4 新消息提醒机制</span></a></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#6-2-%E7%8E%B0%E5%9C%A8%E6%B6%88%E6%81%AF%E9%80%9A%E7%9F%A5%E5%AD%98%E5%9C%A8%E7%9A%84%E9%97%AE%E9%A2%98"><span class="nav-text">6.2 现在消息通知存在的问题</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#6-2-1-%E6%95%B0%E6%8D%AE%E5%BA%93%E8%AE%BF%E9%97%AE%E5%8E%8B%E5%8A%9B%E5%A4%A7"><span class="nav-text">6.2.1 数据库访问压力大</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#6-2-2-%E6%9C%8D%E5%8A%A1%E5%99%A8%E6%80%A7%E8%83%BD%E5%8E%8B%E5%8A%9B%E5%A4%A7"><span class="nav-text">6.2.2 服务器性能压力大</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#6-2-3-%E6%94%B9%E8%BF%9B%E7%9A%84%E6%96%B9%E6%B3%95"><span class="nav-text">6.2.3 改进的方法</span></a></li></ol></li></ol></li></ol></div>
         </section>
         <!--/noindex-->
 
@@ -226,7 +228,7 @@
       <div class="site-state-item site-state-posts">
           <a href="/archives/">
         
-          <span class="site-state-item-count">57</span>
+          <span class="site-state-item-count">60</span>
           <span class="site-state-item-name">日志</span>
         </a>
       </div>
@@ -325,7 +327,7 @@
           <i class="far fa-calendar-check"></i>
         </span>
         <span class="post-meta-item-text">更新于</span>
-        <time title="修改时间：2021-06-12 10:18:38" itemprop="dateModified" datetime="2021-06-12T10:18:38+08:00">2021-06-12</time>
+        <time title="修改时间：2021-06-21 16:21:55" itemprop="dateModified" datetime="2021-06-21T16:21:55+08:00">2021-06-21</time>
       </span>
 
   
@@ -403,94 +405,13 @@
 <ol>
 <li><p>消息通知表tb_notice</p>
 <p>保存用户的消息通知</p>
+<p>| 字段名     | 类型     | 字段说明 |<br>| ————— | ———— | —————————————————- |<br>| id         | int      | ID|<br>| receiverId | varchar  | 接收消息用户的ID（userId）|<br>| operatorId | varchar  | 进行操作用户的ID |<br>| action     | varchar  | 操作类型（评论，点赞等）|<br>| targetType | varchar  | 被操作的对象，例如文章，评论等|<br>| targetId   | varchar  | 被操作对象的id，例如文章的id，评论的id|<br>| createtime | datetime | 发表日期|<br>| type       | varchar  | 消息通知类型|<br>| state      | varchar  | 状态：0 未读；1 已读|</p>
 </li>
-</ol>
-<div class="table-container">
-<table>
-<thead>
-<tr>
-<th>字段名</th>
-<th>类型</th>
-<th>字段说明</th>
-</tr>
-</thead>
-<tbody>
-<tr>
-<td>id</td>
-<td>int</td>
-<td>ID</td>
-</tr>
-<tr>
-<td>receiverId</td>
-<td>varchar</td>
-<td>接收消息用户的ID（userId）</td>
-</tr>
-<tr>
-<td>operatorId</td>
-<td>varchar</td>
-<td>进行操作用户的ID</td>
-</tr>
-<tr>
-<td>action</td>
-<td>varchar</td>
-<td>操作类型（评论，点赞等）</td>
-</tr>
-<tr>
-<td>targetType</td>
-<td>varchar</td>
-<td>被操作的对象，例如文章，评论等</td>
-</tr>
-<tr>
-<td>targetId</td>
-<td>varchar</td>
-<td>被操作对象的id，例如文章的id，评论的id</td>
-</tr>
-<tr>
-<td>createtime</td>
-<td>datetime</td>
-<td>发表日期</td>
-</tr>
-<tr>
-<td>type</td>
-<td>varchar</td>
-<td>消息通知类型</td>
-</tr>
-<tr>
-<td>state</td>
-<td>varchar</td>
-<td>状态：0 未读；1 已读</td>
-</tr>
-</tbody>
-</table>
-</div>
-<ol>
 <li><p>待推送消息表 tb_notice_fresh</p>
 <p>保存准备推送给用户的消息通知</p>
+<p>| 字段名    | 类型     | 字段说明 |<br>| ———— | ———- | ————|<br>| noticeId | varchar | 通知id   |<br>| userId   | varchar | 用户ID   |</p>
 </li>
 </ol>
-<div class="table-container">
-<table>
-<thead>
-<tr>
-<th>字段名</th>
-<th>类型</th>
-<th>字段说明</th>
-</tr>
-</thead>
-<tbody>
-<tr>
-<td>noticeId</td>
-<td>varchar</td>
-<td>通知id</td>
-</tr>
-<tr>
-<td>userId</td>
-<td>varchar</td>
-<td>用户ID</td>
-</tr>
-</tbody>
-</table>
-</div>
 <h2 id="3-3-搭建消息通知微服务"><a href="#3-3-搭建消息通知微服务" class="headerlink" title="3.3 搭建消息通知微服务"></a>3.3 搭建消息通知微服务</h2><ol>
 <li><p>在tensquare_parent父工程下创建tensquare_notice子模块</p>
 </li>
@@ -532,10 +453,103 @@
 <p>　　由于消息通知微服务需要调用其他微服务获取字段信息，所以需要做 feign client 调用。</p>
 <ol>
 <li><p>com.tensquare.notice.client包下添加ArticleClient和UserClient</p>
-<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line"></span><br></pre></td></tr></table></figure>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta">@FeignClient(&quot;tensquare-article&quot;)</span></span><br><span class="line"><span class="keyword">public</span> <span class="class"><span class="keyword">interface</span> <span class="title">ArticleClient</span> </span>&#123;</span><br><span class="line"></span><br><span class="line">    <span class="comment">//根据文章id查询文章数据</span></span><br><span class="line">    <span class="comment">//根据ID查询文章</span></span><br><span class="line">    <span class="meta">@GetMapping(value = &quot;article/&#123;articleId&#125;&quot;)</span></span><br><span class="line">    <span class="function"><span class="keyword">public</span> Result <span class="title">findById</span><span class="params">(<span class="meta">@PathVariable(&quot;articleId&quot;)</span> String articleId)</span></span>;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta">@FeignClient(&quot;tensquare-user&quot;)</span></span><br><span class="line"><span class="keyword">public</span> <span class="class"><span class="keyword">interface</span> <span class="title">UserClient</span> </span>&#123;</span><br><span class="line">    <span class="comment">//根据id查询用户</span></span><br><span class="line">    <span class="comment">//http://localhost:9008/user/&#123;userId&#125;</span></span><br><span class="line">    <span class="meta">@GetMapping(value = &quot;user/&#123;userId&#125;&quot;)</span></span><br><span class="line">    <span class="function"><span class="keyword">public</span> Result <span class="title">selectById</span><span class="params">(<span class="meta">@PathVariable(&quot;userId&quot;)</span> String userId)</span></span>;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<p>注意这时候用户微服务，需要有上述方法，没有就选择添加</p>
+</li>
+<li><p>改造消息通知微服务，获取消息内容数据</p>
+<p>修改com.tensquare.notice.service中的NoticeService，增加getNoticeInfo方法，修改selectById和selectList查询方法，为以下内容：</p>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br><span class="line">44</span><br><span class="line">45</span><br><span class="line">46</span><br><span class="line">47</span><br><span class="line">48</span><br><span class="line">49</span><br><span class="line">50</span><br><span class="line">51</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta">@Autowired</span></span><br><span class="line"><span class="keyword">private</span> ArticleClient articleClient;</span><br><span class="line"></span><br><span class="line"><span class="meta">@Autowired</span></span><br><span class="line"><span class="keyword">private</span> UserClient userClient;</span><br><span class="line"></span><br><span class="line"><span class="meta">@Autowired</span></span><br><span class="line"><span class="keyword">private</span> IdWorker idWorker;</span><br><span class="line"></span><br><span class="line"><span class="comment">//完善消息内容</span></span><br><span class="line"><span class="function"><span class="keyword">private</span> <span class="keyword">void</span> <span class="title">getInfo</span><span class="params">(Notice notice)</span> </span>&#123;</span><br><span class="line">    <span class="comment">//1 查询用户昵称</span></span><br><span class="line">    Result userResult = userClient.selectById(notice.getOperatorId());</span><br><span class="line">    HashMap userMap = (HashMap) userResult.getData();</span><br><span class="line">    <span class="comment">//设置操作者的用户昵称到消息通知中</span></span><br><span class="line">    notice.setOperatorName(userMap.get(<span class="string">&quot;nickname&quot;</span>).toString());</span><br><span class="line"></span><br><span class="line">    <span class="comment">//2 查询对象名称</span></span><br><span class="line">    Result articleResult = articleClient.findById(notice.getTargetId());</span><br><span class="line">    HashMap aritcleMap = (HashMap) articleResult.getData();</span><br><span class="line">    <span class="comment">//设置对象名称到消息通知中</span></span><br><span class="line">    notice.setTargetName(aritcleMap.get(<span class="string">&quot;title&quot;</span>).toString());</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="function"><span class="keyword">public</span> Notice <span class="title">selectById</span><span class="params">(String id)</span> </span>&#123;</span><br><span class="line">    Notice notice = noticeDao.selectById(id);</span><br><span class="line"></span><br><span class="line">    <span class="comment">//完善消息</span></span><br><span class="line">    getInfo(notice);</span><br><span class="line"></span><br><span class="line">    <span class="keyword">return</span> notice;</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="function"><span class="keyword">public</span> Page&lt;Notice&gt; <span class="title">selectByPage</span><span class="params">(Notice notice, Integer page, Integer size)</span> </span>&#123;</span><br><span class="line">    <span class="comment">//封装分页对象</span></span><br><span class="line">    Page&lt;Notice&gt; pageData = <span class="keyword">new</span> Page&lt;&gt;(page, size);</span><br><span class="line"></span><br><span class="line">    <span class="comment">//执行分页查询</span></span><br><span class="line">    List&lt;Notice&gt; noticeList = noticeDao.selectPage(pageData, <span class="keyword">new</span> EntityWrapper&lt;&gt;(notice));</span><br><span class="line"></span><br><span class="line">    <span class="comment">//完善消息</span></span><br><span class="line">    <span class="keyword">for</span> (Notice n : noticeList) &#123;</span><br><span class="line">        getInfo(n);</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">    <span class="comment">//设置结果集到分页对象中</span></span><br><span class="line">    pageData.setRecords(noticeList);</span><br><span class="line"></span><br><span class="line">    <span class="comment">//返回</span></span><br><span class="line">    <span class="keyword">return</span> pageData;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+</li>
+<li><p>测试功能</p>
+<p>需要开启tensquare-eureka，tensquare-user，tensquare-article，tensquare-notice四个微服务进行测试</p>
 </li>
 </ol>
-<h1 id="4-文章订阅-实现群发消息"><a href="#4-文章订阅-实现群发消息" class="headerlink" title="4 文章订阅 - 实现群发消息"></a>4 文章订阅 - 实现群发消息</h1><h2 id="4-1-订阅文章作者"><a href="#4-1-订阅文章作者" class="headerlink" title="4.1 订阅文章作者"></a>4.1 订阅文章作者</h2><h2 id="4-2-新增文章群发消息"><a href="#4-2-新增文章群发消息" class="headerlink" title="4.2 新增文章群发消息"></a>4.2 新增文章群发消息</h2><h1 id="5-文章点赞-实现点对点消息功能"><a href="#5-文章点赞-实现点对点消息功能" class="headerlink" title="5 文章点赞 - 实现点对点消息功能"></a>5 文章点赞 - 实现点对点消息功能</h1><h2 id="5-1-实现文章点赞"><a href="#5-1-实现文章点赞" class="headerlink" title="5.1 实现文章点赞"></a>5.1 实现文章点赞</h2><h2 id="5-2-实现点赞消息通知"><a href="#5-2-实现点赞消息通知" class="headerlink" title="5.2 实现点赞消息通知"></a>5.2 实现点赞消息通知</h2><h1 id="6-基于db实现的通知系统存在的问题"><a href="#6-基于db实现的通知系统存在的问题" class="headerlink" title="6 基于db实现的通知系统存在的问题"></a>6 基于db实现的通知系统存在的问题</h1><h2 id="6-1-数据库访问压力大"><a href="#6-1-数据库访问压力大" class="headerlink" title="6.1 数据库访问压力大"></a>6.1 数据库访问压力大</h2><h2 id="6-2-服务器性能压力大"><a href="#6-2-服务器性能压力大" class="headerlink" title="6.2 服务器性能压力大"></a>6.2 服务器性能压力大</h2><h2 id="6-3-改进的方法"><a href="#6-3-改进的方法" class="headerlink" title="6.3 改进的方法"></a>6.3 改进的方法</h2>
+<h1 id="4-文章订阅-实现群发消息"><a href="#4-文章订阅-实现群发消息" class="headerlink" title="4 文章订阅 - 实现群发消息"></a>4 文章订阅 - 实现群发消息</h1><h2 id="4-1-订阅文章作者"><a href="#4-1-订阅文章作者" class="headerlink" title="4.1 订阅文章作者"></a>4.1 订阅文章作者</h2><p>用户在登录十次方以后，可以查看文章。如果觉得文章好，可以订阅文章作者，从而可以收到这个作者发布的新文章的消息。所以需要完成根据文章id，订阅文章作者。</p>
+<ol>
+<li><p>功能分析</p>
+<ul>
+<li>用户之间的文章订阅关系的数据存放在redis中。</li>
+<li>用户订阅文章作者，则系统将作者的id放入用户自己的订阅集合（set类型），同时系统将用户的id放入文章作者的订阅者集合中。</li>
+<li>由于redis的set集合，其中的数据是不重复的，所以不用担心重复数据的问题。</li>
+</ul>
+</li>
+<li><p>代码实现</p>
+<p>需要在tensquare_article微服务中添加根据文章id订阅文章作者的功能，在ArticleController中添加以下代码：</p>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">//根据文章id和用户id，建立订阅关系，保存的是文章作者id和用户id的关系</span></span><br><span class="line"><span class="comment">//http://localhost:9004/article/subscribe POST</span></span><br><span class="line"><span class="meta">@PostMapping(&quot;subscribe&quot;)</span></span><br><span class="line"><span class="function"><span class="keyword">public</span> Result <span class="title">subscribe</span><span class="params">(<span class="meta">@RequestBody</span> Map map)</span> </span>&#123;</span><br><span class="line">    <span class="comment">//返回状态，如果返回true就是订阅作者</span></span><br><span class="line">    <span class="keyword">boolean</span> flag = articleService.subscribe(map.get(<span class="string">&quot;articleId&quot;</span>).toString(),</span><br><span class="line">                                            map.get(<span class="string">&quot;userId&quot;</span>).toString());</span><br><span class="line"></span><br><span class="line">    <span class="comment">//判断订阅还是取消订阅</span></span><br><span class="line">    <span class="keyword">if</span> (flag == <span class="keyword">true</span>)&#123;</span><br><span class="line">        <span class="keyword">return</span> <span class="keyword">new</span> Result(<span class="keyword">true</span>,StatusCode.OK,<span class="string">&quot;订阅成功&quot;</span>);</span><br><span class="line">    &#125;<span class="keyword">else</span> &#123;</span><br><span class="line">        <span class="keyword">return</span> <span class="keyword">new</span> Result(<span class="keyword">true</span>,StatusCode.OK,<span class="string">&quot;取消订阅成功&quot;</span>);</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<p>编写ArticleService</p>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br></pre></td><td class="code"><pre><span class="line"><span class="function"><span class="keyword">public</span> <span class="keyword">boolean</span> <span class="title">subscribe</span><span class="params">(String articleId, String userId)</span> </span>&#123;</span><br><span class="line">    <span class="comment">//根据文章id查询文章作者id</span></span><br><span class="line">    String authorId = articleDao.selectById(articleId).getUserid();</span><br><span class="line"></span><br><span class="line">    <span class="comment">//存放用户订阅信息的集合key，里面存放着作者id</span></span><br><span class="line">    String userKey = <span class="string">&quot;article_subscribe_&quot;</span> + userId;</span><br><span class="line">    <span class="comment">//存放作者订阅者的信息的集合key，里面存放订阅者id</span></span><br><span class="line">    String authorKey = <span class="string">&quot;article_author_&quot;</span> + authorId;</span><br><span class="line"></span><br><span class="line">    <span class="comment">//查询用户的订阅关系，是否订阅过该作者,true为订阅过，false没有订阅过</span></span><br><span class="line">    Boolean flag = redisTemplate.boundSetOps(userKey).isMember(authorId);</span><br><span class="line"></span><br><span class="line">    <span class="keyword">if</span> (flag == <span class="keyword">true</span>) &#123;</span><br><span class="line">        <span class="comment">//如果订阅过作者就取消订阅，并且返回false</span></span><br><span class="line">        <span class="comment">//在用户订阅信息的集合中，删除订阅的作者</span></span><br><span class="line">        redisTemplate.boundSetOps(userKey).remove(authorId);</span><br><span class="line">        <span class="comment">//在作者订阅者信息的集合中，删除订阅者</span></span><br><span class="line">        redisTemplate.boundSetOps(authorKey).remove(userId);</span><br><span class="line">        <span class="keyword">return</span> <span class="keyword">false</span>;</span><br><span class="line">    &#125; <span class="keyword">else</span> &#123;</span><br><span class="line">        <span class="comment">//如果没有订阅过就进行订阅，并且返回true</span></span><br><span class="line">        <span class="comment">//在用户订阅信息的集合中，增加订阅的作者</span></span><br><span class="line">        redisTemplate.boundSetOps(userKey).add(authorId);</span><br><span class="line">        <span class="comment">//在作者订阅者信息的集合中，增加订阅者</span></span><br><span class="line">        redisTemplate.boundSetOps(authorKey).add(userId);</span><br><span class="line">        <span class="keyword">return</span> <span class="keyword">true</span>;</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+</li>
+<li><p>启动微服务测试功能</p>
+<p>需要开启tensquare-eureka，tensquare-article</p>
+</li>
+</ol>
+<h2 id="4-2-新增文章群发消息"><a href="#4-2-新增文章群发消息" class="headerlink" title="4.2 新增文章群发消息"></a>4.2 新增文章群发消息</h2><p>新增文章后，需要通知订阅的用户，文章微服务需要调用消息通知微服务，创建消息。</p>
+<p><img src="https://gitee.com/q1jy/images/raw/master/img/20210616-20210615-image-20210615120826980.png" alt="13123"></p>
+<p>用户登录十次方后，访问的前端页面，页面需要定时轮询通知接口，获取消息。（接口已完成）</p>
+<p><img src="https://gitee.com/q1jy/images/raw/master/img/20210615-1563608341301.png" alt="1563608148788"></p>
+<ol>
+<li><p>新增NoticeClient，调用通知微服务</p>
+<p>pom.xml添加依赖</p>
+<figure class="highlight xml"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line"><span class="tag">&lt;<span class="name">dependency</span>&gt;</span></span><br><span class="line">    <span class="tag">&lt;<span class="name">groupId</span>&gt;</span>org.springframework.cloud<span class="tag">&lt;/<span class="name">groupId</span>&gt;</span></span><br><span class="line">    <span class="tag">&lt;<span class="name">artifactId</span>&gt;</span>spring-cloud-starter-openfeign<span class="tag">&lt;/<span class="name">artifactId</span>&gt;</span></span><br><span class="line">    <span class="tag">&lt;<span class="name">version</span>&gt;</span>2.1.2.RELEASE<span class="tag">&lt;/<span class="name">version</span>&gt;</span></span><br><span class="line"><span class="tag">&lt;/<span class="name">dependency</span>&gt;</span></span><br></pre></td></tr></table></figure>
+<p>启动类添加注解</p>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta">@EnableFeignClients</span></span><br></pre></td></tr></table></figure>
+<p>在com.tensquare.article.client中编写NoticeClient，把消息通知的Notice类复制到文章微服务</p>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta">@FeignClient(value = &quot;tensquare-notice&quot;)</span></span><br><span class="line"><span class="keyword">public</span> <span class="class"><span class="keyword">interface</span> <span class="title">NoticeClient</span> </span>&#123;</span><br><span class="line"></span><br><span class="line">    <span class="comment">/**</span></span><br><span class="line"><span class="comment">     * 添加消息</span></span><br><span class="line"><span class="comment">     * <span class="doctag">@param</span> notice</span></span><br><span class="line"><span class="comment">     * <span class="doctag">@return</span></span></span><br><span class="line"><span class="comment">     */</span></span><br><span class="line">    <span class="meta">@RequestMapping(value = &quot;notice&quot;,method = RequestMethod.POST)</span></span><br><span class="line">    <span class="function"><span class="keyword">public</span> Result <span class="title">add</span><span class="params">(<span class="meta">@RequestBody</span> Notice notice)</span> </span>;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<p>添加Notice的实体类在com.tensquare.article.pojo中</p>
+</li>
+<li><p>修改ArticleService的save方法，进行消息通知</p>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br><span class="line">44</span><br><span class="line">45</span><br><span class="line">46</span><br><span class="line">47</span><br></pre></td><td class="code"><pre><span class="line"><span class="function"><span class="keyword">public</span> <span class="keyword">void</span> <span class="title">save</span><span class="params">(Article article)</span> </span>&#123;</span><br><span class="line">    <span class="comment">//<span class="doctag">TODO:</span> 使用jwt鉴权获取当前用户的信息，用户id，也就是文章的作者id</span></span><br><span class="line">    String userId = <span class="string">&quot;3&quot;</span>;</span><br><span class="line">    article.setUserid(userId);</span><br><span class="line">   </span><br><span class="line">    <span class="comment">//使用分布式id生成器</span></span><br><span class="line">    String id = idWorker.nextId() + <span class="string">&quot;&quot;</span>;</span><br><span class="line">    article.setId(id);</span><br><span class="line">   </span><br><span class="line">    <span class="comment">//初始化点赞，浏览量，评论数据</span></span><br><span class="line">    article.setVisits(<span class="number">0</span>);</span><br><span class="line">    article.setComment(<span class="number">0</span>);</span><br><span class="line">    article.setThumbup(<span class="number">0</span>);</span><br><span class="line">   </span><br><span class="line">    <span class="comment">//新增</span></span><br><span class="line">    articleDao.insert(article);</span><br><span class="line">   </span><br><span class="line">    <span class="comment">//新增文章后需要创建消息通知给订阅者</span></span><br><span class="line">   </span><br><span class="line">   </span><br><span class="line">    <span class="comment">//获取订阅者信息</span></span><br><span class="line">    <span class="comment">//存放作者订阅者信息的集合key，里面存放订阅者id</span></span><br><span class="line">    String authorKey = <span class="string">&quot;article_author_&quot;</span> + article.getUserid();</span><br><span class="line">   </span><br><span class="line">    Set&lt;String&gt; set = redisTemplate.boundSetOps(authorKey).members();</span><br><span class="line">   </span><br><span class="line">    <span class="comment">//给订阅者创建消息通知</span></span><br><span class="line">    <span class="keyword">for</span>(String uid:set)&#123;</span><br><span class="line">        <span class="comment">//创建消息对象</span></span><br><span class="line">        Notice notice = <span class="keyword">new</span> Notice();</span><br><span class="line">   </span><br><span class="line">        <span class="comment">//接受消息用户的id</span></span><br><span class="line">        notice.setReceiverId(uid);</span><br><span class="line">        <span class="comment">//进行操作用户的id</span></span><br><span class="line">        notice.setOperatorId(userId);</span><br><span class="line">        <span class="comment">//操作类型（评论，点赞等）</span></span><br><span class="line">        notice.setAction(<span class="string">&quot;publish&quot;</span>);</span><br><span class="line">        <span class="comment">//被操作的对象，例如文章，评论等</span></span><br><span class="line">        notice.setTargetType(<span class="string">&quot;article&quot;</span>);</span><br><span class="line">        <span class="comment">//被操作对象的id，例如文章id，评论id</span></span><br><span class="line">        notice.setTargetId(id);</span><br><span class="line">        <span class="comment">//通知类型</span></span><br><span class="line">        notice.setType(<span class="string">&quot;sys&quot;</span>);</span><br><span class="line">   </span><br><span class="line">        noticeClient.save(notice);</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+</li>
+<li><p>进行测试</p>
+<p>需要开启tensquare-eureka，tensquare-user，tensquare-article，tensquare-notice四个微服务进行测试</p>
+</li>
+</ol>
+<h1 id="5-文章点赞-实现点对点消息功能"><a href="#5-文章点赞-实现点对点消息功能" class="headerlink" title="5 文章点赞 - 实现点对点消息功能"></a>5 文章点赞 - 实现点对点消息功能</h1><h2 id="5-1-实现文章点赞"><a href="#5-1-实现文章点赞" class="headerlink" title="5.1 实现文章点赞"></a>5.1 实现文章点赞</h2><p>编写ArticleController添加点赞方法:</p>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">// 文章点赞 //http://localhost:9004/article/thumbup/&#123;articleId&#125;</span></span><br><span class="line"><span class="meta">@PutMapping(&quot;thumbup/&#123;articleId&#125;&quot;)</span></span><br><span class="line"><span class="function"><span class="keyword">public</span> Result <span class="title">thumbup</span><span class="params">(<span class="meta">@PathVariable</span> String articleId)</span> </span>&#123;</span><br><span class="line">    <span class="comment">//模拟用户id</span></span><br><span class="line">    String userId = <span class="string">&quot;4&quot;</span>;</span><br><span class="line">    String key = <span class="string">&quot;thumbup_article_&quot;</span> + userId + <span class="string">&quot;_&quot;</span> + articleId;</span><br><span class="line"></span><br><span class="line">    <span class="comment">//查询用户点赞信息，根据用户id和文章id</span></span><br><span class="line">    Object flag = redisTemplate.opsForValue().get(key);</span><br><span class="line"></span><br><span class="line">    <span class="comment">//如果为空，表示用户没有点过赞，可以点赞</span></span><br><span class="line">    <span class="keyword">if</span>(flag == <span class="keyword">null</span>)&#123;</span><br><span class="line">        articleService.thumbup(articleId);</span><br><span class="line">        <span class="comment">//点赞成功，保存点赞信息</span></span><br><span class="line">        redisTemplate.opsForValue().set(key,<span class="number">1</span>);</span><br><span class="line">        <span class="keyword">return</span> <span class="keyword">new</span> Result(<span class="keyword">false</span>, StatusCode.OK, <span class="string">&quot;点赞成功&quot;</span>);</span><br><span class="line">    &#125;<span class="keyword">else</span>&#123;</span><br><span class="line">        <span class="comment">//如果不为空，就是说已经点过赞，取消点赞</span></span><br><span class="line">        articleService.thumbupLess(articleId);</span><br><span class="line">        <span class="comment">//设置redis过期时间</span></span><br><span class="line">        redisTemplate.opsForValue().set(key,<span class="keyword">null</span>,<span class="number">5</span>,TimeUnit.SECONDS);</span><br><span class="line">        <span class="keyword">return</span> <span class="keyword">new</span> Result(<span class="keyword">false</span>, StatusCode.OK, <span class="string">&quot;取消点赞&quot;</span>);</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<h2 id="5-2-实现点赞消息通知"><a href="#5-2-实现点赞消息通知" class="headerlink" title="5.2 实现点赞消息通知"></a>5.2 实现点赞消息通知</h2><p>编写ArticleService</p>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">//文章点赞</span></span><br><span class="line"><span class="function"><span class="keyword">public</span> <span class="keyword">void</span> <span class="title">thumbup</span><span class="params">(String articleId,String userId)</span> </span>&#123;</span><br><span class="line">    Article article = articleDao.selectById(articleId);</span><br><span class="line">    article.setThumbup(article.getThumbup() + <span class="number">1</span>);</span><br><span class="line">    articleDao.updateById(article);</span><br><span class="line"></span><br><span class="line">    <span class="comment">//点赞成功后，需要发送消息给文章作者</span></span><br><span class="line">    Notice notice = <span class="keyword">new</span> Notice();</span><br><span class="line">    <span class="comment">//接受消息用户的id</span></span><br><span class="line">    notice.setReceiverId(article.getUserid());</span><br><span class="line">    <span class="comment">//进行操作用户的id</span></span><br><span class="line">    notice.setOperatorId(userId);</span><br><span class="line">    <span class="comment">//操作类型（评论，点赞）</span></span><br><span class="line">    notice.setAction(<span class="string">&quot;publish&quot;</span>);</span><br><span class="line">    <span class="comment">//备操作的对象，例如文章，评论等</span></span><br><span class="line">    notice.setTargetType(<span class="string">&quot;article&quot;</span>);</span><br><span class="line">    <span class="comment">//被操作对象的id，例如文章的id，评论的id</span></span><br><span class="line">    notice.setTargetId(articleId);</span><br><span class="line">    <span class="comment">//通知类型</span></span><br><span class="line">    notice.setType(<span class="string">&quot;user&quot;</span>);</span><br><span class="line"></span><br><span class="line">    <span class="comment">//保存消息</span></span><br><span class="line">    noticeClient.save(notice);</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="function"><span class="keyword">public</span> <span class="keyword">void</span> <span class="title">thumbupLess</span><span class="params">(String articleId,String userId)</span> </span>&#123;</span><br><span class="line">    Article article = articleDao.selectById(articleId);</span><br><span class="line">    article.setThumbup(article.getThumbup() - <span class="number">1</span>);</span><br><span class="line">    articleDao.updateById(article);</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<h1 id="6-基于db实现的通知系统存在的问题"><a href="#6-基于db实现的通知系统存在的问题" class="headerlink" title="6 基于db实现的通知系统存在的问题"></a>6 基于db实现的通知系统存在的问题</h1><h2 id="6-1-消息通知系统的构成"><a href="#6-1-消息通知系统的构成" class="headerlink" title="6.1 消息通知系统的构成"></a>6.1 消息通知系统的构成</h2><p>一个消息通知系统，其主要的构成有消息发送者，消息存储，消息接收者，新消息提醒机制</p>
+<h3 id="6-1-1-消息发送者"><a href="#6-1-1-消息发送者" class="headerlink" title="6.1.1 消息发送者"></a>6.1.1 消息发送者</h3><p>消息是由系统的操作者发出的吗？不一定。</p>
+<p>消息发送的常规流程：</p>
+<ol>
+<li>系统的开发者设置了某种消息发送的规则，规则中包含一些条件</li>
+<li>规则中的条件都满足后，触发系统生成消息数据</li>
+<li>系统将消息数据保存并推送给接收者</li>
+</ol>
+<p>以前面文章订阅群发消息作来举例的话</p>
+<ol>
+<li><p>规则：</p>
+<p>1.1 用户订阅文章作者</p>
+<p>1.2 文章作者发布了新文章</p>
+</li>
+<li><p>上面规则中的两个条件都满足后，系统就生成消息通知并推送给接收者，告诉接收者有新的文章</p>
+</li>
+</ol>
+<p>在这个例子中，消息真正的发送者是消息通知系统，而非操作者。</p>
+<p>用户提前为系统设定好规则，系统按照规则发送消息。</p>
+<h3 id="6-1-2-消息存储"><a href="#6-1-2-消息存储" class="headerlink" title="6.1.2 消息存储"></a>6.1.2 消息存储</h3><p>消息通知的存储包含<strong>消息通知</strong>实体数据的存储和<strong>新消息提醒数据</strong>的存储。</p>
+<ul>
+<li>消息通知实体数据保存在tb_notice表中的数据</li>
+<li>新消息提醒数据保存在tb_notice_fresh表中的数据</li>
+</ul>
+<h3 id="6-1-3-消息接收者"><a href="#6-1-3-消息接收者" class="headerlink" title="6.1.3 消息接收者"></a>6.1.3 消息接收者</h3><p>也就是消息的阅读者，是一条消息通知的最终目的地。</p>
+<h3 id="6-1-4-新消息提醒机制"><a href="#6-1-4-新消息提醒机制" class="headerlink" title="6.1.4 新消息提醒机制"></a>6.1.4 新消息提醒机制</h3><p>系统产生新的消息通知后，必须有一个合理的机制或者方法来告知接收者有新的消息。否则接收者会郁闷且痛苦地在茫茫的数据海洋中手动去查找新消息。可以使用以下两种方式提醒新消息：</p>
+<ol>
+<li>提醒新消息的数量</li>
+<li>消息通知列表中新消息置顶并标记</li>
+</ol>
+<h2 id="6-2-现在消息通知存在的问题"><a href="#6-2-现在消息通知存在的问题" class="headerlink" title="6.2 现在消息通知存在的问题"></a>6.2 现在消息通知存在的问题</h2><h3 id="6-2-1-数据库访问压力大"><a href="#6-2-1-数据库访问压力大" class="headerlink" title="6.2.1 数据库访问压力大"></a>6.2.1 数据库访问压力大</h3><p>​    用户的通知消息和新通知提醒数据都放在数据库中，数据库的读写操作频繁，尤其是tb_notice_refresh表，访问压力大。</p>
+<h3 id="6-2-2-服务器性能压力大"><a href="#6-2-2-服务器性能压力大" class="headerlink" title="6.2.2 服务器性能压力大"></a>6.2.2 服务器性能压力大</h3><p>​    采用页面轮询调接口的方式实现服务器向用户推送消息通知，服务器的接口访问压力大。</p>
+<h3 id="6-2-3-改进的方法"><a href="#6-2-3-改进的方法" class="headerlink" title="6.2.3 改进的方法"></a>6.2.3 改进的方法</h3><ol>
+<li>使用 rabbitmq 实现新消息提醒数据的缓存功能，替代tb_notice_refresh表</li>
+<li>使用全双工长连接的方式实现服务器向用户推送最新的消息通知，替换轮询<ul>
+<li>页面使用websocket</li>
+<li>微服务端使用异步高性能框架netty</li>
+</ul>
+</li>
+</ol>
+
     </div>
 
     
@@ -571,6 +585,9 @@
                 </a>
             </div>
             <div class="post-nav-item">
+                <a href="/post/97a37058.html" rel="next" title="十次方项目-day05">
+                  十次方项目-day05 <i class="fa fa-chevron-right"></i>
+                </a>
             </div>
           </div>
     </footer>
