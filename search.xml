@@ -2522,6 +2522,7 @@
 <p><img src="https://s3.ax1x.com/2020/11/20/DMdxAJ.jpg" alt="DMdxAJ.jpg"></p>
 <p>5.在dos窗口中输入node回车，再输入require(‘cluster’)出现下图，既安装成功</p>
 <p><img src="https://s3.ax1x.com/2020/11/20/DMdj74.jpg" alt="DMdj74.jpg"></p>
+<p>参考文章：<a href="https://www.jianshu.com/p/13f45e24b1de">https://www.jianshu.com/p/13f45e24b1de</a></p>
 ]]></content>
       <categories>
         <category>环境配置</category>
