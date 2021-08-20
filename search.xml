@@ -6629,8 +6629,7 @@ ASL=\sum_{i=1}^{n}p_ic_i</script><p>n：记录的个数</p>
   <entry>
     <title>PS发丝抠图</title>
     <url>/post/d3052322.html</url>
-    <content><![CDATA[<span id="more"></span>
-<h1 id="1-通道抠图"><a href="#1-通道抠图" class="headerlink" title="1 通道抠图"></a>1 通道抠图</h1><p>首先我们要使用通道抠图，这样能够更好的保留发丝部分的细节，我们要选择对比度最鲜明的通道，之后复制这一层通道（可以在图像-计算中，选择更好的混合模式），通过调整色阶来让对比度更鲜明，之后按住ctrl并点击本通道来建立选区。之后，点击RGB通道，返回该图层，按住ctrl+shift+i反向选区。最后按住ctrl+J复制图层。这样头发丝部分就扣下来了。接下来处理其他部分。</p>
+    <content><![CDATA[<h1 id="1-通道抠图"><a href="#1-通道抠图" class="headerlink" title="1 通道抠图"></a>1 通道抠图</h1><p>首先我们要使用通道抠图，这样能够更好的保留发丝部分的细节，我们要选择对比度最鲜明的通道，之后复制这一层通道（可以在图像-计算中，选择更好的混合模式），通过调整色阶来让对比度更鲜明，之后按住ctrl并点击本通道来建立选区。之后，点击RGB通道，返回该图层，按住ctrl+shift+i反向选区。最后按住ctrl+J复制图层。这样头发丝部分就扣下来了。接下来处理其他部分。<span id="more"></span></p>
 <h1 id="2-抠其余部分"><a href="#2-抠其余部分" class="headerlink" title="2 抠其余部分"></a>2 抠其余部分</h1><ol>
 <li>使用快速选择工具，建立选区并点击添加矢量蒙版。</li>
 <li>点击蒙版并点击鼠标右键选择“调整蒙版”（选择并遮住）</li>
@@ -6653,12 +6652,11 @@ ASL=\sum_{i=1}^{n}p_ic_i</script><p>n：记录的个数</p>
   <entry>
     <title>PS通道磨皮</title>
     <url>/post/43f4f6ba.html</url>
-    <content><![CDATA[<span id="more"></span>
-<ol>
+    <content><![CDATA[<ol>
 <li>选择对比度最高的通道载入选区</li>
 <li>选择滤镜-高反差保留，半径调整9.6让对比度最高</li>
 <li>如果还不行，点击图像-计算，混合模式选择强光，不过不行，再次进行这一步</li>
-<li>回到原图层，反向选区，选择曲线，调高曲线。</li>
+<li>回到原图层，反向选区，选择曲线，调高曲线。<span id="more"></span></li>
 <li>选择曲线图层，按住ctrl+shift+alt+E，盖印图层</li>
 <li>在盖印图层上滤镜选择表面模糊，半径15左右，阈值5，可以看到图片更丰富了一点</li>
 <li>使用污点画笔修复工具，进行处理没有去掉的斑点</li>
@@ -6675,9 +6673,8 @@ ASL=\sum_{i=1}^{n}p_ic_i</script><p>n：记录的个数</p>
   <entry>
     <title>PS高级抠图</title>
     <url>/post/6be47898.html</url>
-    <content><![CDATA[<span id="more"></span>
-<h1 id="1-色彩范围抠图"><a href="#1-色彩范围抠图" class="headerlink" title="1 色彩范围抠图"></a>1 色彩范围抠图</h1><ol>
-<li>选择色彩范围（选区预览选择灰度），使用吸管工具在背景上吸取一下，按shift或者alt自定义调整吸取颜色，要求背景纯白对比鲜明</li>
+    <content><![CDATA[<h1 id="1-色彩范围抠图"><a href="#1-色彩范围抠图" class="headerlink" title="1 色彩范围抠图"></a>1 色彩范围抠图</h1><ol>
+<li>选择色彩范围（选区预览选择灰度），使用吸管工具在背景上吸取一下，按shift或者alt自定义调整吸取颜色，要求背景纯白对比鲜明<span id="more"></span></li>
 <li>创建蒙版，选择画笔工具擦掉背景多余的部分</li>
 <li>调整蒙版，点击选择并遮住，进行调节，然后输出新建带有蒙版的图层</li>
 <li>使用画笔工具进行调节细节（44透明度，32流量）</li>
