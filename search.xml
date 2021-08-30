@@ -4024,7 +4024,7 @@
 <p>启动已经创建的images</p>
 <figure class="highlight shell"><table><tr><td class="code"><pre><span class="line">docker ps -a</span><br><span class="line">docker start ID</span><br></pre></td></tr></table></figure>
 <p><strong>基本命令</strong></p>
-<figure class="highlight shell"><table><tr><td class="code"><pre><span class="line">查看所有镜像 docker images</span><br><span class="line"></span><br><span class="line">删除镜像(会提示先停止使用中的容器) docker rmi 镜像name/镜像id</span><br><span class="line"></span><br><span class="line">查看所有容器 docker ps -a</span><br><span class="line"></span><br><span class="line">查看容器运行日志 docker logs 容器名称/容器id</span><br><span class="line"></span><br><span class="line">停止容器运行 docker stop 容器name/容器id</span><br><span class="line"></span><br><span class="line">终止容器后运行 docker start 容器name/容器id</span><br><span class="line"></span><br><span class="line">容器重启 docker restart 容器name/容器id</span><br><span class="line"></span><br><span class="line">删除容器 docker rm 容器name/容器id</span><br></pre></td></tr></table></figure>
+<figure class="highlight shell"><table><tr><td class="code"><pre><span class="line">查看所有镜像 docker images</span><br><span class="line"></span><br><span class="line">删除镜像(会提示先停止使用中的容器) docker rmi 镜像name/镜像id</span><br><span class="line"></span><br><span class="line">查看所有容器 docker ps -a</span><br><span class="line"></span><br><span class="line">查看容器运行日志 docker logs 容器名称/容器id</span><br><span class="line"></span><br><span class="line">停止容器运行 docker stop 容器name/容器id</span><br><span class="line"></span><br><span class="line">终止容器后运行 docker start 容器name/容器id</span><br><span class="line"></span><br><span class="line">容器重启 docker restart 容器name/容器id</span><br><span class="line"></span><br><span class="line">删除容器 docker rm 容器name/容器id</span><br><span class="line"></span><br><span class="line">修改启动 docker update 容器id --restart=always</span><br></pre></td></tr></table></figure>
 <h2 id="2-3-Docker使用体验"><a href="#2-3-Docker使用体验" class="headerlink" title="2.3 Docker使用体验"></a>2.3 Docker使用体验</h2><h3 id="2-3-1-第一个Docker容器"><a href="#2-3-1-第一个Docker容器" class="headerlink" title="2.3.1 第一个Docker容器"></a>2.3.1 第一个Docker容器</h3><p>1.将Docker服务启动</p>
 <p>2.下载一个镜像，Docker 运行一个容器前需要本地存在有对应的镜像，如果镜像不存在本地，Docker会从镜像仓库下载</p>
 <p>CentOS如何下载镜像？</p>
@@ -6625,6 +6625,9 @@ ASL=\sum_{i=1}^{n}p_ic_i</script><p>n：记录的个数</p>
 <p>算法伪码：</p>
 <figure class="highlight c"><table><tr><td class="code"><pre><span class="line"><span class="function"><span class="keyword">void</span> <span class="title">ShellInsert</span><span class="params">(SqlList &amp;L, <span class="keyword">int</span> dk)</span></span>&#123;</span><br><span class="line">    <span class="comment">//对顺序表L做一趟增量是dk的希尔排序</span></span><br><span class="line">    <span class="keyword">for</span>(i=dk+<span class="number">1</span>;i&lt;=L.length;++i)</span><br><span class="line">        <span class="keyword">if</span>(L.r[i].key&lt;L.r[i-dk].key)&#123;</span><br><span class="line">            L.r[<span class="number">0</span>]=L.r[i];</span><br><span class="line">            <span class="keyword">for</span>(j=i-dk;j&gt;<span class="number">0</span> &amp;&amp; L.r[<span class="number">0</span>].key&lt;L.r[j].key;j-=dk)		<span class="comment">//记录后移，直到找到插入位置</span></span><br><span class="line">                L.r[j+dk]=L.r[j];								<span class="comment">//将r[0]即原r[i]，插入到正确位置</span></span><br><span class="line">            L.r[j+dk]=L.r[<span class="number">0</span>];</span><br><span class="line">        &#125;</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="function"><span class="keyword">void</span> <span class="title">ShellSort</span><span class="params">(SqList &amp;L,<span class="keyword">int</span> dt[],<span class="keyword">int</span> t)</span></span>&#123;</span><br><span class="line">    <span class="comment">//按增量序列dt[0...t-1]对顺序表L作希尔排序</span></span><br><span class="line">    <span class="keyword">for</span>(k=<span class="number">0</span>;k&lt;t;++k)</span><br><span class="line">        ShellInsert(L,dt[k]);</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
 <h3 id="8-2-1-冒泡排序"><a href="#8-2-1-冒泡排序" class="headerlink" title="8.2.1 冒泡排序"></a>8.2.1 冒泡排序</h3><h3 id="8-2-2-快速排序"><a href="#8-2-2-快速排序" class="headerlink" title="8.2.2 快速排序"></a>8.2.2 快速排序</h3><h2 id="8-3-选择排序"><a href="#8-3-选择排序" class="headerlink" title="8.3 选择排序"></a>8.3 选择排序</h2><h3 id="8-3-1-简单选择排序"><a href="#8-3-1-简单选择排序" class="headerlink" title="8.3.1 简单选择排序"></a>8.3.1 简单选择排序</h3><h3 id="8-3-2-树形选择排序"><a href="#8-3-2-树形选择排序" class="headerlink" title="8.3.2 树形选择排序"></a>8.3.2 树形选择排序</h3><h3 id="8-3-3-堆排序"><a href="#8-3-3-堆排序" class="headerlink" title="8.3.3 堆排序"></a>8.3.3 堆排序</h3>]]></content>
+      <categories>
+        <category>课程</category>
+      </categories>
   </entry>
   <entry>
     <title>PS发丝抠图</title>
@@ -6683,6 +6686,148 @@ ASL=\sum_{i=1}^{n}p_ic_i</script><p>n：记录的个数</p>
 ]]></content>
       <categories>
         <category>PS技巧</category>
+      </categories>
+  </entry>
+  <entry>
+    <title>图书管理系统</title>
+    <url>/post/f2429f61.html</url>
+    <content><![CDATA[<p>这个项目是关于图书管理的，并没有用到框架，只是一些IO流的操作，看这个项目是对IO流的一种复习。<span id="more"></span></p>
+<h1 id="1-环境搭建"><a href="#1-环境搭建" class="headerlink" title="1 环境搭建"></a>1 环境搭建</h1><p>首先需要下载项目文件<a href="https://zuteducn-my.sharepoint.com/:u:/g/personal/201919154119_zut_edu_cn/EZbyh7886zRCqR7TLRPDbh0BFqr7VkBmadnIm2ko5p5cXw?e=kuMnfW">library</a>，之后在idea中创建一个空项目，将模块文件解压到该空项目文件夹里；在idea中导入刚才的项目文件夹，注意编码格式需要改为GBK</p>
+<h1 id="2-登陆代码分析"><a href="#2-登陆代码分析" class="headerlink" title="2 登陆代码分析"></a>2 登陆代码分析</h1><p><img src="https://gitee.com/q1jy/images/raw/master/img/20210827-image-20210827150530789.png" alt="image-20210827150530789" style="zoom:67%;" /></p>
+<p>在Login类里面通过</p>
+<figure class="highlight java"><table><tr><td class="code"><pre><span class="line"><span class="meta">@FXML</span> <span class="keyword">private</span> TextField username;</span><br><span class="line"><span class="meta">@FXML</span> <span class="keyword">private</span> TextField password;</span><br></pre></td></tr></table></figure>
+<p>来获取登录界面里面用户输入的密码，之后enter()方法中的</p>
+<figure class="highlight java"><table><tr><td class="code"><pre><span class="line">AdminService adminService = <span class="keyword">new</span> AdminServiceImpl();</span><br><span class="line">       Admin admin = adminService.get(username.getText());</span><br></pre></td></tr></table></figure>
+<p>根据输入的用户名查找到用户，获取到文件中的用户名和密码与输入的相匹配，如果一样就跳转到登录界面。</p>
+<h1 id="3-分层的代码思想"><a href="#3-分层的代码思想" class="headerlink" title="3 分层的代码思想"></a>3 分层的代码思想</h1><ul>
+<li>Controller（请求处理层）：负责与界面数据进行交互处理</li>
+<li>Service（业务逻辑层）：负责业务逻辑相关处理</li>
+<li>DAO（数据持久层）：负责数据的持久化，全称是Data Access Object</li>
+</ul>
+<h1 id="4-用户的相关功能"><a href="#4-用户的相关功能" class="headerlink" title="4 用户的相关功能"></a>4 用户的相关功能</h1><h2 id="4-1-用户数据的初始化"><a href="#4-1-用户数据的初始化" class="headerlink" title="4.1 用户数据的初始化"></a>4.1 用户数据的初始化</h2><h3 id="4-1-1-功能概述"><a href="#4-1-1-功能概述" class="headerlink" title="4.1.1 功能概述"></a>4.1.1 功能概述</h3><p>创建若干User对象放到List中，通过对象输出流将List对象写出到硬盘的user.txt文件中，从而达到持久化的操作。</p>
+<h3 id="4-1-2-Serializable接口"><a href="#4-1-2-Serializable接口" class="headerlink" title="4.1.2 Serializable接口"></a>4.1.2 Serializable接口</h3><p>通过IO流将List对象数据持久化到硬盘的文件中，List中存放的数据是User类型，所以要让User类实现Serializable接口。倘若我们要对某个类的对象进行IO操作时，别忘了让这个类实现Serializable接口</p>
+<h3 id="4-1-3-代码部分"><a href="#4-1-3-代码部分" class="headerlink" title="4.1.3 代码部分"></a>4.1.3 代码部分</h3><p>首先我们要将数据进行初始化，方法是利用IO流的操作创建一个文件user.txt用来保存用户数据，进行持久化管理。这里面有一些细节需要注意，比如判断文件夹/文件是否存在</p>
+<figure class="highlight java"><table><tr><td class="code"><pre><span class="line"><span class="keyword">public</span> <span class="class"><span class="keyword">class</span> <span class="title">InitDataUtil</span> </span>&#123;</span><br><span class="line">    <span class="function"><span class="keyword">public</span> <span class="keyword">static</span> <span class="keyword">void</span> <span class="title">main</span><span class="params">(String args[])</span> </span>&#123;</span><br><span class="line">        initUser(<span class="keyword">null</span>);</span><br><span class="line">    &#125;</span><br><span class="line">    <span class="comment">/**</span></span><br><span class="line"><span class="comment">     * 初始化用户数据</span></span><br><span class="line"><span class="comment">     */</span></span><br><span class="line">    <span class="function"><span class="keyword">public</span> <span class="keyword">static</span> <span class="keyword">void</span> <span class="title">initUser</span><span class="params">(List&lt;User&gt; userList)</span> </span>&#123;</span><br><span class="line">        ObjectOutputStream oos = <span class="keyword">null</span>;</span><br><span class="line">        <span class="comment">//创建相关文件夹</span></span><br><span class="line">        <span class="keyword">try</span> &#123;</span><br><span class="line">            File directory = <span class="keyword">new</span> File(<span class="string">&quot;user/&quot;</span>);</span><br><span class="line">            File file = <span class="keyword">new</span> File(PathConstant.USER_PATH);</span><br><span class="line"></span><br><span class="line">            <span class="comment">//判断文件夹是否存在</span></span><br><span class="line">            <span class="keyword">if</span> (!directory.exists()) &#123;</span><br><span class="line">                directory.mkdir();</span><br><span class="line">            &#125;</span><br><span class="line"></span><br><span class="line">            <span class="comment">//判断文件是否存在</span></span><br><span class="line">            <span class="keyword">if</span> (!file.exists()) &#123;</span><br><span class="line">                file.createNewFile();</span><br><span class="line">                List&lt;User&gt; list = <span class="keyword">new</span> ArrayList&lt;&gt;();</span><br><span class="line">                <span class="comment">//userList如果没有数据需要自己创建</span></span><br><span class="line">                <span class="keyword">if</span> (userList == <span class="keyword">null</span>) &#123;</span><br><span class="line">                    list.add(<span class="keyword">new</span> User(<span class="number">1001</span>, <span class="string">&quot;张大虎&quot;</span>, Constant.USER_OK, BigDecimal.TEN));</span><br><span class="line">                &#125; <span class="keyword">else</span> &#123;</span><br><span class="line">                    list = userList;</span><br><span class="line">                &#125;</span><br><span class="line"></span><br><span class="line">                <span class="comment">//利用对象输出流将list数据写出到文件中</span></span><br><span class="line">                oos = <span class="keyword">new</span> ObjectOutputStream(<span class="keyword">new</span> FileOutputStream(PathConstant.USER_PATH));</span><br><span class="line">                oos.writeObject(list);</span><br><span class="line">            &#125;</span><br><span class="line">        &#125; <span class="keyword">catch</span> (IOException e) &#123;</span><br><span class="line">            e.printStackTrace();</span><br><span class="line">        &#125; <span class="keyword">finally</span> &#123;</span><br><span class="line">            <span class="keyword">if</span> (oos != <span class="keyword">null</span>) &#123;</span><br><span class="line">                <span class="keyword">try</span> &#123;</span><br><span class="line">                    oos.close();</span><br><span class="line">                &#125; <span class="keyword">catch</span> (IOException e) &#123;</span><br><span class="line">                    e.printStackTrace();</span><br><span class="line">                &#125;</span><br><span class="line">            &#125;</span><br><span class="line">        &#125;</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<h2 id="4-2-用户的查询操作"><a href="#4-2-用户的查询操作" class="headerlink" title="4.2 用户的查询操作"></a>4.2 用户的查询操作</h2><p>我们在点击用户管理的时候，界面会出现所有用户，但是按照默认的代码，这三个用户是在内存中读取的，数据并没有进行持久化处理，所以我们需要做些更改。</p>
+<figure class="highlight java"><table><tr><td class="code"><pre><span class="line"><span class="meta">@Override</span></span><br><span class="line">   <span class="function"><span class="keyword">public</span> <span class="keyword">void</span> <span class="title">initialize</span><span class="params">(URL location, ResourceBundle resources)</span> </span>&#123;</span><br><span class="line"></span><br><span class="line">       users.add(<span class="keyword">new</span> User(<span class="number">1</span>, <span class="string">&quot;张三&quot;</span>, <span class="string">&quot;正常&quot;</span>, <span class="keyword">new</span> BigDecimal((<span class="string">&quot;100&quot;</span>))));</span><br><span class="line">       users.add(<span class="keyword">new</span> User(<span class="number">2</span>, <span class="string">&quot;李四&quot;</span>, <span class="string">&quot;正常&quot;</span>, <span class="keyword">new</span> BigDecimal((<span class="string">&quot;100&quot;</span>))));</span><br><span class="line">       users.add(<span class="keyword">new</span> User(<span class="number">3</span>, <span class="string">&quot;王五&quot;</span>, <span class="string">&quot;正常&quot;</span>, <span class="keyword">new</span> BigDecimal((<span class="string">&quot;100&quot;</span>))));</span><br><span class="line">       c1.setCellValueFactory(<span class="keyword">new</span> PropertyValueFactory&lt;&gt;(<span class="string">&quot;id&quot;</span>));</span><br><span class="line">       c2.setCellValueFactory(<span class="keyword">new</span> PropertyValueFactory&lt;&gt;(<span class="string">&quot;name&quot;</span>));</span><br><span class="line">       c3.setCellValueFactory(<span class="keyword">new</span> PropertyValueFactory&lt;&gt;(<span class="string">&quot;money&quot;</span>));</span><br><span class="line">       c4.setCellValueFactory(<span class="keyword">new</span> PropertyValueFactory&lt;&gt;(<span class="string">&quot;status&quot;</span>));</span><br><span class="line">       userTableView.setItems(users);</span><br><span class="line"></span><br><span class="line">   &#125;</span><br></pre></td></tr></table></figure>
+<p>更改为以下：</p>
+<p>查询到所有的用户数据</p>
+<figure class="highlight java"><table><tr><td class="code"><pre><span class="line"><span class="meta">@Override</span></span><br><span class="line">   <span class="function"><span class="keyword">public</span> <span class="keyword">void</span> <span class="title">initialize</span><span class="params">(URL location, ResourceBundle resources)</span> </span>&#123;</span><br><span class="line">       <span class="comment">//调用service层查询用户数据</span></span><br><span class="line">       List&lt;User&gt; userList = userService.select();</span><br><span class="line">       </span><br><span class="line">       users.addAll(userList);</span><br><span class="line">       c1.setCellValueFactory(<span class="keyword">new</span> PropertyValueFactory&lt;&gt;(<span class="string">&quot;id&quot;</span>));</span><br><span class="line">       c2.setCellValueFactory(<span class="keyword">new</span> PropertyValueFactory&lt;&gt;(<span class="string">&quot;name&quot;</span>));</span><br><span class="line">       c3.setCellValueFactory(<span class="keyword">new</span> PropertyValueFactory&lt;&gt;(<span class="string">&quot;money&quot;</span>));</span><br><span class="line">       c4.setCellValueFactory(<span class="keyword">new</span> PropertyValueFactory&lt;&gt;(<span class="string">&quot;status&quot;</span>));</span><br><span class="line">       userTableView.setItems(users);</span><br><span class="line">   &#125;</span><br></pre></td></tr></table></figure>
+<p>在service接口中写select方法，然后在serviceimpl层进行实现</p>
+<figure class="highlight java"><table><tr><td class="code"><pre><span class="line"><span class="keyword">public</span> <span class="class"><span class="keyword">class</span> <span class="title">UserServiceImpl</span> <span class="keyword">implements</span> <span class="title">UserService</span> </span>&#123;</span><br><span class="line"></span><br><span class="line">    <span class="keyword">private</span> UserDao userDao = <span class="keyword">new</span> UserDaoImpl();</span><br><span class="line"></span><br><span class="line">    <span class="meta">@Override</span></span><br><span class="line">    <span class="function"><span class="keyword">public</span> List&lt;User&gt; <span class="title">select</span><span class="params">()</span> </span>&#123;</span><br><span class="line">        <span class="keyword">return</span> userDao.select();</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<p>接下来到dao接口中写select方法，然后在daoimpl实现这个方法。</p>
+<p>这里使用IO流进行操作，try()里面的内容会自动进行关闭，我们需要在user.txt文件中读取数据，并且把数据保存在集合list里面，之后返回集合。</p>
+<figure class="highlight java"><table><tr><td class="code"><pre><span class="line"><span class="keyword">public</span> <span class="class"><span class="keyword">class</span> <span class="title">UserDaoImpl</span> <span class="keyword">implements</span> <span class="title">UserDao</span> </span>&#123;</span><br><span class="line">    <span class="meta">@Override</span></span><br><span class="line">    <span class="function"><span class="keyword">public</span> List&lt;User&gt; <span class="title">select</span><span class="params">()</span> </span>&#123;</span><br><span class="line"></span><br><span class="line">        <span class="keyword">try</span> (ObjectInputStream ois = <span class="keyword">new</span> ObjectInputStream(<span class="keyword">new</span> FileInputStream(PathConstant.USER_PATH))) &#123;</span><br><span class="line">            List&lt;User&gt; list = (List&lt;User&gt;) ois.readObject();</span><br><span class="line">            <span class="keyword">return</span> list;</span><br><span class="line"></span><br><span class="line">        &#125; <span class="keyword">catch</span> (Exception e) &#123;</span><br><span class="line">            e.printStackTrace();</span><br><span class="line">        &#125;</span><br><span class="line">        <span class="keyword">return</span> <span class="keyword">new</span> ArrayList&lt;&gt;();</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<h2 id="4-3-用户的添加操作"><a href="#4-3-用户的添加操作" class="headerlink" title="4.3 用户的添加操作"></a>4.3 用户的添加操作</h2><p>管理员添加新用户，因为这里我们的管理员只有一个，暂时不考虑多线程的问题，所以为了方便，我们将编号和状态默认设置，不需要用户输入。</p>
+<p>首先逻辑关系上是，用户点击添加按钮，弹出添加页面，用户输入数据，完成添加功能。</p>
+<p>Controller层实现是：</p>
+<p>首先我们要获取到输入的用户编号，如果不为空，那么就是硬盘文件中已经存在这条数据，只需要进行修改；如果为空，就需要进行添加操作了，接下来就需要new新对象，polulate()方法是设置操作者输入的默认值；然后调用service的add方法，添加用户到集合中，再存入文件中。</p>
+<figure class="highlight java"><table><tr><td class="code"><pre><span class="line"><span class="function"><span class="keyword">private</span> <span class="keyword">void</span> <span class="title">addOrEditUser</span><span class="params">()</span> </span>&#123;</span><br><span class="line">       <span class="keyword">try</span> &#123;</span><br><span class="line">           String id = userIdField.getText();</span><br><span class="line">           <span class="keyword">if</span> (<span class="string">&quot;&quot;</span>.equals(id) || <span class="keyword">null</span> == id) &#123;</span><br><span class="line">               <span class="comment">//添加操作</span></span><br><span class="line">               User user = <span class="keyword">new</span> User();</span><br><span class="line">               populate(user);</span><br><span class="line">               <span class="comment">//设置状态为正常</span></span><br><span class="line">               user.setStatus(Constant.USER_OK);</span><br><span class="line"></span><br><span class="line">               <span class="comment">//调用service将数据持久化</span></span><br><span class="line">               userService.add(user);</span><br><span class="line"></span><br><span class="line">               <span class="comment">//将user数据持久化到文件中</span></span><br><span class="line">               users.add(user);</span><br><span class="line">           &#125;<span class="keyword">else</span> &#123;</span><br><span class="line">               <span class="comment">//修改操作</span></span><br><span class="line">               populate(<span class="keyword">this</span>.user);</span><br><span class="line">               <span class="comment">//刷新</span></span><br><span class="line">               userTableView.refresh();</span><br><span class="line">           &#125;</span><br><span class="line"></span><br><span class="line">           stage.close();</span><br><span class="line">           Alerts.success(<span class="string">&quot;成功&quot;</span>, <span class="string">&quot;操作成功&quot;</span>);</span><br><span class="line">       &#125; <span class="keyword">catch</span> (Exception e) &#123;</span><br><span class="line">           e.printStackTrace();</span><br><span class="line">           Alerts.error(<span class="string">&quot;失败&quot;</span>,<span class="string">&quot;操作失败&quot;</span>);</span><br><span class="line">       &#125;</span><br><span class="line">   &#125;</span><br></pre></td></tr></table></figure>
+<p>serviceimpl类：</p>
+<figure class="highlight java"><table><tr><td class="code"><pre><span class="line"><span class="meta">@Override</span></span><br><span class="line"><span class="function"><span class="keyword">public</span> <span class="keyword">void</span> <span class="title">add</span><span class="params">(User user)</span> </span>&#123;</span><br><span class="line">    userDao.add(user);</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<p>daoimpl类：</p>
+<p>需要创建文件的输入流和输出流，首先输入流获取文件中的数据并存放在list集合中，如果集合为空，就是说硬盘文件中没有内容，默认编号就从1001开始；如果不为空，需要拿到放在list数据中的最后一条数据，这样可以拿到硬盘文件里面用户的编号，并且+1就是即将保存的新的用户编号。最后将集合写出到硬盘文件中去。</p>
+<figure class="highlight java"><table><tr><td class="code"><pre><span class="line"><span class="comment">/**</span></span><br><span class="line"><span class="comment">     * 添加操作</span></span><br><span class="line"><span class="comment">     *</span></span><br><span class="line"><span class="comment">     * <span class="doctag">@param</span> user</span></span><br><span class="line"><span class="comment">     */</span></span><br><span class="line"><span class="meta">@Override</span></span><br><span class="line"><span class="function"><span class="keyword">public</span> <span class="keyword">void</span> <span class="title">add</span><span class="params">(User user)</span> </span>&#123;</span><br><span class="line">    ObjectInputStream ois = <span class="keyword">null</span>;</span><br><span class="line">    ObjectOutputStream oos = <span class="keyword">null</span>;</span><br><span class="line"></span><br><span class="line">    <span class="keyword">try</span> &#123;</span><br><span class="line">        <span class="comment">//读取文件中的list对象</span></span><br><span class="line">        ois = <span class="keyword">new</span> ObjectInputStream(<span class="keyword">new</span> FileInputStream(PathConstant.USER_PATH));</span><br><span class="line">        List&lt;User&gt; list = (List&lt;User&gt;) ois.readObject();</span><br><span class="line"></span><br><span class="line">        <span class="keyword">if</span> (list != <span class="keyword">null</span>) &#123;</span><br><span class="line">            <span class="comment">//获取list中最后的User对象</span></span><br><span class="line">            User lastUser = list.get(list.size() - <span class="number">1</span>);</span><br><span class="line">            <span class="comment">//生成用户编号</span></span><br><span class="line">            user.setId(lastUser.getId() + <span class="number">1</span>);</span><br><span class="line">            <span class="comment">//将user对象放入到list中，然后将list写出到文件当中</span></span><br><span class="line">            list.add(user);</span><br><span class="line"></span><br><span class="line">        &#125; <span class="keyword">else</span> &#123;</span><br><span class="line">            list = <span class="keyword">new</span> ArrayList&lt;&gt;();</span><br><span class="line">            user.setId(<span class="number">1001</span>);</span><br><span class="line">            list.add(user);</span><br><span class="line">        &#125;</span><br><span class="line"></span><br><span class="line">        oos = <span class="keyword">new</span> ObjectOutputStream(<span class="keyword">new</span> FileOutputStream(PathConstant.USER_PATH));</span><br><span class="line">        oos.writeObject(list);</span><br><span class="line">    &#125; <span class="keyword">catch</span> (IOException e) &#123;</span><br><span class="line">        e.printStackTrace();</span><br><span class="line">    &#125; <span class="keyword">catch</span> (ClassNotFoundException e) &#123;</span><br><span class="line">        e.printStackTrace();</span><br><span class="line">    &#125; <span class="keyword">finally</span> &#123;</span><br><span class="line">        <span class="keyword">try</span> &#123;</span><br><span class="line">            <span class="keyword">if</span> (ois != <span class="keyword">null</span>) &#123;</span><br><span class="line">                ois.close();</span><br><span class="line">            &#125;</span><br><span class="line">            <span class="keyword">if</span> (oos != <span class="keyword">null</span>) &#123;</span><br><span class="line">                oos.close();</span><br><span class="line">            &#125;</span><br><span class="line">        &#125; <span class="keyword">catch</span> (IOException e) &#123;</span><br><span class="line">            e.printStackTrace();</span><br><span class="line">        &#125;</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<h2 id="4-4-用户的修改操作"><a href="#4-4-用户的修改操作" class="headerlink" title="4.4 用户的修改操作"></a>4.4 用户的修改操作</h2><p>用户的修改操作，操作者再点击修改按钮之后，弹出来的修改框，会显示用户的名字和金额，这一步在代码中的体现是需要在硬盘文件中将数据读出来，然后放入list集合中，在获取到这一数据的信息保存为即将修改的originUser，之后操作者才能进行修改。</p>
+<p>daoimpl类：</p>
+<figure class="highlight java"><table><tr><td class="code"><pre><span class="line"><span class="meta">@Override</span></span><br><span class="line">   <span class="function"><span class="keyword">public</span> <span class="keyword">void</span> <span class="title">update</span><span class="params">(User user)</span> </span>&#123;</span><br><span class="line">       <span class="comment">//首先需要将list数据从文件中查出来</span></span><br><span class="line">       ObjectInputStream ois = <span class="keyword">null</span>;</span><br><span class="line">       ObjectOutputStream oos = <span class="keyword">null</span>;</span><br><span class="line">       <span class="keyword">try</span> &#123;</span><br><span class="line">           ois = <span class="keyword">new</span> ObjectInputStream(<span class="keyword">new</span> FileInputStream(PathConstant.USER_PATH));</span><br><span class="line">           List&lt;User&gt; list = (List&lt;User&gt;)ois.readObject();</span><br><span class="line"></span><br><span class="line">           <span class="keyword">if</span>(list != <span class="keyword">null</span>)&#123;</span><br><span class="line">               <span class="comment">//从list中查找要修改的数据</span></span><br><span class="line">               User originUser = list.stream().filter(u -&gt; u.getId() == user.getId()).findFirst().get();</span><br><span class="line"></span><br><span class="line">               <span class="comment">//进行修改</span></span><br><span class="line">               originUser.setName(user.getName());</span><br><span class="line">               originUser.setMoney(user.getMoney());</span><br><span class="line"></span><br><span class="line">               <span class="comment">//将数据持久化到文件中</span></span><br><span class="line">               oos = <span class="keyword">new</span> ObjectOutputStream(<span class="keyword">new</span> FileOutputStream(PathConstant.USER_PATH));</span><br><span class="line">               oos.writeObject(list);</span><br><span class="line">           &#125;</span><br><span class="line">       &#125; <span class="keyword">catch</span> (IOException e) &#123;</span><br><span class="line">           e.printStackTrace();</span><br><span class="line">       &#125; <span class="keyword">catch</span> (ClassNotFoundException e) &#123;</span><br><span class="line">           e.printStackTrace();</span><br><span class="line">       &#125; <span class="keyword">finally</span>&#123;</span><br><span class="line">           <span class="keyword">try</span>&#123;</span><br><span class="line">               <span class="keyword">if</span>(ois != <span class="keyword">null</span>)&#123;</span><br><span class="line">                   ois.close();</span><br><span class="line">               &#125;</span><br><span class="line"></span><br><span class="line">               <span class="keyword">if</span>(oos != <span class="keyword">null</span>)&#123;</span><br><span class="line">                   oos.close();</span><br><span class="line">               &#125;</span><br><span class="line">           &#125;<span class="keyword">catch</span> (IOException e)&#123;</span><br><span class="line">               e.printStackTrace();</span><br><span class="line">           &#125;</span><br><span class="line">       &#125;</span><br><span class="line">   &#125;</span><br></pre></td></tr></table></figure>
+]]></content>
+  </entry>
+  <entry>
+    <title>计算机操作系统</title>
+    <url>/post/dbeddcc1.html</url>
+    <content><![CDATA[<p>关于操作系统课的笔记<span id="more"></span></p>
+<h1 id="第1章-操作系统引论"><a href="#第1章-操作系统引论" class="headerlink" title="第1章 操作系统引论"></a>第1章 操作系统引论</h1><p>本章知识导图：</p>
+<p><img src="https://gitee.com/q1jy/images/raw/master/img/20210830-image-20210830164725870.png" alt="image-20210830164725870"></p>
+<h2 id="1-1-操作系统的目标和作用"><a href="#1-1-操作系统的目标和作用" class="headerlink" title="1.1 操作系统的目标和作用"></a>1.1 操作系统的目标和作用</h2><h3 id="1-1-1-操作系统的目标"><a href="#1-1-1-操作系统的目标" class="headerlink" title="1.1.1 操作系统的目标"></a>1.1.1 操作系统的目标</h3><p>在计算机系统上配置OS，其主要实现目标：方便性、有效性、可扩充性、开放性。</p>
+<ul>
+<li><p>方便性：通过OS命令操纵计算机，方便用户</p>
+</li>
+<li><p>有效性：</p>
+<ul>
+<li><p>提高系统资源利用率，</p>
+</li>
+<li><p>提高系统的吞吐量</p>
+</li>
+</ul>
+</li>
+<li><p>可扩充性：</p>
+<ul>
+<li>OS必须具有很好的可扩充性</li>
+<li>与OS的结构有紧密的联系</li>
+</ul>
+</li>
+<li><p>开放性：</p>
+<ul>
+<li>遵循世界标准规范。特别是开放系统互连OS</li>
+</ul>
+</li>
+</ul>
+<h3 id="1-1-2-操作系统的作用"><a href="#1-1-2-操作系统的作用" class="headerlink" title="1.1.2 操作系统的作用"></a>1.1.2 操作系统的作用</h3><p>可以从==人机交互、资源管理、资源抽象==等不同方面来分析OS在计算机系统中所起的作用。</p>
+<ol>
+<li><p><strong>OS作为用户与计算机硬件系统之间的接口</strong></p>
+<p>OS处于用户与计算机硬件系统之间，用户通过OS来使用计算机硬件系统。</p>
+</li>
+</ol>
+<p><img src="https://gitee.com/q1jy/images/raw/master/img/20210830-image-20210830173840372.png" alt="image-20210830173840372"></p>
+<ol>
+<li><p><strong>OS作为计算机系统资源的管理者</strong></p>
+<p>OS的主要功能就是对：处理机、存储器、I/O设备以及信息（数据和程序）的有效管理。</p>
+<p>处理机：负责处理机的分配与控制</p>
+<p>存储器：管理负责内存的分配与回收</p>
+<p>I/O设备：管理负责I/O设备的分配（回收）与操纵</p>
+<p>文件：管理负责文件的存取、共享与保护</p>
+</li>
+</ol>
+<p><strong>3.OS实现了对计算机资源的抽象</strong></p>
+<p>在裸机上铺设的I/O软件，隐藏了I/O设备的具体细节，向上提供了一组抽象的I/O设备。</p>
+<p><img src="https://gitee.com/q1jy/images/raw/master/img/20210830-image-20210830174400325.png" alt="image-20210830174400325"></p>
+<h3 id="1-1-3-推动操作系统发展的主要动力"><a href="#1-1-3-推动操作系统发展的主要动力" class="headerlink" title="1.1.3 推动操作系统发展的主要动力"></a>1.1.3 推动操作系统发展的主要动力</h3><ol>
+<li><p><strong>不断提高计算机系统资源的利用率</strong></p>
+</li>
+<li><p><strong>方便用户</strong></p>
+</li>
+<li><p><strong>器件不断更新换代</strong></p>
+</li>
+<li><p><strong>计算机体系结构不断发展</strong></p>
+</li>
+<li><p><strong>不断提出新的应用需求</strong></p>
+</li>
+</ol>
+<h2 id="1-2-操作系统的发展过程"><a href="#1-2-操作系统的发展过程" class="headerlink" title="1.2 操作系统的发展过程"></a>1.2 操作系统的发展过程</h2><h3 id="1-2-1-为配置操作系统的计算机系统"><a href="#1-2-1-为配置操作系统的计算机系统" class="headerlink" title="1.2.1 为配置操作系统的计算机系统"></a>1.2.1 为配置操作系统的计算机系统</h3><ol>
+<li><p><strong>人工操作方式</strong></p>
+</li>
+<li><p><strong>脱机I/O方式</strong></p>
+</li>
+</ol>
+<h3 id="1-2-2-单道批处理系统"><a href="#1-2-2-单道批处理系统" class="headerlink" title="1.2.2 单道批处理系统"></a>1.2.2 单道批处理系统</h3><ol>
+<li><p><strong>单道批处理系统的处理过程</strong></p>
+</li>
+<li><p><strong>单道批处理系统的缺点</strong></p>
+</li>
+</ol>
+<h3 id="1-2-3-多道批处理系统"><a href="#1-2-3-多道批处理系统" class="headerlink" title="1.2.3 多道批处理系统"></a>1.2.3 多道批处理系统</h3><ol>
+<li><p><strong>多道程序设计的基本概念</strong></p>
+</li>
+<li><p><strong>多道批处理系统的优缺点</strong></p>
+</li>
+</ol>
+<h3 id="1-2-4-分时系统"><a href="#1-2-4-分时系统" class="headerlink" title="1.2.4 分时系统"></a>1.2.4 分时系统</h3><ol>
+<li><p><strong>分时系统的引入</strong></p>
+<p>如果推动多道批处理系统形成和发展的主要动力是提高资源利用率和系统吞吐量，那么推动分时系统形成和发展的主要动力就是为了满足用户对人机交互的需求</p>
+<p>（1）人机交互</p>
+<p>（2）共享主机</p>
+</li>
+<li><p>分时系统的特征</p>
+<p>（1）多路性</p>
+<p>（2）独立性</p>
+<p>（3）及时性</p>
+<p>（4）交互性</p>
+</li>
+</ol>
+<h3 id="1-2-5-实时系统"><a href="#1-2-5-实时系统" class="headerlink" title="1.2.5 实时系统"></a>1.2.5 实时系统</h3>]]></content>
+      <categories>
+        <category>课程</category>
       </categories>
   </entry>
 </search>

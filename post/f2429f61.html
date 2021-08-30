@@ -1,0 +1,550 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+  <meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=2">
+<meta name="theme-color" content="#222">
+<meta name="generator" content="Hexo 5.4.0">
+
+
+  <link rel="apple-touch-icon" sizes="180x180" href="/images/apple-touch-icon-next.png">
+  <link rel="icon" type="image/png" sizes="32x32" href="/images/favicon-32x32-next.png">
+  <link rel="icon" type="image/png" sizes="16x16" href="/images/favicon-16x16-next.png">
+  <link rel="mask-icon" href="/images/logo.svg" color="#222">
+
+<link rel="stylesheet" href="/css/main.css">
+
+
+
+<link rel="stylesheet" href="//cdn.jsdelivr.net/npm/@fortawesome/fontawesome-free@5.15.1/css/all.min.css">
+  <link rel="stylesheet" href="//cdn.jsdelivr.net/npm/animate.css@3.1.1/animate.min.css">
+  <link rel="stylesheet" href="//cdn.jsdelivr.net/npm/@fancyapps/fancybox@3.5.7/dist/jquery.fancybox.min.css">
+
+<script class="hexo-configurations">
+    var NexT = window.NexT || {};
+    var CONFIG = {"hostname":"qnjy.github.io","root":"/","images":"/images","scheme":"Gemini","version":"8.0.2","exturl":false,"sidebar":{"position":"left","display":"post","padding":18,"offset":12},"copycode":true,"bookmark":{"enable":true,"color":"#222","save":"auto"},"fancybox":true,"mediumzoom":false,"lazyload":false,"pangu":false,"comments":{"style":"tabs","active":null,"storage":true,"lazyload":false,"nav":null},"motion":{"enable":true,"async":false,"transition":{"post_block":"fadeIn","post_header":"fadeInDown","post_body":"fadeInDown","coll_header":"fadeInLeft","sidebar":"fadeInUp"}},"prism":false,"i18n":{"placeholder":"搜索...","empty":"没有找到任何搜索结果：${query}","hits_time":"找到 ${hits} 个搜索结果（用时 ${time} 毫秒）","hits":"找到 ${hits} 个搜索结果"},"path":"/search.xml","localsearch":{"enable":true,"trigger":"auto","top_n_per_article":1,"unescape":false,"preload":false}};
+  </script>
+
+  <meta name="description" content="这个项目是关于图书管理的，并没有用到框架，只是一些IO流的操作，看这个项目是对IO流的一种复习。">
+<meta property="og:type" content="article">
+<meta property="og:title" content="图书管理系统">
+<meta property="og:url" content="https://qnjy.github.io/post/f2429f61.html">
+<meta property="og:site_name" content="qnjy&#39;s blog">
+<meta property="og:description" content="这个项目是关于图书管理的，并没有用到框架，只是一些IO流的操作，看这个项目是对IO流的一种复习。">
+<meta property="og:locale" content="zh_CN">
+<meta property="og:image" content="https://gitee.com/q1jy/images/raw/master/img/20210827-image-20210827150530789.png">
+<meta property="article:published_time" content="2021-08-27T03:49:41.000Z">
+<meta property="article:modified_time" content="2021-08-29T09:10:05.068Z">
+<meta property="article:author" content="qnjy">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:image" content="https://gitee.com/q1jy/images/raw/master/img/20210827-image-20210827150530789.png">
+
+
+<link rel="canonical" href="https://qnjy.github.io/post/f2429f61.html">
+
+
+<script class="page-configurations">
+  // https://hexo.io/docs/variables.html
+  CONFIG.page = {
+    sidebar: "",
+    isHome : false,
+    isPost : true,
+    lang   : 'zh-CN'
+  };
+</script>
+
+  <title>图书管理系统 | qnjy's blog</title>
+  
+
+
+
+
+
+
+  <noscript>
+  <style>
+  body { margin-top: 2rem; }
+
+  .use-motion .menu-item,
+  .use-motion .sidebar,
+  .use-motion .post-block,
+  .use-motion .pagination,
+  .use-motion .comments,
+  .use-motion .post-header,
+  .use-motion .post-body,
+  .use-motion .collection-header {
+    visibility: visible;
+  }
+
+  .use-motion .header,
+  .use-motion .site-brand-container .toggle,
+  .use-motion .footer { opacity: initial; }
+
+  .use-motion .site-title,
+  .use-motion .site-subtitle,
+  .use-motion .custom-logo-image {
+    opacity: initial;
+    top: initial;
+  }
+
+  .use-motion .logo-line {
+    transform: scaleX(1);
+  }
+
+  .search-pop-overlay, .sidebar-nav { display: none; }
+  .sidebar-panel { display: block; }
+  </style>
+</noscript>
+
+</head>
+
+<body itemscope itemtype="http://schema.org/WebPage" class="use-motion">
+  <div class="headband"></div>
+
+  <main class="main">
+    <header class="header" itemscope itemtype="http://schema.org/WPHeader">
+      <div class="header-inner"><div class="site-brand-container">
+  <div class="site-nav-toggle">
+    <div class="toggle" aria-label="切换导航栏">
+        <span class="toggle-line"></span>
+        <span class="toggle-line"></span>
+        <span class="toggle-line"></span>
+    </div>
+  </div>
+
+  <div class="site-meta">
+
+    <a href="/" class="brand" rel="start">
+      <i class="logo-line"></i>
+      <h1 class="site-title">qnjy's blog</h1>
+      <i class="logo-line"></i>
+    </a>
+      <p class="site-subtitle" itemprop="description">方向不对，努力白费</p>
+  </div>
+
+  <div class="site-nav-right">
+    <div class="toggle popup-trigger">
+        <i class="fa fa-search fa-fw fa-lg"></i>
+    </div>
+  </div>
+</div>
+
+
+
+<nav class="site-nav">
+  <ul class="main-menu menu">
+        <li class="menu-item menu-item-home">
+
+    <a href="/" rel="section"><i class="fa fa-home fa-fw"></i>首页</a>
+
+  </li>
+        <li class="menu-item menu-item-tags">
+
+    <a href="/tags/" rel="section"><i class="fa fa-tags fa-fw"></i>标签</a>
+
+  </li>
+        <li class="menu-item menu-item-categories">
+
+    <a href="/categories/" rel="section"><i class="fa fa-th fa-fw"></i>分类</a>
+
+  </li>
+        <li class="menu-item menu-item-archives">
+
+    <a href="/archives/" rel="section"><i class="fa fa-archive fa-fw"></i>归档</a>
+
+  </li>
+      <li class="menu-item menu-item-search">
+        <a role="button" class="popup-trigger"><i class="fa fa-search fa-fw"></i>搜索
+        </a>
+      </li>
+  </ul>
+</nav>
+
+
+
+  <div class="search-pop-overlay">
+    <div class="popup search-popup">
+        <div class="search-header">
+  <span class="search-icon">
+    <i class="fa fa-search"></i>
+  </span>
+  <div class="search-input-container">
+    <input autocomplete="off" autocapitalize="off" maxlength="80"
+           placeholder="搜索..." spellcheck="false"
+           type="search" class="search-input">
+  </div>
+  <span class="popup-btn-close">
+    <i class="fa fa-times-circle"></i>
+  </span>
+</div>
+<div class="search-result-container no-result">
+  <div class="search-result-icon">
+    <i class="fa fa-spinner fa-pulse fa-5x"></i>
+  </div>
+</div>
+
+    </div>
+  </div>
+
+</div>
+        
+  
+  <div class="toggle sidebar-toggle">
+    <span class="toggle-line"></span>
+    <span class="toggle-line"></span>
+    <span class="toggle-line"></span>
+  </div>
+
+  <aside class="sidebar">
+
+    <div class="sidebar-inner sidebar-nav-active sidebar-toc-active">
+      <ul class="sidebar-nav">
+        <li class="sidebar-nav-toc">
+          文章目录
+        </li>
+        <li class="sidebar-nav-overview">
+          站点概览
+        </li>
+      </ul>
+
+      <div class="sidebar-panel-container">
+        <!--noindex-->
+        <section class="post-toc-wrap sidebar-panel">
+            <div class="post-toc animated"><ol class="nav"><li class="nav-item nav-level-1"><a class="nav-link" href="#1-%E7%8E%AF%E5%A2%83%E6%90%AD%E5%BB%BA"><span class="nav-text">1 环境搭建</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#2-%E7%99%BB%E9%99%86%E4%BB%A3%E7%A0%81%E5%88%86%E6%9E%90"><span class="nav-text">2 登陆代码分析</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#3-%E5%88%86%E5%B1%82%E7%9A%84%E4%BB%A3%E7%A0%81%E6%80%9D%E6%83%B3"><span class="nav-text">3 分层的代码思想</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#4-%E7%94%A8%E6%88%B7%E7%9A%84%E7%9B%B8%E5%85%B3%E5%8A%9F%E8%83%BD"><span class="nav-text">4 用户的相关功能</span></a><ol class="nav-child"><li class="nav-item nav-level-2"><a class="nav-link" href="#4-1-%E7%94%A8%E6%88%B7%E6%95%B0%E6%8D%AE%E7%9A%84%E5%88%9D%E5%A7%8B%E5%8C%96"><span class="nav-text">4.1 用户数据的初始化</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#4-1-1-%E5%8A%9F%E8%83%BD%E6%A6%82%E8%BF%B0"><span class="nav-text">4.1.1 功能概述</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#4-1-2-Serializable%E6%8E%A5%E5%8F%A3"><span class="nav-text">4.1.2 Serializable接口</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#4-1-3-%E4%BB%A3%E7%A0%81%E9%83%A8%E5%88%86"><span class="nav-text">4.1.3 代码部分</span></a></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#4-2-%E7%94%A8%E6%88%B7%E7%9A%84%E6%9F%A5%E8%AF%A2%E6%93%8D%E4%BD%9C"><span class="nav-text">4.2 用户的查询操作</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#4-3-%E7%94%A8%E6%88%B7%E7%9A%84%E6%B7%BB%E5%8A%A0%E6%93%8D%E4%BD%9C"><span class="nav-text">4.3 用户的添加操作</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#4-4-%E7%94%A8%E6%88%B7%E7%9A%84%E4%BF%AE%E6%94%B9%E6%93%8D%E4%BD%9C"><span class="nav-text">4.4 用户的修改操作</span></a></li></ol></li></ol></div>
+        </section>
+        <!--/noindex-->
+
+        <section class="site-overview-wrap sidebar-panel">
+          <div class="site-author site-overview-item animated" itemprop="author" itemscope itemtype="http://schema.org/Person">
+    <img class="site-author-image" itemprop="image" alt="qnjy"
+      src="/images/xigua.jpg">
+  <p class="site-author-name" itemprop="name">qnjy</p>
+  <div class="site-description" itemprop="description">宁静以致远</div>
+</div>
+<div class="site-state-wrap site-overview-item animated">
+  <nav class="site-state">
+      <div class="site-state-item site-state-posts">
+          <a href="/archives/">
+        
+          <span class="site-state-item-count">66</span>
+          <span class="site-state-item-name">日志</span>
+        </a>
+      </div>
+      <div class="site-state-item site-state-categories">
+            <a href="/categories/">
+          
+        <span class="site-state-item-count">20</span>
+        <span class="site-state-item-name">分类</span></a>
+      </div>
+      <div class="site-state-item site-state-tags">
+            <a href="/tags/">
+          
+        <span class="site-state-item-count">30</span>
+        <span class="site-state-item-name">标签</span></a>
+      </div>
+  </nav>
+</div>
+  <div class="links-of-author site-overview-item animated">
+      <span class="links-of-author-item">
+        <a href="https://github.com/qnjy" title="GitHub → https:&#x2F;&#x2F;github.com&#x2F;qnjy" rel="noopener" target="_blank"><i class="fab fa-github fa-fw"></i>GitHub</a>
+      </span>
+      <span class="links-of-author-item">
+        <a href="mailto:877900490@qq.com" title="E-Mail → mailto:877900490@qq.com" rel="noopener" target="_blank"><i class="fa fa-envelope fa-fw"></i>E-Mail</a>
+      </span>
+  </div>
+  <div class="cc-license site-overview-item animated" itemprop="license">
+    <a href="https://creativecommons.org/licenses/by-nc-sa/4.0/zh-CN" class="cc-opacity" rel="noopener" target="_blank"><img src="/images/cc-by-nc-sa.svg" alt="Creative Commons"></a>
+  </div>
+
+
+
+        </section>
+      </div>
+
+    </div>
+  </aside>
+  <div class="sidebar-dimmer"></div>
+
+
+    </header>
+
+    
+  <div class="back-to-top">
+    <i class="fa fa-arrow-up"></i>
+    <span>0%</span>
+  </div>
+  <div class="reading-progress-bar"></div>
+  <a role="button" class="book-mark-link book-mark-link-fixed"></a>
+
+<noscript>
+  <div class="noscript-warning">Theme NexT works best with JavaScript enabled</div>
+</noscript>
+
+
+    <div class="main-inner post posts-expand">
+      
+
+      
+
+  
+
+
+<div class="post-block">
+  
+  
+
+  <article itemscope itemtype="http://schema.org/Article" class="post-content" lang="zh-CN">
+    <link itemprop="mainEntityOfPage" href="https://qnjy.github.io/post/f2429f61.html">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="image" content="/images/xigua.jpg">
+      <meta itemprop="name" content="qnjy">
+      <meta itemprop="description" content="宁静以致远">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="qnjy's blog">
+    </span>
+      <header class="post-header">
+        <h1 class="post-title" itemprop="name headline">
+          图书管理系统
+        </h1>
+
+        <div class="post-meta-container">
+          <div class="post-meta">
+    <span class="post-meta-item">
+      <span class="post-meta-item-icon">
+        <i class="far fa-calendar"></i>
+      </span>
+      <span class="post-meta-item-text">发表于</span>
+
+      <time title="创建时间：2021-08-27 11:49:41" itemprop="dateCreated datePublished" datetime="2021-08-27T11:49:41+08:00">2021-08-27</time>
+    </span>
+      <span class="post-meta-item">
+        <span class="post-meta-item-icon">
+          <i class="far fa-calendar-check"></i>
+        </span>
+        <span class="post-meta-item-text">更新于</span>
+        <time title="修改时间：2021-08-29 17:10:05" itemprop="dateModified" datetime="2021-08-29T17:10:05+08:00">2021-08-29</time>
+      </span>
+
+  
+    <span class="post-meta-item" title="阅读次数" id="busuanzi_container_page_pv" style="display: none;">
+      <span class="post-meta-item-icon">
+        <i class="far fa-eye"></i>
+      </span>
+      <span class="post-meta-item-text">阅读次数：</span>
+      <span id="busuanzi_value_page_pv"></span>
+    </span>
+</div>
+
+        </div>
+      </header>
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+        <p>这个项目是关于图书管理的，并没有用到框架，只是一些IO流的操作，看这个项目是对IO流的一种复习。<span id="more"></span></p>
+<h1 id="1-环境搭建"><a href="#1-环境搭建" class="headerlink" title="1 环境搭建"></a>1 环境搭建</h1><p>首先需要下载项目文件<a target="_blank" rel="noopener" href="https://zuteducn-my.sharepoint.com/:u:/g/personal/201919154119_zut_edu_cn/EZbyh7886zRCqR7TLRPDbh0BFqr7VkBmadnIm2ko5p5cXw?e=kuMnfW">library</a>，之后在idea中创建一个空项目，将模块文件解压到该空项目文件夹里；在idea中导入刚才的项目文件夹，注意编码格式需要改为GBK</p>
+<h1 id="2-登陆代码分析"><a href="#2-登陆代码分析" class="headerlink" title="2 登陆代码分析"></a>2 登陆代码分析</h1><p><img src="https://gitee.com/q1jy/images/raw/master/img/20210827-image-20210827150530789.png" alt="image-20210827150530789" style="zoom:67%;" /></p>
+<p>在Login类里面通过</p>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta">@FXML</span> <span class="keyword">private</span> TextField username;</span><br><span class="line"><span class="meta">@FXML</span> <span class="keyword">private</span> TextField password;</span><br></pre></td></tr></table></figure>
+<p>来获取登录界面里面用户输入的密码，之后enter()方法中的</p>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">AdminService adminService = <span class="keyword">new</span> AdminServiceImpl();</span><br><span class="line">       Admin admin = adminService.get(username.getText());</span><br></pre></td></tr></table></figure>
+<p>根据输入的用户名查找到用户，获取到文件中的用户名和密码与输入的相匹配，如果一样就跳转到登录界面。</p>
+<h1 id="3-分层的代码思想"><a href="#3-分层的代码思想" class="headerlink" title="3 分层的代码思想"></a>3 分层的代码思想</h1><ul>
+<li>Controller（请求处理层）：负责与界面数据进行交互处理</li>
+<li>Service（业务逻辑层）：负责业务逻辑相关处理</li>
+<li>DAO（数据持久层）：负责数据的持久化，全称是Data Access Object</li>
+</ul>
+<h1 id="4-用户的相关功能"><a href="#4-用户的相关功能" class="headerlink" title="4 用户的相关功能"></a>4 用户的相关功能</h1><h2 id="4-1-用户数据的初始化"><a href="#4-1-用户数据的初始化" class="headerlink" title="4.1 用户数据的初始化"></a>4.1 用户数据的初始化</h2><h3 id="4-1-1-功能概述"><a href="#4-1-1-功能概述" class="headerlink" title="4.1.1 功能概述"></a>4.1.1 功能概述</h3><p>创建若干User对象放到List中，通过对象输出流将List对象写出到硬盘的user.txt文件中，从而达到持久化的操作。</p>
+<h3 id="4-1-2-Serializable接口"><a href="#4-1-2-Serializable接口" class="headerlink" title="4.1.2 Serializable接口"></a>4.1.2 Serializable接口</h3><p>通过IO流将List对象数据持久化到硬盘的文件中，List中存放的数据是User类型，所以要让User类实现Serializable接口。倘若我们要对某个类的对象进行IO操作时，别忘了让这个类实现Serializable接口</p>
+<h3 id="4-1-3-代码部分"><a href="#4-1-3-代码部分" class="headerlink" title="4.1.3 代码部分"></a>4.1.3 代码部分</h3><p>首先我们要将数据进行初始化，方法是利用IO流的操作创建一个文件user.txt用来保存用户数据，进行持久化管理。这里面有一些细节需要注意，比如判断文件夹/文件是否存在</p>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br><span class="line">44</span><br><span class="line">45</span><br><span class="line">46</span><br><span class="line">47</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">public</span> <span class="class"><span class="keyword">class</span> <span class="title">InitDataUtil</span> </span>&#123;</span><br><span class="line">    <span class="function"><span class="keyword">public</span> <span class="keyword">static</span> <span class="keyword">void</span> <span class="title">main</span><span class="params">(String args[])</span> </span>&#123;</span><br><span class="line">        initUser(<span class="keyword">null</span>);</span><br><span class="line">    &#125;</span><br><span class="line">    <span class="comment">/**</span></span><br><span class="line"><span class="comment">     * 初始化用户数据</span></span><br><span class="line"><span class="comment">     */</span></span><br><span class="line">    <span class="function"><span class="keyword">public</span> <span class="keyword">static</span> <span class="keyword">void</span> <span class="title">initUser</span><span class="params">(List&lt;User&gt; userList)</span> </span>&#123;</span><br><span class="line">        ObjectOutputStream oos = <span class="keyword">null</span>;</span><br><span class="line">        <span class="comment">//创建相关文件夹</span></span><br><span class="line">        <span class="keyword">try</span> &#123;</span><br><span class="line">            File directory = <span class="keyword">new</span> File(<span class="string">&quot;user/&quot;</span>);</span><br><span class="line">            File file = <span class="keyword">new</span> File(PathConstant.USER_PATH);</span><br><span class="line"></span><br><span class="line">            <span class="comment">//判断文件夹是否存在</span></span><br><span class="line">            <span class="keyword">if</span> (!directory.exists()) &#123;</span><br><span class="line">                directory.mkdir();</span><br><span class="line">            &#125;</span><br><span class="line"></span><br><span class="line">            <span class="comment">//判断文件是否存在</span></span><br><span class="line">            <span class="keyword">if</span> (!file.exists()) &#123;</span><br><span class="line">                file.createNewFile();</span><br><span class="line">                List&lt;User&gt; list = <span class="keyword">new</span> ArrayList&lt;&gt;();</span><br><span class="line">                <span class="comment">//userList如果没有数据需要自己创建</span></span><br><span class="line">                <span class="keyword">if</span> (userList == <span class="keyword">null</span>) &#123;</span><br><span class="line">                    list.add(<span class="keyword">new</span> User(<span class="number">1001</span>, <span class="string">&quot;张大虎&quot;</span>, Constant.USER_OK, BigDecimal.TEN));</span><br><span class="line">                &#125; <span class="keyword">else</span> &#123;</span><br><span class="line">                    list = userList;</span><br><span class="line">                &#125;</span><br><span class="line"></span><br><span class="line">                <span class="comment">//利用对象输出流将list数据写出到文件中</span></span><br><span class="line">                oos = <span class="keyword">new</span> ObjectOutputStream(<span class="keyword">new</span> FileOutputStream(PathConstant.USER_PATH));</span><br><span class="line">                oos.writeObject(list);</span><br><span class="line">            &#125;</span><br><span class="line">        &#125; <span class="keyword">catch</span> (IOException e) &#123;</span><br><span class="line">            e.printStackTrace();</span><br><span class="line">        &#125; <span class="keyword">finally</span> &#123;</span><br><span class="line">            <span class="keyword">if</span> (oos != <span class="keyword">null</span>) &#123;</span><br><span class="line">                <span class="keyword">try</span> &#123;</span><br><span class="line">                    oos.close();</span><br><span class="line">                &#125; <span class="keyword">catch</span> (IOException e) &#123;</span><br><span class="line">                    e.printStackTrace();</span><br><span class="line">                &#125;</span><br><span class="line">            &#125;</span><br><span class="line">        &#125;</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<h2 id="4-2-用户的查询操作"><a href="#4-2-用户的查询操作" class="headerlink" title="4.2 用户的查询操作"></a>4.2 用户的查询操作</h2><p>我们在点击用户管理的时候，界面会出现所有用户，但是按照默认的代码，这三个用户是在内存中读取的，数据并没有进行持久化处理，所以我们需要做些更改。</p>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta">@Override</span></span><br><span class="line">   <span class="function"><span class="keyword">public</span> <span class="keyword">void</span> <span class="title">initialize</span><span class="params">(URL location, ResourceBundle resources)</span> </span>&#123;</span><br><span class="line"></span><br><span class="line">       users.add(<span class="keyword">new</span> User(<span class="number">1</span>, <span class="string">&quot;张三&quot;</span>, <span class="string">&quot;正常&quot;</span>, <span class="keyword">new</span> BigDecimal((<span class="string">&quot;100&quot;</span>))));</span><br><span class="line">       users.add(<span class="keyword">new</span> User(<span class="number">2</span>, <span class="string">&quot;李四&quot;</span>, <span class="string">&quot;正常&quot;</span>, <span class="keyword">new</span> BigDecimal((<span class="string">&quot;100&quot;</span>))));</span><br><span class="line">       users.add(<span class="keyword">new</span> User(<span class="number">3</span>, <span class="string">&quot;王五&quot;</span>, <span class="string">&quot;正常&quot;</span>, <span class="keyword">new</span> BigDecimal((<span class="string">&quot;100&quot;</span>))));</span><br><span class="line">       c1.setCellValueFactory(<span class="keyword">new</span> PropertyValueFactory&lt;&gt;(<span class="string">&quot;id&quot;</span>));</span><br><span class="line">       c2.setCellValueFactory(<span class="keyword">new</span> PropertyValueFactory&lt;&gt;(<span class="string">&quot;name&quot;</span>));</span><br><span class="line">       c3.setCellValueFactory(<span class="keyword">new</span> PropertyValueFactory&lt;&gt;(<span class="string">&quot;money&quot;</span>));</span><br><span class="line">       c4.setCellValueFactory(<span class="keyword">new</span> PropertyValueFactory&lt;&gt;(<span class="string">&quot;status&quot;</span>));</span><br><span class="line">       userTableView.setItems(users);</span><br><span class="line"></span><br><span class="line">   &#125;</span><br></pre></td></tr></table></figure>
+<p>更改为以下：</p>
+<p>查询到所有的用户数据</p>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta">@Override</span></span><br><span class="line">   <span class="function"><span class="keyword">public</span> <span class="keyword">void</span> <span class="title">initialize</span><span class="params">(URL location, ResourceBundle resources)</span> </span>&#123;</span><br><span class="line">       <span class="comment">//调用service层查询用户数据</span></span><br><span class="line">       List&lt;User&gt; userList = userService.select();</span><br><span class="line">       </span><br><span class="line">       users.addAll(userList);</span><br><span class="line">       c1.setCellValueFactory(<span class="keyword">new</span> PropertyValueFactory&lt;&gt;(<span class="string">&quot;id&quot;</span>));</span><br><span class="line">       c2.setCellValueFactory(<span class="keyword">new</span> PropertyValueFactory&lt;&gt;(<span class="string">&quot;name&quot;</span>));</span><br><span class="line">       c3.setCellValueFactory(<span class="keyword">new</span> PropertyValueFactory&lt;&gt;(<span class="string">&quot;money&quot;</span>));</span><br><span class="line">       c4.setCellValueFactory(<span class="keyword">new</span> PropertyValueFactory&lt;&gt;(<span class="string">&quot;status&quot;</span>));</span><br><span class="line">       userTableView.setItems(users);</span><br><span class="line">   &#125;</span><br></pre></td></tr></table></figure>
+<p>在service接口中写select方法，然后在serviceimpl层进行实现</p>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">public</span> <span class="class"><span class="keyword">class</span> <span class="title">UserServiceImpl</span> <span class="keyword">implements</span> <span class="title">UserService</span> </span>&#123;</span><br><span class="line"></span><br><span class="line">    <span class="keyword">private</span> UserDao userDao = <span class="keyword">new</span> UserDaoImpl();</span><br><span class="line"></span><br><span class="line">    <span class="meta">@Override</span></span><br><span class="line">    <span class="function"><span class="keyword">public</span> List&lt;User&gt; <span class="title">select</span><span class="params">()</span> </span>&#123;</span><br><span class="line">        <span class="keyword">return</span> userDao.select();</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<p>接下来到dao接口中写select方法，然后在daoimpl实现这个方法。</p>
+<p>这里使用IO流进行操作，try()里面的内容会自动进行关闭，我们需要在user.txt文件中读取数据，并且把数据保存在集合list里面，之后返回集合。</p>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">public</span> <span class="class"><span class="keyword">class</span> <span class="title">UserDaoImpl</span> <span class="keyword">implements</span> <span class="title">UserDao</span> </span>&#123;</span><br><span class="line">    <span class="meta">@Override</span></span><br><span class="line">    <span class="function"><span class="keyword">public</span> List&lt;User&gt; <span class="title">select</span><span class="params">()</span> </span>&#123;</span><br><span class="line"></span><br><span class="line">        <span class="keyword">try</span> (ObjectInputStream ois = <span class="keyword">new</span> ObjectInputStream(<span class="keyword">new</span> FileInputStream(PathConstant.USER_PATH))) &#123;</span><br><span class="line">            List&lt;User&gt; list = (List&lt;User&gt;) ois.readObject();</span><br><span class="line">            <span class="keyword">return</span> list;</span><br><span class="line"></span><br><span class="line">        &#125; <span class="keyword">catch</span> (Exception e) &#123;</span><br><span class="line">            e.printStackTrace();</span><br><span class="line">        &#125;</span><br><span class="line">        <span class="keyword">return</span> <span class="keyword">new</span> ArrayList&lt;&gt;();</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<h2 id="4-3-用户的添加操作"><a href="#4-3-用户的添加操作" class="headerlink" title="4.3 用户的添加操作"></a>4.3 用户的添加操作</h2><p>管理员添加新用户，因为这里我们的管理员只有一个，暂时不考虑多线程的问题，所以为了方便，我们将编号和状态默认设置，不需要用户输入。</p>
+<p>首先逻辑关系上是，用户点击添加按钮，弹出添加页面，用户输入数据，完成添加功能。</p>
+<p>Controller层实现是：</p>
+<p>首先我们要获取到输入的用户编号，如果不为空，那么就是硬盘文件中已经存在这条数据，只需要进行修改；如果为空，就需要进行添加操作了，接下来就需要new新对象，polulate()方法是设置操作者输入的默认值；然后调用service的add方法，添加用户到集合中，再存入文件中。</p>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br></pre></td><td class="code"><pre><span class="line"><span class="function"><span class="keyword">private</span> <span class="keyword">void</span> <span class="title">addOrEditUser</span><span class="params">()</span> </span>&#123;</span><br><span class="line">       <span class="keyword">try</span> &#123;</span><br><span class="line">           String id = userIdField.getText();</span><br><span class="line">           <span class="keyword">if</span> (<span class="string">&quot;&quot;</span>.equals(id) || <span class="keyword">null</span> == id) &#123;</span><br><span class="line">               <span class="comment">//添加操作</span></span><br><span class="line">               User user = <span class="keyword">new</span> User();</span><br><span class="line">               populate(user);</span><br><span class="line">               <span class="comment">//设置状态为正常</span></span><br><span class="line">               user.setStatus(Constant.USER_OK);</span><br><span class="line"></span><br><span class="line">               <span class="comment">//调用service将数据持久化</span></span><br><span class="line">               userService.add(user);</span><br><span class="line"></span><br><span class="line">               <span class="comment">//将user数据持久化到文件中</span></span><br><span class="line">               users.add(user);</span><br><span class="line">           &#125;<span class="keyword">else</span> &#123;</span><br><span class="line">               <span class="comment">//修改操作</span></span><br><span class="line">               populate(<span class="keyword">this</span>.user);</span><br><span class="line">               <span class="comment">//刷新</span></span><br><span class="line">               userTableView.refresh();</span><br><span class="line">           &#125;</span><br><span class="line"></span><br><span class="line">           stage.close();</span><br><span class="line">           Alerts.success(<span class="string">&quot;成功&quot;</span>, <span class="string">&quot;操作成功&quot;</span>);</span><br><span class="line">       &#125; <span class="keyword">catch</span> (Exception e) &#123;</span><br><span class="line">           e.printStackTrace();</span><br><span class="line">           Alerts.error(<span class="string">&quot;失败&quot;</span>,<span class="string">&quot;操作失败&quot;</span>);</span><br><span class="line">       &#125;</span><br><span class="line">   &#125;</span><br></pre></td></tr></table></figure>
+<p>serviceimpl类：</p>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta">@Override</span></span><br><span class="line"><span class="function"><span class="keyword">public</span> <span class="keyword">void</span> <span class="title">add</span><span class="params">(User user)</span> </span>&#123;</span><br><span class="line">    userDao.add(user);</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<p>daoimpl类：</p>
+<p>需要创建文件的输入流和输出流，首先输入流获取文件中的数据并存放在list集合中，如果集合为空，就是说硬盘文件中没有内容，默认编号就从1001开始；如果不为空，需要拿到放在list数据中的最后一条数据，这样可以拿到硬盘文件里面用户的编号，并且+1就是即将保存的新的用户编号。最后将集合写出到硬盘文件中去。</p>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br><span class="line">44</span><br><span class="line">45</span><br><span class="line">46</span><br><span class="line">47</span><br><span class="line">48</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">/**</span></span><br><span class="line"><span class="comment">     * 添加操作</span></span><br><span class="line"><span class="comment">     *</span></span><br><span class="line"><span class="comment">     * <span class="doctag">@param</span> user</span></span><br><span class="line"><span class="comment">     */</span></span><br><span class="line"><span class="meta">@Override</span></span><br><span class="line"><span class="function"><span class="keyword">public</span> <span class="keyword">void</span> <span class="title">add</span><span class="params">(User user)</span> </span>&#123;</span><br><span class="line">    ObjectInputStream ois = <span class="keyword">null</span>;</span><br><span class="line">    ObjectOutputStream oos = <span class="keyword">null</span>;</span><br><span class="line"></span><br><span class="line">    <span class="keyword">try</span> &#123;</span><br><span class="line">        <span class="comment">//读取文件中的list对象</span></span><br><span class="line">        ois = <span class="keyword">new</span> ObjectInputStream(<span class="keyword">new</span> FileInputStream(PathConstant.USER_PATH));</span><br><span class="line">        List&lt;User&gt; list = (List&lt;User&gt;) ois.readObject();</span><br><span class="line"></span><br><span class="line">        <span class="keyword">if</span> (list != <span class="keyword">null</span>) &#123;</span><br><span class="line">            <span class="comment">//获取list中最后的User对象</span></span><br><span class="line">            User lastUser = list.get(list.size() - <span class="number">1</span>);</span><br><span class="line">            <span class="comment">//生成用户编号</span></span><br><span class="line">            user.setId(lastUser.getId() + <span class="number">1</span>);</span><br><span class="line">            <span class="comment">//将user对象放入到list中，然后将list写出到文件当中</span></span><br><span class="line">            list.add(user);</span><br><span class="line"></span><br><span class="line">        &#125; <span class="keyword">else</span> &#123;</span><br><span class="line">            list = <span class="keyword">new</span> ArrayList&lt;&gt;();</span><br><span class="line">            user.setId(<span class="number">1001</span>);</span><br><span class="line">            list.add(user);</span><br><span class="line">        &#125;</span><br><span class="line"></span><br><span class="line">        oos = <span class="keyword">new</span> ObjectOutputStream(<span class="keyword">new</span> FileOutputStream(PathConstant.USER_PATH));</span><br><span class="line">        oos.writeObject(list);</span><br><span class="line">    &#125; <span class="keyword">catch</span> (IOException e) &#123;</span><br><span class="line">        e.printStackTrace();</span><br><span class="line">    &#125; <span class="keyword">catch</span> (ClassNotFoundException e) &#123;</span><br><span class="line">        e.printStackTrace();</span><br><span class="line">    &#125; <span class="keyword">finally</span> &#123;</span><br><span class="line">        <span class="keyword">try</span> &#123;</span><br><span class="line">            <span class="keyword">if</span> (ois != <span class="keyword">null</span>) &#123;</span><br><span class="line">                ois.close();</span><br><span class="line">            &#125;</span><br><span class="line">            <span class="keyword">if</span> (oos != <span class="keyword">null</span>) &#123;</span><br><span class="line">                oos.close();</span><br><span class="line">            &#125;</span><br><span class="line">        &#125; <span class="keyword">catch</span> (IOException e) &#123;</span><br><span class="line">            e.printStackTrace();</span><br><span class="line">        &#125;</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<h2 id="4-4-用户的修改操作"><a href="#4-4-用户的修改操作" class="headerlink" title="4.4 用户的修改操作"></a>4.4 用户的修改操作</h2><p>用户的修改操作，操作者再点击修改按钮之后，弹出来的修改框，会显示用户的名字和金额，这一步在代码中的体现是需要在硬盘文件中将数据读出来，然后放入list集合中，在获取到这一数据的信息保存为即将修改的originUser，之后操作者才能进行修改。</p>
+<p>daoimpl类：</p>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta">@Override</span></span><br><span class="line">   <span class="function"><span class="keyword">public</span> <span class="keyword">void</span> <span class="title">update</span><span class="params">(User user)</span> </span>&#123;</span><br><span class="line">       <span class="comment">//首先需要将list数据从文件中查出来</span></span><br><span class="line">       ObjectInputStream ois = <span class="keyword">null</span>;</span><br><span class="line">       ObjectOutputStream oos = <span class="keyword">null</span>;</span><br><span class="line">       <span class="keyword">try</span> &#123;</span><br><span class="line">           ois = <span class="keyword">new</span> ObjectInputStream(<span class="keyword">new</span> FileInputStream(PathConstant.USER_PATH));</span><br><span class="line">           List&lt;User&gt; list = (List&lt;User&gt;)ois.readObject();</span><br><span class="line"></span><br><span class="line">           <span class="keyword">if</span>(list != <span class="keyword">null</span>)&#123;</span><br><span class="line">               <span class="comment">//从list中查找要修改的数据</span></span><br><span class="line">               User originUser = list.stream().filter(u -&gt; u.getId() == user.getId()).findFirst().get();</span><br><span class="line"></span><br><span class="line">               <span class="comment">//进行修改</span></span><br><span class="line">               originUser.setName(user.getName());</span><br><span class="line">               originUser.setMoney(user.getMoney());</span><br><span class="line"></span><br><span class="line">               <span class="comment">//将数据持久化到文件中</span></span><br><span class="line">               oos = <span class="keyword">new</span> ObjectOutputStream(<span class="keyword">new</span> FileOutputStream(PathConstant.USER_PATH));</span><br><span class="line">               oos.writeObject(list);</span><br><span class="line">           &#125;</span><br><span class="line">       &#125; <span class="keyword">catch</span> (IOException e) &#123;</span><br><span class="line">           e.printStackTrace();</span><br><span class="line">       &#125; <span class="keyword">catch</span> (ClassNotFoundException e) &#123;</span><br><span class="line">           e.printStackTrace();</span><br><span class="line">       &#125; <span class="keyword">finally</span>&#123;</span><br><span class="line">           <span class="keyword">try</span>&#123;</span><br><span class="line">               <span class="keyword">if</span>(ois != <span class="keyword">null</span>)&#123;</span><br><span class="line">                   ois.close();</span><br><span class="line">               &#125;</span><br><span class="line"></span><br><span class="line">               <span class="keyword">if</span>(oos != <span class="keyword">null</span>)&#123;</span><br><span class="line">                   oos.close();</span><br><span class="line">               &#125;</span><br><span class="line">           &#125;<span class="keyword">catch</span> (IOException e)&#123;</span><br><span class="line">               e.printStackTrace();</span><br><span class="line">           &#125;</span><br><span class="line">       &#125;</span><br><span class="line">   &#125;</span><br></pre></td></tr></table></figure>
+
+    </div>
+
+    
+    
+    
+
+    <footer class="post-footer">
+          <div class="reward-container">
+  <div>Buy me a coffee</div>
+  <button onclick="document.querySelector('.post-reward').classList.toggle('active');">
+    赞赏
+  </button>
+  <div class="post-reward">
+      <div>
+        <img src="/images/wechatpay.jpg" alt="qnjy 微信">
+        <span>微信</span>
+      </div>
+      <div>
+        <img src="/images/alipay.jpg" alt="qnjy 支付宝">
+        <span>支付宝</span>
+      </div>
+
+  </div>
+</div>
+
+
+        
+
+          <div class="post-nav">
+            <div class="post-nav-item">
+                <a href="/post/6be47898.html" rel="prev" title="PS高级抠图">
+                  <i class="fa fa-chevron-left"></i> PS高级抠图
+                </a>
+            </div>
+            <div class="post-nav-item">
+                <a href="/post/dbeddcc1.html" rel="next" title="计算机操作系统">
+                  计算机操作系统 <i class="fa fa-chevron-right"></i>
+                </a>
+            </div>
+          </div>
+    </footer>
+  </article>
+</div>
+
+
+
+
+
+
+      
+
+<script>
+  window.addEventListener('tabs:register', () => {
+    let { activeClass } = CONFIG.comments;
+    if (CONFIG.comments.storage) {
+      activeClass = localStorage.getItem('comments_active') || activeClass;
+    }
+    if (activeClass) {
+      const activeTab = document.querySelector(`a[href="#comment-${activeClass}"]`);
+      if (activeTab) {
+        activeTab.click();
+      }
+    }
+  });
+  if (CONFIG.comments.storage) {
+    window.addEventListener('tabs:click', event => {
+      if (!event.target.matches('.tabs-comment .tab-content .tab-pane')) return;
+      const commentClass = event.target.classList[1];
+      localStorage.setItem('comments_active', commentClass);
+    });
+  }
+</script>
+
+    </div>
+  </main>
+
+  <footer class="footer">
+    <div class="footer-inner">
+      
+
+      
+
+<div class="copyright">
+  
+  &copy; 2020 – 
+  <span itemprop="copyrightYear">2021</span>
+  <span class="with-love">
+    <i class="fa fa-heart"></i>
+  </span>
+  <span class="author" itemprop="copyrightHolder">qnjy</span>
+</div>
+<div class="busuanzi-count">
+    <span class="post-meta-item" id="busuanzi_container_site_uv" style="display: none;">
+      <span class="post-meta-item-icon">
+        <i class="fa fa-user"></i>
+      </span>
+      <span class="site-uv" title="总访客量">
+        <span id="busuanzi_value_site_uv"></span>
+      </span>
+    </span>
+    <span class="post-meta-item" id="busuanzi_container_site_pv" style="display: none;">
+      <span class="post-meta-item-icon">
+        <i class="fa fa-eye"></i>
+      </span>
+      <span class="site-pv" title="总访问量">
+        <span id="busuanzi_value_site_pv"></span>
+      </span>
+    </span>
+</div>
+
+    </div>
+  </footer>
+
+  
+  <script src="//cdn.jsdelivr.net/npm/animejs@3.2.1/lib/anime.min.js"></script>
+  <script src="//cdn.jsdelivr.net/npm/jquery@3.5.1/dist/jquery.min.js"></script>
+  <script src="//cdn.jsdelivr.net/npm/@fancyapps/fancybox@3.5.7/dist/jquery.fancybox.min.js"></script>
+<script src="/js/utils.js"></script><script src="/js/motion.js"></script><script src="/js/next-boot.js"></script><script src="/js/bookmark.js"></script>
+
+  
+
+
+
+
+  <script src="/js/local-search.js"></script>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+  
+  <script async src="https://busuanzi.ibruce.info/busuanzi/2.3/busuanzi.pure.mini.js"></script>
+
+
+
+
+
+
+
+
+  
+
+  
+
+  
+
+
+
+
+
+</body>
+</html>
