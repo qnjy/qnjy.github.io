@@ -3723,7 +3723,7 @@
 <h2 id="1-4-OS的运行机制和体系结构"><a href="#1-4-OS的运行机制和体系结构" class="headerlink" title="1.4 OS的运行机制和体系结构"></a>1.4 OS的运行机制和体系结构</h2><h3 id="1-4-1-运行机制"><a href="#1-4-1-运行机制" class="headerlink" title="1.4.1 运行机制"></a>1.4.1 运行机制</h3><script type="math/tex; mode=display">
 运行机制\begin{cases}两种指令\begin{cases}特权指令\\非特权指令\end{cases}\\
 两种处理器状态\begin{cases}核心态\\用户态\end{cases}\\
-两种程序\begin{cases}内核程序\\应用程序\end{cases}\end{cases}</script><h3 id="1-4-2-内核："><a href="#1-4-2-内核：" class="headerlink" title="1.4.2 内核："></a>1.4.2 <strong>内核</strong>：</h3><p>内核是计算机上配置的底层软件，是操作系统最基本、最核心的部分。</p>
+两种程序\begin{cases}内核程序\\应用程序\end{cases}\end{cases}</script><h3 id="1-4-2-内核"><a href="#1-4-2-内核" class="headerlink" title="1.4.2 内核"></a>1.4.2 <strong>内核</strong></h3><p>内核是计算机上配置的底层软件，是操作系统最基本、最核心的部分。</p>
 <p>实现操作系统内核功能的那些程序就是==内核程序==</p>
 <script type="math/tex; mode=display">
 操作系统内核\begin{cases}时钟管理：负责计时功能\\
@@ -3758,6 +3758,76 @@
 进程通信:完成进程之间的消息传递/信号传递\\
 内存管理:完成内存的分配与回收\end{cases}</script><h1 id="第2章-进程的描述与控制"><a href="#第2章-进程的描述与控制" class="headerlink" title="第2章 进程的描述与控制"></a>第2章 进程的描述与控制</h1><p>知识导图：</p>
 <p><img src="https://gitee.com/q1jy/images/raw/master/img/20210906-image-20210906175047130.png" alt="image-20210906175047130" style="zoom:80%;" /></p>
+<h2 id="2-1-进程的定义"><a href="#2-1-进程的定义" class="headerlink" title="2.1 进程的定义"></a>2.1 进程的定义</h2><p>PCB：系统为每个运行的程序配置一个数据结构，称为进程控制块（PCB），用来描述进程的各种信息（如程序代码存放位置）。</p>
+<p>==PCB、程序段、数据段==组成了进程实体（进程映像）。所谓的创建进程，实质上使创建进程实体中的PCB；而撤销进程，实质上是撤销进程实体中的PCB。</p>
+<p>==PCB是进程存在的唯一标志！==</p>
+<p>传统的定义有：</p>
+<ol>
+<li>进程是程序的一次执行过程</li>
+<li>进程是一个程序及其数据在处理机上顺序执行时所发生的活动</li>
+<li>进程是具有独立功能的程序在数据集合上运行的过程，他是系统进行资源分配和调度的一个独立单位</li>
+</ol>
+<p>引入进程实体的概念后：==进程是进程实体的运行过程，是系统进行资源分配和调度的一个独立单位。==</p>
+<h3 id="2-1-1-进程的组成"><a href="#2-1-1-进程的组成" class="headerlink" title="2.1.1 进程的组成"></a>2.1.1 进程的组成</h3><script type="math/tex; mode=display">
+进程的组成\begin{cases}\begin{aligned}(操作系统所需要的数据都在PCB中)\\PCB\end{aligned}\begin{cases}进程描述信息\begin{cases}进程标识符PID\\用户标识符UID\end{cases}\\
+进程控制和管理信息\begin{cases}进程当前状态\\进程优先级\end{cases}\\
+资源分配清单\begin{cases}程序段指针\\数据段指针\\键盘\\鼠标\end{cases}\\
+处理相关信息：各种寄存器值\end{cases}\\
+程序段：存放执行的代码\\
+数据段：存放程序运行过程中处理的各种数据\end{cases}</script><h3 id="2-1-2-进程的组织"><a href="#2-1-2-进程的组织" class="headerlink" title="2.1.2 进程的组织"></a>2.1.2 进程的组织</h3><p>在一个系统中，通常有数十、数百乃至数千个PCB。为了能对他们加以有效的管理，应该用适当的方式把这些PCB组织起来。</p>
+<script type="math/tex; mode=display">
+进程的组织方式\begin{cases}链式方式\begin{cases}按照进程状态将PCB分为多个队列\\操作系统只有指向各个队列的指针\end{cases}\\
+索引方式\begin{cases}根据进程的状态不同，建立几张索引表\\操作系统持有指向各个索引表的指针\end{cases}\end{cases}</script><h3 id="2-1-3-进程的特征"><a href="#2-1-3-进程的特征" class="headerlink" title="2.1.3 进程的特征"></a>2.1.3 进程的特征</h3><ol>
+<li><p>动态性（最基本的特征）：进程是程序的一次执行过程，是动态的产生、变化、消亡</p>
+</li>
+<li><p>并发性：内存中有多个进程实体，各个进程可并发执行</p>
+</li>
+<li><p>独立性：进程是能独立运行、独立获得资源、独立接受调度的基本单位</p>
+</li>
+<li><p>异步性：各个进程按各自独立的、不可预知的速度向前推进，操作系统要提供“进程同步机制”来解决异步问题</p>
+</li>
+<li><p>结构性：每个进程都会配置一个PCB。从结构上看，进程由数据段、程序段、PCB组成</p>
+</li>
+</ol>
+<h2 id="2-2-进程的状态与转换"><a href="#2-2-进程的状态与转换" class="headerlink" title="2.2 进程的状态与转换"></a>2.2 进程的状态与转换</h2><h3 id="2-2-1-三种基本状态"><a href="#2-2-1-三种基本状态" class="headerlink" title="2.2.1 三种基本状态"></a>2.2.1 三种基本状态</h3><ul>
+<li>运行态：占有CPU，并在CPU上运行</li>
+<li>就绪态：已经具备运行条件，但由于没有空闲CPU，暂时不能运行</li>
+<li>阻塞态：因等待某一事件而不能运行</li>
+</ul>
+<p>创建进程：操作系统需要位进程分配资源，初始化PCB</p>
+<p>撤销进程：操作系统会回收进程拥有的资源、撤销PCB</p>
+<h3 id="2-2-2-进程状态的转换"><a href="#2-2-2-进程状态的转换" class="headerlink" title="2.2.2 进程状态的转换"></a>2.2.2 进程状态的转换</h3><p><img src="https://gitee.com/q1jy/images/raw/master/img/20210916-image-20210916154936259.png" alt="image-20210916154936259" style="zoom: 50%;" /></p>
+<h2 id="2-3-进程控制"><a href="#2-3-进程控制" class="headerlink" title="2.3 进程控制"></a>2.3 进程控制</h2><ol>
+<li>进程控制的主要功能就是对系统中的所有进程实施有效的管理（实现进程状态的转化）</li>
+</ol>
+<p><img src="https://gitee.com/q1jy/images/raw/master/img/20210924-image-20210924085333763.png" alt="image-20210924085333763" style="zoom:50%;" /></p>
+<ol>
+<li><p>原语要做的三类事情：</p>
+<ul>
+<li>更新PCB中的信息（如修改进程状态、将运行环境保存到PCB、从PCB恢复运行环境）<ul>
+<li>所有的进程控制原语一定会修改进程状态标志</li>
+<li>剥夺当前进程的CPU使用权必然需要保存到其运行环境</li>
+<li>某进程开始运行前必然要恢复其运行环境</li>
+</ul>
+</li>
+<li>将PCB插入合适的队列</li>
+<li>分配/回收资源</li>
+</ul>
+</li>
+<li><p>进程的创建</p>
+<p><img src="https://gitee.com/q1jy/images/raw/master/img/20210924-image-20210924085910391.png" alt="image-20210924085910391" style="zoom: 67%;" /></p>
+</li>
+<li><p>进程的终止</p>
+<p><img src="https://gitee.com/q1jy/images/raw/master/img/20210924-image-20210924090320815.png" alt="image-20210924090320815" style="zoom: 67%;" /></p>
+</li>
+<li><p>进程的阻塞/唤醒</p>
+<p><img src="https://gitee.com/q1jy/images/raw/master/img/20210924-image-20210924090535128.png" alt="image-20210924090535128" style="zoom:67%;" /></p>
+</li>
+<li><p>进程的切换</p>
+<p><img src="https://gitee.com/q1jy/images/raw/master/img/20210924-image-20210924090647158.png" alt="image-20210924090647158" style="zoom:67%;" /></p>
+</li>
+</ol>
+<h2 id="2-4-进程通信"><a href="#2-4-进程通信" class="headerlink" title="2.4 进程通信"></a>2.4 进程通信</h2><p>进程通信就是指进程之间的信息交换。进程是分配系统资源的单位，因此各进程拥有的==内存的地址空间==相互独立</p>
 <h2 id="2-1-前趋图和程序执行"><a href="#2-1-前趋图和程序执行" class="headerlink" title="2.1 前趋图和程序执行"></a>2.1 前趋图和程序执行</h2><h3 id="2-1-1-前趋图"><a href="#2-1-1-前趋图" class="headerlink" title="2.1.1 前趋图"></a>2.1.1 前趋图</h3><p>是指一个有向无环图，它用于描述进程之间执行的先后顺序。图中的每一个节点均可用于表示一个进程或一段程序，甚至是一条语句，节点间的有向边则表示两个节点之间所存在的偏序或前趋关系。</p>
 ]]></content>
       <categories>
@@ -7017,5 +7087,125 @@ ASL=\sum_{i=1}^{n}p_ic_i</script><p>n：记录的个数</p>
       <categories>
         <category>课程</category>
       </categories>
+  </entry>
+  <entry>
+    <title>FastDFS的安装</title>
+    <url>/post/e3e169b4.html</url>
+    <content><![CDATA[<h1 id="1-Linux下使用FastDFS"><a href="#1-Linux下使用FastDFS" class="headerlink" title="1.Linux下使用FastDFS"></a>1.Linux下使用FastDFS</h1><h2 id="1-1-单节点FastDFS"><a href="#1-1-单节点FastDFS" class="headerlink" title="1.1 单节点FastDFS"></a>1.1 单节点FastDFS</h2><h3 id="1-1-1-安装gcc"><a href="#1-1-1-安装gcc" class="headerlink" title="1.1.1 安装gcc"></a>1.1.1 安装gcc</h3><p>GCC用来对C语言代码进行编译运行，使用以下命令：</p>
+<p><code>yum -y install gcc</code></p>
+<p>后面会用到解压命令，也把unzip安装一下</p>
+<p><code>yum install -y unzip zip</code></p>
+<h3 id="1-1-2-安装libevent"><a href="#1-1-2-安装libevent" class="headerlink" title="1.1.2 安装libevent"></a>1.1.2 安装libevent</h3><p><code>yumm -y install libevent</code></p>
+<h3 id="1-1-3-安装libfastcommon-master"><a href="#1-1-3-安装libfastcommon-master" class="headerlink" title="1.1.3 安装libfastcommon-master"></a>1.1.3 安装libfastcommon-master</h3><figure class="highlight shell"><table><tr><td class="code"><pre><span class="line">解压刚刚上传的libfastcommonmaster</span><br><span class="line">unzip libfastcommon-master.zip</span><br><span class="line"></span><br><span class="line">进入解压完成的目录</span><br><span class="line">cd libfastcommon-master</span><br><span class="line"></span><br><span class="line">编译并且安装：</span><br><span class="line">./make.sh</span><br><span class="line">./make.sh install</span><br></pre></td></tr></table></figure>
+<h3 id="1-1-4-安装fastdfs"><a href="#1-1-4-安装fastdfs" class="headerlink" title="1.1.4 安装fastdfs"></a>1.1.4 安装fastdfs</h3><figure class="highlight shell"><table><tr><td class="code"><pre><span class="line">tar -zxvf FastDFS_v5.08.tar.gz</span><br><span class="line"></span><br><span class="line">cd FastDFS</span><br><span class="line"></span><br><span class="line">./make.sh</span><br><span class="line"></span><br><span class="line">./make.sh install</span><br></pre></td></tr></table></figure>
+<p>如果安装成功，会看到/etc/init.d/下看到提供的脚本文件:</p>
+<figure class="highlight shell"><table><tr><td class="code"><pre><span class="line">ll /etc/init.d/ | grep fdfs</span><br></pre></td></tr></table></figure>
+<p><img src="https://gitee.com/q1jy/images/raw/master/img/20211208-image-20211208141057992.png" alt="image-20211208141057992"></p>
+<ul>
+<li>fdfs_trackerd是tracker启动脚本</li>
+<li>fdfs_storaged是storage启动脚本</li>
+</ul>
+<p>能够在/etc/fdfs/目录下看到默认的配置文件模板：</p>
+<figure class="highlight awk"><table><tr><td class="code"><pre><span class="line">ll <span class="regexp">/etc/</span>fdfs/</span><br></pre></td></tr></table></figure>
+<h3 id="1-1-5-配置并启动tracker服务"><a href="#1-1-5-配置并启动tracker服务" class="headerlink" title="1.1.5 配置并启动tracker服务"></a>1.1.5 配置并启动tracker服务</h3><p>FastDFS的tracker和storage在刚刚的安装过程中，都已经被安装了，因此我们安装这两种角色的方式是一样的。不同的是，两种需要不同的配置文件。</p>
+<p>我们要启动tracker，就修改刚刚看到的tarcker.conf，并且启动fdfs_trackerd脚本即可。</p>
+<p>1）首先将模板文件复制</p>
+<figure class="highlight plain"><table><tr><td class="code"><pre><span class="line">cp &#x2F;etc&#x2F;fdfs&#x2F;tracker.conf.sample &#x2F;etc&#x2F;fdfs&#x2F;tracker.conf</span><br></pre></td></tr></table></figure>
+<p>2）修改复制后的配置文件：</p>
+<figure class="highlight awk"><table><tr><td class="code"><pre><span class="line">vim <span class="regexp">/etc/</span>fdfs/tracker.conf</span><br></pre></td></tr></table></figure>
+<h1 id="修改的内容如下："><a href="#修改的内容如下：" class="headerlink" title="修改的内容如下："></a>修改的内容如下：</h1><figure class="highlight shell"><table><tr><td class="code"><pre><span class="line">base_path=/leyou/tracker</span><br></pre></td></tr></table></figure>
+<p>3）新建目录</p>
+<figure class="highlight awk"><table><tr><td class="code"><pre><span class="line">mkdir -p <span class="regexp">/leyou/</span>tracker</span><br></pre></td></tr></table></figure>
+<p>注意关闭防火墙</p>
+<p>4）启动和停止</p>
+<p>启动tracker服务器：<code>/etc/init.d/fdfs_trackerd start</code></p>
+<p>停止tracker服务器：<code>/etc/init.d//fdfs_trackerd stop</code></p>
+<p>不过安装过程中，fdfs已经被设置为系统服务，我们可以采用熟悉的服务启动</p>
+<figure class="highlight shell"><table><tr><td class="code"><pre><span class="line">service fdfs_trackerd start #地洞fdfs——trackerd服务，停止用stop</span><br></pre></td></tr></table></figure>
+<p>检查FastDFS Tracker Server是否启动成功</p>
+<figure class="highlight shell"><table><tr><td class="code"><pre><span class="line">ps -ef | grep fdfs_trackerd</span><br></pre></td></tr></table></figure>
+<p>设置tracker服务开机启动</p>
+<figure class="highlight applescript"><table><tr><td class="code"><pre><span class="line">chkconfig fdfs_trackerd <span class="keyword">on</span></span><br></pre></td></tr></table></figure>
+<h3 id="1-1-6-配置并启动storage服务"><a href="#1-1-6-配置并启动storage服务" class="headerlink" title="1.1.6 配置并启动storage服务"></a>1.1.6 配置并启动storage服务</h3><p>1）首先将模板文件复制</p>
+<figure class="highlight awk"><table><tr><td class="code"><pre><span class="line">cp <span class="regexp">/etc/</span>fdfs<span class="regexp">/storage.conf.sample /</span>etc<span class="regexp">/fdfs/</span>storage.conf</span><br></pre></td></tr></table></figure>
+<p>2）修改复制后的配置文件</p>
+<figure class="highlight awk"><table><tr><td class="code"><pre><span class="line">vi <span class="regexp">/etc/</span>fdfs/storage.conf</span><br></pre></td></tr></table></figure>
+<p> 修改的内容如下：</p>
+<figure class="highlight shell"><table><tr><td class="code"><pre><span class="line">base_path=/leyou/storage              #数据和日志文件存储根目录</span><br><span class="line"></span><br><span class="line">store_path0=/leyou/storage			  #第一个存储目录</span><br><span class="line"></span><br><span class="line">tracker_server=192.168.200.133:22122</span><br></pre></td></tr></table></figure>
+<p>3）新建目录</p>
+<figure class="highlight awk"><table><tr><td class="code"><pre><span class="line">mkdir -p <span class="regexp">/leyou/</span>storage</span><br></pre></td></tr></table></figure>
+<p>4）启动和停止</p>
+<p>启动storage服务：<code>/etc/init.d/fdfs_storaged start</code></p>
+<p>停止storage服务：<code>etc/init.d/fdfs_storaged stop</code></p>
+<p>设置开机启动</p>
+<figure class="highlight applescript"><table><tr><td class="code"><pre><span class="line">chkconfig fdfs_storaged <span class="keyword">on</span></span><br></pre></td></tr></table></figure>
+<p>ps -ef | grep fdfs</p>
+<p><img src="https://gitee.com/q1jy/images/raw/master/img/20211208-image-20211208142953065.png" alt="image-20211208142953065"></p>
+]]></content>
+  </entry>
+  <entry>
+    <title>乐优商城-day01</title>
+    <url>/post/fb1d2a49.html</url>
+    <content><![CDATA[<h1 id="1-跨域问题"><a href="#1-跨域问题" class="headerlink" title="1.跨域问题"></a>1.跨域问题</h1><h2 id="1-1-什么是跨域问题"><a href="#1-1-什么是跨域问题" class="headerlink" title="1.1 什么是跨域问题"></a>1.1 什么是跨域问题</h2><h2 id="1-2-解决方案"><a href="#1-2-解决方案" class="headerlink" title="1.2 解决方案"></a>1.2 解决方案</h2><ul>
+<li><p>jsonp</p>
+<p>最早的解决方案，利用script标签可以跨域的原理实现</p>
+<p>限制：</p>
+<ul>
+<li>需要服务的支持</li>
+<li>只能发起GET请求</li>
+</ul>
+</li>
+<li><p>nginx反向代理</p>
+<p>思路是：利用nginx把跨域反向代理为不跨域，支持各种请求凡是</p>
+<p>缺点：需要在nginx进行额外配置，语义不清晰</p>
+</li>
+<li><p>CORS</p>
+<p>跟计划的跨域请求解决方案，安全可靠</p>
+<p>优势：</p>
+<ul>
+<li>在服务端进行控制是否允许跨域，可自定义规则</li>
+<li>支持各种请求方式</li>
+</ul>
+<p>缺点：</p>
+<ul>
+<li>会产生额外的请求</li>
+</ul>
+</li>
+</ul>
+<h3 id="1-2-1-CORS解决方案"><a href="#1-2-1-CORS解决方案" class="headerlink" title="1.2.1 CORS解决方案"></a>1.2.1 CORS解决方案</h3><p><a href="https://www.ruanyifeng.com/blog/2016/04/cors.html">详情请点击这里</a></p>
+<h3 id="1-2-2-在本项目中的实现"><a href="#1-2-2-在本项目中的实现" class="headerlink" title="1.2.2 在本项目中的实现"></a>1.2.2 在本项目中的实现</h3>]]></content>
+  </entry>
+  <entry>
+    <title>算法学习</title>
+    <url>/post/800507c2.html</url>
+    <content><![CDATA[<h1 id="一-排序"><a href="#一-排序" class="headerlink" title="一 排序"></a>一 排序</h1><h2 id="1-冒泡排序"><a href="#1-冒泡排序" class="headerlink" title="1 冒泡排序"></a>1 冒泡排序</h2><p>简单来说就是，重复走访要排序的数列，一次比较两个元素，如果顺序错误，就调换过来</p>
+<blockquote>
+<p><strong>算法步骤</strong></p>
+<p>比较相邻的元素。如果第一个比第二个大，就交换他们两个。</p>
+<p>对每一对相邻元素作同样的工作，从开始第一对到结尾的最后一对。这步做完后，最后的元素会是最大的数。</p>
+<p>针对所有的元素重复以上的步骤，除了最后一个。</p>
+<p>持续每次对越来越少的元素重复上面的步骤，直到没有任何一对数字需要比较。</p>
+</blockquote>
+<p>示例：对{3,1,6,2,5}从小到大排序</p>
+<figure class="highlight angelscript"><table><tr><td class="code"><pre><span class="line"><span class="number">3</span> <span class="number">1</span> <span class="number">6</span> <span class="number">2</span> <span class="number">5</span></span><br><span class="line">第一次循环：</span><br><span class="line"><span class="number">1</span>) <span class="number">1</span> <span class="number">3</span> <span class="number">6</span> <span class="number">2</span> <span class="number">5</span></span><br><span class="line"><span class="number">2</span>) <span class="number">1</span> <span class="number">3</span> <span class="number">6</span> <span class="number">2</span> <span class="number">5</span></span><br><span class="line"><span class="number">3</span>) <span class="number">1</span> <span class="number">3</span> <span class="number">2</span> <span class="number">6</span> <span class="number">5</span></span><br><span class="line"><span class="number">4</span>) <span class="number">1</span> <span class="number">3</span> <span class="number">2</span> <span class="number">5</span> <span class="number">6</span></span><br><span class="line"></span><br><span class="line"><span class="number">1</span> <span class="number">3</span> <span class="number">2</span> <span class="number">5</span></span><br><span class="line">第二次循环：</span><br><span class="line"><span class="number">1</span>) <span class="number">1</span> <span class="number">3</span> <span class="number">2</span> <span class="number">5</span></span><br><span class="line"><span class="number">2</span>) <span class="number">1</span> <span class="number">2</span> <span class="number">3</span> <span class="number">5</span></span><br><span class="line"><span class="number">3</span>) <span class="number">1</span> <span class="number">2</span> <span class="number">3</span> <span class="number">5</span></span><br><span class="line"></span><br><span class="line"><span class="number">1</span> <span class="number">2</span> <span class="number">3</span></span><br><span class="line">第三次循环：</span><br><span class="line"><span class="number">1</span>) <span class="number">1</span> <span class="number">2</span> <span class="number">3</span></span><br><span class="line"><span class="number">2</span>) <span class="number">1</span> <span class="number">2</span> <span class="number">3</span></span><br><span class="line"></span><br><span class="line"><span class="number">1</span> <span class="number">2</span></span><br><span class="line">第四次循环：</span><br><span class="line"><span class="number">1</span>) <span class="number">1</span> <span class="number">2</span></span><br></pre></td></tr></table></figure>
+<p>总结：走访次数=数组个数-1</p>
+<blockquote>
+<p>代码部分</p>
+</blockquote>
+<figure class="highlight java"><table><tr><td class="code"><pre><span class="line"><span class="keyword">public</span> <span class="class"><span class="keyword">class</span> <span class="title">BubbleSort</span> </span>&#123;</span><br><span class="line"></span><br><span class="line">    <span class="function"><span class="keyword">public</span> <span class="keyword">static</span> <span class="keyword">void</span> <span class="title">main</span><span class="params">(String[] args)</span> </span>&#123;</span><br><span class="line"></span><br><span class="line">        <span class="keyword">int</span>[] arrays = <span class="keyword">new</span> <span class="keyword">int</span>[]&#123;<span class="number">2</span>, <span class="number">4</span>, <span class="number">1</span>, <span class="number">3</span>, <span class="number">8</span>, <span class="number">5</span>, <span class="number">9</span>, <span class="number">6</span>, <span class="number">7</span>&#125;;</span><br><span class="line"></span><br><span class="line"></span><br><span class="line">        <span class="keyword">int</span> temp = <span class="number">0</span>;</span><br><span class="line">        <span class="keyword">boolean</span> flag = <span class="keyword">false</span>;</span><br><span class="line">        <span class="keyword">for</span> (<span class="keyword">int</span> i = <span class="number">0</span>; i &lt; arrays.length - <span class="number">1</span>; i++) &#123;</span><br><span class="line">            <span class="keyword">for</span> (<span class="keyword">int</span> j = <span class="number">0</span>; j &lt; arrays.length - <span class="number">1</span> - i; j++) &#123;</span><br><span class="line">                <span class="keyword">if</span> (arrays[j] &gt; arrays[j + <span class="number">1</span>]) &#123;</span><br><span class="line">                    flag = <span class="keyword">true</span>;</span><br><span class="line">                    temp = arrays[j];</span><br><span class="line">                    arrays[j] = arrays[j + <span class="number">1</span>];</span><br><span class="line">                    arrays[j + <span class="number">1</span>] = temp;</span><br><span class="line"></span><br><span class="line">                &#125;</span><br><span class="line">            &#125;</span><br><span class="line">            <span class="keyword">if</span> (!flag) &#123;<span class="comment">//在排序过程中，没有发生一次交换</span></span><br><span class="line">                <span class="keyword">break</span>;</span><br><span class="line">            &#125; <span class="keyword">else</span> &#123;</span><br><span class="line">                flag = <span class="keyword">false</span>;</span><br><span class="line">            &#125;</span><br><span class="line"></span><br><span class="line">        &#125;</span><br><span class="line">        System.out.println(Arrays.toString(arrays));</span><br><span class="line"></span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<h2 id="2-选择排序"><a href="#2-选择排序" class="headerlink" title="2 选择排序"></a>2 选择排序</h2><p>这是一种简单直观的排序算法，无论什么数据输入都是O(n<sup>2</sup>)。所以用到的数据规模越小越好。</p>
+<blockquote>
+<p><strong>算法步骤</strong></p>
+<p>首先在未排序序列中找到最小（大）元素，存放到排序序列的起始位置。</p>
+<p>再从剩余未排序元素中继续寻找最小（大）元素，然后放到已排序序列的末尾。</p>
+<p>重复第二步，直到所有元素均排序完毕。</p>
+</blockquote>
+<p>示例：对{3,1,6,2,5}从小到大排序</p>
+<figure class="highlight lsl"><table><tr><td class="code"><pre><span class="line">选择排序比冒泡排序的效率高</span><br><span class="line">高在交换位置的次数上。</span><br><span class="line"></span><br><span class="line">循环一次，然后找出参加比较的这堆数据中最小的，拿着这个最小的值和</span><br><span class="line">最前面的数据<span class="string">&quot;交换位置&quot;</span></span><br><span class="line"></span><br><span class="line"></span><br><span class="line">参与比较的数据：<span class="number">3</span> <span class="number">1</span> <span class="number">6</span> <span class="number">2</span> <span class="number">5</span>   这一堆数据最左边下标为<span class="number">0</span></span><br><span class="line">第<span class="number">1</span>次循环之后的结果是：</span><br><span class="line"><span class="number">1</span> <span class="number">3</span> <span class="number">6</span> <span class="number">2</span> <span class="number">5</span></span><br><span class="line"></span><br><span class="line">参与比较的数据：<span class="number">3</span> <span class="number">6</span> <span class="number">2</span> <span class="number">5</span>     这一堆数据最左边下标为<span class="number">1</span></span><br><span class="line">第<span class="number">2</span>次循环之后的结果是：</span><br><span class="line"><span class="number">2</span> <span class="number">6</span> <span class="number">3</span> <span class="number">5</span></span><br><span class="line"></span><br><span class="line">参与比较的数据：<span class="number">6</span> <span class="number">3</span> <span class="number">5</span>       这一堆数据最左边下标为<span class="number">2</span></span><br><span class="line">第<span class="number">3</span>次循环之后的结果是：</span><br><span class="line"><span class="number">3</span> <span class="number">6</span> <span class="number">5</span></span><br><span class="line"></span><br><span class="line">参与比较的数据：<span class="number">6</span> <span class="number">5</span>         这一堆数据最左边下标为<span class="number">3</span></span><br><span class="line">第<span class="number">4</span>次循环之后的结果是：</span><br><span class="line"><span class="number">5</span> <span class="number">6</span></span><br><span class="line"></span><br><span class="line">注意：<span class="number">5</span>条数据，循环<span class="number">4</span>次</span><br></pre></td></tr></table></figure>
+<blockquote>
+<p>代码部分</p>
+</blockquote>
+<figure class="highlight java"><table><tr><td class="code"><pre><span class="line"><span class="keyword">public</span> <span class="class"><span class="keyword">class</span> <span class="title">SelectSort</span> </span>&#123;</span><br><span class="line">    <span class="function"><span class="keyword">public</span> <span class="keyword">static</span> <span class="keyword">void</span> <span class="title">main</span><span class="params">(String[] args)</span> </span>&#123;</span><br><span class="line">        <span class="keyword">int</span>[] arr = &#123;<span class="number">3</span>, <span class="number">1</span>, <span class="number">6</span>, <span class="number">2</span>, <span class="number">5</span>&#125;;</span><br><span class="line"></span><br><span class="line">        <span class="comment">//5条数据循环4次（外层循环4次）</span></span><br><span class="line">        <span class="comment">//i正好是参加比较的数据中最左边数据的下标</span></span><br><span class="line">        <span class="keyword">for</span> (<span class="keyword">int</span> i = <span class="number">0</span>; i &lt; arr.length - <span class="number">1</span>; i++) &#123;</span><br><span class="line">            <span class="comment">//j</span></span><br><span class="line">            <span class="comment">//假设起点i下标位置上的元素是最小的</span></span><br><span class="line">            <span class="keyword">int</span> min = i;</span><br><span class="line"></span><br><span class="line">            <span class="comment">//挑出单次循环中，数组最小的交换下标</span></span><br><span class="line">            <span class="keyword">for</span> (<span class="keyword">int</span> j = i + <span class="number">1</span>; j &lt; arr.length; j++) &#123;</span><br><span class="line">                <span class="keyword">if</span> (arr[min] &gt; arr[j]) &#123;</span><br><span class="line">                    min = j;</span><br><span class="line">                &#125;</span><br><span class="line">            &#125;</span><br><span class="line"></span><br><span class="line">            <span class="comment">//当i和min相等时，表示最初的猜测是对的</span></span><br><span class="line">            <span class="comment">//当i和min不相等时，表示最初的猜测是错的，有比这个元素更小的</span></span><br><span class="line">            <span class="comment">//需要拿着这个更小的元素和最左边的元素交换位置</span></span><br><span class="line">            <span class="keyword">if</span> (min != i) &#123;</span><br><span class="line">                <span class="comment">//表示存在更小的数据</span></span><br><span class="line">                <span class="comment">//arr[min]最小的数据</span></span><br><span class="line">                <span class="comment">//arr[i]最前面的数据</span></span><br><span class="line">                <span class="keyword">int</span> temp = arr[min];</span><br><span class="line">                arr[min] = arr[i];</span><br><span class="line">                arr[i] = temp;</span><br><span class="line">            &#125;</span><br><span class="line"></span><br><span class="line">        &#125;</span><br><span class="line"></span><br><span class="line">        <span class="keyword">for</span> (<span class="keyword">int</span> i = <span class="number">0</span>; i &lt; arr.length; i++) &#123;</span><br><span class="line">            System.out.print(arr[i] + <span class="string">&quot; &quot;</span>);</span><br><span class="line">        &#125;</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+]]></content>
   </entry>
 </search>
