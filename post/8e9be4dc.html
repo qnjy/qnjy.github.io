@@ -1,0 +1,714 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+  <meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=2">
+<meta name="theme-color" content="#222">
+<meta name="generator" content="Hexo 5.4.0">
+
+
+  <link rel="apple-touch-icon" sizes="180x180" href="/images/apple-touch-icon-next.png">
+  <link rel="icon" type="image/png" sizes="32x32" href="/images/favicon-32x32-next.png">
+  <link rel="icon" type="image/png" sizes="16x16" href="/images/favicon-16x16-next.png">
+  <link rel="mask-icon" href="/images/logo.svg" color="#222">
+
+<link rel="stylesheet" href="/css/main.css">
+
+
+
+<link rel="stylesheet" href="//cdn.jsdelivr.net/npm/@fortawesome/fontawesome-free@5.15.1/css/all.min.css">
+  <link rel="stylesheet" href="//cdn.jsdelivr.net/npm/animate.css@3.1.1/animate.min.css">
+  <link rel="stylesheet" href="//cdn.jsdelivr.net/npm/@fancyapps/fancybox@3.5.7/dist/jquery.fancybox.min.css">
+
+<script class="hexo-configurations">
+    var NexT = window.NexT || {};
+    var CONFIG = {"hostname":"qnjy.github.io","root":"/","images":"/images","scheme":"Gemini","version":"8.0.2","exturl":false,"sidebar":{"position":"left","display":"post","padding":18,"offset":12},"copycode":true,"bookmark":{"enable":true,"color":"#222","save":"auto"},"fancybox":true,"mediumzoom":false,"lazyload":false,"pangu":false,"comments":{"style":"tabs","active":null,"storage":true,"lazyload":false,"nav":null},"motion":{"enable":true,"async":false,"transition":{"post_block":"fadeIn","post_header":"fadeInDown","post_body":"fadeInDown","coll_header":"fadeInLeft","sidebar":"fadeInUp"}},"prism":false,"i18n":{"placeholder":"搜索...","empty":"没有找到任何搜索结果：${query}","hits_time":"找到 ${hits} 个搜索结果（用时 ${time} 毫秒）","hits":"找到 ${hits} 个搜索结果"},"path":"/search.xml","localsearch":{"enable":true,"trigger":"auto","top_n_per_article":1,"unescape":false,"preload":false}};
+  </script>
+
+  <meta name="description" content="1 什么是RESTful　　REST全称是Representational State Transfer，中文意思是表述性状态转移。首次出现在2000年Roy Fielding的博士论文中，Roy Fielding是HTTP规范的主要编写者之一。他在论文中提到：”我这篇文章的写作目的，就是想在架构原理的前提下，理解和评估以网络为基础的应用软件的架构设计，得到一个功能强、性能好、适宜通信的架构。RE">
+<meta property="og:type" content="article">
+<meta property="og:title" content="RESTful接口设计">
+<meta property="og:url" content="https://qnjy.github.io/post/8e9be4dc.html">
+<meta property="og:site_name" content="qnjy&#39;s blog">
+<meta property="og:description" content="1 什么是RESTful　　REST全称是Representational State Transfer，中文意思是表述性状态转移。首次出现在2000年Roy Fielding的博士论文中，Roy Fielding是HTTP规范的主要编写者之一。他在论文中提到：”我这篇文章的写作目的，就是想在架构原理的前提下，理解和评估以网络为基础的应用软件的架构设计，得到一个功能强、性能好、适宜通信的架构。RE">
+<meta property="og:locale" content="zh_CN">
+<meta property="article:published_time" content="2022-02-27T09:36:56.000Z">
+<meta property="article:modified_time" content="2022-03-06T12:40:06.646Z">
+<meta property="article:author" content="qnjy">
+<meta name="twitter:card" content="summary">
+
+
+<link rel="canonical" href="https://qnjy.github.io/post/8e9be4dc.html">
+
+
+<script class="page-configurations">
+  // https://hexo.io/docs/variables.html
+  CONFIG.page = {
+    sidebar: "",
+    isHome : false,
+    isPost : true,
+    lang   : 'zh-CN'
+  };
+</script>
+
+  <title>RESTful接口设计 | qnjy's blog</title>
+  
+
+
+
+
+
+
+  <noscript>
+  <style>
+  body { margin-top: 2rem; }
+
+  .use-motion .menu-item,
+  .use-motion .sidebar,
+  .use-motion .post-block,
+  .use-motion .pagination,
+  .use-motion .comments,
+  .use-motion .post-header,
+  .use-motion .post-body,
+  .use-motion .collection-header {
+    visibility: visible;
+  }
+
+  .use-motion .header,
+  .use-motion .site-brand-container .toggle,
+  .use-motion .footer { opacity: initial; }
+
+  .use-motion .site-title,
+  .use-motion .site-subtitle,
+  .use-motion .custom-logo-image {
+    opacity: initial;
+    top: initial;
+  }
+
+  .use-motion .logo-line {
+    transform: scaleX(1);
+  }
+
+  .search-pop-overlay, .sidebar-nav { display: none; }
+  .sidebar-panel { display: block; }
+  </style>
+</noscript>
+
+</head>
+
+<body itemscope itemtype="http://schema.org/WebPage" class="use-motion">
+  <div class="headband"></div>
+
+  <main class="main">
+    <header class="header" itemscope itemtype="http://schema.org/WPHeader">
+      <div class="header-inner"><div class="site-brand-container">
+  <div class="site-nav-toggle">
+    <div class="toggle" aria-label="切换导航栏">
+        <span class="toggle-line"></span>
+        <span class="toggle-line"></span>
+        <span class="toggle-line"></span>
+    </div>
+  </div>
+
+  <div class="site-meta">
+
+    <a href="/" class="brand" rel="start">
+      <i class="logo-line"></i>
+      <h1 class="site-title">qnjy's blog</h1>
+      <i class="logo-line"></i>
+    </a>
+      <p class="site-subtitle" itemprop="description">方向不对，努力白费</p>
+  </div>
+
+  <div class="site-nav-right">
+    <div class="toggle popup-trigger">
+        <i class="fa fa-search fa-fw fa-lg"></i>
+    </div>
+  </div>
+</div>
+
+
+
+<nav class="site-nav">
+  <ul class="main-menu menu">
+        <li class="menu-item menu-item-home">
+
+    <a href="/" rel="section"><i class="fa fa-home fa-fw"></i>首页</a>
+
+  </li>
+        <li class="menu-item menu-item-tags">
+
+    <a href="/tags/" rel="section"><i class="fa fa-tags fa-fw"></i>标签</a>
+
+  </li>
+        <li class="menu-item menu-item-categories">
+
+    <a href="/categories/" rel="section"><i class="fa fa-th fa-fw"></i>分类</a>
+
+  </li>
+        <li class="menu-item menu-item-archives">
+
+    <a href="/archives/" rel="section"><i class="fa fa-archive fa-fw"></i>归档</a>
+
+  </li>
+      <li class="menu-item menu-item-search">
+        <a role="button" class="popup-trigger"><i class="fa fa-search fa-fw"></i>搜索
+        </a>
+      </li>
+  </ul>
+</nav>
+
+
+
+  <div class="search-pop-overlay">
+    <div class="popup search-popup">
+        <div class="search-header">
+  <span class="search-icon">
+    <i class="fa fa-search"></i>
+  </span>
+  <div class="search-input-container">
+    <input autocomplete="off" autocapitalize="off" maxlength="80"
+           placeholder="搜索..." spellcheck="false"
+           type="search" class="search-input">
+  </div>
+  <span class="popup-btn-close">
+    <i class="fa fa-times-circle"></i>
+  </span>
+</div>
+<div class="search-result-container no-result">
+  <div class="search-result-icon">
+    <i class="fa fa-spinner fa-pulse fa-5x"></i>
+  </div>
+</div>
+
+    </div>
+  </div>
+
+</div>
+        
+  
+  <div class="toggle sidebar-toggle">
+    <span class="toggle-line"></span>
+    <span class="toggle-line"></span>
+    <span class="toggle-line"></span>
+  </div>
+
+  <aside class="sidebar">
+
+    <div class="sidebar-inner sidebar-nav-active sidebar-toc-active">
+      <ul class="sidebar-nav">
+        <li class="sidebar-nav-toc">
+          文章目录
+        </li>
+        <li class="sidebar-nav-overview">
+          站点概览
+        </li>
+      </ul>
+
+      <div class="sidebar-panel-container">
+        <!--noindex-->
+        <section class="post-toc-wrap sidebar-panel">
+            <div class="post-toc animated"><ol class="nav"><li class="nav-item nav-level-1"><a class="nav-link" href="#1-%E4%BB%80%E4%B9%88%E6%98%AFRESTful"><span class="nav-text">1 什么是RESTful</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#2-%E4%B8%BA%E4%BB%80%E4%B9%88%E8%A6%81%E6%98%AF%E7%94%A8RESTful%E8%AF%B7%E6%B1%82%E9%A3%8E%E6%A0%BC"><span class="nav-text">2 为什么要是用RESTful请求风格</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#3-%E7%90%86%E8%A7%A3RESTful"><span class="nav-text">3 理解RESTful</span></a><ol class="nav-child"><li class="nav-item nav-level-2"><a class="nav-link" href="#3-1-%E8%B5%84%E6%BA%90%E4%B8%8EURI"><span class="nav-text">3.1 资源与URI</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#3-2-%E7%BB%9F%E4%B8%80%E8%B5%84%E6%BA%90%E6%8E%A5%E5%8F%A3"><span class="nav-text">3.2 统一资源接口</span></a><ol class="nav-child"><li class="nav-item nav-level-4"><a class="nav-link" href="#GET"><span class="nav-text">GET</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#POST"><span class="nav-text">POST</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#PUT"><span class="nav-text">PUT</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#DELETE"><span class="nav-text">DELETE</span></a></li></ol></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#3-3-%E8%B5%84%E6%BA%90%E7%9A%84%E8%A1%A8%E8%BF%B0"><span class="nav-text">3.3 资源的表述</span></a></li></ol></li><li class="nav-item nav-level-1"><a class="nav-link" href="#4-%E8%AE%BE%E8%AE%A1RESTful%E6%8E%A5%E5%8F%A3"><span class="nav-text">4 设计RESTful接口</span></a><ol class="nav-child"><li class="nav-item nav-level-2"><a class="nav-link" href="#4-1-%E8%B5%84%E6%BA%90%E8%AE%BE%E8%AE%A1%E8%A7%84%E5%88%99"><span class="nav-text">4.1 资源设计规则</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#4-2-%E5%8A%A8%E4%BD%9C%E8%AE%BE%E8%AE%A1%E8%A7%84%E5%88%99"><span class="nav-text">4.2 动作设计规则</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#4-3-%E8%BF%94%E5%9B%9E%E7%BB%93%E6%9E%9C"><span class="nav-text">4.3 返回结果</span></a></li></ol></li><li class="nav-item nav-level-1"><a class="nav-link" href="#5-Java%E4%B8%AD%E5%B8%B8%E8%A7%81%E7%9A%84RESTful%E5%BC%80%E5%8F%91%E6%A1%86%E6%9E%B6"><span class="nav-text">5 Java中常见的RESTful开发框架</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#6-RESTful%E6%8E%A5%E5%8F%A3%E7%BB%83%E4%B9%A0"><span class="nav-text">6 RESTful接口练习</span></a></li></ol></div>
+        </section>
+        <!--/noindex-->
+
+        <section class="site-overview-wrap sidebar-panel">
+          <div class="site-author site-overview-item animated" itemprop="author" itemscope itemtype="http://schema.org/Person">
+    <img class="site-author-image" itemprop="image" alt="qnjy"
+      src="/images/xigua.jpg">
+  <p class="site-author-name" itemprop="name">qnjy</p>
+  <div class="site-description" itemprop="description">宁静以致远</div>
+</div>
+<div class="site-state-wrap site-overview-item animated">
+  <nav class="site-state">
+      <div class="site-state-item site-state-posts">
+          <a href="/archives/">
+        
+          <span class="site-state-item-count">71</span>
+          <span class="site-state-item-name">日志</span>
+        </a>
+      </div>
+      <div class="site-state-item site-state-categories">
+            <a href="/categories/">
+          
+        <span class="site-state-item-count">20</span>
+        <span class="site-state-item-name">分类</span></a>
+      </div>
+      <div class="site-state-item site-state-tags">
+            <a href="/tags/">
+          
+        <span class="site-state-item-count">30</span>
+        <span class="site-state-item-name">标签</span></a>
+      </div>
+  </nav>
+</div>
+  <div class="links-of-author site-overview-item animated">
+      <span class="links-of-author-item">
+        <a href="https://github.com/qnjy" title="GitHub → https:&#x2F;&#x2F;github.com&#x2F;qnjy" rel="noopener" target="_blank"><i class="fab fa-github fa-fw"></i>GitHub</a>
+      </span>
+      <span class="links-of-author-item">
+        <a href="mailto:877900490@qq.com" title="E-Mail → mailto:877900490@qq.com" rel="noopener" target="_blank"><i class="fa fa-envelope fa-fw"></i>E-Mail</a>
+      </span>
+  </div>
+  <div class="cc-license site-overview-item animated" itemprop="license">
+    <a href="https://creativecommons.org/licenses/by-nc-sa/4.0/zh-CN" class="cc-opacity" rel="noopener" target="_blank"><img src="/images/cc-by-nc-sa.svg" alt="Creative Commons"></a>
+  </div>
+
+
+
+        </section>
+      </div>
+
+    </div>
+  </aside>
+  <div class="sidebar-dimmer"></div>
+
+
+    </header>
+
+    
+  <div class="back-to-top">
+    <i class="fa fa-arrow-up"></i>
+    <span>0%</span>
+  </div>
+  <div class="reading-progress-bar"></div>
+  <a role="button" class="book-mark-link book-mark-link-fixed"></a>
+
+<noscript>
+  <div class="noscript-warning">Theme NexT works best with JavaScript enabled</div>
+</noscript>
+
+
+    <div class="main-inner post posts-expand">
+      
+
+      
+
+  
+
+
+<div class="post-block">
+  
+  
+
+  <article itemscope itemtype="http://schema.org/Article" class="post-content" lang="zh-CN">
+    <link itemprop="mainEntityOfPage" href="https://qnjy.github.io/post/8e9be4dc.html">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="image" content="/images/xigua.jpg">
+      <meta itemprop="name" content="qnjy">
+      <meta itemprop="description" content="宁静以致远">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="qnjy's blog">
+    </span>
+      <header class="post-header">
+        <h1 class="post-title" itemprop="name headline">
+          RESTful接口设计
+        </h1>
+
+        <div class="post-meta-container">
+          <div class="post-meta">
+    <span class="post-meta-item">
+      <span class="post-meta-item-icon">
+        <i class="far fa-calendar"></i>
+      </span>
+      <span class="post-meta-item-text">发表于</span>
+
+      <time title="创建时间：2022-02-27 17:36:56" itemprop="dateCreated datePublished" datetime="2022-02-27T17:36:56+08:00">2022-02-27</time>
+    </span>
+      <span class="post-meta-item">
+        <span class="post-meta-item-icon">
+          <i class="far fa-calendar-check"></i>
+        </span>
+        <span class="post-meta-item-text">更新于</span>
+        <time title="修改时间：2022-03-06 20:40:06" itemprop="dateModified" datetime="2022-03-06T20:40:06+08:00">2022-03-06</time>
+      </span>
+
+  
+    <span class="post-meta-item" title="阅读次数" id="busuanzi_container_page_pv" style="display: none;">
+      <span class="post-meta-item-icon">
+        <i class="far fa-eye"></i>
+      </span>
+      <span class="post-meta-item-text">阅读次数：</span>
+      <span id="busuanzi_value_page_pv"></span>
+    </span>
+</div>
+
+        </div>
+      </header>
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+        <h1 id="1-什么是RESTful"><a href="#1-什么是RESTful" class="headerlink" title="1 什么是RESTful"></a>1 什么是RESTful</h1><p>　　REST全称是Representational State Transfer，中文意思是表述性状态转移。首次出现在2000年Roy Fielding的博士论文中，Roy Fielding是HTTP规范的主要编写者之一。他在论文中提到：”我这篇文章的写作目的，就是想在架构原理的前提下，理解和评估以网络为基础的应用软件的架构设计，得到一个功能强、性能好、适宜通信的架构。REST指的是一组架构约束条件和原则。“如果一个架构符合REST的约束条件和原则，我们就称它为RESTful架构。</p>
+<p>　　RESTful架构设计风格，提供了设计原则和约束条件。<span id="more"></span></p>
+<h1 id="2-为什么要是用RESTful请求风格"><a href="#2-为什么要是用RESTful请求风格" class="headerlink" title="2 为什么要是用RESTful请求风格"></a>2 为什么要是用RESTful请求风格</h1><p>　　目前<a target="_blank" rel="noopener" href="https://links.jianshu.com/go?to=http%3A%2F%2Fen.wikipedia.org%2Fwiki%2FRepresentational_state_transfer">RESTful API</a>是目前比较成熟的一套互联网应用程序的API设计理论。</p>
+<p>　　RESTful是一种设计风格，并非一个标准。因此，即使完全不用这种风格，功能上也能够满足需求。<br> 　　但是它结构清晰、符合标准、易于理解、扩展方便，越来越多网站在采用它</p>
+<h1 id="3-理解RESTful"><a href="#3-理解RESTful" class="headerlink" title="3 理解RESTful"></a>3 理解RESTful</h1><p>　　我们首先需要理解Representational State Transfer这个词组到底是什么意思，它的每一个词都有些什么含义。</p>
+<p>　　结合REST原则，围绕资源展开讨论，从资源的定义、获取、标书、关联、状态变迁等角度，列举一些关键概念并加以解释。</p>
+<ul>
+<li>资源与URI</li>
+<li>统一资源接口</li>
+<li>资源的表述</li>
+<li>资源的链接</li>
+<li>状态的转移</li>
+</ul>
+<h2 id="3-1-资源与URI"><a href="#3-1-资源与URI" class="headerlink" title="3.1 资源与URI"></a>3.1 资源与URI</h2><p>　　REST全称是表述性状态转移，这里的表述其实指的就是资源。任何事物只要有被引用的必要，它就是一个资源。资源可以是实体，可以是一个抽象的概念。</p>
+<p>　　要让一个资源可以被识别，需要有个唯一标识，在Web中这个唯一的标识就是==URI(统一资源标识符)==（Uniform Resource Identifier）。URI就可以看成资源的地址，也可以看成是资源的名称。如果某些信息没有使用URI表示，那他就不能算是一个资源，只能算是资源的一些信息而已。URI的设计应该遵循可寻址性原则，具有自描述性，需要在形式上给人直觉上的关联。以github网站为例：</p>
+<ul>
+<li><a target="_blank" rel="noopener" href="https://github.com/git">https://github.com/git</a></li>
+<li><a target="_blank" rel="noopener" href="https://github.com/git/git">https://github.com/git/git</a></li>
+<li><a target="_blank" rel="noopener" href="https://github.com/git/git/blob/master/block-sha1/sha1.h">https://github.com/git/git/blob/master/block-sha1/sha1.h</a></li>
+<li><a target="_blank" rel="noopener" href="https://github.com/git/git/commit/e3af72cdafab5993d18fae056f87e1d675913d08">https://github.com/git/git/commit/e3af72cdafab5993d18fae056f87e1d675913d08</a></li>
+<li><a target="_blank" rel="noopener" href="https://github.com/git/git/pulls">https://github.com/git/git/pulls</a></li>
+<li><a target="_blank" rel="noopener" href="https://github.com/git/git/pulls?state=closed">https://github.com/git/git/pulls?state=closed</a></li>
+<li><p><a target="_blank" rel="noopener" href="https://github.com/git/git/compare/master…next">https://github.com/git/git/compare/master…next</a></p>
+</li>
+<li><p>使用_或-来让URI可读性更好</p>
+</li>
+</ul>
+<p>曾经Web上的URI都是冰冷的数字或者无意义的字符串，但现在越来越多的网站使用_或-来分隔一些单词，让URI看上去更为人性化。 例如国内比较出名的开源中国社区，它上面的新闻地址就采用这种风格， 如<a target="_blank" rel="noopener" href="http://www.oschina.net/news/38119/oschina-translate-reward-plan。">http://www.oschina.net/news/38119/oschina-translate-reward-plan。</a></p>
+<blockquote>
+<ul>
+<li>使用/来表示资源的层级关系</li>
+</ul>
+<p>例如上述/git/git/commit/e3af72cdafab5993d18fae056f87e1d675913d08就表示了一个多级的资源， 指的是git用户的git项目的某次提交记录，又例如/orders/2012/10可以用来表示2012年10月的订单记录。</p>
+<ul>
+<li>使用?用来过滤资源</li>
+</ul>
+<p>很多人只是把?简单的当做是参数的传递，很容易造成URI过于复杂、难以理解。可以把?用于对资源的过滤， 例如/git/git/pulls用来表示git项目的所有推入请求，而/pulls?state=closed用来表示git项目中已经关闭的推入请求， 这种URL通常对应的是一些特定条件的查询结果或算法运算结果。</p>
+<ul>
+<li>,或;可以用来表示同级资源的关系</li>
+</ul>
+<p>有时候我们需要表示同级资源的关系时，可以使用,或;来进行分割。例如哪天github可以比较某个文件在随意两次提交记录之间的差异，或许可以使用/git/git /block-sha1/sha1.h/compare/e3af72cdafab5993d18fae056f87e1d675913d08;bd63e61bdf38e872d5215c07b264dcc16e4febca作为URI。 不过，现在github是使用…来做这个事情的，例如/git/git/compare/master…next。</p>
+</blockquote>
+<h2 id="3-2-统一资源接口"><a href="#3-2-统一资源接口" class="headerlink" title="3.2 统一资源接口"></a>3.2 统一资源接口</h2><p>　　RESTful架构应该遵循统一接口原则，统一接口包含了一组受限的预定义的操作，不论什么样的资源，都是通过使用相同的接口进行资源的访问。接口应该使用标准的HTTP方法如GET，PUT和POST，并遵循这些方法的语义。REST还要求，对于自愿执行的操作，操作语义必须由HTTP消息体之前的部分完全表述，不能将操作语义冯哲在HTTP消息体内部。</p>
+<p>以前</p>
+<p><a target="_blank" rel="noopener" href="http://127.0.0.1/item/queryItem.action?id=1">http://127.0.0.1/item/queryItem.action?id=1</a> （查询,GET）<br><a target="_blank" rel="noopener" href="http://127.0.0.1/item/saveItem.action">http://127.0.0.1/item/saveItem.action</a> （新增,POST）<br><a target="_blank" rel="noopener" href="http://127.0.0.1/item/updateItem.action">http://127.0.0.1/item/updateItem.action</a> （更新,POST）<br><a target="_blank" rel="noopener" href="http://127.0.0.1/item/deleteItem.action?id=1">http://127.0.0.1/item/deleteItem.action?id=1</a> （删除,GET或POST）</p>
+<p>现在 <a target="_blank" rel="noopener" href="http://127.0.0.1/item">http://127.0.0.1/item</a></p>
+<p>以下是HTTP方法的典型用法：</p>
+<blockquote>
+<h4 id="GET"><a href="#GET" class="headerlink" title="GET"></a>GET</h4><ul>
+<li>安全且幂等</li>
+<li>获取表示</li>
+<li><p>变更时获取表示（缓存）</p>
+</li>
+<li><p>200（OK） - 表示已在响应中发出</p>
+</li>
+<li><p>204（无内容） - 资源有空表示</p>
+</li>
+<li>301（Moved Permanently） - 资源的URI已被更新</li>
+<li>303（See Other） - 其他（如，负载均衡）</li>
+<li>304（not modified）- 资源未更改（缓存）</li>
+<li>400 （bad request）- 指代坏请求（如，参数错误）</li>
+<li>404 （not found）- 资源不存在</li>
+<li>406 （not acceptable）- 服务端不支持所需表示</li>
+<li>500 （internal server error）- 通用错误响应</li>
+<li>503 （Service Unavailable）- 服务端当前无法处理请求</li>
+</ul>
+<h4 id="POST"><a href="#POST" class="headerlink" title="POST"></a>POST</h4><ul>
+<li>不安全且不幂等</li>
+<li>使用服务端管理的（自动产生）的实例号创建资源</li>
+<li>创建子资源</li>
+<li>部分更新资源</li>
+<li><p>如果没有被修改，则不过更新资源（乐观锁）</p>
+</li>
+<li><p>200（OK）- 如果现有资源已被更改</p>
+</li>
+<li><p>201（created）- 如果新资源被创建</p>
+</li>
+<li>202（accepted）- 已接受处理请求但尚未完成（异步处理）</li>
+<li>301（Moved Permanently）- 资源的URI被更新</li>
+<li>303（See Other）- 其他（如，负载均衡）</li>
+<li>400（bad request）- 指代坏请求</li>
+<li>404 （not found）- 资源不存在</li>
+<li>406 （not acceptable）- 服务端不支持所需表示</li>
+<li>409 （conflict）- 通用冲突</li>
+<li>412 （Precondition Failed）- 前置条件失败（如执行条件更新时的冲突）</li>
+<li>415 （unsupported media type）- 接受到的表示不受支持</li>
+<li>500 （internal server error）- 通用错误响应</li>
+<li>503 （Service Unavailable）- 服务当前无法处理请求</li>
+</ul>
+<h4 id="PUT"><a href="#PUT" class="headerlink" title="PUT"></a>PUT</h4><ul>
+<li>不安全但幂等</li>
+<li>用客户端管理的实例号创建一个资源</li>
+<li>通过替换的方式更新资源</li>
+<li><p>如果未被修改，则更新资源（乐观锁）</p>
+</li>
+<li><p>200 （OK）- 如果已存在资源被更改</p>
+</li>
+<li><p>201 （created）- 如果新资源被创建</p>
+</li>
+<li>301（Moved Permanently）- 资源的URI已更改</li>
+<li>303 （See Other）- 其他（如，负载均衡）</li>
+<li>400 （bad request）- 指代坏请求</li>
+<li>404 （not found）- 资源不存在</li>
+<li>406 （not acceptable）- 服务端不支持所需表示</li>
+<li>409 （conflict）- 通用冲突</li>
+<li>412 （Precondition Failed）- 前置条件失败（如执行条件更新时的冲突）</li>
+<li>415 （unsupported media type）- 接受到的表示不受支持</li>
+<li>500 （internal server error）- 通用错误响应</li>
+<li>503 （Service Unavailable）- 服务当前无法处理请求</li>
+</ul>
+<h4 id="DELETE"><a href="#DELETE" class="headerlink" title="DELETE"></a>DELETE</h4><ul>
+<li>不安全但幂等</li>
+<li><p>删除资源</p>
+</li>
+<li><p>200 （OK）- 资源已被删除</p>
+</li>
+<li><p>301 （Moved Permanently）- 资源的URI已更改</p>
+</li>
+<li>303 （See Other）- 其他，如负载均衡</li>
+<li>400 （bad request）- 指代坏请求</li>
+<li>404 （not found）- 资源不存在</li>
+<li>409 （conflict）- 通用冲突</li>
+<li>500 （internal server error）- 通用错误响应</li>
+<li>503 （Service Unavailable）- 服务端当前无法处理请求</li>
+</ul>
+</blockquote>
+<h2 id="3-3-资源的表述"><a href="#3-3-资源的表述" class="headerlink" title="3.3 资源的表述"></a>3.3 资源的表述</h2><p>　　客户端通过HTTP方法可以获取资源，确切地说客户端获取的知识资源的表述而已。资源在外界的具体呈现，可以有多种表述形式，在客户端和服务端之间传送的也是资源的表述，而不是资源本身。例如文本资源可以采用html、xml、json等格式，图片可以使用png或jpg来呈现。</p>
+<p> 　　==URI只代表资源的实体，不代表它的形式==，它的具体表现形式应该是HTTP请求头信息中用Accept和Content-Type字段指定。</p>
+<p>　　资源的表述包括数据和描述数据的元数据，例如，HTTP头“Content-Type”就是这样一个元数据属性。</p>
+<p>　　客户端是如何指导服务端提供哪些表述形式？</p>
+<p>　　答案是可以通过HTTP内容协商，客户端可以通过Accept头请求一种特定格式的表述，服务端通过Content-Type告诉客户端资源的表述形式。</p>
+<h1 id="4-设计RESTful接口"><a href="#4-设计RESTful接口" class="headerlink" title="4 设计RESTful接口"></a>4 设计RESTful接口</h1><h2 id="4-1-资源设计规则"><a href="#4-1-资源设计规则" class="headerlink" title="4.1 资源设计规则"></a>4.1 资源设计规则</h2><p>以前的接口：</p>
+<p>发布帖子：www.bbc.com/bbs_post?title=xx&amp;content=xxx</p>
+<p>修改帖子：www.bbc.com/bbs_update?title=xx&amp;content=xxx</p>
+<p>删除帖子：www.bbc.com/bbs_delete?title=xx&amp;content=xxx</p>
+<p>这种方式的问题：存在大量的接口方法，URL地址设计复杂</p>
+<p>在RESTful架构中，每个网址代表一种资源，所以网址中不能有动词，只能是==名词==，而且所用的名字往往与数据库的表格名对应。一般来说，数据库中的表都是记录同种数据的“集合”（collection），所以URI中的名词也应该使用==复数==。</p>
+<p>www.xxx.com/videos</p>
+<h2 id="4-2-动作设计规则"><a href="#4-2-动作设计规则" class="headerlink" title="4.2 动作设计规则"></a>4.2 动作设计规则</h2><div class="table-container">
+<table>
+<thead>
+<tr>
+<th>方法</th>
+<th>作用</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>GET(select)</td>
+<td>从服务器取出资源</td>
+</tr>
+<tr>
+<td>POST(create)</td>
+<td>在服务器新建一个资源</td>
+</tr>
+<tr>
+<td>PUT(update)</td>
+<td>在服务器中更新资源（客户端提供改变后的完整资源），PUT更新整个对象</td>
+</tr>
+<tr>
+<td>PATCH(update)</td>
+<td>在服务器更新资源（客户端提供改变的属性【补丁】），PATCH更新个别属性</td>
+</tr>
+<tr>
+<td>DELETE(delete)</td>
+<td>从服务器中删除资源</td>
+</tr>
+</tbody>
+</table>
+</div>
+<p>动作示例：</p>
+<p>GET  /videos：列出所有的视频</p>
+<p>POST  /videos：添加一个视频</p>
+<p>GET  /videos/id：获取某个视频的信息</p>
+<p>PUT  /videos/id：更新某个视频的信息（提供该视频的全部信息）</p>
+<p>PATCH  /videos/id：更新某个视频的信息（提供该视频的部分信息）</p>
+<p>DELETE  /videos/id：删除某个视频</p>
+<h2 id="4-3-返回结果"><a href="#4-3-返回结果" class="headerlink" title="4.3 返回结果"></a>4.3 返回结果</h2><ol>
+<li><p>一个API可以允许返回JSON，XML甚至HTML等文档格式；建议使用JSON</p>
+</li>
+<li><p>以前通过URL来规定获取的格式类型，比如：</p>
+<p>xxx/employee.json；</p>
+<p>xxx/employee.html等</p>
+</li>
+</ol>
+<p>但是更建议使用Accpet这个请求头</p>
+<p>Accept与Content-Type的区别</p>
+<ol>
+<li><p>Accept属于请求头，Content-Type属于实体头</p>
+<p>Http报头分为通用报头，请求报头，响应报头和实体报头</p>
+<p>请求方的http报头结构：通用报头|请求报头|实体报头<br>响应方的http报头结构：通用报头|响应报头|实体报头</p>
+</li>
+<li><p>Accept代表发送端（客户端）希望接受的数据类型</p>
+<p>比如：Accept: application/json；</p>
+<p>代表客户端希望接受的数据类型是json类型，后台返回json数据</p>
+</li>
+</ol>
+<p>   Content-Type代表发送端（客户端|服务器）发送的实体数据的数据类型</p>
+<p>   比如：Accept: application/json；</p>
+<p>   代表发送端希望接受的数据类型是json类型，后台就要以json格式来接收前端发过来的数据</p>
+<p>两者结合起来：</p>
+<p>Accept: application/json;</p>
+<p>Content-Type; application/json;</p>
+<p>即代表希望接受的数据是json格式，本次请求发送的数据的数据格式也是json</p>
+<h1 id="5-Java中常见的RESTful开发框架"><a href="#5-Java中常见的RESTful开发框架" class="headerlink" title="5 Java中常见的RESTful开发框架"></a>5 Java中常见的RESTful开发框架</h1><ul>
+<li>Jersey</li>
+<li>play</li>
+<li>SpringMVC</li>
+</ul>
+<h1 id="6-RESTful接口练习"><a href="#6-RESTful接口练习" class="headerlink" title="6 RESTful接口练习"></a>6 RESTful接口练习</h1>
+    </div>
+
+    
+    
+    
+
+    <footer class="post-footer">
+          <div class="reward-container">
+  <div>Buy me a coffee</div>
+  <button onclick="document.querySelector('.post-reward').classList.toggle('active');">
+    赞赏
+  </button>
+  <div class="post-reward">
+      <div>
+        <img src="/images/wechatpay.jpg" alt="qnjy 微信">
+        <span>微信</span>
+      </div>
+      <div>
+        <img src="/images/alipay.jpg" alt="qnjy 支付宝">
+        <span>支付宝</span>
+      </div>
+
+  </div>
+</div>
+
+
+        
+
+          <div class="post-nav">
+            <div class="post-nav-item">
+                <a href="/post/800507c2.html" rel="prev" title="算法学习">
+                  <i class="fa fa-chevron-left"></i> 算法学习
+                </a>
+            </div>
+            <div class="post-nav-item">
+            </div>
+          </div>
+    </footer>
+  </article>
+</div>
+
+
+
+
+
+
+      
+
+<script>
+  window.addEventListener('tabs:register', () => {
+    let { activeClass } = CONFIG.comments;
+    if (CONFIG.comments.storage) {
+      activeClass = localStorage.getItem('comments_active') || activeClass;
+    }
+    if (activeClass) {
+      const activeTab = document.querySelector(`a[href="#comment-${activeClass}"]`);
+      if (activeTab) {
+        activeTab.click();
+      }
+    }
+  });
+  if (CONFIG.comments.storage) {
+    window.addEventListener('tabs:click', event => {
+      if (!event.target.matches('.tabs-comment .tab-content .tab-pane')) return;
+      const commentClass = event.target.classList[1];
+      localStorage.setItem('comments_active', commentClass);
+    });
+  }
+</script>
+
+    </div>
+  </main>
+
+  <footer class="footer">
+    <div class="footer-inner">
+      
+
+      
+
+<div class="copyright">
+  
+  &copy; 2020 – 
+  <span itemprop="copyrightYear">2022</span>
+  <span class="with-love">
+    <i class="fa fa-heart"></i>
+  </span>
+  <span class="author" itemprop="copyrightHolder">qnjy</span>
+</div>
+<div class="busuanzi-count">
+    <span class="post-meta-item" id="busuanzi_container_site_uv" style="display: none;">
+      <span class="post-meta-item-icon">
+        <i class="fa fa-user"></i>
+      </span>
+      <span class="site-uv" title="总访客量">
+        <span id="busuanzi_value_site_uv"></span>
+      </span>
+    </span>
+    <span class="post-meta-item" id="busuanzi_container_site_pv" style="display: none;">
+      <span class="post-meta-item-icon">
+        <i class="fa fa-eye"></i>
+      </span>
+      <span class="site-pv" title="总访问量">
+        <span id="busuanzi_value_site_pv"></span>
+      </span>
+    </span>
+</div>
+
+    </div>
+  </footer>
+
+  
+  <script src="//cdn.jsdelivr.net/npm/animejs@3.2.1/lib/anime.min.js"></script>
+  <script src="//cdn.jsdelivr.net/npm/jquery@3.5.1/dist/jquery.min.js"></script>
+  <script src="//cdn.jsdelivr.net/npm/@fancyapps/fancybox@3.5.7/dist/jquery.fancybox.min.js"></script>
+<script src="/js/utils.js"></script><script src="/js/motion.js"></script><script src="/js/next-boot.js"></script><script src="/js/bookmark.js"></script>
+
+  
+
+
+
+
+  <script src="/js/local-search.js"></script>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+  
+  <script async src="https://busuanzi.ibruce.info/busuanzi/2.3/busuanzi.pure.mini.js"></script>
+
+
+
+
+
+
+
+
+  
+
+  
+
+  
+
+
+
+
+
+</body>
+</html>

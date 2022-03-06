@@ -7187,7 +7187,7 @@ ASL=\sum_{i=1}^{n}p_ic_i</script><p>n：记录的个数</p>
 <p>持续每次对越来越少的元素重复上面的步骤，直到没有任何一对数字需要比较。</p>
 </blockquote>
 <p>示例：对{3,1,6,2,5}从小到大排序</p>
-<figure class="highlight angelscript"><table><tr><td class="code"><pre><span class="line"><span class="number">3</span> <span class="number">1</span> <span class="number">6</span> <span class="number">2</span> <span class="number">5</span></span><br><span class="line">第一次循环：</span><br><span class="line"><span class="number">1</span>) <span class="number">1</span> <span class="number">3</span> <span class="number">6</span> <span class="number">2</span> <span class="number">5</span></span><br><span class="line"><span class="number">2</span>) <span class="number">1</span> <span class="number">3</span> <span class="number">6</span> <span class="number">2</span> <span class="number">5</span></span><br><span class="line"><span class="number">3</span>) <span class="number">1</span> <span class="number">3</span> <span class="number">2</span> <span class="number">6</span> <span class="number">5</span></span><br><span class="line"><span class="number">4</span>) <span class="number">1</span> <span class="number">3</span> <span class="number">2</span> <span class="number">5</span> <span class="number">6</span></span><br><span class="line"></span><br><span class="line"><span class="number">1</span> <span class="number">3</span> <span class="number">2</span> <span class="number">5</span></span><br><span class="line">第二次循环：</span><br><span class="line"><span class="number">1</span>) <span class="number">1</span> <span class="number">3</span> <span class="number">2</span> <span class="number">5</span></span><br><span class="line"><span class="number">2</span>) <span class="number">1</span> <span class="number">2</span> <span class="number">3</span> <span class="number">5</span></span><br><span class="line"><span class="number">3</span>) <span class="number">1</span> <span class="number">2</span> <span class="number">3</span> <span class="number">5</span></span><br><span class="line"></span><br><span class="line"><span class="number">1</span> <span class="number">2</span> <span class="number">3</span></span><br><span class="line">第三次循环：</span><br><span class="line"><span class="number">1</span>) <span class="number">1</span> <span class="number">2</span> <span class="number">3</span></span><br><span class="line"><span class="number">2</span>) <span class="number">1</span> <span class="number">2</span> <span class="number">3</span></span><br><span class="line"></span><br><span class="line"><span class="number">1</span> <span class="number">2</span></span><br><span class="line">第四次循环：</span><br><span class="line"><span class="number">1</span>) <span class="number">1</span> <span class="number">2</span></span><br></pre></td></tr></table></figure>
+<figure class="highlight angelscript"><table><tr><td class="code"><pre><span class="line"><span class="number">3</span> <span class="number">1</span> <span class="number">6</span> <span class="number">2</span> <span class="number">5</span></span><br><span class="line">第一次循环：</span><br><span class="line"><span class="number">1</span>) <span class="number">1</span> <span class="number">3</span> <span class="number">6</span> <span class="number">2</span> <span class="number">5</span>  </span><br><span class="line"><span class="number">2</span>) <span class="number">1</span> <span class="number">3</span> <span class="number">6</span> <span class="number">2</span> <span class="number">5</span></span><br><span class="line"><span class="number">3</span>) <span class="number">1</span> <span class="number">3</span> <span class="number">2</span> <span class="number">6</span> <span class="number">5</span></span><br><span class="line"><span class="number">4</span>) <span class="number">1</span> <span class="number">3</span> <span class="number">2</span> <span class="number">5</span> <span class="number">6</span>  比较<span class="number">4</span>次</span><br><span class="line"></span><br><span class="line"><span class="number">1</span> <span class="number">3</span> <span class="number">2</span> <span class="number">5</span></span><br><span class="line">第二次循环：</span><br><span class="line"><span class="number">1</span>) <span class="number">1</span> <span class="number">3</span> <span class="number">2</span> <span class="number">5</span></span><br><span class="line"><span class="number">2</span>) <span class="number">1</span> <span class="number">2</span> <span class="number">3</span> <span class="number">5</span></span><br><span class="line"><span class="number">3</span>) <span class="number">1</span> <span class="number">2</span> <span class="number">3</span> <span class="number">5</span>    比较<span class="number">3</span>次</span><br><span class="line"></span><br><span class="line"><span class="number">1</span> <span class="number">2</span> <span class="number">3</span></span><br><span class="line">第三次循环：</span><br><span class="line"><span class="number">1</span>) <span class="number">1</span> <span class="number">2</span> <span class="number">3</span></span><br><span class="line"><span class="number">2</span>) <span class="number">1</span> <span class="number">2</span> <span class="number">3</span>     比较<span class="number">2</span>次</span><br><span class="line"></span><br><span class="line"><span class="number">1</span> <span class="number">2</span></span><br><span class="line">第四次循环：</span><br><span class="line"><span class="number">1</span>) <span class="number">1</span> <span class="number">2</span>        比较<span class="number">1</span>次</span><br></pre></td></tr></table></figure>
 <p>总结：走访次数=数组个数-1</p>
 <blockquote>
 <p>代码部分</p>
@@ -7206,6 +7206,231 @@ ASL=\sum_{i=1}^{n}p_ic_i</script><p>n：记录的个数</p>
 <p>代码部分</p>
 </blockquote>
 <figure class="highlight java"><table><tr><td class="code"><pre><span class="line"><span class="keyword">public</span> <span class="class"><span class="keyword">class</span> <span class="title">SelectSort</span> </span>&#123;</span><br><span class="line">    <span class="function"><span class="keyword">public</span> <span class="keyword">static</span> <span class="keyword">void</span> <span class="title">main</span><span class="params">(String[] args)</span> </span>&#123;</span><br><span class="line">        <span class="keyword">int</span>[] arr = &#123;<span class="number">3</span>, <span class="number">1</span>, <span class="number">6</span>, <span class="number">2</span>, <span class="number">5</span>&#125;;</span><br><span class="line"></span><br><span class="line">        <span class="comment">//5条数据循环4次（外层循环4次）</span></span><br><span class="line">        <span class="comment">//i正好是参加比较的数据中最左边数据的下标</span></span><br><span class="line">        <span class="keyword">for</span> (<span class="keyword">int</span> i = <span class="number">0</span>; i &lt; arr.length - <span class="number">1</span>; i++) &#123;</span><br><span class="line">            <span class="comment">//j</span></span><br><span class="line">            <span class="comment">//假设起点i下标位置上的元素是最小的</span></span><br><span class="line">            <span class="keyword">int</span> min = i;</span><br><span class="line"></span><br><span class="line">            <span class="comment">//挑出单次循环中，数组最小的交换下标</span></span><br><span class="line">            <span class="keyword">for</span> (<span class="keyword">int</span> j = i + <span class="number">1</span>; j &lt; arr.length; j++) &#123;</span><br><span class="line">                <span class="keyword">if</span> (arr[min] &gt; arr[j]) &#123;</span><br><span class="line">                    min = j;</span><br><span class="line">                &#125;</span><br><span class="line">            &#125;</span><br><span class="line"></span><br><span class="line">            <span class="comment">//当i和min相等时，表示最初的猜测是对的</span></span><br><span class="line">            <span class="comment">//当i和min不相等时，表示最初的猜测是错的，有比这个元素更小的</span></span><br><span class="line">            <span class="comment">//需要拿着这个更小的元素和最左边的元素交换位置</span></span><br><span class="line">            <span class="keyword">if</span> (min != i) &#123;</span><br><span class="line">                <span class="comment">//表示存在更小的数据</span></span><br><span class="line">                <span class="comment">//arr[min]最小的数据</span></span><br><span class="line">                <span class="comment">//arr[i]最前面的数据</span></span><br><span class="line">                <span class="keyword">int</span> temp = arr[min];</span><br><span class="line">                arr[min] = arr[i];</span><br><span class="line">                arr[i] = temp;</span><br><span class="line">            &#125;</span><br><span class="line"></span><br><span class="line">        &#125;</span><br><span class="line"></span><br><span class="line">        <span class="keyword">for</span> (<span class="keyword">int</span> i = <span class="number">0</span>; i &lt; arr.length; i++) &#123;</span><br><span class="line">            System.out.print(arr[i] + <span class="string">&quot; &quot;</span>);</span><br><span class="line">        &#125;</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<h2 id="3-快速排序"><a href="#3-快速排序" class="headerlink" title="3 快速排序"></a>3 快速排序</h2><p>　　快速排序是对冒泡排序的一种改进。将要排序的数据分割成独立的两部分，其中一部分的数据都比另一部分所有的数据小，之后按照此方法递归至有序序列。</p>
+<p>　　<em>快速排序的最坏运行情况是 O(n²)，比如说顺序数列的快排。但它的平摊期望时间是 O(nlogn)，且 O(nlogn) 记号中隐含的常数因子很小，比复杂度稳定等于 O(nlogn) 的归并排序要小很多。所以，对绝大多数顺序性较弱的随机数列而言，快速排序总是优于归并排序。</em></p>
+<blockquote>
+<p>算法步骤</p>
+<ol>
+<li>从数列中挑出一个元素，称为 “基准”（pivot）;</li>
+<li>重新排序数列，所有元素比基准值小的摆放在基准前面，所有元素比基准值大的摆在基准的后面（相同的数可以到任一边）。在这个分区退出之后，该基准就处于数列的中间位置。这个称为分区（partition）操作；</li>
+<li>递归地（recursive）把小于基准值元素的子数列和大于基准值元素的子数列排序；</li>
+</ol>
+</blockquote>
+<h2 id="4-插入排序"><a href="#4-插入排序" class="headerlink" title="4 插入排序"></a>4 插入排序</h2><p>　　</p>
 ]]></content>
+  </entry>
+  <entry>
+    <title>RESTful接口设计</title>
+    <url>/post/8e9be4dc.html</url>
+    <content><![CDATA[<h1 id="1-什么是RESTful"><a href="#1-什么是RESTful" class="headerlink" title="1 什么是RESTful"></a>1 什么是RESTful</h1><p>　　REST全称是Representational State Transfer，中文意思是表述性状态转移。首次出现在2000年Roy Fielding的博士论文中，Roy Fielding是HTTP规范的主要编写者之一。他在论文中提到：”我这篇文章的写作目的，就是想在架构原理的前提下，理解和评估以网络为基础的应用软件的架构设计，得到一个功能强、性能好、适宜通信的架构。REST指的是一组架构约束条件和原则。“如果一个架构符合REST的约束条件和原则，我们就称它为RESTful架构。</p>
+<p>　　RESTful架构设计风格，提供了设计原则和约束条件。<span id="more"></span></p>
+<h1 id="2-为什么要是用RESTful请求风格"><a href="#2-为什么要是用RESTful请求风格" class="headerlink" title="2 为什么要是用RESTful请求风格"></a>2 为什么要是用RESTful请求风格</h1><p>　　目前<a href="https://links.jianshu.com/go?to=http%3A%2F%2Fen.wikipedia.org%2Fwiki%2FRepresentational_state_transfer">RESTful API</a>是目前比较成熟的一套互联网应用程序的API设计理论。</p>
+<p>　　RESTful是一种设计风格，并非一个标准。因此，即使完全不用这种风格，功能上也能够满足需求。<br> 　　但是它结构清晰、符合标准、易于理解、扩展方便，越来越多网站在采用它</p>
+<h1 id="3-理解RESTful"><a href="#3-理解RESTful" class="headerlink" title="3 理解RESTful"></a>3 理解RESTful</h1><p>　　我们首先需要理解Representational State Transfer这个词组到底是什么意思，它的每一个词都有些什么含义。</p>
+<p>　　结合REST原则，围绕资源展开讨论，从资源的定义、获取、标书、关联、状态变迁等角度，列举一些关键概念并加以解释。</p>
+<ul>
+<li>资源与URI</li>
+<li>统一资源接口</li>
+<li>资源的表述</li>
+<li>资源的链接</li>
+<li>状态的转移</li>
+</ul>
+<h2 id="3-1-资源与URI"><a href="#3-1-资源与URI" class="headerlink" title="3.1 资源与URI"></a>3.1 资源与URI</h2><p>　　REST全称是表述性状态转移，这里的表述其实指的就是资源。任何事物只要有被引用的必要，它就是一个资源。资源可以是实体，可以是一个抽象的概念。</p>
+<p>　　要让一个资源可以被识别，需要有个唯一标识，在Web中这个唯一的标识就是==URI(统一资源标识符)==（Uniform Resource Identifier）。URI就可以看成资源的地址，也可以看成是资源的名称。如果某些信息没有使用URI表示，那他就不能算是一个资源，只能算是资源的一些信息而已。URI的设计应该遵循可寻址性原则，具有自描述性，需要在形式上给人直觉上的关联。以github网站为例：</p>
+<ul>
+<li><a href="https://github.com/git">https://github.com/git</a></li>
+<li><a href="https://github.com/git/git">https://github.com/git/git</a></li>
+<li><a href="https://github.com/git/git/blob/master/block-sha1/sha1.h">https://github.com/git/git/blob/master/block-sha1/sha1.h</a></li>
+<li><a href="https://github.com/git/git/commit/e3af72cdafab5993d18fae056f87e1d675913d08">https://github.com/git/git/commit/e3af72cdafab5993d18fae056f87e1d675913d08</a></li>
+<li><a href="https://github.com/git/git/pulls">https://github.com/git/git/pulls</a></li>
+<li><a href="https://github.com/git/git/pulls?state=closed">https://github.com/git/git/pulls?state=closed</a></li>
+<li><p><a href="https://github.com/git/git/compare/master…next">https://github.com/git/git/compare/master…next</a></p>
+</li>
+<li><p>使用_或-来让URI可读性更好</p>
+</li>
+</ul>
+<p>曾经Web上的URI都是冰冷的数字或者无意义的字符串，但现在越来越多的网站使用_或-来分隔一些单词，让URI看上去更为人性化。 例如国内比较出名的开源中国社区，它上面的新闻地址就采用这种风格， 如<a href="http://www.oschina.net/news/38119/oschina-translate-reward-plan。">http://www.oschina.net/news/38119/oschina-translate-reward-plan。</a></p>
+<blockquote>
+<ul>
+<li>使用/来表示资源的层级关系</li>
+</ul>
+<p>例如上述/git/git/commit/e3af72cdafab5993d18fae056f87e1d675913d08就表示了一个多级的资源， 指的是git用户的git项目的某次提交记录，又例如/orders/2012/10可以用来表示2012年10月的订单记录。</p>
+<ul>
+<li>使用?用来过滤资源</li>
+</ul>
+<p>很多人只是把?简单的当做是参数的传递，很容易造成URI过于复杂、难以理解。可以把?用于对资源的过滤， 例如/git/git/pulls用来表示git项目的所有推入请求，而/pulls?state=closed用来表示git项目中已经关闭的推入请求， 这种URL通常对应的是一些特定条件的查询结果或算法运算结果。</p>
+<ul>
+<li>,或;可以用来表示同级资源的关系</li>
+</ul>
+<p>有时候我们需要表示同级资源的关系时，可以使用,或;来进行分割。例如哪天github可以比较某个文件在随意两次提交记录之间的差异，或许可以使用/git/git /block-sha1/sha1.h/compare/e3af72cdafab5993d18fae056f87e1d675913d08;bd63e61bdf38e872d5215c07b264dcc16e4febca作为URI。 不过，现在github是使用…来做这个事情的，例如/git/git/compare/master…next。</p>
+</blockquote>
+<h2 id="3-2-统一资源接口"><a href="#3-2-统一资源接口" class="headerlink" title="3.2 统一资源接口"></a>3.2 统一资源接口</h2><p>　　RESTful架构应该遵循统一接口原则，统一接口包含了一组受限的预定义的操作，不论什么样的资源，都是通过使用相同的接口进行资源的访问。接口应该使用标准的HTTP方法如GET，PUT和POST，并遵循这些方法的语义。REST还要求，对于自愿执行的操作，操作语义必须由HTTP消息体之前的部分完全表述，不能将操作语义冯哲在HTTP消息体内部。</p>
+<p>以前</p>
+<p><a href="http://127.0.0.1/item/queryItem.action?id=1">http://127.0.0.1/item/queryItem.action?id=1</a> （查询,GET）<br><a href="http://127.0.0.1/item/saveItem.action">http://127.0.0.1/item/saveItem.action</a> （新增,POST）<br><a href="http://127.0.0.1/item/updateItem.action">http://127.0.0.1/item/updateItem.action</a> （更新,POST）<br><a href="http://127.0.0.1/item/deleteItem.action?id=1">http://127.0.0.1/item/deleteItem.action?id=1</a> （删除,GET或POST）</p>
+<p>现在 <a href="http://127.0.0.1/item">http://127.0.0.1/item</a></p>
+<p>以下是HTTP方法的典型用法：</p>
+<blockquote>
+<h4 id="GET"><a href="#GET" class="headerlink" title="GET"></a>GET</h4><ul>
+<li>安全且幂等</li>
+<li>获取表示</li>
+<li><p>变更时获取表示（缓存）</p>
+</li>
+<li><p>200（OK） - 表示已在响应中发出</p>
+</li>
+<li><p>204（无内容） - 资源有空表示</p>
+</li>
+<li>301（Moved Permanently） - 资源的URI已被更新</li>
+<li>303（See Other） - 其他（如，负载均衡）</li>
+<li>304（not modified）- 资源未更改（缓存）</li>
+<li>400 （bad request）- 指代坏请求（如，参数错误）</li>
+<li>404 （not found）- 资源不存在</li>
+<li>406 （not acceptable）- 服务端不支持所需表示</li>
+<li>500 （internal server error）- 通用错误响应</li>
+<li>503 （Service Unavailable）- 服务端当前无法处理请求</li>
+</ul>
+<h4 id="POST"><a href="#POST" class="headerlink" title="POST"></a>POST</h4><ul>
+<li>不安全且不幂等</li>
+<li>使用服务端管理的（自动产生）的实例号创建资源</li>
+<li>创建子资源</li>
+<li>部分更新资源</li>
+<li><p>如果没有被修改，则不过更新资源（乐观锁）</p>
+</li>
+<li><p>200（OK）- 如果现有资源已被更改</p>
+</li>
+<li><p>201（created）- 如果新资源被创建</p>
+</li>
+<li>202（accepted）- 已接受处理请求但尚未完成（异步处理）</li>
+<li>301（Moved Permanently）- 资源的URI被更新</li>
+<li>303（See Other）- 其他（如，负载均衡）</li>
+<li>400（bad request）- 指代坏请求</li>
+<li>404 （not found）- 资源不存在</li>
+<li>406 （not acceptable）- 服务端不支持所需表示</li>
+<li>409 （conflict）- 通用冲突</li>
+<li>412 （Precondition Failed）- 前置条件失败（如执行条件更新时的冲突）</li>
+<li>415 （unsupported media type）- 接受到的表示不受支持</li>
+<li>500 （internal server error）- 通用错误响应</li>
+<li>503 （Service Unavailable）- 服务当前无法处理请求</li>
+</ul>
+<h4 id="PUT"><a href="#PUT" class="headerlink" title="PUT"></a>PUT</h4><ul>
+<li>不安全但幂等</li>
+<li>用客户端管理的实例号创建一个资源</li>
+<li>通过替换的方式更新资源</li>
+<li><p>如果未被修改，则更新资源（乐观锁）</p>
+</li>
+<li><p>200 （OK）- 如果已存在资源被更改</p>
+</li>
+<li><p>201 （created）- 如果新资源被创建</p>
+</li>
+<li>301（Moved Permanently）- 资源的URI已更改</li>
+<li>303 （See Other）- 其他（如，负载均衡）</li>
+<li>400 （bad request）- 指代坏请求</li>
+<li>404 （not found）- 资源不存在</li>
+<li>406 （not acceptable）- 服务端不支持所需表示</li>
+<li>409 （conflict）- 通用冲突</li>
+<li>412 （Precondition Failed）- 前置条件失败（如执行条件更新时的冲突）</li>
+<li>415 （unsupported media type）- 接受到的表示不受支持</li>
+<li>500 （internal server error）- 通用错误响应</li>
+<li>503 （Service Unavailable）- 服务当前无法处理请求</li>
+</ul>
+<h4 id="DELETE"><a href="#DELETE" class="headerlink" title="DELETE"></a>DELETE</h4><ul>
+<li>不安全但幂等</li>
+<li><p>删除资源</p>
+</li>
+<li><p>200 （OK）- 资源已被删除</p>
+</li>
+<li><p>301 （Moved Permanently）- 资源的URI已更改</p>
+</li>
+<li>303 （See Other）- 其他，如负载均衡</li>
+<li>400 （bad request）- 指代坏请求</li>
+<li>404 （not found）- 资源不存在</li>
+<li>409 （conflict）- 通用冲突</li>
+<li>500 （internal server error）- 通用错误响应</li>
+<li>503 （Service Unavailable）- 服务端当前无法处理请求</li>
+</ul>
+</blockquote>
+<h2 id="3-3-资源的表述"><a href="#3-3-资源的表述" class="headerlink" title="3.3 资源的表述"></a>3.3 资源的表述</h2><p>　　客户端通过HTTP方法可以获取资源，确切地说客户端获取的知识资源的表述而已。资源在外界的具体呈现，可以有多种表述形式，在客户端和服务端之间传送的也是资源的表述，而不是资源本身。例如文本资源可以采用html、xml、json等格式，图片可以使用png或jpg来呈现。</p>
+<p> 　　==URI只代表资源的实体，不代表它的形式==，它的具体表现形式应该是HTTP请求头信息中用Accept和Content-Type字段指定。</p>
+<p>　　资源的表述包括数据和描述数据的元数据，例如，HTTP头“Content-Type”就是这样一个元数据属性。</p>
+<p>　　客户端是如何指导服务端提供哪些表述形式？</p>
+<p>　　答案是可以通过HTTP内容协商，客户端可以通过Accept头请求一种特定格式的表述，服务端通过Content-Type告诉客户端资源的表述形式。</p>
+<h1 id="4-设计RESTful接口"><a href="#4-设计RESTful接口" class="headerlink" title="4 设计RESTful接口"></a>4 设计RESTful接口</h1><h2 id="4-1-资源设计规则"><a href="#4-1-资源设计规则" class="headerlink" title="4.1 资源设计规则"></a>4.1 资源设计规则</h2><p>以前的接口：</p>
+<p>发布帖子：www.bbc.com/bbs_post?title=xx&amp;content=xxx</p>
+<p>修改帖子：www.bbc.com/bbs_update?title=xx&amp;content=xxx</p>
+<p>删除帖子：www.bbc.com/bbs_delete?title=xx&amp;content=xxx</p>
+<p>这种方式的问题：存在大量的接口方法，URL地址设计复杂</p>
+<p>在RESTful架构中，每个网址代表一种资源，所以网址中不能有动词，只能是==名词==，而且所用的名字往往与数据库的表格名对应。一般来说，数据库中的表都是记录同种数据的“集合”（collection），所以URI中的名词也应该使用==复数==。</p>
+<p>www.xxx.com/videos</p>
+<h2 id="4-2-动作设计规则"><a href="#4-2-动作设计规则" class="headerlink" title="4.2 动作设计规则"></a>4.2 动作设计规则</h2><div class="table-container">
+<table>
+<thead>
+<tr>
+<th>方法</th>
+<th>作用</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>GET(select)</td>
+<td>从服务器取出资源</td>
+</tr>
+<tr>
+<td>POST(create)</td>
+<td>在服务器新建一个资源</td>
+</tr>
+<tr>
+<td>PUT(update)</td>
+<td>在服务器中更新资源（客户端提供改变后的完整资源），PUT更新整个对象</td>
+</tr>
+<tr>
+<td>PATCH(update)</td>
+<td>在服务器更新资源（客户端提供改变的属性【补丁】），PATCH更新个别属性</td>
+</tr>
+<tr>
+<td>DELETE(delete)</td>
+<td>从服务器中删除资源</td>
+</tr>
+</tbody>
+</table>
+</div>
+<p>动作示例：</p>
+<p>GET  /videos：列出所有的视频</p>
+<p>POST  /videos：添加一个视频</p>
+<p>GET  /videos/id：获取某个视频的信息</p>
+<p>PUT  /videos/id：更新某个视频的信息（提供该视频的全部信息）</p>
+<p>PATCH  /videos/id：更新某个视频的信息（提供该视频的部分信息）</p>
+<p>DELETE  /videos/id：删除某个视频</p>
+<h2 id="4-3-返回结果"><a href="#4-3-返回结果" class="headerlink" title="4.3 返回结果"></a>4.3 返回结果</h2><ol>
+<li><p>一个API可以允许返回JSON，XML甚至HTML等文档格式；建议使用JSON</p>
+</li>
+<li><p>以前通过URL来规定获取的格式类型，比如：</p>
+<p>xxx/employee.json；</p>
+<p>xxx/employee.html等</p>
+</li>
+</ol>
+<p>但是更建议使用Accpet这个请求头</p>
+<p>Accept与Content-Type的区别</p>
+<ol>
+<li><p>Accept属于请求头，Content-Type属于实体头</p>
+<p>Http报头分为通用报头，请求报头，响应报头和实体报头</p>
+<p>请求方的http报头结构：通用报头|请求报头|实体报头<br>响应方的http报头结构：通用报头|响应报头|实体报头</p>
+</li>
+<li><p>Accept代表发送端（客户端）希望接受的数据类型</p>
+<p>比如：Accept: application/json；</p>
+<p>代表客户端希望接受的数据类型是json类型，后台返回json数据</p>
+</li>
+</ol>
+<p>   Content-Type代表发送端（客户端|服务器）发送的实体数据的数据类型</p>
+<p>   比如：Accept: application/json；</p>
+<p>   代表发送端希望接受的数据类型是json类型，后台就要以json格式来接收前端发过来的数据</p>
+<p>两者结合起来：</p>
+<p>Accept: application/json;</p>
+<p>Content-Type; application/json;</p>
+<p>即代表希望接受的数据是json格式，本次请求发送的数据的数据格式也是json</p>
+<h1 id="5-Java中常见的RESTful开发框架"><a href="#5-Java中常见的RESTful开发框架" class="headerlink" title="5 Java中常见的RESTful开发框架"></a>5 Java中常见的RESTful开发框架</h1><ul>
+<li>Jersey</li>
+<li>play</li>
+<li>SpringMVC</li>
+</ul>
+<h1 id="6-RESTful接口练习"><a href="#6-RESTful接口练习" class="headerlink" title="6 RESTful接口练习"></a>6 RESTful接口练习</h1>]]></content>
   </entry>
 </search>
