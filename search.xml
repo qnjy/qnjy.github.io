@@ -7095,7 +7095,7 @@ ASL=\sum_{i=1}^{n}p_ic_i</script><p>n：记录的个数</p>
 <p><code>yum -y install gcc</code></p>
 <p>后面会用到解压命令，也把unzip安装一下</p>
 <p><code>yum install -y unzip zip</code></p>
-<h3 id="1-1-2-安装libevent"><a href="#1-1-2-安装libevent" class="headerlink" title="1.1.2 安装libevent"></a>1.1.2 安装libevent</h3><p><code>yumm -y install libevent</code></p>
+<h3 id="1-1-2-安装libevent"><a href="#1-1-2-安装libevent" class="headerlink" title="1.1.2 安装libevent"></a>1.1.2 安装libevent<span id="more"></span></h3><p><code>yumm -y install libevent</code></p>
 <h3 id="1-1-3-安装libfastcommon-master"><a href="#1-1-3-安装libfastcommon-master" class="headerlink" title="1.1.3 安装libfastcommon-master"></a>1.1.3 安装libfastcommon-master</h3><figure class="highlight shell"><table><tr><td class="code"><pre><span class="line">解压刚刚上传的libfastcommonmaster</span><br><span class="line">unzip libfastcommon-master.zip</span><br><span class="line"></span><br><span class="line">进入解压完成的目录</span><br><span class="line">cd libfastcommon-master</span><br><span class="line"></span><br><span class="line">编译并且安装：</span><br><span class="line">./make.sh</span><br><span class="line">./make.sh install</span><br></pre></td></tr></table></figure>
 <h3 id="1-1-4-安装fastdfs"><a href="#1-1-4-安装fastdfs" class="headerlink" title="1.1.4 安装fastdfs"></a>1.1.4 安装fastdfs</h3><figure class="highlight shell"><table><tr><td class="code"><pre><span class="line">tar -zxvf FastDFS_v5.08.tar.gz</span><br><span class="line"></span><br><span class="line">cd FastDFS</span><br><span class="line"></span><br><span class="line">./make.sh</span><br><span class="line"></span><br><span class="line">./make.sh install</span><br></pre></td></tr></table></figure>
 <p>如果安装成功，会看到/etc/init.d/下看到提供的脚本文件:</p>
@@ -7146,7 +7146,7 @@ ASL=\sum_{i=1}^{n}p_ic_i</script><p>n：记录的个数</p>
   <entry>
     <title>乐优商城-day01</title>
     <url>/post/fb1d2a49.html</url>
-    <content><![CDATA[<h1 id="1-跨域问题"><a href="#1-跨域问题" class="headerlink" title="1.跨域问题"></a>1.跨域问题</h1><h2 id="1-1-什么是跨域问题"><a href="#1-1-什么是跨域问题" class="headerlink" title="1.1 什么是跨域问题"></a>1.1 什么是跨域问题</h2><h2 id="1-2-解决方案"><a href="#1-2-解决方案" class="headerlink" title="1.2 解决方案"></a>1.2 解决方案</h2><ul>
+    <content><![CDATA[<h1 id="1-跨域问题"><a href="#1-跨域问题" class="headerlink" title="1.跨域问题"></a>1.跨域问题</h1><h2 id="1-1-什么是跨域问题"><a href="#1-1-什么是跨域问题" class="headerlink" title="1.1 什么是跨域问题"></a>1.1 什么是跨域问题</h2><h2 id="1-2-解决方案"><a href="#1-2-解决方案" class="headerlink" title="1.2 解决方案"></a>1.2 解决方案<span id="more"></span></h2><ul>
 <li><p>jsonp</p>
 <p>最早的解决方案，利用script标签可以跨域的原理实现</p>
 <p>限制：</p>
@@ -7186,7 +7186,7 @@ ASL=\sum_{i=1}^{n}p_ic_i</script><p>n：记录的个数</p>
 <p>针对所有的元素重复以上的步骤，除了最后一个。</p>
 <p>持续每次对越来越少的元素重复上面的步骤，直到没有任何一对数字需要比较。</p>
 </blockquote>
-<p>示例：对{3,1,6,2,5}从小到大排序</p>
+<p>示例：对{3,1,6,2,5}从小到大排序<span id="more"></span></p>
 <figure class="highlight angelscript"><table><tr><td class="code"><pre><span class="line"><span class="number">3</span> <span class="number">1</span> <span class="number">6</span> <span class="number">2</span> <span class="number">5</span></span><br><span class="line">第一次循环：</span><br><span class="line"><span class="number">1</span>) <span class="number">1</span> <span class="number">3</span> <span class="number">6</span> <span class="number">2</span> <span class="number">5</span>  </span><br><span class="line"><span class="number">2</span>) <span class="number">1</span> <span class="number">3</span> <span class="number">6</span> <span class="number">2</span> <span class="number">5</span></span><br><span class="line"><span class="number">3</span>) <span class="number">1</span> <span class="number">3</span> <span class="number">2</span> <span class="number">6</span> <span class="number">5</span></span><br><span class="line"><span class="number">4</span>) <span class="number">1</span> <span class="number">3</span> <span class="number">2</span> <span class="number">5</span> <span class="number">6</span>  比较<span class="number">4</span>次</span><br><span class="line"></span><br><span class="line"><span class="number">1</span> <span class="number">3</span> <span class="number">2</span> <span class="number">5</span></span><br><span class="line">第二次循环：</span><br><span class="line"><span class="number">1</span>) <span class="number">1</span> <span class="number">3</span> <span class="number">2</span> <span class="number">5</span></span><br><span class="line"><span class="number">2</span>) <span class="number">1</span> <span class="number">2</span> <span class="number">3</span> <span class="number">5</span></span><br><span class="line"><span class="number">3</span>) <span class="number">1</span> <span class="number">2</span> <span class="number">3</span> <span class="number">5</span>    比较<span class="number">3</span>次</span><br><span class="line"></span><br><span class="line"><span class="number">1</span> <span class="number">2</span> <span class="number">3</span></span><br><span class="line">第三次循环：</span><br><span class="line"><span class="number">1</span>) <span class="number">1</span> <span class="number">2</span> <span class="number">3</span></span><br><span class="line"><span class="number">2</span>) <span class="number">1</span> <span class="number">2</span> <span class="number">3</span>     比较<span class="number">2</span>次</span><br><span class="line"></span><br><span class="line"><span class="number">1</span> <span class="number">2</span></span><br><span class="line">第四次循环：</span><br><span class="line"><span class="number">1</span>) <span class="number">1</span> <span class="number">2</span>        比较<span class="number">1</span>次</span><br></pre></td></tr></table></figure>
 <p>总结：走访次数=数组个数-1</p>
 <blockquote>
@@ -7431,6 +7431,23 @@ ASL=\sum_{i=1}^{n}p_ic_i</script><p>n：记录的个数</p>
 <li>play</li>
 <li>SpringMVC</li>
 </ul>
-<h1 id="6-RESTful接口练习"><a href="#6-RESTful接口练习" class="headerlink" title="6 RESTful接口练习"></a>6 RESTful接口练习</h1>]]></content>
+<h1 id="6-restful风格API使用规则"><a href="#6-restful风格API使用规则" class="headerlink" title="6 restful风格API使用规则"></a>6 restful风格API使用规则</h1><p>可以简单理解为restful风格把网址简化了，同一个网址使用不同的请求方法（GET、POST、PUT、DELETE）获得不同的数据，相比传统的接口设计更加简便。根据项目的需求，可以按照这样的规则进行设计，方便之后前后端的联调。</p>
+<ul>
+<li><p>URI链接中使用名词复数</p>
+<p>如果存在文章方面的功能需求</p>
+<p>不要使用：</p>
+<p>www.ccnnaa.com/getAllArticle</p>
+<p>www.ccnnaa.com/createArticle</p>
+<p>建议使用：</p>
+<p>www.ccnnaa.com/articles</p>
+</li>
+<li><p>子资源表达关系</p>
+<p>GET /article/124598  返回id为123598的文章</p>
+</li>
+<li><p>方法使用规则</p>
+<p>| 方法           | 作用 |<br>| ——————— | —— |<br>| GET(select)    | 查   |<br>| POST(create)   | 新建 |<br>| PUT(update)    | 修改 |<br>| DELETE(delete) | 删除 |</p>
+</li>
+</ul>
+]]></content>
   </entry>
 </search>
