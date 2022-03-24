@@ -536,14 +536,14 @@
   </url>
   
   <url>
-    <loc>https://qnjy.github.io/tags/IDEA%E4%BD%BF%E7%94%A8%E9%97%AE%E9%A2%98/</loc>
+    <loc>https://qnjy.github.io/tags/%E5%88%9B%E5%BB%BA%E9%A1%B9%E7%9B%AE/</loc>
     <lastmod>2022-03-24</lastmod>
     <changefreq>daily</changefreq>
     <priority>0.6</priority>
   </url>
   
   <url>
-    <loc>https://qnjy.github.io/tags/%E5%88%9B%E5%BB%BA%E9%A1%B9%E7%9B%AE/</loc>
+    <loc>https://qnjy.github.io/tags/IDEA%E4%BD%BF%E7%94%A8%E9%97%AE%E9%A2%98/</loc>
     <lastmod>2022-03-24</lastmod>
     <changefreq>daily</changefreq>
     <priority>0.6</priority>
@@ -564,14 +564,14 @@
   </url>
   
   <url>
-    <loc>https://qnjy.github.io/tags/Linux/</loc>
+    <loc>https://qnjy.github.io/tags/Java/</loc>
     <lastmod>2022-03-24</lastmod>
     <changefreq>daily</changefreq>
     <priority>0.6</priority>
   </url>
   
   <url>
-    <loc>https://qnjy.github.io/tags/Java/</loc>
+    <loc>https://qnjy.github.io/tags/Linux/</loc>
     <lastmod>2022-03-24</lastmod>
     <changefreq>daily</changefreq>
     <priority>0.6</priority>
@@ -634,6 +634,13 @@
   </url>
   
   <url>
+    <loc>https://qnjy.github.io/tags/nginx/</loc>
+    <lastmod>2022-03-24</lastmod>
+    <changefreq>daily</changefreq>
+    <priority>0.6</priority>
+  </url>
+  
+  <url>
     <loc>https://qnjy.github.io/tags/MySQL/</loc>
     <lastmod>2022-03-24</lastmod>
     <changefreq>daily</changefreq>
@@ -648,7 +655,7 @@
   </url>
   
   <url>
-    <loc>https://qnjy.github.io/tags/nginx/</loc>
+    <loc>https://qnjy.github.io/tags/Python/</loc>
     <lastmod>2022-03-24</lastmod>
     <changefreq>daily</changefreq>
     <priority>0.6</priority>
@@ -656,13 +663,6 @@
   
   <url>
     <loc>https://qnjy.github.io/tags/PHP/</loc>
-    <lastmod>2022-03-24</lastmod>
-    <changefreq>daily</changefreq>
-    <priority>0.6</priority>
-  </url>
-  
-  <url>
-    <loc>https://qnjy.github.io/tags/Python/</loc>
     <lastmod>2022-03-24</lastmod>
     <changefreq>daily</changefreq>
     <priority>0.6</priority>
@@ -811,14 +811,14 @@
   </url>
   
   <url>
-    <loc>https://qnjy.github.io/categories/mysql%E5%AD%A6%E4%B9%A0/</loc>
+    <loc>https://qnjy.github.io/categories/linux%E5%AD%A6%E4%B9%A0/</loc>
     <lastmod>2022-03-24</lastmod>
     <changefreq>daily</changefreq>
     <priority>0.6</priority>
   </url>
   
   <url>
-    <loc>https://qnjy.github.io/categories/linux%E5%AD%A6%E4%B9%A0/</loc>
+    <loc>https://qnjy.github.io/categories/mysql%E5%AD%A6%E4%B9%A0/</loc>
     <lastmod>2022-03-24</lastmod>
     <changefreq>daily</changefreq>
     <priority>0.6</priority>
