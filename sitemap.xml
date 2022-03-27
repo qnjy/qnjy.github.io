@@ -564,13 +564,6 @@
   </url>
   
   <url>
-    <loc>https://qnjy.github.io/tags/JavaScript/</loc>
-    <lastmod>2022-03-27</lastmod>
-    <changefreq>daily</changefreq>
-    <priority>0.6</priority>
-  </url>
-  
-  <url>
     <loc>https://qnjy.github.io/tags/Java/</loc>
     <lastmod>2022-03-27</lastmod>
     <changefreq>daily</changefreq>
@@ -578,14 +571,14 @@
   </url>
   
   <url>
-    <loc>https://qnjy.github.io/tags/Linux/</loc>
+    <loc>https://qnjy.github.io/tags/JavaScript/</loc>
     <lastmod>2022-03-27</lastmod>
     <changefreq>daily</changefreq>
     <priority>0.6</priority>
   </url>
   
   <url>
-    <loc>https://qnjy.github.io/tags/MongoDB/</loc>
+    <loc>https://qnjy.github.io/tags/Linux/</loc>
     <lastmod>2022-03-27</lastmod>
     <changefreq>daily</changefreq>
     <priority>0.6</priority>
@@ -600,6 +593,13 @@
   
   <url>
     <loc>https://qnjy.github.io/tags/%E7%8E%AF%E5%A2%83%E9%85%8D%E7%BD%AE/</loc>
+    <lastmod>2022-03-27</lastmod>
+    <changefreq>daily</changefreq>
+    <priority>0.6</priority>
+  </url>
+  
+  <url>
+    <loc>https://qnjy.github.io/tags/MongoDB/</loc>
     <lastmod>2022-03-27</lastmod>
     <changefreq>daily</changefreq>
     <priority>0.6</priority>
@@ -655,14 +655,14 @@
   </url>
   
   <url>
-    <loc>https://qnjy.github.io/tags/nginx/</loc>
+    <loc>https://qnjy.github.io/tags/PHP/</loc>
     <lastmod>2022-03-27</lastmod>
     <changefreq>daily</changefreq>
     <priority>0.6</priority>
   </url>
   
   <url>
-    <loc>https://qnjy.github.io/tags/PHP/</loc>
+    <loc>https://qnjy.github.io/tags/nginx/</loc>
     <lastmod>2022-03-27</lastmod>
     <changefreq>daily</changefreq>
     <priority>0.6</priority>
@@ -704,14 +704,14 @@
   </url>
   
   <url>
-    <loc>https://qnjy.github.io/tags/%E6%96%87%E4%BB%B6%E4%B8%8A%E4%BC%A0/</loc>
+    <loc>https://qnjy.github.io/tags/%E6%96%87%E4%BB%B6%E5%8C%85%E5%90%AB/</loc>
     <lastmod>2022-03-27</lastmod>
     <changefreq>daily</changefreq>
     <priority>0.6</priority>
   </url>
   
   <url>
-    <loc>https://qnjy.github.io/tags/%E6%96%87%E4%BB%B6%E5%8C%85%E5%90%AB/</loc>
+    <loc>https://qnjy.github.io/tags/%E6%96%87%E4%BB%B6%E4%B8%8A%E4%BC%A0/</loc>
     <lastmod>2022-03-27</lastmod>
     <changefreq>daily</changefreq>
     <priority>0.6</priority>
