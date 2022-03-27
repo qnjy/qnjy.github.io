@@ -32,13 +32,13 @@
 <meta property="og:site_name" content="qnjy&#39;s blog">
 <meta property="og:description" content="1.Linux下使用FastDFS1.1 单节点FastDFS1.1.1 安装gccGCC用来对C语言代码进行编译运行，使用以下命令： yum -y install gcc 后面会用到解压命令，也把unzip安装一下 yum install -y unzip zip 1.1.2 安装libevent">
 <meta property="og:locale" content="zh_CN">
-<meta property="og:image" content="https://gitee.com/q1jy/images/raw/master/img/20211208-image-20211208141057992.png">
-<meta property="og:image" content="https://gitee.com/q1jy/images/raw/master/img/20211208-image-20211208142953065.png">
+<meta property="og:image" content="https://gitee.com/q1jy/images/blob/master/img/20211208-image-20211208141057992.png">
+<meta property="og:image" content="https://gitee.com/q1jy/images/blob/master/img/20211208-image-20211208142953065.png">
 <meta property="article:published_time" content="2021-12-08T05:51:30.000Z">
-<meta property="article:modified_time" content="2022-03-23T23:51:59.633Z">
+<meta property="article:modified_time" content="2022-03-27T13:10:32.180Z">
 <meta property="article:author" content="qnjy">
 <meta name="twitter:card" content="summary">
-<meta name="twitter:image" content="https://gitee.com/q1jy/images/raw/master/img/20211208-image-20211208141057992.png">
+<meta name="twitter:image" content="https://gitee.com/q1jy/images/blob/master/img/20211208-image-20211208141057992.png">
 
 
 <link rel="canonical" href="https://qnjy.github.io/post/e3e169b4.html">
@@ -326,7 +326,7 @@
           <i class="far fa-calendar-check"></i>
         </span>
         <span class="post-meta-item-text">更新于</span>
-        <time title="修改时间：2022-03-24 07:51:59" itemprop="dateModified" datetime="2022-03-24T07:51:59+08:00">2022-03-24</time>
+        <time title="修改时间：2022-03-27 21:10:32" itemprop="dateModified" datetime="2022-03-27T21:10:32+08:00">2022-03-27</time>
       </span>
 
   
@@ -355,7 +355,7 @@
 <h3 id="1-1-4-安装fastdfs"><a href="#1-1-4-安装fastdfs" class="headerlink" title="1.1.4 安装fastdfs"></a>1.1.4 安装fastdfs</h3><figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><span class="line">tar -zxvf FastDFS_v5.08.tar.gz</span><br><span class="line"></span><br><span class="line">cd FastDFS</span><br><span class="line"></span><br><span class="line">./make.sh</span><br><span class="line"></span><br><span class="line">./make.sh install</span><br></pre></td></tr></table></figure>
 <p>如果安装成功，会看到/etc/init.d/下看到提供的脚本文件:</p>
 <figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">ll /etc/init.d/ | grep fdfs</span><br></pre></td></tr></table></figure>
-<p><img src="https://gitee.com/q1jy/images/raw/master/img/20211208-image-20211208141057992.png" alt="image-20211208141057992"></p>
+<p><img src="https://gitee.com/q1jy/images/blob/master/img/20211208-image-20211208141057992.png" alt="image-20211208141057992"></p>
 <ul>
 <li>fdfs_trackerd是tracker启动脚本</li>
 <li>fdfs_storaged是storage启动脚本</li>
@@ -395,7 +395,7 @@
 <p>设置开机启动</p>
 <figure class="highlight applescript"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">chkconfig fdfs_storaged <span class="keyword">on</span></span><br></pre></td></tr></table></figure>
 <p>ps -ef | grep fdfs</p>
-<p><img src="https://gitee.com/q1jy/images/raw/master/img/20211208-image-20211208142953065.png" alt="image-20211208142953065"></p>
+<p><img src="https://gitee.com/q1jy/images/blob/master/img/20211208-image-20211208142953065.png" alt="image-20211208142953065"></p>
 
     </div>
 
