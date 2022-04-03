@@ -32,14 +32,14 @@
 <meta property="og:site_name" content="qnjy&#39;s blog">
 <meta property="og:description" content="第四章 - 消息通知系统1 消息通知的业务场景消息通知微服务的定位是“平台内”的“消息”功能，分为全员消息，订阅类消息，点对点消息。例如系统通知，私信，类消息">
 <meta property="og:locale" content="zh_CN">
-<meta property="og:image" content="https://gitee.com/q1jy/images/raw/master/img/20210610-1563417873173.png">
-<meta property="og:image" content="https://gitee.com/q1jy/images/raw/master/img/20210616-20210615-image-20210615120826980.png">
-<meta property="og:image" content="https://gitee.com/q1jy/images/raw/master/img/20210615-1563608341301.png">
+<meta property="og:image" content="http://r9qthulqv.hd-bkt.clouddn.com/img/20210610-1563417873173.png">
+<meta property="og:image" content="http://r9qthulqv.hd-bkt.clouddn.com/img/20210616-20210615-image-20210615120826980.png">
+<meta property="og:image" content="http://r9qthulqv.hd-bkt.clouddn.com/img/20210615-1563608341301.png">
 <meta property="article:published_time" content="2021-06-10T13:58:51.000Z">
-<meta property="article:modified_time" content="2021-06-21T08:21:55.864Z">
+<meta property="article:modified_time" content="2022-04-03T03:03:40.053Z">
 <meta property="article:author" content="qnjy">
 <meta name="twitter:card" content="summary">
-<meta name="twitter:image" content="https://gitee.com/q1jy/images/raw/master/img/20210610-1563417873173.png">
+<meta name="twitter:image" content="http://r9qthulqv.hd-bkt.clouddn.com/img/20210610-1563417873173.png">
 
 
 <link rel="canonical" href="https://qnjy.github.io/post/e0a440ce.html">
@@ -327,7 +327,7 @@
           <i class="far fa-calendar-check"></i>
         </span>
         <span class="post-meta-item-text">更新于</span>
-        <time title="修改时间：2021-06-21 16:21:55" itemprop="dateModified" datetime="2021-06-21T16:21:55+08:00">2021-06-21</time>
+        <time title="修改时间：2022-04-03 11:03:40" itemprop="dateModified" datetime="2022-04-03T11:03:40+08:00">2022-04-03</time>
       </span>
 
   
@@ -399,7 +399,7 @@
 </div>
 <h1 id="3-搭建消息通知微服务"><a href="#3-搭建消息通知微服务" class="headerlink" title="3 搭建消息通知微服务"></a>3 搭建消息通知微服务</h1><h2 id="3-1-业务分析"><a href="#3-1-业务分析" class="headerlink" title="3.1 业务分析"></a>3.1 业务分析</h2><p>用户可以对文章作者进行订阅，当被订阅的用户发布新的文章时，可以通过消息通知系统发送消息给订阅者。</p>
 <p>流程如下：</p>
-<p><img src="https://gitee.com/q1jy/images/raw/master/img/20210610-1563417873173.png" alt="1563359920194" style="zoom: 80%;" /></p>
+<p><img src="http://r9qthulqv.hd-bkt.clouddn.com/img/20210610-1563417873173.png" alt="1563359920194" style="zoom: 80%;" /></p>
 <h2 id="3-2-表结构分析"><a href="#3-2-表结构分析" class="headerlink" title="3.2 表结构分析"></a>3.2 表结构分析</h2><p>把资料中的sql脚本导入到数据库中，创建数据库和表。</p>
 <p>十次方消息通知微服务总共需要两张数据库表，tb_notice 和 tb_notice_fresh。</p>
 <ol>
@@ -485,9 +485,9 @@
 </li>
 </ol>
 <h2 id="4-2-新增文章群发消息"><a href="#4-2-新增文章群发消息" class="headerlink" title="4.2 新增文章群发消息"></a>4.2 新增文章群发消息</h2><p>新增文章后，需要通知订阅的用户，文章微服务需要调用消息通知微服务，创建消息。</p>
-<p><img src="https://gitee.com/q1jy/images/raw/master/img/20210616-20210615-image-20210615120826980.png" alt="13123"></p>
+<p><img src="http://r9qthulqv.hd-bkt.clouddn.com/img/20210616-20210615-image-20210615120826980.png" alt="13123"></p>
 <p>用户登录十次方后，访问的前端页面，页面需要定时轮询通知接口，获取消息。（接口已完成）</p>
-<p><img src="https://gitee.com/q1jy/images/raw/master/img/20210615-1563608341301.png" alt="1563608148788"></p>
+<p><img src="http://r9qthulqv.hd-bkt.clouddn.com/img/20210615-1563608341301.png" alt="1563608148788"></p>
 <ol>
 <li><p>新增NoticeClient，调用通知微服务</p>
 <p>pom.xml添加依赖</p>
