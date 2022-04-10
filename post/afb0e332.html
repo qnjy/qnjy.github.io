@@ -1,0 +1,588 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+  <meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=2">
+<meta name="theme-color" content="#222">
+<meta name="generator" content="Hexo 5.4.0">
+
+
+  <link rel="apple-touch-icon" sizes="180x180" href="/images/apple-touch-icon-next.png">
+  <link rel="icon" type="image/png" sizes="32x32" href="/images/favicon-32x32-next.png">
+  <link rel="icon" type="image/png" sizes="16x16" href="/images/favicon-16x16-next.png">
+  <link rel="mask-icon" href="/images/logo.svg" color="#222">
+
+<link rel="stylesheet" href="/css/main.css">
+
+
+
+<link rel="stylesheet" href="//cdn.jsdelivr.net/npm/@fortawesome/fontawesome-free@5.15.1/css/all.min.css">
+  <link rel="stylesheet" href="//cdn.jsdelivr.net/npm/animate.css@3.1.1/animate.min.css">
+  <link rel="stylesheet" href="//cdn.jsdelivr.net/npm/@fancyapps/fancybox@3.5.7/dist/jquery.fancybox.min.css">
+
+<script class="hexo-configurations">
+    var NexT = window.NexT || {};
+    var CONFIG = {"hostname":"qnjy.github.io","root":"/","images":"/images","scheme":"Gemini","version":"8.0.2","exturl":false,"sidebar":{"position":"left","display":"post","padding":18,"offset":12},"copycode":true,"bookmark":{"enable":true,"color":"#222","save":"auto"},"fancybox":true,"mediumzoom":false,"lazyload":false,"pangu":false,"comments":{"style":"tabs","active":null,"storage":true,"lazyload":false,"nav":null},"motion":{"enable":true,"async":false,"transition":{"post_block":"fadeIn","post_header":"fadeInDown","post_body":"fadeInDown","coll_header":"fadeInLeft","sidebar":"fadeInUp"}},"prism":false,"i18n":{"placeholder":"搜索...","empty":"没有找到任何搜索结果：${query}","hits_time":"找到 ${hits} 个搜索结果（用时 ${time} 毫秒）","hits":"找到 ${hits} 个搜索结果"},"path":"/search.xml","localsearch":{"enable":true,"trigger":"auto","top_n_per_article":1,"unescape":false,"preload":false}};
+  </script>
+
+  <meta name="description" content="1 API网关1.1 什么是API网关 在微服务架构里，服务的粒度被进一步细分，各个业务服务可以被独立的设计、开发、测试、部署和管理。这时，各个独立部署单元可以用不同的开发测试团队维护，可以使用不同的编程语言和技术平台进行设计，这就要求必须使用一种语言和平 台无关的服务协议作为各个单元间的通讯方式。  　　API网关作用就是用来保护、增强和控制对于API服务的访问，让外界看起来是一个统一的接口。同">
+<meta property="og:type" content="article">
+<meta property="og:title" content="GateWay网关学习">
+<meta property="og:url" content="https://qnjy.github.io/post/afb0e332.html">
+<meta property="og:site_name" content="qnjy&#39;s blog">
+<meta property="og:description" content="1 API网关1.1 什么是API网关 在微服务架构里，服务的粒度被进一步细分，各个业务服务可以被独立的设计、开发、测试、部署和管理。这时，各个独立部署单元可以用不同的开发测试团队维护，可以使用不同的编程语言和技术平台进行设计，这就要求必须使用一种语言和平 台无关的服务协议作为各个单元间的通讯方式。  　　API网关作用就是用来保护、增强和控制对于API服务的访问，让外界看起来是一个统一的接口。同">
+<meta property="og:locale" content="zh_CN">
+<meta property="og:image" content="https://qnjy.coding.net/p/githubimg/d/githubimg/git/raw/master/img/20220410-image-20220410192512211.png">
+<meta property="og:image" content="https://qnjy.coding.net/p/githubimg/d/githubimg/git/raw/master/img/20220410-image-20220410210910433.png">
+<meta property="article:published_time" content="2022-04-10T08:26:33.000Z">
+<meta property="article:modified_time" content="2022-04-10T23:58:25.450Z">
+<meta property="article:author" content="qnjy">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:image" content="https://qnjy.coding.net/p/githubimg/d/githubimg/git/raw/master/img/20220410-image-20220410192512211.png">
+
+
+<link rel="canonical" href="https://qnjy.github.io/post/afb0e332.html">
+
+
+<script class="page-configurations">
+  // https://hexo.io/docs/variables.html
+  CONFIG.page = {
+    sidebar: "",
+    isHome : false,
+    isPost : true,
+    lang   : 'zh-CN'
+  };
+</script>
+
+  <title>GateWay网关学习 | qnjy's blog</title>
+  
+
+
+
+
+
+
+  <noscript>
+  <style>
+  body { margin-top: 2rem; }
+
+  .use-motion .menu-item,
+  .use-motion .sidebar,
+  .use-motion .post-block,
+  .use-motion .pagination,
+  .use-motion .comments,
+  .use-motion .post-header,
+  .use-motion .post-body,
+  .use-motion .collection-header {
+    visibility: visible;
+  }
+
+  .use-motion .header,
+  .use-motion .site-brand-container .toggle,
+  .use-motion .footer { opacity: initial; }
+
+  .use-motion .site-title,
+  .use-motion .site-subtitle,
+  .use-motion .custom-logo-image {
+    opacity: initial;
+    top: initial;
+  }
+
+  .use-motion .logo-line {
+    transform: scaleX(1);
+  }
+
+  .search-pop-overlay, .sidebar-nav { display: none; }
+  .sidebar-panel { display: block; }
+  </style>
+</noscript>
+
+</head>
+
+<body itemscope itemtype="http://schema.org/WebPage" class="use-motion">
+  <div class="headband"></div>
+
+  <main class="main">
+    <header class="header" itemscope itemtype="http://schema.org/WPHeader">
+      <div class="header-inner"><div class="site-brand-container">
+  <div class="site-nav-toggle">
+    <div class="toggle" aria-label="切换导航栏">
+        <span class="toggle-line"></span>
+        <span class="toggle-line"></span>
+        <span class="toggle-line"></span>
+    </div>
+  </div>
+
+  <div class="site-meta">
+
+    <a href="/" class="brand" rel="start">
+      <i class="logo-line"></i>
+      <h1 class="site-title">qnjy's blog</h1>
+      <i class="logo-line"></i>
+    </a>
+      <p class="site-subtitle" itemprop="description">方向不对，努力白费</p>
+  </div>
+
+  <div class="site-nav-right">
+    <div class="toggle popup-trigger">
+        <i class="fa fa-search fa-fw fa-lg"></i>
+    </div>
+  </div>
+</div>
+
+
+
+<nav class="site-nav">
+  <ul class="main-menu menu">
+        <li class="menu-item menu-item-home">
+
+    <a href="/" rel="section"><i class="fa fa-home fa-fw"></i>首页</a>
+
+  </li>
+        <li class="menu-item menu-item-tags">
+
+    <a href="/tags/" rel="section"><i class="fa fa-tags fa-fw"></i>标签</a>
+
+  </li>
+        <li class="menu-item menu-item-categories">
+
+    <a href="/categories/" rel="section"><i class="fa fa-th fa-fw"></i>分类</a>
+
+  </li>
+        <li class="menu-item menu-item-archives">
+
+    <a href="/archives/" rel="section"><i class="fa fa-archive fa-fw"></i>归档</a>
+
+  </li>
+      <li class="menu-item menu-item-search">
+        <a role="button" class="popup-trigger"><i class="fa fa-search fa-fw"></i>搜索
+        </a>
+      </li>
+  </ul>
+</nav>
+
+
+
+  <div class="search-pop-overlay">
+    <div class="popup search-popup">
+        <div class="search-header">
+  <span class="search-icon">
+    <i class="fa fa-search"></i>
+  </span>
+  <div class="search-input-container">
+    <input autocomplete="off" autocapitalize="off" maxlength="80"
+           placeholder="搜索..." spellcheck="false"
+           type="search" class="search-input">
+  </div>
+  <span class="popup-btn-close">
+    <i class="fa fa-times-circle"></i>
+  </span>
+</div>
+<div class="search-result-container no-result">
+  <div class="search-result-icon">
+    <i class="fa fa-spinner fa-pulse fa-5x"></i>
+  </div>
+</div>
+
+    </div>
+  </div>
+
+</div>
+        
+  
+  <div class="toggle sidebar-toggle">
+    <span class="toggle-line"></span>
+    <span class="toggle-line"></span>
+    <span class="toggle-line"></span>
+  </div>
+
+  <aside class="sidebar">
+
+    <div class="sidebar-inner sidebar-nav-active sidebar-toc-active">
+      <ul class="sidebar-nav">
+        <li class="sidebar-nav-toc">
+          文章目录
+        </li>
+        <li class="sidebar-nav-overview">
+          站点概览
+        </li>
+      </ul>
+
+      <div class="sidebar-panel-container">
+        <!--noindex-->
+        <section class="post-toc-wrap sidebar-panel">
+            <div class="post-toc animated"><ol class="nav"><li class="nav-item nav-level-1"><a class="nav-link" href="#1-API%E7%BD%91%E5%85%B3"><span class="nav-text">1 API网关</span></a><ol class="nav-child"><li class="nav-item nav-level-2"><a class="nav-link" href="#1-1-%E4%BB%80%E4%B9%88%E6%98%AFAPI%E7%BD%91%E5%85%B3"><span class="nav-text">1.1 什么是API网关</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#1-2-API%E7%BD%91%E5%85%B3%E4%BD%9C%E7%94%A8"><span class="nav-text">1.2 API网关作用</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#1-3-API%E7%BD%91%E5%85%B3%E5%BC%80%E6%BA%90%E5%AE%9E%E7%8E%B0"><span class="nav-text">1.3 API网关开源实现</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#1-4-Gateway%E7%BD%91%E5%85%B3%E4%BB%8B%E7%BB%8D"><span class="nav-text">1.4 Gateway网关介绍</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#1-4-1-%E4%B8%BA%E4%BB%80%E4%B9%88%E4%BD%BF%E7%94%A8Gateway%E7%BD%91%E5%85%B3"><span class="nav-text">1.4.1 为什么使用Gateway网关</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#1-4-2-%E5%87%A0%E4%B8%AA%E5%9F%BA%E6%9C%AC%E6%A6%82%E5%BF%B5"><span class="nav-text">1.4.2 几个基本概念</span></a></li></ol></li></ol></li><li class="nav-item nav-level-1"><a class="nav-link" href="#2-Gateway%E5%B7%A5%E4%BD%9C%E5%8E%9F%E7%90%86"><span class="nav-text">2 Gateway工作原理</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#3-Gateway%E5%85%A5%E9%97%A8%E6%A1%88%E4%BE%8B"><span class="nav-text">3 Gateway入门案例</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#4-%E8%B7%AF%E7%94%B1%E8%A7%84%E5%88%99"><span class="nav-text">4 路由规则</span></a><ol class="nav-child"><li class="nav-item nav-level-2"><a class="nav-link" href="#4-1-%E8%B7%AF%E7%94%B1%E6%96%AD%E8%A8%80%E5%B7%A5%E5%8E%82"><span class="nav-text">4.1 路由断言工厂</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#4-2-%E6%97%A5%E6%9C%9F%E6%97%B6%E9%97%B4%E8%B7%AF%E7%94%B1%E5%8C%B9%E9%85%8D%E8%A7%84%E5%88%99"><span class="nav-text">4.2 日期时间路由匹配规则</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#4-3-cookie%E8%B7%AF%E7%94%B1%E5%8C%B9%E9%85%8D%E8%A7%84%E5%88%99"><span class="nav-text">4.3 cookie路由匹配规则</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#4-4-Header%E8%B7%AF%E7%94%B1%E5%8C%B9%E9%85%8D%E8%A7%84%E5%88%99"><span class="nav-text">4.4 Header路由匹配规则</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#4-5-Host%E8%B7%AF%E7%94%B1%E5%8C%B9%E9%85%8D%E8%A7%84%E5%88%99"><span class="nav-text">4.5 Host路由匹配规则</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#4-6-Method%E8%B7%AF%E7%94%B1%E5%8C%B9%E9%85%8D%E8%A7%84%E5%88%99"><span class="nav-text">4.6 Method路由匹配规则</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#4-7-Path%E8%B7%AF%E7%94%B1%E5%8C%B9%E9%85%8D%E8%A7%84%E5%88%99"><span class="nav-text">4.7 Path路由匹配规则</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#4-8-Query%E8%B7%AF%E7%94%B1%E5%8C%B9%E9%85%8D%E8%A7%84%E5%88%99"><span class="nav-text">4.8 Query路由匹配规则</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#4-9-RemoteAddr%E8%B7%AF%E7%94%B1%E5%8C%B9%E9%85%8D%E8%A7%84%E5%88%99"><span class="nav-text">4.9 RemoteAddr路由匹配规则</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#4-10-Weight%E8%B7%AF%E7%94%B1%E5%8C%B9%E9%85%8D%E8%A7%84%E5%88%99"><span class="nav-text">4.10 Weight路由匹配规则</span></a></li></ol></li></ol></div>
+        </section>
+        <!--/noindex-->
+
+        <section class="site-overview-wrap sidebar-panel">
+          <div class="site-author site-overview-item animated" itemprop="author" itemscope itemtype="http://schema.org/Person">
+    <img class="site-author-image" itemprop="image" alt="qnjy"
+      src="/images/xigua.jpg">
+  <p class="site-author-name" itemprop="name">qnjy</p>
+  <div class="site-description" itemprop="description">宁静以致远</div>
+</div>
+<div class="site-state-wrap site-overview-item animated">
+  <nav class="site-state">
+      <div class="site-state-item site-state-posts">
+          <a href="/archives/">
+        
+          <span class="site-state-item-count">73</span>
+          <span class="site-state-item-name">日志</span>
+        </a>
+      </div>
+      <div class="site-state-item site-state-categories">
+            <a href="/categories/">
+          
+        <span class="site-state-item-count">20</span>
+        <span class="site-state-item-name">分类</span></a>
+      </div>
+      <div class="site-state-item site-state-tags">
+            <a href="/tags/">
+          
+        <span class="site-state-item-count">30</span>
+        <span class="site-state-item-name">标签</span></a>
+      </div>
+  </nav>
+</div>
+  <div class="links-of-author site-overview-item animated">
+      <span class="links-of-author-item">
+        <a href="https://github.com/qnjy" title="GitHub → https:&#x2F;&#x2F;github.com&#x2F;qnjy" rel="noopener" target="_blank"><i class="fab fa-github fa-fw"></i>GitHub</a>
+      </span>
+      <span class="links-of-author-item">
+        <a href="mailto:877900490@qq.com" title="E-Mail → mailto:877900490@qq.com" rel="noopener" target="_blank"><i class="fa fa-envelope fa-fw"></i>E-Mail</a>
+      </span>
+  </div>
+  <div class="cc-license site-overview-item animated" itemprop="license">
+    <a href="https://creativecommons.org/licenses/by-nc-sa/4.0/zh-CN" class="cc-opacity" rel="noopener" target="_blank"><img src="/images/cc-by-nc-sa.svg" alt="Creative Commons"></a>
+  </div>
+
+
+
+        </section>
+      </div>
+
+    </div>
+  </aside>
+  <div class="sidebar-dimmer"></div>
+
+
+    </header>
+
+    
+  <div class="back-to-top">
+    <i class="fa fa-arrow-up"></i>
+    <span>0%</span>
+  </div>
+  <div class="reading-progress-bar"></div>
+  <a role="button" class="book-mark-link book-mark-link-fixed"></a>
+
+<noscript>
+  <div class="noscript-warning">Theme NexT works best with JavaScript enabled</div>
+</noscript>
+
+
+    <div class="main-inner post posts-expand">
+      
+
+      
+
+  
+
+
+<div class="post-block">
+  
+  
+
+  <article itemscope itemtype="http://schema.org/Article" class="post-content" lang="zh-CN">
+    <link itemprop="mainEntityOfPage" href="https://qnjy.github.io/post/afb0e332.html">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="image" content="/images/xigua.jpg">
+      <meta itemprop="name" content="qnjy">
+      <meta itemprop="description" content="宁静以致远">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="qnjy's blog">
+    </span>
+      <header class="post-header">
+        <h1 class="post-title" itemprop="name headline">
+          GateWay网关学习
+        </h1>
+
+        <div class="post-meta-container">
+          <div class="post-meta">
+    <span class="post-meta-item">
+      <span class="post-meta-item-icon">
+        <i class="far fa-calendar"></i>
+      </span>
+      <span class="post-meta-item-text">发表于</span>
+
+      <time title="创建时间：2022-04-10 16:26:33" itemprop="dateCreated datePublished" datetime="2022-04-10T16:26:33+08:00">2022-04-10</time>
+    </span>
+      <span class="post-meta-item">
+        <span class="post-meta-item-icon">
+          <i class="far fa-calendar-check"></i>
+        </span>
+        <span class="post-meta-item-text">更新于</span>
+        <time title="修改时间：2022-04-11 07:58:25" itemprop="dateModified" datetime="2022-04-11T07:58:25+08:00">2022-04-11</time>
+      </span>
+
+  
+    <span class="post-meta-item" title="阅读次数" id="busuanzi_container_page_pv" style="display: none;">
+      <span class="post-meta-item-icon">
+        <i class="far fa-eye"></i>
+      </span>
+      <span class="post-meta-item-text">阅读次数：</span>
+      <span id="busuanzi_value_page_pv"></span>
+    </span>
+</div>
+
+        </div>
+      </header>
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+        <h1 id="1-API网关"><a href="#1-API网关" class="headerlink" title="1 API网关"></a>1 API网关</h1><h2 id="1-1-什么是API网关"><a href="#1-1-什么是API网关" class="headerlink" title="1.1 什么是API网关"></a>1.1 什么是API网关</h2><blockquote>
+<p>在微服务架构里，服务的粒度被进一步细分，各个业务服务可以被独立的设计、开发、测试、部署和管理。这时，各个独立部署单元可以用不同的开发测试团队维护，可以使用不同的编程语言和技术平台进行设计，这就要求必须使用一种语言和平 台无关的服务协议作为各个单元间的通讯方式。</p>
+</blockquote>
+<p>　　API网关作用就是用来保护、增强和控制对于API服务的访问，让外界看起来是一个统一的接口。同时也可在网关中提供额外的功能。</p>
+<p>　　总结：网关就是所有项目的一个统一入口。<span id="more"></span></p>
+<h2 id="1-2-API网关作用"><a href="#1-2-API网关作用" class="headerlink" title="1.2 API网关作用"></a>1.2 API网关作用</h2><div class="table-container">
+<table>
+<thead>
+<tr>
+<th>作用</th>
+<th>描述</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>请求接入</td>
+<td>作为所有API接口服务请求的接入点</td>
+</tr>
+<tr>
+<td>业务聚合</td>
+<td>作为所有后端业务服务的聚合点</td>
+</tr>
+<tr>
+<td>中介策略</td>
+<td>实现安全、验证、路由、过滤、流控等策略</td>
+</tr>
+<tr>
+<td>统一管理</td>
+<td>对所有API服务和策略进行统一管理</td>
+</tr>
+</tbody>
+</table>
+</div>
+<h2 id="1-3-API网关开源实现"><a href="#1-3-API网关开源实现" class="headerlink" title="1.3 API网关开源实现"></a>1.3 API网关开源实现</h2><p>用于实现API网关的技术有很多，大致分为：</p>
+<p>通过反向代理：nginx、haproxy等</p>
+<p>网络编程框架：netty、servlet等</p>
+<p>API网关架构：Spring Cloud Gateway、Zuul等</p>
+<h2 id="1-4-Gateway网关介绍"><a href="#1-4-Gateway网关介绍" class="headerlink" title="1.4 Gateway网关介绍"></a>1.4 Gateway网关介绍</h2><blockquote>
+<p>Spring Cloud Gateway是Spring官方基于Spring 5.0，Spring Boot 2.0和Project Reactor等技术开发的网关，Spring Cloud Gateway旨在为微服务架构提供一种简单而有效的统一的API路由管理方式。Spring Cloud Gateway作为Spring Cloud生态系中的网关，目标是替代ZUUL，其不仅提供统一的路由方式，并且基于Filter链的方式提供了网关基本的功能，例如：安全，监控/埋点，和限流等。</p>
+</blockquote>
+<h3 id="1-4-1-为什么使用Gateway网关"><a href="#1-4-1-为什么使用Gateway网关" class="headerlink" title="1.4.1 为什么使用Gateway网关"></a>1.4.1 为什么使用Gateway网关</h3><blockquote>
+<p>Gateway可以看做Zuul1.x的升级品和替代品，比Zuul2更早的使用Netty实现异步IO，从而实现了一个简单、比Zuul更高效、与Spring Cloud紧密配合的API网关。Spring Cloud Gateway 里明确的区分了 Router 和 Filter，并且一个很大的特点是内置了非常多的开箱即用功能，并且都可以通过 SpringBoot 配置或者手工编码链式调用来使用。<br>比如内置了 10 种 Router，使得我们可以直接配置一下就可以随心所欲的根据 Header、或者 Path、或者 Host、或者 Query 来做路由。<br>比如区分了一般的 Filter 和全局 Filter，内置了 20 种 Filter 和 9 种全局 Filter，也都可以直接用。当然自定义 Filter 也非常方便。</p>
+</blockquote>
+<h3 id="1-4-2-几个基本概念"><a href="#1-4-2-几个基本概念" class="headerlink" title="1.4.2 几个基本概念"></a>1.4.2 几个基本概念</h3><ul>
+<li>Route（路由）：这是网关的基本构建块。它由一个ID，一个目标URI，一组断言和一组过滤器定义。如果断言为真，则路由匹配。</li>
+<li>Predicate（断言）：输入类型是一个ServerWebExchange。我们可以使用它来匹配来自HTTP请求的任何内容，例如headers或参数</li>
+<li>filter（过滤器）：Gateway中的Filter分为两种类型的Filter，分别是Gateway Filter和Global Filter。它将会对请求和响应进行修改处理。</li>
+</ul>
+<h1 id="2-Gateway工作原理"><a href="#2-Gateway工作原理" class="headerlink" title="2 Gateway工作原理"></a>2 Gateway工作原理</h1><p><img src="https://qnjy.coding.net/p/githubimg/d/githubimg/git/raw/master/img/20220410-image-20220410192512211.png" alt="image-20220410192512211"></p>
+<p>网关处理程序映射确定请求与路由匹配，则将其发送到网关Web处理程序。该处理程序通过特定于请求的过滤器链来运行请求。</p>
+<h1 id="3-Gateway入门案例"><a href="#3-Gateway入门案例" class="headerlink" title="3 Gateway入门案例"></a>3 Gateway入门案例</h1><p>我们搞两个服务，分别是product和order，搞一个网关，同意对path请求地址管理</p>
+<p>gateway依赖</p>
+<figure class="highlight yml"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line"><span class="string">&lt;dependency&gt;</span></span><br><span class="line">    <span class="string">&lt;groupId&gt;org.springframework.cloud&lt;/groupId&gt;</span></span><br><span class="line">    <span class="string">&lt;artifactId&gt;spring-cloud-starter-gateway&lt;/artifactId&gt;</span></span><br><span class="line">    <span class="string">&lt;version&gt;2.2.5.RELEASE&lt;/version&gt;</span></span><br><span class="line"><span class="string">&lt;/dependency&gt;</span></span><br></pre></td></tr></table></figure>
+<h1 id="4-路由规则"><a href="#4-路由规则" class="headerlink" title="4 路由规则"></a>4 路由规则</h1><h2 id="4-1-路由断言工厂"><a href="#4-1-路由断言工厂" class="headerlink" title="4.1 路由断言工厂"></a>4.1 路由断言工厂</h2><p>　　Spring Cloud Gateway将路由作为Spring WebFlux HandlerMapping基础架构的一部分进行匹配。Spring Cloud Gateway包括许多内置的路由断言工厂。所有这些断言都与HTTP请求的不同属性匹配。可以将多个路由断言工厂与and语句结合使用。</p>
+<p><img src="https://qnjy.coding.net/p/githubimg/d/githubimg/git/raw/master/img/20220410-image-20220410210910433.png" alt="image-20220410210910433"></p>
+<h2 id="4-2-日期时间路由匹配规则"><a href="#4-2-日期时间路由匹配规则" class="headerlink" title="4.2 日期时间路由匹配规则"></a>4.2 日期时间路由匹配规则</h2><p>匹配指定日期时间之后的请求<code>After</code></p>
+<figure class="highlight yml"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br></pre></td><td class="code"><pre><span class="line"><span class="attr">spring:</span></span><br><span class="line">  <span class="attr">application:</span></span><br><span class="line">    <span class="attr">name:</span> <span class="string">hdnj-gateway</span></span><br><span class="line"></span><br><span class="line">  <span class="attr">cloud:</span></span><br><span class="line">    <span class="attr">gateway:</span></span><br><span class="line">      <span class="attr">routes:</span></span><br><span class="line">        <span class="bullet">-</span> <span class="attr">id:</span> <span class="string">after_route</span></span><br><span class="line">          <span class="attr">uri:</span> <span class="string">http://localhost:8080/</span></span><br><span class="line">          <span class="attr">predicates:</span></span><br><span class="line">            <span class="bullet">-</span> <span class="string">After=2022-04-23T06:06:06+08:00[Asia/Shanghai]</span></span><br></pre></td></tr></table></figure>
+<p>匹配指定日期时间之前的请求<code>Before</code></p>
+<figure class="highlight yml"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br></pre></td><td class="code"><pre><span class="line"><span class="attr">spring:</span></span><br><span class="line">  <span class="attr">application:</span></span><br><span class="line">    <span class="attr">name:</span> <span class="string">hdnj-gateway</span></span><br><span class="line"></span><br><span class="line">  <span class="attr">cloud:</span></span><br><span class="line">    <span class="attr">gateway:</span></span><br><span class="line">      <span class="attr">routes:</span></span><br><span class="line">        <span class="bullet">-</span> <span class="attr">id:</span> <span class="string">before_route</span></span><br><span class="line">          <span class="attr">uri:</span> <span class="string">http://localhost:8080/</span></span><br><span class="line">          <span class="attr">predicates:</span></span><br><span class="line">            <span class="bullet">-</span> <span class="string">Before=2022-04-23T06:06:06+08:00[Asia/Shanghai]</span></span><br></pre></td></tr></table></figure>
+<p>匹配指定日期时间之间的请求<code>Between</code></p>
+<figure class="highlight yml"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br></pre></td><td class="code"><pre><span class="line"><span class="attr">spring:</span></span><br><span class="line">  <span class="attr">application:</span></span><br><span class="line">    <span class="attr">name:</span> <span class="string">hdnj-gateway</span></span><br><span class="line"></span><br><span class="line">  <span class="attr">cloud:</span></span><br><span class="line">    <span class="attr">gateway:</span></span><br><span class="line">      <span class="attr">routes:</span></span><br><span class="line">        <span class="bullet">-</span> <span class="attr">id:</span> <span class="string">between_route</span></span><br><span class="line">          <span class="attr">uri:</span> <span class="string">http://localhost:8080/</span></span><br><span class="line">          <span class="attr">predicates:</span></span><br><span class="line">            <span class="bullet">-</span> <span class="string">Between=2022-04-23T06:06:06+08:00[Asia/Shanghai],2022-04-25T06:06:06+08:00[Asia/Shanghai]</span></span><br></pre></td></tr></table></figure>
+<h2 id="4-3-cookie路由匹配规则"><a href="#4-3-cookie路由匹配规则" class="headerlink" title="4.3 cookie路由匹配规则"></a>4.3 cookie路由匹配规则</h2><p>所述cookie路由断言工厂采用两个参数，该cookie name和regexp。该断言匹配具有给定名称且其值域正则表达式匹配的cookie以下示例：</p>
+<figure class="highlight yml"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br></pre></td><td class="code"><pre><span class="line"><span class="attr">spring:</span></span><br><span class="line">  <span class="attr">application:</span></span><br><span class="line">    <span class="attr">name:</span> <span class="string">hdnj-gateway</span></span><br><span class="line"></span><br><span class="line">  <span class="attr">cloud:</span></span><br><span class="line">    <span class="attr">gateway:</span></span><br><span class="line">      <span class="attr">routes:</span></span><br><span class="line">        <span class="bullet">-</span> <span class="attr">id:</span> <span class="string">cookie_route</span></span><br><span class="line">          <span class="attr">uri:</span> <span class="string">http://localhost:8080/</span></span><br><span class="line">          <span class="attr">predicates:</span></span><br><span class="line">           <span class="bullet">-</span> <span class="string">Cookie=token,</span> <span class="string">\d+</span></span><br></pre></td></tr></table></figure>
+<h2 id="4-4-Header路由匹配规则"><a href="#4-4-Header路由匹配规则" class="headerlink" title="4.4 Header路由匹配规则"></a>4.4 Header路由匹配规则</h2><p><code>Header</code>：路由断言工厂采用两个参数，报头name和regexp。该断言与具有给定名称的头信息匹配，该标头的值与正则表达式匹配。示例：</p>
+<figure class="highlight yml"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br></pre></td><td class="code"><pre><span class="line"><span class="attr">spring:</span></span><br><span class="line">  <span class="attr">application:</span></span><br><span class="line">    <span class="attr">name:</span> <span class="string">hdnj-gateway</span></span><br><span class="line"></span><br><span class="line">  <span class="attr">cloud:</span></span><br><span class="line">    <span class="attr">gateway:</span></span><br><span class="line">      <span class="attr">routes:</span></span><br><span class="line">        <span class="bullet">-</span> <span class="attr">id:</span> <span class="string">header_route</span></span><br><span class="line">          <span class="attr">uri:</span> <span class="string">http://localhost:8080/</span></span><br><span class="line">          <span class="attr">predicates:</span></span><br><span class="line">           <span class="bullet">-</span> <span class="string">Header=X-Request-Id,\d+</span></span><br></pre></td></tr></table></figure>
+<h2 id="4-5-Host路由匹配规则"><a href="#4-5-Host路由匹配规则" class="headerlink" title="4.5 Host路由匹配规则"></a>4.5 Host路由匹配规则</h2><p>该<code>Host</code>路由断言工厂需要一个参数：主机名的列表patterns，该模式是带有.分隔符的Ant样式的模式。断言与<code>Host</code>匹配模式的标头匹配，以下示例：</p>
+<figure class="highlight yml"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br></pre></td><td class="code"><pre><span class="line"><span class="attr">spring:</span></span><br><span class="line">  <span class="attr">application:</span></span><br><span class="line">    <span class="attr">name:</span> <span class="string">hdnj-gateway</span></span><br><span class="line"></span><br><span class="line">  <span class="attr">cloud:</span></span><br><span class="line">    <span class="attr">gateway:</span></span><br><span class="line">      <span class="attr">routes:</span></span><br><span class="line">        <span class="bullet">-</span> <span class="attr">id:</span> <span class="string">host_route</span></span><br><span class="line">          <span class="attr">uri:</span> <span class="string">http://localhost:8080/</span></span><br><span class="line">          <span class="attr">predicates:</span></span><br><span class="line">           <span class="bullet">-</span> <span class="string">Host=**.somehost.org,**.anotherhost.org</span></span><br></pre></td></tr></table></figure>
+<h2 id="4-6-Method路由匹配规则"><a href="#4-6-Method路由匹配规则" class="headerlink" title="4.6 Method路由匹配规则"></a>4.6 Method路由匹配规则</h2><p>所述Method路由断言工厂需要<code>methods</code>的参数，他是一个或多个参数：HTTP方法来匹配。示例：</p>
+<figure class="highlight yml"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br></pre></td><td class="code"><pre><span class="line"><span class="attr">spring:</span></span><br><span class="line">  <span class="attr">application:</span></span><br><span class="line">    <span class="attr">name:</span> <span class="string">hdnj-gateway</span></span><br><span class="line"></span><br><span class="line">  <span class="attr">cloud:</span></span><br><span class="line">    <span class="attr">gateway:</span></span><br><span class="line">      <span class="attr">routes:</span></span><br><span class="line">        <span class="bullet">-</span> <span class="attr">id:</span> <span class="string">method_route</span></span><br><span class="line">          <span class="attr">uri:</span> <span class="string">http://localhost:8080/</span></span><br><span class="line">          <span class="attr">predicates:</span></span><br><span class="line">           <span class="bullet">-</span> <span class="string">Method=GET,POST</span></span><br></pre></td></tr></table></figure>
+<h2 id="4-7-Path路由匹配规则"><a href="#4-7-Path路由匹配规则" class="headerlink" title="4.7 Path路由匹配规则"></a>4.7 Path路由匹配规则</h2><p>该<code>Path</code>路由断言工厂有两个参数：Spring的列表<code>PathMatcher</code> <code>patterns</code>和一个可选的标志叫<code>matchOptionalTrailingSeparator</code>。以下示例</p>
+<figure class="highlight yml"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br></pre></td><td class="code"><pre><span class="line"><span class="attr">spring:</span></span><br><span class="line">  <span class="attr">application:</span></span><br><span class="line">    <span class="attr">name:</span> <span class="string">hdnj-gateway</span></span><br><span class="line"></span><br><span class="line">  <span class="attr">cloud:</span></span><br><span class="line">    <span class="attr">gateway:</span></span><br><span class="line">      <span class="attr">routes:</span></span><br><span class="line">        <span class="bullet">-</span> <span class="attr">id:</span> <span class="string">path_route</span></span><br><span class="line">          <span class="attr">uri:</span> <span class="string">http://localhost:8080/</span></span><br><span class="line">          <span class="attr">predicates:</span></span><br><span class="line">           <span class="bullet">-</span> <span class="string">Path=/product/&#123;segment&#125;</span></span><br></pre></td></tr></table></figure>
+<h2 id="4-8-Query路由匹配规则"><a href="#4-8-Query路由匹配规则" class="headerlink" title="4.8 Query路由匹配规则"></a>4.8 Query路由匹配规则</h2><p>所述<code>Query</code>路由断言工厂采用两个参数：所要求的<code>param</code>和可选的<code>regexp</code>，示例：</p>
+<figure class="highlight yml"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br></pre></td><td class="code"><pre><span class="line"><span class="attr">spring:</span></span><br><span class="line">  <span class="attr">application:</span></span><br><span class="line">    <span class="attr">name:</span> <span class="string">hdnj-gateway</span></span><br><span class="line"></span><br><span class="line">  <span class="attr">cloud:</span></span><br><span class="line">    <span class="attr">gateway:</span></span><br><span class="line">      <span class="attr">routes:</span></span><br><span class="line">        <span class="bullet">-</span> <span class="attr">id:</span> <span class="string">query_route</span></span><br><span class="line">          <span class="attr">uri:</span> <span class="string">http://localhost:8080/</span></span><br><span class="line">          <span class="attr">predicates:</span></span><br><span class="line">           <span class="bullet">-</span> <span class="string">Query=green</span></span><br></pre></td></tr></table></figure>
+<p>如果请求包含green查询参数，则前面的路由匹配。</p>
+<h2 id="4-9-RemoteAddr路由匹配规则"><a href="#4-9-RemoteAddr路由匹配规则" class="headerlink" title="4.9 RemoteAddr路由匹配规则"></a>4.9 RemoteAddr路由匹配规则</h2><p><code>RemoteAddr</code>路由断言工厂需要的列表<code>sources</code>，其是CIDR的表示法（IPv4或IPv6）的字符串，如<code>192.168.200.1/16</code>（其中<code>192.168.200.1/16</code>是一个ip地址和16一个子网掩码 ），示例：</p>
+<figure class="highlight yml"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br></pre></td><td class="code"><pre><span class="line"><span class="attr">spring:</span></span><br><span class="line">  <span class="attr">application:</span></span><br><span class="line">    <span class="attr">name:</span> <span class="string">hdnj-gateway</span></span><br><span class="line"></span><br><span class="line">  <span class="attr">cloud:</span></span><br><span class="line">    <span class="attr">gateway:</span></span><br><span class="line">      <span class="attr">routes:</span></span><br><span class="line">        <span class="bullet">-</span> <span class="attr">id:</span> <span class="string">RemoteAddr_route</span></span><br><span class="line">          <span class="attr">uri:</span> <span class="string">http://localhost:8080/</span></span><br><span class="line">          <span class="attr">predicates:</span></span><br><span class="line">           <span class="bullet">-</span> <span class="string">RemoteAddr=192.168.200.1/24</span></span><br></pre></td></tr></table></figure>
+<p>如果请求的远程地址是以上地址，则此路由匹配</p>
+<h2 id="4-10-Weight路由匹配规则"><a href="#4-10-Weight路由匹配规则" class="headerlink" title="4.10 Weight路由匹配规则"></a>4.10 Weight路由匹配规则</h2><p>该<code>weight</code>路由断言工厂有两个参数：<code>group</code>和<code>weight</code>（一个int）。权重是按组计算的，以下示例：</p>
+<figure class="highlight yml"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br></pre></td><td class="code"><pre><span class="line"><span class="attr">spring:</span></span><br><span class="line">  <span class="attr">application:</span></span><br><span class="line">    <span class="attr">name:</span> <span class="string">hdnj-gateway</span></span><br><span class="line"></span><br><span class="line">  <span class="attr">cloud:</span></span><br><span class="line">    <span class="attr">gateway:</span></span><br><span class="line">      <span class="attr">routes:</span></span><br><span class="line">        <span class="bullet">-</span> <span class="attr">id:</span> <span class="string">weight_high</span></span><br><span class="line">          <span class="attr">uri:</span> <span class="string">https://weighthigh.org</span></span><br><span class="line">          <span class="attr">predicates:</span></span><br><span class="line">           <span class="bullet">-</span> <span class="string">Weight=group1,8</span></span><br><span class="line">        <span class="bullet">-</span> <span class="attr">id:</span> <span class="string">weight_low</span></span><br><span class="line">          <span class="attr">uri:</span> <span class="string">https://weightlow.org</span></span><br><span class="line">          <span class="attr">predicates:</span></span><br><span class="line">           <span class="bullet">-</span> <span class="string">Weight=group1,2</span></span><br></pre></td></tr></table></figure>
+<p>这条路线会将大约80%的流量转发到Weighthigh.org，将有大约20%流量转发到Weightlow.org。</p>
+
+    </div>
+
+    
+    
+    
+
+    <footer class="post-footer">
+          <div class="reward-container">
+  <div>Buy me a coffee</div>
+  <button onclick="document.querySelector('.post-reward').classList.toggle('active');">
+    赞赏
+  </button>
+  <div class="post-reward">
+      <div>
+        <img src="/images/wechatpay.jpg" alt="qnjy 微信">
+        <span>微信</span>
+      </div>
+      <div>
+        <img src="/images/alipay.jpg" alt="qnjy 支付宝">
+        <span>支付宝</span>
+      </div>
+
+  </div>
+</div>
+
+
+        
+
+          <div class="post-nav">
+            <div class="post-nav-item">
+                <a href="/post/4cf34f0f.html" rel="prev" title="Kali使用msf演示">
+                  <i class="fa fa-chevron-left"></i> Kali使用msf演示
+                </a>
+            </div>
+            <div class="post-nav-item">
+            </div>
+          </div>
+    </footer>
+  </article>
+</div>
+
+
+
+
+
+
+      
+
+<script>
+  window.addEventListener('tabs:register', () => {
+    let { activeClass } = CONFIG.comments;
+    if (CONFIG.comments.storage) {
+      activeClass = localStorage.getItem('comments_active') || activeClass;
+    }
+    if (activeClass) {
+      const activeTab = document.querySelector(`a[href="#comment-${activeClass}"]`);
+      if (activeTab) {
+        activeTab.click();
+      }
+    }
+  });
+  if (CONFIG.comments.storage) {
+    window.addEventListener('tabs:click', event => {
+      if (!event.target.matches('.tabs-comment .tab-content .tab-pane')) return;
+      const commentClass = event.target.classList[1];
+      localStorage.setItem('comments_active', commentClass);
+    });
+  }
+</script>
+
+    </div>
+  </main>
+
+  <footer class="footer">
+    <div class="footer-inner">
+      
+
+      
+
+<div class="copyright">
+  
+  &copy; 2020 – 
+  <span itemprop="copyrightYear">2022</span>
+  <span class="with-love">
+    <i class="fa fa-heart"></i>
+  </span>
+  <span class="author" itemprop="copyrightHolder">qnjy</span>
+</div>
+<div class="busuanzi-count">
+    <span class="post-meta-item" id="busuanzi_container_site_uv" style="display: none;">
+      <span class="post-meta-item-icon">
+        <i class="fa fa-user"></i>
+      </span>
+      <span class="site-uv" title="总访客量">
+        <span id="busuanzi_value_site_uv"></span>
+      </span>
+    </span>
+    <span class="post-meta-item" id="busuanzi_container_site_pv" style="display: none;">
+      <span class="post-meta-item-icon">
+        <i class="fa fa-eye"></i>
+      </span>
+      <span class="site-pv" title="总访问量">
+        <span id="busuanzi_value_site_pv"></span>
+      </span>
+    </span>
+</div>
+
+    </div>
+  </footer>
+
+  
+  <script src="//cdn.jsdelivr.net/npm/animejs@3.2.1/lib/anime.min.js"></script>
+  <script src="//cdn.jsdelivr.net/npm/jquery@3.5.1/dist/jquery.min.js"></script>
+  <script src="//cdn.jsdelivr.net/npm/@fancyapps/fancybox@3.5.7/dist/jquery.fancybox.min.js"></script>
+<script src="/js/utils.js"></script><script src="/js/motion.js"></script><script src="/js/next-boot.js"></script><script src="/js/bookmark.js"></script>
+
+  
+
+
+
+
+  <script src="/js/local-search.js"></script>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+  
+  <script async src="https://busuanzi.ibruce.info/busuanzi/2.3/busuanzi.pure.mini.js"></script>
+
+
+
+
+
+
+
+
+  
+
+  
+
+  
+
+
+
+
+
+</body>
+</html>
