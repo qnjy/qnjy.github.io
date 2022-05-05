@@ -7835,4 +7835,30 @@ ASL=\sum_{i=1}^{n}p_ic_i</script><p>n：记录的个数</p>
 <p>这条路线会将大约80%的流量转发到Weighthigh.org，将有大约20%流量转发到Weightlow.org。</p>
 ]]></content>
   </entry>
+  <entry>
+    <title>在项目中Swagger的使用</title>
+    <url>/post/5c95a5b8.html</url>
+    <content><![CDATA[<p>　　之前没有进行过前后端分离的开发，这次有一个偶然的机会做的项目采用这种模式，在沟通过程中，了解Swagger这个工具，可以很方便的进行前后端的对接，来学习一下<span id="more"></span></p>
+<h1 id="1-Swagger是什么"><a href="#1-Swagger是什么" class="headerlink" title="1 Swagger是什么"></a>1 Swagger是什么</h1><p>Swagger是一款RESTFUL接口的文档在线自动生成+功能测试功能软件。Swagger是一个规范和完整的框架，用于生成、描述、调用和可视化RestFul风格的Web服务。目标是是客户端和文件系统作为服务器以同样的速度来更新文件的方法，参数和模型紧密集成到服务器。</p>
+<h1 id="2-为什么要使用Swagger"><a href="#2-为什么要使用Swagger" class="headerlink" title="2 为什么要使用Swagger"></a>2 为什么要使用Swagger</h1><ol>
+<li>对于后端人员来说<ul>
+<li>不用再手写wiki接口拼大量的参数，避免手写错误</li>
+<li>对代码侵入性低，采用全注解的方式，开发简单</li>
+<li>方法参数名修改、增加、减少参数都可以直接生效，不用手动维护</li>
+<li>缺点，增加了开发成本，写接口还得在写一套配置参数</li>
+</ul>
+</li>
+<li>对于前端人员来说<ul>
+<li>后端只需要定义好接口，会自动生成文档，接口功能、参数一目了然</li>
+<li>联调方便，如果出问题，直接测试接口，实时检查参数和返回值，就可以快速定位前端还是后端问题</li>
+</ul>
+</li>
+<li>对于测试<ul>
+<li>对于某些没有前端界面UI的功能，可以用它来测试接口</li>
+<li>操作简单</li>
+</ul>
+</li>
+</ol>
+]]></content>
+  </entry>
 </search>
