@@ -1,0 +1,568 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+  <meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=2">
+<meta name="theme-color" content="#222">
+<meta name="generator" content="Hexo 5.4.0">
+
+
+  <link rel="apple-touch-icon" sizes="180x180" href="/images/apple-touch-icon-next.png">
+  <link rel="icon" type="image/png" sizes="32x32" href="/images/favicon-32x32-next.png">
+  <link rel="icon" type="image/png" sizes="16x16" href="/images/favicon-16x16-next.png">
+  <link rel="mask-icon" href="/images/logo.svg" color="#222">
+
+<link rel="stylesheet" href="/css/main.css">
+
+
+
+<link rel="stylesheet" href="//cdn.jsdelivr.net/npm/@fortawesome/fontawesome-free@5.15.1/css/all.min.css">
+  <link rel="stylesheet" href="//cdn.jsdelivr.net/npm/animate.css@3.1.1/animate.min.css">
+  <link rel="stylesheet" href="//cdn.jsdelivr.net/npm/@fancyapps/fancybox@3.5.7/dist/jquery.fancybox.min.css">
+
+<script class="hexo-configurations">
+    var NexT = window.NexT || {};
+    var CONFIG = {"hostname":"qnjy.github.io","root":"/","images":"/images","scheme":"Gemini","version":"8.0.2","exturl":false,"sidebar":{"position":"left","display":"post","padding":18,"offset":12},"copycode":true,"bookmark":{"enable":true,"color":"#222","save":"auto"},"fancybox":true,"mediumzoom":false,"lazyload":false,"pangu":false,"comments":{"style":"tabs","active":null,"storage":true,"lazyload":false,"nav":null},"motion":{"enable":true,"async":false,"transition":{"post_block":"fadeIn","post_header":"fadeInDown","post_body":"fadeInDown","coll_header":"fadeInLeft","sidebar":"fadeInUp"}},"prism":false,"i18n":{"placeholder":"搜索...","empty":"没有找到任何搜索结果：${query}","hits_time":"找到 ${hits} 个搜索结果（用时 ${time} 毫秒）","hits":"找到 ${hits} 个搜索结果"},"path":"/search.xml","localsearch":{"enable":true,"trigger":"auto","top_n_per_article":1,"unescape":false,"preload":false}};
+  </script>
+
+  <meta name="description" content="Mybatis框架的核心理解：映射和ORM SpringMVC框架的核心理解：拦截+分发 DispatcherServlet 基础Servlet时：一个路径url——&gt;一个servlet—-&gt;一个类 SpringMVC： 只有一个Servlet（DispatcherServlet）—-&gt;匹配请求路径【拦截】 具体的请求url【分发】—-&gt;一个controller中的方法—-">
+<meta property="og:type" content="article">
+<meta property="og:title" content="SSM实训-第三天">
+<meta property="og:url" content="https://qnjy.github.io/post/3d1842cf.html">
+<meta property="og:site_name" content="qnjy&#39;s blog">
+<meta property="og:description" content="Mybatis框架的核心理解：映射和ORM SpringMVC框架的核心理解：拦截+分发 DispatcherServlet 基础Servlet时：一个路径url——&gt;一个servlet—-&gt;一个类 SpringMVC： 只有一个Servlet（DispatcherServlet）—-&gt;匹配请求路径【拦截】 具体的请求url【分发】—-&gt;一个controller中的方法—-">
+<meta property="og:locale" content="zh_CN">
+<meta property="og:image" content="https://qnjy.coding.net/p/githubimg/d/githubimg/git/raw/master/img/20220622-image-20220622101223795.png">
+<meta property="article:published_time" content="2022-06-22T02:06:27.000Z">
+<meta property="article:modified_time" content="2022-07-11T12:03:37.408Z">
+<meta property="article:author" content="qnjy">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:image" content="https://qnjy.coding.net/p/githubimg/d/githubimg/git/raw/master/img/20220622-image-20220622101223795.png">
+
+
+<link rel="canonical" href="https://qnjy.github.io/post/3d1842cf.html">
+
+
+<script class="page-configurations">
+  // https://hexo.io/docs/variables.html
+  CONFIG.page = {
+    sidebar: "",
+    isHome : false,
+    isPost : true,
+    lang   : 'zh-CN'
+  };
+</script>
+
+  <title>SSM实训-第三天 | qnjy's blog</title>
+  
+
+
+
+
+
+
+  <noscript>
+  <style>
+  body { margin-top: 2rem; }
+
+  .use-motion .menu-item,
+  .use-motion .sidebar,
+  .use-motion .post-block,
+  .use-motion .pagination,
+  .use-motion .comments,
+  .use-motion .post-header,
+  .use-motion .post-body,
+  .use-motion .collection-header {
+    visibility: visible;
+  }
+
+  .use-motion .header,
+  .use-motion .site-brand-container .toggle,
+  .use-motion .footer { opacity: initial; }
+
+  .use-motion .site-title,
+  .use-motion .site-subtitle,
+  .use-motion .custom-logo-image {
+    opacity: initial;
+    top: initial;
+  }
+
+  .use-motion .logo-line {
+    transform: scaleX(1);
+  }
+
+  .search-pop-overlay, .sidebar-nav { display: none; }
+  .sidebar-panel { display: block; }
+  </style>
+</noscript>
+
+</head>
+
+<body itemscope itemtype="http://schema.org/WebPage" class="use-motion">
+  <div class="headband"></div>
+
+  <main class="main">
+    <header class="header" itemscope itemtype="http://schema.org/WPHeader">
+      <div class="header-inner"><div class="site-brand-container">
+  <div class="site-nav-toggle">
+    <div class="toggle" aria-label="切换导航栏">
+        <span class="toggle-line"></span>
+        <span class="toggle-line"></span>
+        <span class="toggle-line"></span>
+    </div>
+  </div>
+
+  <div class="site-meta">
+
+    <a href="/" class="brand" rel="start">
+      <i class="logo-line"></i>
+      <h1 class="site-title">qnjy's blog</h1>
+      <i class="logo-line"></i>
+    </a>
+      <p class="site-subtitle" itemprop="description">方向不对，努力白费</p>
+  </div>
+
+  <div class="site-nav-right">
+    <div class="toggle popup-trigger">
+        <i class="fa fa-search fa-fw fa-lg"></i>
+    </div>
+  </div>
+</div>
+
+
+
+<nav class="site-nav">
+  <ul class="main-menu menu">
+        <li class="menu-item menu-item-home">
+
+    <a href="/" rel="section"><i class="fa fa-home fa-fw"></i>首页</a>
+
+  </li>
+        <li class="menu-item menu-item-tags">
+
+    <a href="/tags/" rel="section"><i class="fa fa-tags fa-fw"></i>标签</a>
+
+  </li>
+        <li class="menu-item menu-item-categories">
+
+    <a href="/categories/" rel="section"><i class="fa fa-th fa-fw"></i>分类</a>
+
+  </li>
+        <li class="menu-item menu-item-archives">
+
+    <a href="/archives/" rel="section"><i class="fa fa-archive fa-fw"></i>归档</a>
+
+  </li>
+      <li class="menu-item menu-item-search">
+        <a role="button" class="popup-trigger"><i class="fa fa-search fa-fw"></i>搜索
+        </a>
+      </li>
+  </ul>
+</nav>
+
+
+
+  <div class="search-pop-overlay">
+    <div class="popup search-popup">
+        <div class="search-header">
+  <span class="search-icon">
+    <i class="fa fa-search"></i>
+  </span>
+  <div class="search-input-container">
+    <input autocomplete="off" autocapitalize="off" maxlength="80"
+           placeholder="搜索..." spellcheck="false"
+           type="search" class="search-input">
+  </div>
+  <span class="popup-btn-close">
+    <i class="fa fa-times-circle"></i>
+  </span>
+</div>
+<div class="search-result-container no-result">
+  <div class="search-result-icon">
+    <i class="fa fa-spinner fa-pulse fa-5x"></i>
+  </div>
+</div>
+
+    </div>
+  </div>
+
+</div>
+        
+  
+  <div class="toggle sidebar-toggle">
+    <span class="toggle-line"></span>
+    <span class="toggle-line"></span>
+    <span class="toggle-line"></span>
+  </div>
+
+  <aside class="sidebar">
+
+    <div class="sidebar-inner sidebar-nav-active sidebar-toc-active">
+      <ul class="sidebar-nav">
+        <li class="sidebar-nav-toc">
+          文章目录
+        </li>
+        <li class="sidebar-nav-overview">
+          站点概览
+        </li>
+      </ul>
+
+      <div class="sidebar-panel-container">
+        <!--noindex-->
+        <section class="post-toc-wrap sidebar-panel">
+            <div class="post-toc animated"><ol class="nav"><li class="nav-item nav-level-1"><a class="nav-link" href="#%E4%BB%BB%E5%8A%A1%EF%BC%9A"><span class="nav-text">任务：</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#1-%E9%A1%B9%E7%9B%AE%E5%BC%95%E5%85%A5Spring%E6%A1%86%E6%9E%B6"><span class="nav-text">1 项目引入Spring框架</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#2-%E7%BC%B4%E8%B4%B9%E6%A8%A1%E5%9D%97%E7%BC%96%E5%86%99"><span class="nav-text">2 缴费模块编写</span></a></li></ol></div>
+        </section>
+        <!--/noindex-->
+
+        <section class="site-overview-wrap sidebar-panel">
+          <div class="site-author site-overview-item animated" itemprop="author" itemscope itemtype="http://schema.org/Person">
+    <img class="site-author-image" itemprop="image" alt="qnjy"
+      src="/images/xigua.jpg">
+  <p class="site-author-name" itemprop="name">qnjy</p>
+  <div class="site-description" itemprop="description">宁静以致远</div>
+</div>
+<div class="site-state-wrap site-overview-item animated">
+  <nav class="site-state">
+      <div class="site-state-item site-state-posts">
+          <a href="/archives/">
+        
+          <span class="site-state-item-count">79</span>
+          <span class="site-state-item-name">日志</span>
+        </a>
+      </div>
+      <div class="site-state-item site-state-categories">
+            <a href="/categories/">
+          
+        <span class="site-state-item-count">20</span>
+        <span class="site-state-item-name">分类</span></a>
+      </div>
+      <div class="site-state-item site-state-tags">
+            <a href="/tags/">
+          
+        <span class="site-state-item-count">30</span>
+        <span class="site-state-item-name">标签</span></a>
+      </div>
+  </nav>
+</div>
+  <div class="links-of-author site-overview-item animated">
+      <span class="links-of-author-item">
+        <a href="https://github.com/qnjy" title="GitHub → https:&#x2F;&#x2F;github.com&#x2F;qnjy" rel="noopener" target="_blank"><i class="fab fa-github fa-fw"></i>GitHub</a>
+      </span>
+      <span class="links-of-author-item">
+        <a href="mailto:877900490@qq.com" title="E-Mail → mailto:877900490@qq.com" rel="noopener" target="_blank"><i class="fa fa-envelope fa-fw"></i>E-Mail</a>
+      </span>
+  </div>
+  <div class="cc-license site-overview-item animated" itemprop="license">
+    <a href="https://creativecommons.org/licenses/by-nc-sa/4.0/zh-CN" class="cc-opacity" rel="noopener" target="_blank"><img src="/images/cc-by-nc-sa.svg" alt="Creative Commons"></a>
+  </div>
+
+
+
+        </section>
+      </div>
+
+    </div>
+  </aside>
+  <div class="sidebar-dimmer"></div>
+
+
+    </header>
+
+    
+  <div class="back-to-top">
+    <i class="fa fa-arrow-up"></i>
+    <span>0%</span>
+  </div>
+  <div class="reading-progress-bar"></div>
+  <a role="button" class="book-mark-link book-mark-link-fixed"></a>
+
+<noscript>
+  <div class="noscript-warning">Theme NexT works best with JavaScript enabled</div>
+</noscript>
+
+
+    <div class="main-inner post posts-expand">
+      
+
+      
+
+  
+
+
+<div class="post-block">
+  
+  
+
+  <article itemscope itemtype="http://schema.org/Article" class="post-content" lang="zh-CN">
+    <link itemprop="mainEntityOfPage" href="https://qnjy.github.io/post/3d1842cf.html">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="image" content="/images/xigua.jpg">
+      <meta itemprop="name" content="qnjy">
+      <meta itemprop="description" content="宁静以致远">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="qnjy's blog">
+    </span>
+      <header class="post-header">
+        <h1 class="post-title" itemprop="name headline">
+          SSM实训-第三天
+        </h1>
+
+        <div class="post-meta-container">
+          <div class="post-meta">
+    <span class="post-meta-item">
+      <span class="post-meta-item-icon">
+        <i class="far fa-calendar"></i>
+      </span>
+      <span class="post-meta-item-text">发表于</span>
+
+      <time title="创建时间：2022-06-22 10:06:27" itemprop="dateCreated datePublished" datetime="2022-06-22T10:06:27+08:00">2022-06-22</time>
+    </span>
+      <span class="post-meta-item">
+        <span class="post-meta-item-icon">
+          <i class="far fa-calendar-check"></i>
+        </span>
+        <span class="post-meta-item-text">更新于</span>
+        <time title="修改时间：2022-07-11 20:03:37" itemprop="dateModified" datetime="2022-07-11T20:03:37+08:00">2022-07-11</time>
+      </span>
+
+  
+    <span class="post-meta-item" title="阅读次数" id="busuanzi_container_page_pv" style="display: none;">
+      <span class="post-meta-item-icon">
+        <i class="far fa-eye"></i>
+      </span>
+      <span class="post-meta-item-text">阅读次数：</span>
+      <span id="busuanzi_value_page_pv"></span>
+    </span>
+</div>
+
+        </div>
+      </header>
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+        <p>Mybatis框架的核心理解：映射和ORM</p>
+<p>SpringMVC框架的核心理解：拦截+分发 DispatcherServlet</p>
+<p>基础Servlet时：一个路径url——&gt;一个servlet—-&gt;一个类</p>
+<p>SpringMVC：</p>
+<p>只有一个Servlet（DispatcherServlet）—-&gt;匹配请求路径【拦截】</p>
+<p>具体的请求url【分发】—-&gt;一个controller中的方法—-&gt;方法</p>
+<span id="more"></span>
+<hr>
+<h1 id="任务："><a href="#任务：" class="headerlink" title="任务："></a>任务：</h1><p>1 springmvc框架的学习和使用IOC</p>
+<p>2 完成收费模块的开发</p>
+<hr>
+<p>当前问题：</p>
+<p><img src="https://qnjy.coding.net/p/githubimg/d/githubimg/git/raw/master/img/20220622-image-20220622101223795.png" alt="image-20220622101223795"></p>
+<p>在项目中引入Spring框架，就是为了解决这样的问题</p>
+<p>简单理解IOC：</p>
+<p>​            Inverse of control 控制反转</p>
+<p>​            在使用Spring之前，所有的类对象都需要通过程序员手动new（或get），来获取。</p>
+<p>​            有了Spring的IOC，类对象都提前在Spring容器中创建好了，用户直接用就可以</p>
+<h1 id="1-项目引入Spring框架"><a href="#1-项目引入Spring框架" class="headerlink" title="1 项目引入Spring框架"></a>1 项目引入Spring框架</h1><p>1 导入jar（mybatis-spring包、额外的jar:c3p0连接池）</p>
+<p>2 导入配置文件</p>
+<p>​    Spring-config.xml</p>
+<p>​            (1)bea容器初始化，创建对象放入容器</p>
+<p>​            (2)事务管理</p>
+<p>​    web.xml:通过listener监听，加载spring配置文件，启动SpringIOC容器</p>
+<p>IOC容器的初始化和使用：</p>
+<p>（1）初始化，可以使用两种方式创建bean对象，放入ioc容器</p>
+<p>​            I.bean标签手动创建</p>
+<figure class="highlight xml"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line"><span class="tag">&lt;<span class="name">bean</span> <span class="attr">class</span>=<span class="string">&quot;com.xja.model.Room&quot;</span>&gt;</span></span><br><span class="line">    <span class="tag">&lt;<span class="name">property</span> <span class="attr">name</span>=<span class="string">&quot;building&quot;</span> <span class="attr">value</span>=<span class="string">&quot;ADong&quot;</span>/&gt;</span></span><br><span class="line">    <span class="tag">&lt;<span class="name">property</span> <span class="attr">name</span>=<span class="string">&quot;unit&quot;</span> <span class="attr">value</span>=<span class="string">&quot;1&quot;</span>/&gt;</span></span><br><span class="line"><span class="tag">&lt;/<span class="name">bean</span>&gt;</span></span><br></pre></td></tr></table></figure>
+<p>​            II.<strong>自动检测context:component-scan</strong></p>
+<figure class="highlight xml"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">&lt;!--    检测包，自动创建bean--&gt;</span></span><br><span class="line"><span class="comment">&lt;!--   目标：将包中的类都创建对象，放入ioc容器--&gt;</span></span><br><span class="line"><span class="tag">&lt;<span class="name">context:component-scan</span> <span class="attr">base-package</span>=<span class="string">&quot;com.xja.model&quot;</span> /&gt;</span></span><br><span class="line"><span class="comment">&lt;!--   context:component-scan：自动检测 ，对包中的类是有要求，不是说所有的类都创建对象--&gt;</span></span><br><span class="line"><span class="comment">&lt;!--将需要创建对象的类，使用【@Controller(控制器)、@Service（服务）、@Component（组件）、@Repository（资源）】这四个注解之一标注。--&gt;</span></span><br><span class="line"></span><br></pre></td></tr></table></figure>
+<p>（2）使用</p>
+<p>@Autowired：自动从IOC容器中取出相关类型的对象给变量值</p>
+<hr>
+<h1 id="2-缴费模块编写"><a href="#2-缴费模块编写" class="headerlink" title="2 缴费模块编写"></a>2 缴费模块编写</h1><p>1 数据表设计</p>
+<p>费用表fee</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br></pre></td><td class="code"><pre><span class="line">CREATE TABLE &#96;fee&#96; (</span><br><span class="line">    &#96;feeid&#96; int(11) NOT NULL AUTO_INCREMENT COMMENT &#39;主键自增&#39;,</span><br><span class="line">    &#96;feecode&#96; varchar(255) DEFAULT NULL COMMENT &#39;费用编号&#39;,</span><br><span class="line">    &#96;roomid&#96; int(11) DEFAULT NULL COMMENT &#39;房间id&#39;,</span><br><span class="line">    &#96;roomname&#96; varchar(255) DEFAULT NULL COMMENT &#39;房间名&#39;,</span><br><span class="line">    &#96;amount&#96; double(11,2) DEFAULT NULL COMMENT &#39;金额&#39;,</span><br><span class="line">    &#96;chargename&#96; varchar(255) DEFAULT NULL COMMENT &#39;费用项目&#39;,</span><br><span class="line">    &#96;chargeinfo&#96; varchar(255) DEFAULT NULL COMMENT &#39;费用说明&#39;,</span><br><span class="line">    &#96;feecreatedtime&#96; varchar(255) DEFAULT NULL COMMENT &#39;记录生成时间&#39;,</span><br><span class="line">    &#96;paystatus&#96; int(11) DEFAULT NULL COMMENT &#39;0未交费 1部分缴费 2已缴费&#39;,</span><br><span class="line">    &#96;feeremark&#96; varchar(255) DEFAULT NULL COMMENT &#39;备注&#39;,</span><br><span class="line">    PRIMARY KEY (&#96;feeid&#96;)</span><br><span class="line">) ENGINE&#x3D;InnoDB AUTO_INCREMENT&#x3D;51 DEFAULT CHARSET&#x3D;utf8mb4;</span><br></pre></td></tr></table></figure>
+<p>缴费记录表payrecord</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br></pre></td><td class="code"><pre><span class="line">CREATE TABLE &#96;payrecord&#96; (</span><br><span class="line">  &#96;payrecordid&#96; int(11) NOT NULL AUTO_INCREMENT COMMENT &#39;主键自增&#39;,</span><br><span class="line">  &#96;userid&#96; int(11) DEFAULT NULL COMMENT &#39;业主id&#39;,</span><br><span class="line">  &#96;paycreatedtime&#96; varchar(255) DEFAULT NULL COMMENT &#39;缴费时间&#39;,</span><br><span class="line">  &#96;payamount&#96; double(11,2) DEFAULT NULL COMMENT &#39;缴费金额&#39;,</span><br><span class="line">  &#96;feecode&#96; varchar(255) DEFAULT NULL COMMENT &#39;费用编号&#39;,</span><br><span class="line">  &#96;payremark&#96; varchar(255) DEFAULT NULL COMMENT &#39;备注&#39;,</span><br><span class="line">  PRIMARY KEY (&#96;payrecordid&#96;)</span><br><span class="line">) ENGINE&#x3D;InnoDB AUTO_INCREMENT&#x3D;104 DEFAULT CHARSET&#x3D;utf8mb4;</span><br></pre></td></tr></table></figure>
+<p>2 插入50条数据，这两个数据表之间是有关联的</p>
+<p>3 功能设计</p>
+<p>I.费用模块</p>
+<p>列表展示：</p>
+<p>费用编号、房间名、金额、费用类型、费用说明、生成时间、缴费状态、已缴费金额、操作</p>
+<p><strong>多条件查询：</strong></p>
+<p>费用类型、缴费状态、房间号</p>
+<p>新增【点击按钮新增一条数据—-》草率，不能这么做】【做好费用excel表，一起导入（管理员操作）】（需要有，延迟实现）</p>
+<p>修改、删除【不要】</p>
+<p>额外功能：Excel报表导出（将缴费、待缴费或其他筛选出来的内容，导出到excel中）（延迟实现）</p>
+<p>II.缴费模块</p>
+<p>列表展示：</p>
+<p>id、业主姓名、房间号、手机号、缴费金额、缴费时间、费用编号、备注</p>
+<p><strong>多条件查询：</strong></p>
+<p>费用编号、手机号、时间（开始~结束）</p>
+<p>新增：</p>
+<p>​        特殊人群需要新增（填写：金额、费用编号、备注）</p>
+<p>修改：</p>
+<p>​        保留</p>
+<p>额外的功能：Excel报表导出</p>
+
+    </div>
+
+    
+    
+    
+
+    <footer class="post-footer">
+          <div class="reward-container">
+  <div>Buy me a coffee</div>
+  <button onclick="document.querySelector('.post-reward').classList.toggle('active');">
+    赞赏
+  </button>
+  <div class="post-reward">
+      <div>
+        <img src="/images/wechatpay.jpg" alt="qnjy 微信">
+        <span>微信</span>
+      </div>
+      <div>
+        <img src="/images/alipay.jpg" alt="qnjy 支付宝">
+        <span>支付宝</span>
+      </div>
+
+  </div>
+</div>
+
+
+        
+
+          <div class="post-nav">
+            <div class="post-nav-item">
+                <a href="/post/7006e19d.html" rel="prev" title="SSM实训-第二天">
+                  <i class="fa fa-chevron-left"></i> SSM实训-第二天
+                </a>
+            </div>
+            <div class="post-nav-item">
+                <a href="/post/8a355baa.html" rel="next" title="SSM实训-第四天">
+                  SSM实训-第四天 <i class="fa fa-chevron-right"></i>
+                </a>
+            </div>
+          </div>
+    </footer>
+  </article>
+</div>
+
+
+
+
+
+
+      
+
+<script>
+  window.addEventListener('tabs:register', () => {
+    let { activeClass } = CONFIG.comments;
+    if (CONFIG.comments.storage) {
+      activeClass = localStorage.getItem('comments_active') || activeClass;
+    }
+    if (activeClass) {
+      const activeTab = document.querySelector(`a[href="#comment-${activeClass}"]`);
+      if (activeTab) {
+        activeTab.click();
+      }
+    }
+  });
+  if (CONFIG.comments.storage) {
+    window.addEventListener('tabs:click', event => {
+      if (!event.target.matches('.tabs-comment .tab-content .tab-pane')) return;
+      const commentClass = event.target.classList[1];
+      localStorage.setItem('comments_active', commentClass);
+    });
+  }
+</script>
+
+    </div>
+  </main>
+
+  <footer class="footer">
+    <div class="footer-inner">
+      
+
+      
+
+<div class="copyright">
+  
+  &copy; 2020 – 
+  <span itemprop="copyrightYear">2022</span>
+  <span class="with-love">
+    <i class="fa fa-heart"></i>
+  </span>
+  <span class="author" itemprop="copyrightHolder">qnjy</span>
+</div>
+<div class="busuanzi-count">
+    <span class="post-meta-item" id="busuanzi_container_site_uv" style="display: none;">
+      <span class="post-meta-item-icon">
+        <i class="fa fa-user"></i>
+      </span>
+      <span class="site-uv" title="总访客量">
+        <span id="busuanzi_value_site_uv"></span>
+      </span>
+    </span>
+    <span class="post-meta-item" id="busuanzi_container_site_pv" style="display: none;">
+      <span class="post-meta-item-icon">
+        <i class="fa fa-eye"></i>
+      </span>
+      <span class="site-pv" title="总访问量">
+        <span id="busuanzi_value_site_pv"></span>
+      </span>
+    </span>
+</div>
+
+    </div>
+  </footer>
+
+  
+  <script src="//cdn.jsdelivr.net/npm/animejs@3.2.1/lib/anime.min.js"></script>
+  <script src="//cdn.jsdelivr.net/npm/jquery@3.5.1/dist/jquery.min.js"></script>
+  <script src="//cdn.jsdelivr.net/npm/@fancyapps/fancybox@3.5.7/dist/jquery.fancybox.min.js"></script>
+<script src="/js/utils.js"></script><script src="/js/motion.js"></script><script src="/js/next-boot.js"></script><script src="/js/bookmark.js"></script>
+
+  
+
+
+
+
+  <script src="/js/local-search.js"></script>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+  
+  <script async src="https://busuanzi.ibruce.info/busuanzi/2.3/busuanzi.pure.mini.js"></script>
+
+
+
+
+
+
+
+
+  
+
+  
+
+  
+
+
+
+
+
+</body>
+</html>
