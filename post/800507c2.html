@@ -32,10 +32,17 @@
 <meta property="og:site_name" content="qnjy&#39;s blog">
 <meta property="og:description" content="一 排序1 冒泡排序简单来说就是，重复走访要排序的数列，一次比较两个元素，如果顺序错误，就调换过来  算法步骤 比较相邻的元素。如果第一个比第二个大，就交换他们两个。 对每一对相邻元素作同样的工作，从开始第一对到结尾的最后一对。这步做完后，最后的元素会是最大的数。 针对所有的元素重复以上的步骤，除了最后一个。 持续每次对越来越少的元素重复上面的步骤，直到没有任何一对数字需要比较。  示例：对{3,">
 <meta property="og:locale" content="zh_CN">
+<meta property="og:image" content="https://qnjy.github.io/images/算法学习/image-20220718153148582.png">
+<meta property="og:image" content="https://qnjy.github.io/images/算法学习/image-20220718160238268.png">
+<meta property="og:image" content="https://qnjy.github.io/images/算法学习/image-20220718160915331.png">
+<meta property="og:image" content="https://qnjy.github.io/images/算法学习/image-20220718161611980.png">
+<meta property="og:image" content="https://qnjy.github.io/images/算法学习/image-20220718162020635.png">
+<meta property="og:image" content="https://qnjy.github.io/images/算法学习/image-20220728211428445.png">
 <meta property="article:published_time" content="2022-01-03T09:52:56.000Z">
-<meta property="article:modified_time" content="2022-03-27T13:51:28.767Z">
+<meta property="article:modified_time" content="2022-07-28T13:42:50.117Z">
 <meta property="article:author" content="qnjy">
 <meta name="twitter:card" content="summary">
+<meta name="twitter:image" content="https://qnjy.github.io/images/算法学习/image-20220718153148582.png">
 
 
 <link rel="canonical" href="https://qnjy.github.io/post/800507c2.html">
@@ -208,7 +215,7 @@
       <div class="sidebar-panel-container">
         <!--noindex-->
         <section class="post-toc-wrap sidebar-panel">
-            <div class="post-toc animated"><ol class="nav"><li class="nav-item nav-level-1"><a class="nav-link" href="#%E4%B8%80-%E6%8E%92%E5%BA%8F"><span class="nav-text">一 排序</span></a><ol class="nav-child"><li class="nav-item nav-level-2"><a class="nav-link" href="#1-%E5%86%92%E6%B3%A1%E6%8E%92%E5%BA%8F"><span class="nav-text">1 冒泡排序</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#2-%E9%80%89%E6%8B%A9%E6%8E%92%E5%BA%8F"><span class="nav-text">2 选择排序</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#3-%E5%BF%AB%E9%80%9F%E6%8E%92%E5%BA%8F"><span class="nav-text">3 快速排序</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#4-%E6%8F%92%E5%85%A5%E6%8E%92%E5%BA%8F"><span class="nav-text">4 插入排序</span></a></li></ol></li></ol></div>
+            <div class="post-toc animated"><ol class="nav"><li class="nav-item nav-level-1"><a class="nav-link" href="#%E4%B8%80-%E6%8E%92%E5%BA%8F"><span class="nav-text">一 排序</span></a><ol class="nav-child"><li class="nav-item nav-level-2"><a class="nav-link" href="#1-%E5%86%92%E6%B3%A1%E6%8E%92%E5%BA%8F"><span class="nav-text">1 冒泡排序</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#2-%E9%80%89%E6%8B%A9%E6%8E%92%E5%BA%8F"><span class="nav-text">2 选择排序</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#3-%E5%BF%AB%E9%80%9F%E6%8E%92%E5%BA%8F"><span class="nav-text">3 快速排序</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#4-%E6%8F%92%E5%85%A5%E6%8E%92%E5%BA%8F"><span class="nav-text">4 插入排序</span></a></li></ol></li><li class="nav-item nav-level-1"><a class="nav-link" href="#%E4%BA%8C-%E5%88%86%E6%B2%BB%E6%B3%95"><span class="nav-text">二 分治法</span></a><ol class="nav-child"><li class="nav-item nav-level-2"><a class="nav-link" href="#2-1-%E4%BA%8C%E5%88%86%E6%9F%A5%E6%89%BE"><span class="nav-text">2.1 二分查找</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#2-1-1-%E7%AE%97%E6%B3%95%E6%80%9D%E8%B7%AF"><span class="nav-text">2.1.1 算法思路</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#2-1-2-%E6%97%B6%E9%97%B4%E5%A4%8D%E6%9D%82%E5%BA%A6"><span class="nav-text">2.1.2 时间复杂度</span></a></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#2-2-%E4%B9%98%E6%B3%95"><span class="nav-text">2.2 乘法</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#2-2-1-%E5%A4%A7%E6%95%B4%E6%95%B0%E4%B9%98%E6%B3%95"><span class="nav-text">2.2.1 大整数乘法</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#2-2-2-%E7%9F%A9%E9%98%B5%E7%9B%B8%E4%B9%98"><span class="nav-text">2.2.2 矩阵相乘</span></a></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#2-3-%E6%A3%8B%E7%9B%98%E8%A6%86%E7%9B%96"><span class="nav-text">2.3 棋盘覆盖</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#2-3-1-%E7%AE%97%E6%B3%95%E6%80%9D%E8%B7%AF"><span class="nav-text">2.3.1 算法思路</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#2-3-2-%E6%89%A7%E8%A1%8C%E8%BF%87%E7%A8%8B"><span class="nav-text">2.3.2 执行过程</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#2-3-3-%E4%BB%A3%E7%A0%81"><span class="nav-text">2.3.3 代码</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#2-3-4-%E5%88%86%E6%9E%90%E6%97%B6%E9%97%B4%E5%A4%8D%E6%9D%82%E5%BA%A6"><span class="nav-text">2.3.4 分析时间复杂度</span></a></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#2-4-%E5%BD%92%E5%B9%B6%E6%8E%92%E5%BA%8F"><span class="nav-text">2.4 归并排序</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#2-5-%E5%BF%AB%E9%80%9F%E6%8E%92%E5%BA%8F"><span class="nav-text">2.5 快速排序</span></a></li></ol></li><li class="nav-item nav-level-1"><a class="nav-link" href="#%E4%B8%89-%E5%8A%A8%E6%80%81%E8%A7%84%E5%88%92"><span class="nav-text">三 动态规划</span></a><ol class="nav-child"><li class="nav-item nav-level-2"><a class="nav-link" href="#3-1-%E7%9F%A9%E9%98%B5%E8%BF%9E%E4%B9%98"><span class="nav-text">3.1 矩阵连乘</span></a></li></ol></li></ol></div>
         </section>
         <!--/noindex-->
 
@@ -224,7 +231,7 @@
       <div class="site-state-item site-state-posts">
           <a href="/archives/">
         
-          <span class="site-state-item-count">79</span>
+          <span class="site-state-item-count">85</span>
           <span class="site-state-item-name">日志</span>
         </a>
       </div>
@@ -323,7 +330,7 @@
           <i class="far fa-calendar-check"></i>
         </span>
         <span class="post-meta-item-text">更新于</span>
-        <time title="修改时间：2022-03-27 21:51:28" itemprop="dateModified" datetime="2022-03-27T21:51:28+08:00">2022-03-27</time>
+        <time title="修改时间：2022-07-28 21:42:50" itemprop="dateModified" datetime="2022-07-28T21:42:50+08:00">2022-07-28</time>
       </span>
 
   
@@ -381,8 +388,118 @@
 <li>递归地（recursive）把小于基准值元素的子数列和大于基准值元素的子数列排序；</li>
 </ol>
 </blockquote>
-<h2 id="4-插入排序"><a href="#4-插入排序" class="headerlink" title="4 插入排序"></a>4 插入排序</h2><p>　　</p>
+<h2 id="4-插入排序"><a href="#4-插入排序" class="headerlink" title="4 插入排序"></a>4 插入排序</h2><h1 id="二-分治法"><a href="#二-分治法" class="headerlink" title="二 分治法"></a>二 分治法</h1><p><strong>2.1 算法思想</strong></p>
+<blockquote>
+<p>先“分”后“治”，将复杂的问题分成若干个相同或相似的子问题…知道最后子问题可以简单的直接求解，原问题的解即子问题的解。</p>
+</blockquote>
+<p><strong>2.2 三大步骤</strong></p>
+<ul>
+<li>分解：原问题分解为若干规模较小，相互独立，与原问题结构相似的子问题</li>
+<li>求解：若子问题规模较小容易则直接求解，否则递归的解决各个子问题。</li>
+<li>合并：合并子问题解。</li>
+</ul>
+<p><strong>2.3 时间复杂度计算方法</strong></p>
+<p>表示把规模为n的问题分成k个规模为n/m的小问题，得：</p>
+<script type="math/tex; mode=display">
+T_n=\begin{cases}O(1)　　　　　　　　,n=1\\k·T(\frac{n}{m})+f(n)　　，n>1\end{cases}</script><p>计算步骤：</p>
+<p>①令$\frac{n}{m^x}=1$，解出$x=log_mn$</p>
+<p>②$T(n)=O(k^x+xf(n))$去最高次幂</p>
+<h2 id="2-1-二分查找"><a href="#2-1-二分查找" class="headerlink" title="2.1 二分查找"></a>2.1 二分查找</h2><h3 id="2-1-1-算法思路"><a href="#2-1-1-算法思路" class="headerlink" title="2.1.1 算法思路"></a>2.1.1 算法思路</h3><blockquote>
+<p>基本思想：</p>
+<ol>
+<li><p>首先确定该数组的中间下标，mid=(left+right)/2</p>
+</li>
+<li><p>然后让需要找的数x和数组A[mid]作比较，有三种情况</p>
+<p>（1）x&gt;A[mid]，数x在mid右边，递归右查找</p>
+<p>（2）x&lt;A[mid]，数x在mid左边，递归左查找</p>
+<p>（3）x=A[mid]，找到了，返回下标</p>
+</li>
+</ol>
+<p>递归停止条件：</p>
+<p>（1）找到数字就返回下标</p>
+<p>（2）如果递归完整个数组，当left&gt;right就结束。</p>
+</blockquote>
+<figure class="highlight c"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br></pre></td><td class="code"><pre><span class="line"><span class="function"><span class="keyword">int</span> <span class="title">binarySearch</span><span class="params">(<span class="keyword">int</span>[] A,<span class="keyword">int</span> x,<span class="keyword">int</span> len)</span></span>&#123;</span><br><span class="line">    <span class="keyword">int</span> left = <span class="number">0</span>,right=len<span class="number">-1</span>;</span><br><span class="line">    <span class="keyword">while</span>(left&lt;=right)&#123;</span><br><span class="line">        <span class="keyword">if</span>(x==A[mid])</span><br><span class="line">            <span class="keyword">return</span> mid;</span><br><span class="line">        <span class="keyword">if</span>(x&gt;A[mid])</span><br><span class="line">            left=mid+<span class="number">1</span>;</span><br><span class="line">        <span class="keyword">if</span>(x&lt;A[mid])</span><br><span class="line">            right=mid<span class="number">-1</span>;</span><br><span class="line">    &#125;</span><br><span class="line">    <span class="keyword">return</span> <span class="number">-1</span>;</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="function"><span class="keyword">int</span> <span class="title">main</span><span class="params">()</span></span>&#123;</span><br><span class="line">    <span class="keyword">int</span> A[]=(<span class="number">1</span>,<span class="number">5</span>,<span class="number">9</span>,<span class="number">11</span>,<span class="number">12</span>,<span class="number">31</span>,<span class="number">57</span>,<span class="number">89</span>);</span><br><span class="line">    <span class="built_in">cout</span>&lt;&lt;binarySearch(A,<span class="number">1</span>,<span class="number">8</span>);</span><br><span class="line">    <span class="keyword">return</span> <span class="number">0</span>;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<h3 id="2-1-2-时间复杂度"><a href="#2-1-2-时间复杂度" class="headerlink" title="2.1.2 时间复杂度"></a>2.1.2 时间复杂度</h3><script type="math/tex; mode=display">
+T_n\begin{cases}O(1)　　　　　　　　　　,n=1\\1·T(\frac{n}2)+O(1)　　　　,n\ge1\end{cases}</script><p>计算如下：</p>
+<p>$\frac{n}{2^x}=1，则x=log_2n；\T(n)=O(1^x+O(1))=O(log_2n)$</p>
+<h2 id="2-2-乘法"><a href="#2-2-乘法" class="headerlink" title="2.2 乘法"></a>2.2 乘法</h2><h3 id="2-2-1-大整数乘法"><a href="#2-2-1-大整数乘法" class="headerlink" title="2.2.1 大整数乘法"></a>2.2.1 大整数乘法</h3><p>有X、Y是n位二进制数，计算X、Y的乘积</p>
+<p>当n过大的时候，乘操作消耗$n^2$的资源、加操作消耗2n的资源。如果少一些乘操作，多一些加操作，算法性能会提高。</p>
+<p><strong>算法思想</strong></p>
+<p><img src="../../../images/算法学习/image-20220718153148582.png" alt="image-20220718153148582"></p>
+<p>方式一：</p>
+<p>$X·Y=AC·2^n+(AD+BC)·2^{\frac{n}{2}}+BD\4次\frac{n}{2}位乘法，3次不超过2n位的加法。$</p>
+<p>时间复杂度：</p>
+<script type="math/tex; mode=display">
+T_n=\begin{cases}O(1)　　　　　　　　　,n=1\\4·T(\frac{n}2)+O(n)　　　,n\ge1\end{cases}\\O(n^2)</script><p>方式二：</p>
+<p>$X·Y=AC·2^n+[(A-B)(D-C)+AC+BD)]·2^{\frac{n}{2}}+BD\3次\frac{n}{2}位乘法，6次不超过2n位的加法。$</p>
+<script type="math/tex; mode=display">
+T_n=\begin{cases}O(1)　　　　　　　　　,n=1\\3·T(\frac{n}2)+O(n)　　　,n\ge1\end{cases}\\O(n^{log_23})</script><h3 id="2-2-2-矩阵相乘"><a href="#2-2-2-矩阵相乘" class="headerlink" title="2.2.2 矩阵相乘"></a>2.2.2 矩阵相乘</h3><p>有A、B是n阶方阵，计算矩阵A、B的乘积</p>
+<p>当位数n过大时，乘操作消耗n的指数倍资源，加操作消耗n的线性倍资源。</p>
+<p><strong>算法思想</strong></p>
+<p><img src="../../../images/算法学习/image-20220718160238268.png" alt="image-20220718160238268"></p>
+<p>方式一：</p>
+<script type="math/tex; mode=display">
+C_{11}=······\\
+C_{12}=······\\
+C_{21}=······\\
+C_{22}=······\\8次\frac{n}{2}位乘法，4次加法</script><script type="math/tex; mode=display">
+T_n=\begin{cases}O(1)　　　　　　　　　,n=2\\8·T(\frac{n}2)+O(n^2)　　　,n\ge2\end{cases}\\O(n^3)</script><p>方式二：</p>
+<p>$7次\frac{n}2位乘法$</p>
+<p>时间复杂度：</p>
+<script type="math/tex; mode=display">
+T_n=\begin{cases}O(1)　　　　　　　　　,n=2\\7·T(\frac{n}2)+O(n^2)　　　,n\ge2\end{cases}\\O(n^{log_27})</script><h2 id="2-3-棋盘覆盖"><a href="#2-3-棋盘覆盖" class="headerlink" title="2.3 棋盘覆盖"></a>2.3 棋盘覆盖</h2><p><img src="../../../images/算法学习/image-20220718160915331.png" alt="image-20220718160915331"></p>
+<h3 id="2-3-1-算法思路"><a href="#2-3-1-算法思路" class="headerlink" title="2.3.1 算法思路"></a>2.3.1 算法思路</h3><p>①将当前棋盘4等分</p>
+<p>②把当前棋盘最中间的位置、且没有特殊点的位置，覆盖成L型</p>
+<p>③重复①、②</p>
+<h3 id="2-3-2-执行过程"><a href="#2-3-2-执行过程" class="headerlink" title="2.3.2 执行过程"></a>2.3.2 执行过程</h3><p><img src="../../../images/算法学习/image-20220718161611980.png" alt="image-20220718161611980"></p>
+<p><img src="../../../images/算法学习/image-20220718162020635.png" alt="image-20220718162020635"></p>
+<h3 id="2-3-3-代码"><a href="#2-3-3-代码" class="headerlink" title="2.3.3 代码"></a>2.3.3 代码</h3><figure class="highlight c"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br><span class="line">44</span><br><span class="line">45</span><br><span class="line">46</span><br><span class="line">47</span><br><span class="line">48</span><br><span class="line">49</span><br><span class="line">50</span><br><span class="line">51</span><br><span class="line">52</span><br><span class="line">53</span><br><span class="line">54</span><br><span class="line">55</span><br><span class="line">56</span><br><span class="line">57</span><br><span class="line">58</span><br><span class="line">59</span><br><span class="line">60</span><br><span class="line">61</span><br><span class="line">62</span><br><span class="line">63</span><br><span class="line">64</span><br><span class="line">65</span><br><span class="line">66</span><br><span class="line">67</span><br><span class="line">68</span><br><span class="line">69</span><br><span class="line">70</span><br><span class="line">71</span><br><span class="line">72</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta">#<span class="meta-keyword">include</span> <span class="meta-string">&quot;iostream&quot;</span></span></span><br><span class="line"></span><br><span class="line"><span class="keyword">using</span> <span class="keyword">namespace</span> <span class="built_in">std</span>;</span><br><span class="line"></span><br><span class="line"><span class="keyword">int</span> t = <span class="number">1</span>;</span><br><span class="line"><span class="keyword">int</span> Board[<span class="number">100</span>][<span class="number">100</span>];</span><br><span class="line"></span><br><span class="line"><span class="comment">/**</span></span><br><span class="line"><span class="comment"> * @param tr ——子棋盘左上角行坐标</span></span><br><span class="line"><span class="comment"> * @param tc ——子棋盘左上角列坐标</span></span><br><span class="line"><span class="comment"> * @param dr ——特殊方格行坐标</span></span><br><span class="line"><span class="comment"> * @param dc ——特殊方格列坐标</span></span><br><span class="line"><span class="comment"> * @param size ——方格大小</span></span><br><span class="line"><span class="comment"> */</span></span><br><span class="line"><span class="function"><span class="keyword">void</span> <span class="title">cheseBoard</span><span class="params">(<span class="keyword">int</span> tr, <span class="keyword">int</span> tc, <span class="keyword">int</span> dr, <span class="keyword">int</span> dc, <span class="keyword">int</span> size)</span> </span>&#123;</span><br><span class="line">    <span class="keyword">if</span> (size == <span class="number">1</span>)</span><br><span class="line">        <span class="keyword">return</span>;</span><br><span class="line">    <span class="keyword">int</span> title = t++;<span class="comment">//骨牌的编号</span></span><br><span class="line">    size /= <span class="number">2</span>;</span><br><span class="line">    <span class="comment">/*</span></span><br><span class="line"><span class="comment">     * 特殊方格在左上角的棋盘，就递归；</span></span><br><span class="line"><span class="comment">     * 否则，将靠近中轴线的方格赋值编号，继续递归</span></span><br><span class="line"><span class="comment">     */</span></span><br><span class="line">    <span class="keyword">if</span> (dr &lt; tr + size &amp;&amp; dc &lt; tc + size)</span><br><span class="line">        cheseBoard(tr, tc, dr, dc, size);</span><br><span class="line">    <span class="keyword">else</span> &#123;</span><br><span class="line">        Board[tr + size - <span class="number">1</span>][tc + size - <span class="number">1</span>] = title;</span><br><span class="line">        cheseBoard(tr, tc, tr + size - <span class="number">1</span>, tc + size - <span class="number">1</span>, size);</span><br><span class="line">    &#125;</span><br><span class="line">    <span class="comment">/*</span></span><br><span class="line"><span class="comment">     * 特殊方格在右上角的棋盘，就递归；</span></span><br><span class="line"><span class="comment">     * 否则，将靠近中轴线的方格赋值编号，继续递归</span></span><br><span class="line"><span class="comment">     */</span></span><br><span class="line">    <span class="keyword">if</span> (dr &lt; tr + size &amp;&amp; dc &gt;= tc + size)</span><br><span class="line">        cheseBoard(tr, tc + size, dr, dc, size);</span><br><span class="line">    <span class="keyword">else</span> &#123;</span><br><span class="line">        Board[tr + size - <span class="number">1</span>][tc + size] = title;</span><br><span class="line">        cheseBoard(tc, tr + size, tr + size - <span class="number">1</span>, tc + size, size);</span><br><span class="line">    &#125;</span><br><span class="line">    <span class="comment">/*</span></span><br><span class="line"><span class="comment">     * 特殊方格在左下角的棋盘，就递归；</span></span><br><span class="line"><span class="comment">     * 否则，将靠近中轴线的方格赋值编号，继续递归</span></span><br><span class="line"><span class="comment">     */</span></span><br><span class="line">    <span class="keyword">if</span> (dr &gt;= tr + size &amp;&amp; dc &lt; tc + size)</span><br><span class="line">        cheseBoard(tr + size, tc, dr, dc, size);</span><br><span class="line">    <span class="keyword">else</span> &#123;</span><br><span class="line">        Board[tr + size][tc + size - <span class="number">1</span>] = title;</span><br><span class="line">        cheseBoard(tr + size, tc, tr + size, tc + size - <span class="number">1</span>, size);</span><br><span class="line">    &#125;</span><br><span class="line">    <span class="comment">/*</span></span><br><span class="line"><span class="comment">     * 特殊方格在右下角的棋盘，就递归；</span></span><br><span class="line"><span class="comment">     * 否则，将靠近中轴线的方格赋值编号，继续递归</span></span><br><span class="line"><span class="comment">     */</span></span><br><span class="line">    <span class="keyword">if</span> (dr &gt;= tr + size &amp;&amp; dc &gt;= tc + size)</span><br><span class="line">        cheseBoard(tr + size, tc + size, dr, dc, size);</span><br><span class="line">    <span class="keyword">else</span> &#123;</span><br><span class="line">        Board[tr + size][tc + size] = title;</span><br><span class="line">        cheseBoard(tr + size, tc + size, tr + size, tc + size, size);</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="function"><span class="keyword">int</span> <span class="title">main</span><span class="params">()</span> </span>&#123;</span><br><span class="line">    cheseBoard(<span class="number">0</span>, <span class="number">0</span>, <span class="number">3</span>, <span class="number">3</span>, <span class="number">4</span>);</span><br><span class="line">    <span class="keyword">for</span> (<span class="keyword">int</span> i = <span class="number">0</span>; i &lt; <span class="number">4</span>; ++i) &#123;</span><br><span class="line">        <span class="keyword">for</span> (<span class="keyword">int</span> j = <span class="number">0</span>; j &lt; <span class="number">4</span>; ++j) &#123;</span><br><span class="line">            <span class="built_in">cout</span> &lt;&lt; Board[i][j] &lt;&lt; <span class="string">&quot; &quot;</span>;</span><br><span class="line">        &#125;</span><br><span class="line">        <span class="built_in">cout</span> &lt;&lt; <span class="built_in">endl</span>;</span><br><span class="line">    &#125;</span><br><span class="line">    <span class="keyword">return</span> <span class="number">0</span>;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<h3 id="2-3-4-分析时间复杂度"><a href="#2-3-4-分析时间复杂度" class="headerlink" title="2.3.4 分析时间复杂度"></a>2.3.4 分析时间复杂度</h3><script type="math/tex; mode=display">
+T_n=\begin{cases}O(1)　　　　　　　　　,n=1\\4·T(n-1)+O(1)　　　,n\ge1\end{cases}\\O(4^n)</script><h2 id="2-4-归并排序"><a href="#2-4-归并排序" class="headerlink" title="2.4 归并排序"></a>2.4 归并排序</h2><figure class="highlight c"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br></pre></td><td class="code"><pre><span class="line"><span class="function"><span class="keyword">void</span> <span class="title">mergeSort</span><span class="params">(<span class="keyword">int</span> a[], <span class="keyword">int</span> begin, <span class="keyword">int</span> end)</span> </span>&#123;</span><br><span class="line">    <span class="keyword">if</span> (begin &lt; end) &#123;</span><br><span class="line">        <span class="keyword">int</span> mid = (begin + end) &gt;&gt; <span class="number">1</span>;</span><br><span class="line">        mergeSort(a, begin, mid);</span><br><span class="line">        mergeSort(a, mid + <span class="number">1</span>, end);</span><br><span class="line">        merge(a, begin, end, mid);</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="function"><span class="keyword">void</span> <span class="title">merge</span><span class="params">(<span class="keyword">int</span> a[], <span class="keyword">int</span> begin, <span class="keyword">int</span> end, <span class="keyword">int</span> mid)</span> </span>&#123;</span><br><span class="line"></span><br><span class="line">    <span class="keyword">for</span> (<span class="keyword">int</span> i = <span class="number">0</span>; i &lt; <span class="number">10</span>; ++i) &#123;</span><br><span class="line">        help[i] = a[i];</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">    <span class="keyword">int</span> left = begin;</span><br><span class="line">    <span class="keyword">int</span> right = mid+<span class="number">1</span>;</span><br><span class="line">    <span class="keyword">int</span> current = begin;</span><br><span class="line"></span><br><span class="line">    <span class="keyword">while</span> (left &lt;= mid &amp;&amp; right &lt;= end) &#123;</span><br><span class="line">        <span class="keyword">if</span> (help[left] &lt;= help[right])</span><br><span class="line">            a[current++] = help[left++];</span><br><span class="line">        <span class="keyword">else</span></span><br><span class="line">            a[current++] = help[right++];</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">    <span class="keyword">while</span> (left &lt;= mid)</span><br><span class="line">        a[current++] = help[left++];</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<p>时间复杂度分析：</p>
+<script type="math/tex; mode=display">
+T_n=\begin{cases}O(1)　　　　　　　　,n\le1\\
+2·T(\frac{n}2)+O(n)　　,n>1\end{cases}\\
+O(nlogn)</script><h2 id="2-5-快速排序"><a href="#2-5-快速排序" class="headerlink" title="2.5 快速排序"></a>2.5 快速排序</h2><h1 id="三-动态规划"><a href="#三-动态规划" class="headerlink" title="三 动态规划"></a>三 动态规划</h1><p><strong>1.基本定义</strong></p>
+<blockquote>
+<p>动态规划算法是通过拆分问题，定义问题状态和状态之间的关系，使得问题能够以递推（或者说分治）的方式去解决。<br>动态规划算法的基本思想与分治法类似，也是将待求解的问题分解为若干个子问题（阶段），按顺序求解子阶段，前一子问题的解，为后一子问题的求解提供了有用的信息。在求解任一子问题时，列出各种可能的局部解，通过决策保留那些有可能达到最优的局部解，丢弃其他局部解。依次解决各子问题，最后一个子问题就是初始问题的解。</p>
+</blockquote>
+<p><strong>2.与分治法的异同</strong></p>
+<p>相同点：</p>
+<ul>
+<li>都是将大问题分解为小问题</li>
+</ul>
+<p>不同点：</p>
+<ul>
+<li>动态规划——自下而上、分治法——自上而下</li>
+<li>动态规划——子问题重叠（相交）、分治——子问题（独立）</li>
+</ul>
+<p><strong>3.动态规划要素</strong></p>
+<font color="red">1.最优子结构</font>
 
+<font color="red">2.子问题重叠</font>
+
+<p>大问题要用到小问题得求解结果==》建表存储结\==》子问题重叠\==》性能提升</p>
+<p>每次求解的问题都是最优解==》最优子结构</p>
+<p><strong>4.做题步骤</strong></p>
+<p>1.分析最优子结构</p>
+<p>==2.建立递归关系（递归公式）==</p>
+<p>3.计算最优值（核心代码）</p>
+<p>4.构造最优解（转化为友好型输出代码）</p>
+<h2 id="3-1-矩阵连乘"><a href="#3-1-矩阵连乘" class="headerlink" title="3.1 矩阵连乘"></a>3.1 矩阵连乘</h2><blockquote>
+<p>有n个矩阵${A_1,A_2,…,A_n}$，他们中任意相邻矩阵是可乘的，求怎么划分能让这n个矩阵乘下来有最小的计算量。</p>
+</blockquote>
+<p><img src="../../../images/算法学习/image-20220728211428445.png" alt="image-20220728211428445"></p>
+<p><strong>1.解题思路</strong></p>
+<p>我们只能从底层往上找，也就是说先找两个最小的，然后再找最小的，直到乘完。</p>
+<p>设A[i;j]为矩阵$A_i \cdots A_j$的连乘计算量。</p>
+<p>$A_i…A_j$中间一定有某个k让他们的计算量最小。</p>
+<p>假设k将式子分成${A<em>i…A_k}和{A</em>{k+1}…·A_j}$的计算量最小，</p>
+<script type="math/tex; mode=display">
+m[i][j]=\begin{cases}　　　　　　　0　　　　　　　　　　　　　　　　,i=j
+\\\\min_{i \le k <j}\{m[i][k]+m[k+1][j]+p_{i-1}p_kp_j\}　　,i<j\end{cases}\\
+m[i][j]表示矩阵A_i到A_j相乘的计算量，</script>
     </div>
 
     
@@ -468,7 +585,7 @@
 <div class="copyright">
   
   &copy; 2020 – 
-  <span itemprop="copyrightYear">2022</span>
+  <span itemprop="copyrightYear">2023</span>
   <span class="with-love">
     <i class="fa fa-heart"></i>
   </span>
